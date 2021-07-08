@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:gravity="center"
+        android:orientation="vertical">
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+          <ImageView
+              android:scaleType="fitXY"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:src="@drawable/hrimg"/>
+      </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llBlank"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:paddingTop="30dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="vertical"
+       android:background="@drawable/llgradientdesign">
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:visibility="visible"
+            android:id="@+id/llLearning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/elearning"/>
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/tvLearning"
+                android:text="E-Learning"/>
+
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/llNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/subreporticon"/>
+            <TextView
+                android:id="@+id/tvSubReport"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:text="Sub report"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llHoliday"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/leave" />
+
+            <TextView
+                android:id="@+id/tvHoliday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="Holiday List"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+        <LinearLayout
+
+        android:id="@+id/llTracking"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/tracking" />
+
+        <TextView
+            android:id="@+id/tvTracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:text="Live Tracking"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llSupport"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/technicalsupport" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="Technical Support"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/changepassword" />
+
+            <TextView
+                android:id="@+id/tvChangePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="Change Password"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/conversation" />
+
+            <TextView
+                android:id="@+id/tvChat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="Chat"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/language" />
+
+            <TextView
+                android:id="@+id/tvLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="Language setting"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:visibility="visible"
+            android:id="@+id/llLogOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_exit"/>
+            <TextView
+                android:id="@+id/tvLogOut"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:text="Log Out"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:paddingLeft="10dp"
+        android:gravity="center">
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimary"
+            android:text="APP version:4.3"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.attendance.HoliDayMapActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:orientation="horizontal"
+        android:background="@drawable/lltoolbardesign">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:layout_width="@dimen/toobarimgsize"
+                android:layout_height="@dimen/toobarimgsize"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/backimg"
+                android:id="@+id/imgBack"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvToolBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Holiday Map"
+                android:textAllCaps="true"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="right">
+
+            <ImageView
+                android:layout_width="@dimen/toobarhomeimgsize"
+                android:layout_height="@dimen/toobarhomeimgsize"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/homeimg"
+                android:id="@+id/imgHome"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:id="@+id/llLoader">
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"></ProgressBar>
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/llMain"
+        android:layout_marginTop="10dp">
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/llVisibility"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btnMap"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/lldesigngreen"
+                android:textSize="13sp"
+                android:textColor="@android:color/white"
+                android:text="MAP"></Button>
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llNoData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/search"></ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:text="No data(s)found"></TextView>
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.attendance.WeeklyoffActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:orientation="horizontal"
+        android:background="@drawable/lltoolbardesign">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:layout_width="@dimen/toobarimgsize"
+                android:layout_height="@dimen/toobarimgsize"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/backimg"
+                android:id="@+id/imgBack"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvToolBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weekly Off"
+                android:textAllCaps="true"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="right">
+
+            <ImageView
+                android:layout_width="@dimen/toobarhomeimgsize"
+                android:layout_height="@dimen/toobarhomeimgsize"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/homeimg"
+                android:id="@+id/imgHome"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/lldesign4">
+            <ImageView
+                android:id="@+id/imgDate"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/calendaricon"></ImageView>
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"
+                android:text="Please select date"></TextView>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/lldesignorange"
+            android:textSize="13sp"
+            android:textColor="@android:color/white"
+            android:text="SUBMIT"></Button>
+    </LinearLayout>
+
+</LinearLayout>

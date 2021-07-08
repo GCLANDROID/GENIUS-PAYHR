@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/llbackdesign"
+    android:orientation="vertical"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:orientation="horizontal"
+        android:background="@drawable/lltoolbardesign">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/toobarimgsize"
+                android:layout_height="@dimen/toobarimgsize"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/backimg" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvToolBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TOUR VIEW"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="right">
+
+            <ImageView
+                android:id="@+id/imgHome"
+                android:layout_width="@dimen/toobarhomeimgsize"
+                android:layout_height="@dimen/toobarhomeimgsize"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/homeimg" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="90dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/lldesign2"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30 july 2019"
+            android:textColor="@android:color/black"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/llLoader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp">
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:layout_gravity="center"
+                        android:layout_width="160dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/lldesign14"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/white"
+                            android:id="@+id/tvDistance"/>
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvItem"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
+                    <ImageView
+                        android:id="@+id/imgAdd"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/addicon"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="70dp"
+                        android:layout_height="30sp"
+                        android:background="#f00"
+                        android:gravity="center"
+                        android:layout_marginBottom="10dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/white"
+                            android:text="END"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llNoData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@drawable/lldesign14"
+                android:text="NO RECORD(s) FOUND"
+                android:textColor="@android:color/white"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

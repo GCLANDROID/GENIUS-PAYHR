@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical"
+
+    >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/lldesign9"
+        card_view:cardUseCompatPadding="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+
+                    android:textAlignment="center"
+                    android:id="@+id/tvCostCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="serif"
+                    android:text="Counter"
+                    android:textColor="@color/designcolor"
+                    android:textSize="14sp"
+                    android:textStyle="bold"></TextView>
+                <TextView
+                    android:textAlignment="center"
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="serif"
+                    android:text="Counter"
+                    android:textColor="@color/textcolor"
+                    android:textSize="10sp"
+                    android:textStyle="bold"></TextView>
+                <TextView
+
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:id="@+id/tvViewDoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="View Uploaded Document"
+                    android:textColor="@color/designcolor1"
+                    android:textSize="12sp"
+                    android:textStyle="bold"></TextView>
+
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#bdbdbd"></LinearLayout>
+            <LinearLayout
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginLeft="5dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/barcolor">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3">
+                            <TextView
+                                android:padding="2dp"
+                                android:fontFamily="serif"
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@android:color/white"
+                                android:text="Store In Information"></TextView>
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3">
+                            <TextView
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/barcolor"
+                                android:text="Time:"></TextView>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5">
+                            <TextView
+                                android:id="@+id/tvInTime"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/textcolor"
+                                android:text="2020-201"></TextView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3">
+                            <TextView
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/barcolor"
+                                android:text="Address:"></TextView>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5">
+                            <TextView
+
+                                android:id="@+id/tvInLocation"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/textcolor"
+                                android:text="10 Units"></TextView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3">
+                            <TextView
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/barcolor"
+                                android:text="Remarks:"></TextView>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5">
+                            <TextView
+                                android:id="@+id/tvRemarksIn"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/textcolor"
+                                android:text="5 Units"></TextView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/llInImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3">
+                            <TextView
+                                android:textStyle="bold"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/barcolor"
+                                android:text="Image:"></TextView>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5">
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/gallery"></ImageView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/llOutTime"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/barcolor">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3">
+                                <TextView
+                                    android:padding="2dp"
+                                    android:fontFamily="serif"
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@android:color/white"
+                                    android:text="Store Out Information"></TextView>
+
+                            </LinearLayout>
+
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3">
+                                <TextView
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/barcolor"
+                                    android:text="Time:"></TextView>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5">
+
+                                <TextView
+                                    android:id="@+id/tvOutTime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="2020-201"
+                                    android:textColor="@color/textcolor"
+                                    android:textSize="12sp"></TextView>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3">
+                                <TextView
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/barcolor"
+                                    android:text="Address:"></TextView>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5">
+                                <TextView
+
+                                    android:id="@+id/tvOutLocation"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/textcolor"
+                                    android:text="10 Units"></TextView>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3">
+                                <TextView
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/barcolor"
+                                    android:text="Remarks:"></TextView>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5">
+                                <TextView
+                                    android:id="@+id/tvRemarksOut"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/textcolor"
+                                    android:text="5 Units"></TextView>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/llOutImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3">
+                                <TextView
+                                    android:textStyle="bold"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/barcolor"
+                                    android:text="Image:"></TextView>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5">
+                                <ImageView
+
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/gallery"></ImageView>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

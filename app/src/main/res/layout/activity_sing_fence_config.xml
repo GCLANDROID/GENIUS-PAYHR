@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".geofence.SingleFenceConfigActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="248dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:hint="Search Location"
+                android:inputType="textPersonName"
+                android:textColorHint="@android:color/black" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@android:color/white"
+                android:text="Search" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@drawable/lltoolbardesign"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3">
+
+                <ImageView
+                    android:id="@+id/imgBack"
+                    android:layout_width="@dimen/toobarimgsize"
+                    android:layout_height="@dimen/toobarimgsize"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/backimg" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvToolBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:text="Configuration"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:gravity="right">
+
+                <ImageView
+                    android:id="@+id/imgHome"
+                    android:layout_width="@dimen/toobarhomeimgsize"
+                    android:layout_height="@dimen/toobarhomeimgsize"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/homeimg" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <fragment
+                android:id="@+id/g_map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="bottom">
+
+
+                <LinearLayout
+
+                    android:id="@+id/llStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/green"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:layout_gravity="bottom">
+
+                    <TextView
+                        android:id="@+id/tvText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Configuration"
+                        android:textAppearance="?android:textAppearanceSmall"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llEnd"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="END LAT AND LONG"
+                        android:textAppearance="?android:textAppearanceSmall"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom">
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:background="@drawable/llroundeddesign"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:id="@+id/llAdded">
+
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

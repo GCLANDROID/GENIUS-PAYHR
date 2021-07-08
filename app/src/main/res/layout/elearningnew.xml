@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:layout_marginBottom="10dp">
+    <LinearLayout
+        android:id="@+id/llLeave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E7E7E7"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="13sp"
+            android:text="LEAVE-PLOCY"
+            android:id="@+id/tvFileName"/>
+        <ImageView
+            android:src="@drawable/learningraw"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"/>
+    </LinearLayout>
+
+</LinearLayout>

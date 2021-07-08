@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.attendance.SuperVisiorActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:orientation="horizontal"
+        android:background="@drawable/lltoolbardesign">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:layout_width="@dimen/toobarimgsize"
+                android:layout_height="@dimen/toobarimgsize"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/backimg"
+                android:id="@+id/imgBack"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvToolBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Supervisior"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="right">
+
+
+            <ImageView
+                android:layout_width="@dimen/toobarhomeimgsize"
+                android:layout_height="@dimen/toobarhomeimgsize"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/homeimg"
+                android:id="@+id/imgHome"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <FrameLayout
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/frameLayout"
+            ></FrameLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/llTeam"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:gravity="center"
+            android:orientation="horizontal">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@drawable/lldesign18">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/team"></ImageView>
+                    <TextView
+                        android:layout_marginLeft="2dp"
+                        android:id="@+id/tvTeam"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/maincolor"
+                        android:text="Team Report"></TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    android:id="@+id/llTBlock"
+                    android:background="@drawable/lldesign15"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></LinearLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llApproval"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/lldesign18"
+            android:gravity="center">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="@drawable/lldesign18">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/approved"></ImageView>
+                    <TextView
+                        android:layout_marginLeft="2dp"
+                        android:id="@+id/tvApprove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/maincolor"
+                        android:text="Approval"></TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:id="@+id/llABlock"
+                    android:background="@drawable/lldesign15"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

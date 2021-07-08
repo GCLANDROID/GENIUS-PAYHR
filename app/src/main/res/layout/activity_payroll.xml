@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/llbackdesign"
+    android:orientation="vertical"
+    tools:context=".activity.payroll.PayrollActivity">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="?actionBarSize"
+      android:background="@drawable/lltoolbardesign"
+      android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5">
+
+      <ImageView
+          android:id="@+id/imgBack"
+          android:layout_width="@dimen/toobarimgsize"
+          android:layout_height="@dimen/toobarimgsize"
+          android:layout_gravity="center"
+          android:layout_marginLeft="10dp"
+          android:src="@drawable/backimg" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+
+      <TextView
+          android:id="@+id/tvToolBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Payroll"
+          android:textAllCaps="true"
+          android:textAppearance="?android:textAppearanceSmall"
+          android:textColor="@android:color/white"
+          android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:gravity="right">
+
+      <ImageView
+          android:id="@+id/imgHome"
+          android:layout_width="@dimen/toobarhomeimgsize"
+          android:layout_height="@dimen/toobarhomeimgsize"
+          android:layout_gravity="center"
+          android:layout_marginRight="15dp"
+          android:src="@drawable/homeimg" />
+    </LinearLayout>
+  </LinearLayout>
+
+  <!--<LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginLeft="10dp"
+      android:layout_marginTop="50dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginBottom="20dp"
+      android:orientation="horizontal"
+      android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+      <LinearLayout
+          android:id="@+id/llRem"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_marginLeft="@dimen/layout_margin_left_right"
+          android:layout_marginRight="@dimen/layout_margin_left_right"
+          android:layout_weight="1"
+          android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardElevation="3dp"
+            card_view:cardUseCompatPadding="true">
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/reimburseicon" />
+
+
+            <TextView
+                android:id="@+id/tvReim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="REIMBUSEMENT"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/colorPrimary"
+                android:textSize="11sp" />
+
+
+          </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/llCTC"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_marginLeft="@dimen/layout_margin_left_right"
+          android:layout_marginRight="@dimen/layout_margin_left_right"
+          android:layout_weight="1"
+          android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardElevation="3dp"
+            card_view:cardUseCompatPadding="true">
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ctcimg" />
+
+
+            <TextView
+                android:id="@+id/tvCtc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="CTC"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/colorPrimary"
+                android:textSize="11sp" />
+
+
+          </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+      <LinearLayout
+          android:id="@+id/llSalary"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_marginLeft="@dimen/layout_margin_left_right"
+          android:layout_marginRight="@dimen/layout_margin_left_right"
+          android:layout_weight="1"
+          android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardElevation="3dp"
+            card_view:cardUseCompatPadding="true">
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/salaryimg" />
+
+
+            <TextView
+                android:id="@+id/tvSalary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="SALARY"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/colorPrimary"
+                android:textSize="11sp" />
+
+
+          </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+      </LinearLayout>
+      <LinearLayout
+          android:id="@+id/llIT"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_marginLeft="@dimen/layout_margin_left_right"
+          android:layout_marginRight="@dimen/layout_margin_left_right"
+          android:layout_weight="1"
+          android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardElevation="3dp"
+            card_view:cardUseCompatPadding="true">
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/itviewicon" />
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="IT view"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/colorPrimary"
+                android:textSize="11sp" />
+
+
+          </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+      </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+      <LinearLayout
+          android:id="@+id/llSalaryD"
+          android:layout_width="70dp"
+          android:layout_height="70dp"
+          android:layout_gravity="center"
+          android:background="@drawable/btndesign"
+          android:gravity="center">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/salaryicon" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/llSalaryD1"
+          android:layout_width="70dp"
+          android:layout_height="70dp"
+          android:layout_gravity="center"
+          android:background="@drawable/lldesign1"
+          android:gravity="center"
+          android:visibility="gone">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/salaryicon1" />
+      </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="0dp"
+        android:layout_height="92dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+      <LinearLayout
+          android:id="@+id/llCTCD"
+          android:layout_width="70dp"
+          android:layout_height="70dp"
+          android:layout_gravity="center"
+          android:background="@drawable/btndesign"
+          android:gravity="center">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ctcicon" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/llCTCD1"
+          android:layout_width="70dp"
+          android:layout_height="70dp"
+          android:layout_gravity="center"
+          android:background="@drawable/lldesign1"
+          android:gravity="center"
+          android:visibility="gone">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ctcicin1" />
+      </LinearLayout>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginTop="5dp"
+          android:text="Current-CTC"
+          android:textAllCaps="false"
+          android:textColor="@android:color/black"
+          android:textSize="10sp" />
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+      <LinearLayout
+          android:id="@+id/llRemD"
+          android:layout_width="70dp"
+          android:layout_height="70dp"
+          android:layout_gravity="center"
+          android:background="@drawable/btndesign"
+          android:gravity="center">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/remicon" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/llRemD1"
+          android:layout_width="70dp"
+          android:layout_height="70dp"
+          android:layout_gravity="center"
+          android:background="@drawable/lldesign1"
+          android:gravity="center"
+          android:visibility="gone">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/remicon1" />
+      </LinearLayout>
+
+      <TextView
+          android:id="@+id/tvRem"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginTop="5dp"
+          android:text="REIMBURSTMENT"
+          android:textAllCaps="false"
+          android:textColor="@android:color/black"
+          android:textSize="10sp" />
+    </LinearLayout>
+  </LinearLayout>-->
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:paddingTop="10dp"
+      android:paddingLeft="20dp"
+      android:paddingRight="20dp">
+    <LinearLayout
+        android:id="@+id/llRem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+      <LinearLayout
+          android:layout_width="50dp"
+          android:layout_height="50dp"
+          android:background="@drawable/llshadowshape"
+          android:gravity="center">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/reimburseicon"></ImageView>
+
+      </LinearLayout>
+      <TextView
+          android:id="@+id/tvReim"
+          android:layout_marginLeft="5dp"
+          android:layout_gravity="center"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="15sp"
+          android:text="Reimbursement"></TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bar1"></LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/llCTC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/llshadowshape"
+            android:gravity="center">
+          <ImageView
+              android:layout_width="25dp"
+              android:layout_height="25dp"
+              android:src="@drawable/ctcimg"></ImageView>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvCtc"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="CTC"></TextView>
+      </LinearLayout>
+      <LinearLayout
+          android:layout_marginTop="10dp"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/bar1"></LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/llSalary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/llshadowshape"
+            android:gravity="center">
+          <ImageView
+              android:layout_width="25dp"
+              android:layout_height="25dp"
+              android:src="@drawable/salaryimg"></ImageView>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvSalary"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Salary"></TextView>
+      </LinearLayout>
+      <LinearLayout
+          android:layout_marginTop="10dp"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/bar1"></LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/llIT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/llshadowshape"
+            android:gravity="center">
+          <ImageView
+              android:layout_width="25dp"
+              android:layout_height="25dp"
+              android:src="@drawable/itviewicon"></ImageView>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvHoliDayMap"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Holiday Map"></TextView>
+      </LinearLayout>
+      <LinearLayout
+          android:layout_marginTop="10dp"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/bar1"></LinearLayout>
+
+    </LinearLayout>
+
+
+
+  </LinearLayout>
+
+</LinearLayout>

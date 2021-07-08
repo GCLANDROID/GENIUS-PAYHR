@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.leaveapplication.SpecialHolidayApproverFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.09"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/llManage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/lltoolbardesign"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tvManage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:text="Manage"></TextView>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/llDetails"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/lltoolbardesign"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tvDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:text="Approval Report"></TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <FrameLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/frameLayout1"
+            ></FrameLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>

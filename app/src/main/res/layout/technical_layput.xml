@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="350dp"
+    android:layout_gravity="center"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="30dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.5"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Technical Support"
+                android:textColor="@color/maincolor"
+                android:textSize="12sp"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.5"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgCancel"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/cancelicon"></ImageView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Issue Type:"
+            android:textColor="@color/maincolor"
+            android:textSize="12sp"></TextView>
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/lldesign16">
+
+            <Spinner
+                android:id="@+id/spIssue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></Spinner>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remarks:"
+            android:textColor="@color/maincolor"
+            android:textSize="12sp"></TextView>
+
+        <LinearLayout
+            android:layout_width="210dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/lldesign16">
+
+            <EditText
+                android:id="@+id/etRemarks"
+                android:layout_width="280dp"
+                android:layout_height="100dp"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="Enter remarks"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:textSize="12sp"></EditText>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Attach Image"
+            android:textColor="@color/maincolor"
+            android:textSize="12sp"></TextView>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgAttach"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_icon"></ImageView>
+
+            <ImageView
+                android:id="@+id/imgPic"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"></ImageView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/lldesign16"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:text="SUBMIT"
+        android:textColor="@color/maincolor"
+        android:textSize="12sp"></Button>
+
+
+</LinearLayout>

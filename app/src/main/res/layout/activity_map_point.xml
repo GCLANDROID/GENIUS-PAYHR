@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.geofence.MapPointActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@drawable/lltoolbardesign"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5">
+                <ImageView
+                    android:id="@+id/imgBack"
+                    android:layout_width="@dimen/toobarimgsize"
+                    android:layout_height="@dimen/toobarimgsize"
+                    android:layout_gravity="center"
+                    android:src="@drawable/backimg"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvToolBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Map Point"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="right">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/imgHome"
+                    android:layout_width="@dimen/toobarhomeimgsize"
+                    android:layout_height="@dimen/toobarhomeimgsize"
+                    android:src="@drawable/homeimg"
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:paddingTop="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorAccent"
+                    android:paddingLeft="10dp"
+                    android:visibility="gone">
+                    <TextView
+                        android:id="@+id/tvLat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="@android:color/white"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/designcolor1"
+                    android:paddingLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone">
+                    <TextView
+                        android:id="@+id/tvLong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="@android:color/white"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="bottom">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/llroundeddesign"
+                        android:gravity="center"
+                        android:id="@+id/llConfigure">
+                        <TextView
+                            android:id="@+id/tvConfig"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:text="Configure Geo Fence"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

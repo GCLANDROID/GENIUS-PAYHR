@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llMenu"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/bar1"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp">
+
+            <ImageView
+                android:id="@+id/imgForward"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/forwardimg"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/imgForward1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/forwardimg1"
+                android:visibility="visible" />
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/tvMenuName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:text="Recruitment"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/designcolor"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:gravity="right">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/imgMenuPlus"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/plusimg" />
+
+                <ImageView
+                    android:id="@+id/imgMenuMins"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/minusimg"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llMenuDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/lldesign11"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvMenuDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+</LinearLayout>

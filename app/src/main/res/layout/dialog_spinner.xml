@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="320dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/lldesign7">
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/geniuslogo"/>
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@android:color/holo_red_dark"
+            android:text="LOCATION"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="@drawable/lldesign4"
+        android:orientation="vertical">
+        <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+            android:id="@+id/spMulLocation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            app:hintText="Please Select"
+            android:visibility="gone"/>
+        <Spinner
+            android:visibility="visible"
+            android:id="@+id/spLocation"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"></Spinner>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp">
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/buttondesign2"
+            android:layout_gravity="center"
+            android:text="ADD"
+            android:textColor="@android:color/white"
+            android:id="@+id/btnOk"
+            android:textAllCaps="true"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

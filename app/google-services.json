@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "533535416568",
+    "firebase_url": "https://geniushrms.firebaseio.com",
+    "project_id": "geniushrms",
+    "storage_bucket": "geniushrms.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533535416568:android:38b71f69a8ec3cac1f5b0d",
+        "android_client_info": {
+          "package_name": "com.genius.hrms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533535416568-5lhlq1u9pv325q1rn1gjj6s6o914h9b5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL1itt-7WRkrelJeuvOfiC-_SGc3JZ4vY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "533535416568-5lhlq1u9pv325q1rn1gjj6s6o914h9b5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

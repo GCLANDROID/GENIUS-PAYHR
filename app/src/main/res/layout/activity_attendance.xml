@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.attendance.AttendanceActivity"
+    android:orientation="vertical"
+    android:background="@drawable/llbackdesign">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:orientation="horizontal"
+        android:background="@drawable/lltoolbardesign">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:layout_width="@dimen/toobarimgsize"
+                android:layout_height="@dimen/toobarimgsize"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/backimg"
+                android:id="@+id/imgBack"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvToolBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Attendance"
+                android:textAllCaps="true"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="right">
+
+            <ImageView
+                android:layout_width="@dimen/toobarhomeimgsize"
+                android:layout_height="@dimen/toobarhomeimgsize"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/homeimg"
+                android:id="@+id/imgHome"/>
+        </LinearLayout>
+    </LinearLayout>
+
+   <!-- <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:weightSum="4"
+        android:id="@+id/llMain"
+        android:visibility="visible">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="2">
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+                <LinearLayout
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@drawable/btndesign"
+                    android:gravity="center"
+                    android:id="@+id/llManageD"
+                    android:visibility="visible">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/serviceicon"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@drawable/lldesign1"
+                    android:gravity="center"
+                    android:id="@+id/llManageD1"
+                    android:visibility="gone">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/serviceicon1"/>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:text="Manage"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+
+                android:visibility="gone">
+                <LinearLayout
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@drawable/btndesign"
+                    android:gravity="center"
+                    android:id="@+id/llReportD">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/attenreporticon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@drawable/lldesign1"
+                    android:gravity="center"
+                    android:id="@+id/llReportD1"
+                    android:visibility="gone">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/attenreporticon1"/>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:text="Report"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+
+                android:id="@+id/llAttandanceManage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/layout_margin_left_right"
+                android:layout_marginRight="@dimen/layout_margin_left_right"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    card_view:cardElevation="3dp"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/manage" />
+
+
+                        <TextView
+                            android:id="@+id/tvManage"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="MANAGE"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:textColor="@color/colorPrimary" />
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+            <LinearLayout
+
+                android:id="@+id/llAttendanceReport"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/layout_margin_left_right"
+                android:layout_marginRight="@dimen/layout_margin_left_right"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    card_view:cardElevation="3dp"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/reportimg" />
+
+
+                        <TextView
+                            android:id="@+id/tvReport"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="REPORT"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:textColor="@color/colorPrimary" />
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:visibility="visible"
+            android:layout_marginTop="5dp">
+            <LinearLayout
+
+                android:id="@+id/llWeeklyOff"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/layout_margin_left_right"
+                android:layout_marginRight="@dimen/layout_margin_left_right"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                >
+
+                <androidx.cardview.widget.CardView
+
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    card_view:cardElevation="3dp"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/weeklyoff" />
+
+
+                        <TextView
+                            android:id="@+id/tvWeeklyOff"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Weekly Off"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:textColor="@color/colorPrimary" />
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+            <LinearLayout
+
+                android:id="@+id/llHolidayMap"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/layout_margin_left_right"
+                android:layout_marginRight="@dimen/layout_margin_left_right"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    card_view:cardElevation="3dp"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/sun" />
+
+
+                        <TextView
+                            android:id="@+id/tvHoliDayMap"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Holiday Map"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:textColor="@color/colorPrimary" />
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:visibility="visible"
+            android:layout_marginTop="5dp">
+            <LinearLayout
+
+                android:id="@+id/llSupervisior"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/layout_margin_left_right"
+                android:layout_marginRight="@dimen/layout_margin_left_right"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    card_view:cardElevation="3dp"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/supervisior" />
+
+
+                        <TextView
+                            android:id="@+id/tvSupervisior"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Supervisior"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:textColor="@color/colorPrimary" />
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/llAgain"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/againicon"
+            android:id="@+id/imgAgain"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="Try Again"/>
+    </LinearLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+        <LinearLayout
+            android:id="@+id/llAttandanceManage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/llshadowshape"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/manage"></ImageView>
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvManage"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Attendance Manage"></TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bar1"></LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/llAttendanceReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/llshadowshape"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/reportimg"></ImageView>
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvReport"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="Attendance Report"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bar1"></LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/llWeeklyOff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/llshadowshape"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/weeklyoff"></ImageView>
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvWeeklyOff"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="Weekly Off"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bar1"></LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/llHolidayMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/llshadowshape"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/sun"></ImageView>
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvHoliDayMap"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="Holiday Map"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bar1"></LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/llSupervisior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/llshadowshape"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/supervisior"></ImageView>
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvSupervisior"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="Supervisior"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bar1"></LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="visible"
+            android:layout_marginTop="10dp"
+            android:id="@+id/llBackLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/llshadowshape"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/backlogicon"></ImageView>
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvBackLog"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="Back Log"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bar1"></LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:id="@+id/llRegulization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/llshadowshape"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/attendanceregulization"></ImageView>
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvRegulization"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="Attendance Regularization"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bar1"></LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/white">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+            <TextView
+                android:id="@+id/tvLeaveDate"
+                android:paddingLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/dcolor"
+                android:text="Leave Date"
+                android:layout_gravity="center"></TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+            <TextView
+                android:id="@+id/tvDateName"
+                android:paddingLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/dcolor"
+                android:text="Date Name"
+                android:layout_gravity="center"></TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/llDayBreakUp">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/llFirstHalf">
+                        <LinearLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/lldesign1"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+                            <ImageView
+                                android:visibility="gone"
+                                android:id="@+id/imgFrstHalf"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_tick"></ImageView>
+
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvFirtsHalf"
+                            android:textColor="@color/dcolor"
+                            android:layout_gravity="center"
+                            android:textSize="10sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="First Half"></TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/llScndHalf">
+                        <LinearLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/lldesign1"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+                            <ImageView
+                                android:visibility="gone"
+                                android:id="@+id/imgScndHalf"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_tick"></ImageView>
+
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvScndHalf"
+                            android:textColor="@color/dcolor"
+                            android:layout_gravity="center"
+                            android:textSize="10sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Second Half"></TextView>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/llFullDay">
+                        <LinearLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/lldesign1"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+                            <ImageView
+                                android:visibility="gone"
+                                android:id="@+id/imgFull"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:src="@drawable/ic_tick"></ImageView>
+
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvFullDay"
+                            android:textColor="@color/dcolor"
+                            android:layout_gravity="center"
+                            android:textSize="10sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Full Day"></TextView>
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tvStatus"
+                    android:paddingLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/dcolor"
+                    android:text="Leave Status"
+                    android:layout_gravity="center"></TextView>
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/dcolor"></LinearLayout>
+
+
+</LinearLayout>

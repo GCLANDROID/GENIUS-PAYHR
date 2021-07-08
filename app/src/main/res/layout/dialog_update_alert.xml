@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/lldesign"
+    android:gravity="center">
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/startup"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/designcolor1"
+            android:text="We're better than ever"
+            android:textStyle="bold"
+            android:layout_marginTop="25dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color4"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:id="@+id/tvAttenDate"
+            android:gravity="center"
+            android:text="New version available"
+            />
+        <TextView
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:id="@+id/tvCurrent"
+            android:gravity="center"
+            android:text="New version available"
+            />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:layout_marginTop="30dp">
+        <Button
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:background="@drawable/buttondesign5"
+            android:text="UPDATE NOW"
+            android:textColor="@android:color/white"
+            android:id="@+id/btnOk"
+            android:textAllCaps="true"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:visibility="gone">
+        <Button
+            android:visibility="gone"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/buttondesign4"
+            android:layout_gravity="center"
+            android:text="SKIP"
+            android:textColor="@android:color/white"
+            android:id="@+id/btnSkip"
+            android:textAllCaps="true"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

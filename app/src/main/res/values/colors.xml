@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#03D4FA</color>
+    <color name="colorAccent">#03D4FA</color>
+    <color name="textcolor">#fe1392d6</color>
+    <color name="barcolor">#868789</color>
+    <color name="backcolor">#587D2F</color>
+    <color name="designcolor">#060606</color>
+    <color name="dcolor">#363535</color>
+    <color name="designcolor1">#075994</color>
+    <color name="maincolor">#075994</color>
+    <color name="bar1">#dadbdc</color>
+    <color name="green">#f20dc24d</color>
+    <color name="orange">#a97806</color>
+    <color name="darkblue">#023254</color>
+    <color name="green1">#06a49f</color>
+    <color name="whitsih">#a8ab68</color>
+    <color name="color1">#f21a7cc2</color>
+    <color name="color2">#cc0512</color>
+    <color name="color3">#ef02c0</color>
+    <color name="color4">#989997</color>
+    <color name="color5">#ECECEC</color>
+    <color name="color6">#30B3A3</color>
+    <color name="color7">#8f8f8f</color>
+    <color name="color8">#085A96</color>
+
+</resources>

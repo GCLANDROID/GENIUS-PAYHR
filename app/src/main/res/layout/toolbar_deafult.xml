@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:minHeight="?attr/actionBarSize"
+    android:background="@drawable/lltoolbardesign"
+    app:titleTextAppearance="?android:textAppearanceMedium"
+    android:id="@+id/toolbar"
+    app:title="">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_dehaze_black_24dp"
+                android:id="@+id/imageview"/>
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/tvtoolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:text="DASHBOARD"
+                android:textStyle="bold"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:paddingLeft="25dp"
+                android:textAllCaps="true"
+                android:layout_marginLeft="20dp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:paddingRight="10dp">
+            <LinearLayout
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/lldesign"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/geniuslogo"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </FrameLayout>
+
+
+
+
+
+
+
+
+</androidx.appcompat.widget.Toolbar>

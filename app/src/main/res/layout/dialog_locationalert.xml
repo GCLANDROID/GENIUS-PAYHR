@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="320dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/lldesign7"
+    android:gravity="center">
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+
+        android:layout_marginTop="20dp">
+        <pl.droidsonroids.gif.GifTextView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/earth"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="70dp"
+        android:gravity="center">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ae000c"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="Location Fetching,Please Wait"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:id="@+id/tvSuccess"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+        <Button
+            android:visibility="gone"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@drawable/lldesign4"
+            android:layout_gravity="center"
+            android:text="OK"
+            android:textColor="@android:color/white"
+            android:id="@+id/btnYes"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
