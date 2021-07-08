@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.genius.hrms">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
+        android:theme="@style/AppTheme"
+        tools:node="replace"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activity.attendance.AttendanceRegulizationActivity"></activity>
+        <activity
+            android:name=".activity.attendance.BacklogActivity"
+            android:screenOrientation="userPortrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".activity.profile.ProfileUpdateActivity" />
+        <activity android:name=".activity.profile.ProfileDashboardActivity" />
+        <activity
+            android:name=".activity.leaveapplication.SpecialholidayActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.leaveapplication.LeaveApplicationDashboardActivity"
+            android:screenOrientation="userPortrait" />
+        <activity android:name=".activity.activity.QueryActivity" />
+        <activity
+            android:name=".activity.activity.UserDashBoardActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.attendance.SuperVisiorActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.SplashScreenActivity"
+            android:screenOrientation="userPortrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.attendance.HoliDayMapActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.attendance.WeeklyoffActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.ChatActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.leaveapplication.LeaveWebViewActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.ChangePasswordActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.leaveapplication.LeaveApplicationActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.SEMFActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.EmployeeMappingNumberActivity"
+            android:screenOrientation="userPortrait" />
+        <activity android:name=".activity.livetracking.EmployeeSearchActivity" />
+        <activity
+            android:name=".activity.activity.ForgotPasswordActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.SubordinateReportDetailsActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.NotificationActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.PdfViewActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.FencePointActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.MulFenceAttendanceActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.MultipleConfigReportActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.ConfigNumberActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.WebViewActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.ELearningActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.EmpMapingReportActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.EmpMapiingDashBoardActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.EmpMappingActivity"
+            android:screenOrientation="userPortrait" />
+        <activity android:name=".activity.activity.APiHitActivity" />
+        <activity
+            android:name=".activity.dailylog.TourViewReportActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailylog.NumberTourActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailylog.VisitLocationActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.FenceNumberActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.GeoFenceManageDashBoardActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.ConfigReportActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.StoryBoardActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailylog.OfflineDailyLogReportActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailylog.OfflineDailyDashBoardActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.DashBoardActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailylog.OfflineDailyLogManageActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailylog.OfflineDailyLogActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.AboutUsActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.ServicesActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.ContactUsActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.LoginActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.EmployeeDashBoardActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.profile.ProfileActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.attendance.AttendanceActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.attendance.AttendanceManageActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.attendance.AttendanceReportActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.payroll.PayrollActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.HolidayActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.payroll.SalaryActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.payroll.ReimActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailyactivity.DailyTaskDashBoardActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailyactivity.DailyActivityManageActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailyactivity.DailyTaskReportActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.DailyLogActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailylog.DailyLogManageActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.DailyLogDashBoardActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailylog.DailyLogReportActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailylog.OfflineAttenReportActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.FencingDashBoardActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.SettingDashBoardActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.GeoFenceActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.ReportActivityActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.MulFenceConfigActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.dailylog.MapReportActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.MapPointActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.SingleFenceConfigActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.geofence.UpdateMulFenceConfigActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.livetracking.TrackMapActivity"
+            android:screenOrientation="userPortrait" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <receiver android:name=".activity.reciver.NetworkStateChecker">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".activity.reciver.Wake"
+            android:enabled="true" />
+        <receiver
+            android:name=".activity.utility.AlarmBroadCastReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name=".activity.reciver.Alarm"
+            android:process=":remote" />
+        <receiver
+            android:name=".activity.reciver.MulAlarm"
+            android:process=":remote" />
+
+        <service android:name=".activity.utility.LocationUpdaterService" />
+        <service
+            android:name=".activity.utility.LocationAlertIntentService"
+            android:allowBackup="true" />
+        <service android:name=".activity.FCM.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".activity.FCM.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".activity.utility.LocationUpdatingService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".activity.utility.MulLocationUpdatingService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".activity.utility.LocationUpdateService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity
+            android:name=".activity.attendance.AttendanceManageForPPSActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.attendance.AttendanceReportForPPSActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.attendance.AttenApprovalActivity"
+            android:screenOrientation="userPortrait" />
+        <activity android:name="com.wajahatkarim3.longimagecamera.LongImageCameraActivity"></activity>
+        <activity android:name=".activity.dailylog.DailyLogManageForMaxActivity"
+            android:screenOrientation="userPortrait"></activity>
+
+        <activity android:name=".activity.attendance.Em3AttendnaceActivity"
+            android:screenOrientation="userPortrait"></activity>
+
+
+
+
+    </application>
+
+</manifest>
