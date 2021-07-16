@@ -480,10 +480,16 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
             @Override
             public void onClick(View v) {
 
-                if (flag==1) {
+              /*  if (flag==1) {
                     attenDancePunch("ok", "0");
                 }else {
                     attendancefunction();
+                }*/
+                if (attCode.equals("1"))
+                {
+                    attenDancePunchTest("OK","0");
+                }else {
+                    attendanceAlert();
                 }
 
 
@@ -571,13 +577,13 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
             public void onClick(View view) {
                 if (attenID.equals("1")) {
                     if (etReason.getText().toString().length() > 0) {
-                        attenDancePunch(etReason.getText().toString(), "1");
+                        attenDancePunchTest(etReason.getText().toString(), "1");
                     } else {
                         Toast.makeText(Em3AttendnaceActivity.this, "Please Enter Your Reason", Toast.LENGTH_LONG).show();
                     }
 
                 } else {
-                    attenDancePunch("Work From Office", "0");
+                    attenDancePunchTest("Work From Office", "0");
                 }
             }
         });
@@ -631,20 +637,23 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         });
     }
 
+
+
+
     private void attenDancePunchTest(String reason, String attenID) {
         final ProgressDialog progressDialog = new ProgressDialog(Em3AttendnaceActivity.this);
         progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        AndroidNetworking.upload(pref.getIpAddress() + "api/post_SelfAttendanceWithImage")
+        AndroidNetworking.upload("https://www.cloud.geniusconsultant.com/EM3agriservices/Em3testapi/api/post_selfattendancewithimageEM3")
                 .addMultipartFile("ImageFile", compressedImageFile)
                 .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
                 .addMultipartParameter("Address", address)
                 .addMultipartParameter("Longitude", ling)
                 .addMultipartParameter("Latitude", laat)
-                /*   .addMultipartParameter("PunchFrom",attenID)
-                   .addMultipartParameter("PunchFromReason",reason)*/
-                .addMultipartParameter("SecurityCode", "1135")
+                   .addMultipartParameter("PunchFrom",attenID)
+                   .addMultipartParameter("PunchFromReason",reason)
+                .addMultipartParameter("SecurityCode", "1138")
                 .setTag("Uploadfirst")
                 .setPriority(Priority.HIGH)
                 .build()
