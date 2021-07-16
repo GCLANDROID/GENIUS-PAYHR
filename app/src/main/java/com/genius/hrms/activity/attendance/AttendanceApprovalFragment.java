@@ -89,7 +89,7 @@ public class AttendanceApprovalFragment extends Fragment {
 
     private void initView() {
         pref = new Pref(getContext());
-        securityCode=pref.getSecurityCode();
+        securityCode="1138";
         if (pref.getSecurityCode().equals("1135")){
             url="https://www.cloud.geniusconsultant.com/EM3agriservices/Em3testapi/";
         }else {
@@ -225,8 +225,6 @@ public class AttendanceApprovalFragment extends Fragment {
                                     String WorkSource = obj.optString("WorkSource");
                                     String AID = obj.optString("AID");
                                     String AttendanceNature = obj.optString("AttendanceNature");
-
-
                                     AttendanceApprovalModel obj2 = new AttendanceApprovalModel(AID, EmpName, AttendanceDate, InTime, OutTime,WorkSource,AttendanceNature);
                                     itemList.add(obj2);
 

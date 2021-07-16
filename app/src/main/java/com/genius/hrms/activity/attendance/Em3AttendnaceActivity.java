@@ -46,6 +46,7 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -81,6 +82,7 @@ import com.google.android.gms.tasks.Task;
 import com.wajahatkarim3.longimagecamera.LongImageCameraActivity;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -95,47 +97,47 @@ import java.util.Map;
 
 public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    private GoogleMap mMap;
+    public static final String TAG = AttendanceManageActivity.class.getSimpleName();
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     protected GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     double lat = 0, lng = 0;
-    String laat,lit,adrstr,imgString;
+    String laat, lit, adrstr, imgString;
     TextView ad_text;
     String base64StringOfCameraPic;
     FusedLocationProviderClient fusedLocationProviderClient;
-    ImageView img_capture,img_take;
+    ImageView img_capture, img_take;
     Button subbtn;
     Bitmap bitmap;
     Bitmap photo;
-    String loat,ling;
+    String loat, ling;
     Uri tempUri;
-    AlertDialog alerDialog1,alertDialog;
+    AlertDialog alerDialog1, alertDialog;
     Pref pref;
-    ImageView imgBack,imgHome;
-    File file,compressedImageFile;
-    int flag=0;
-    public static final String TAG = AttendanceManageActivity.class.getSimpleName();
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    //  private MapView mapView;
-    private LocationRequest mLocationRequest;
-
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
+    ImageView imgBack, imgHome;
+    File file, compressedImageFile;
+    int flag = 0;
     NetworkConnectionCheck connectionCheck;
     LatLng latLng;
     String address;
-    ArrayList<String>attendanceOptionList=new ArrayList<>();
+    ArrayList<String> attendanceOptionList = new ArrayList<>();
     String attendnaceOption;
     String attenID;
     String securityCode;
     String attCode;
+    private GoogleMap mMap;
+    //  private MapView mapView;
+    private LocationRequest mLocationRequest;
+    String address1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_em3attendnace);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        pref=new Pref(Em3AttendnaceActivity.this);
-        securityCode="1138";
+        pref = new Pref(Em3AttendnaceActivity.this);
+        securityCode = "1138";
 
         connectionCheck = new NetworkConnectionCheck(Em3AttendnaceActivity.this);
         mLocationRequest = new LocationRequest();
@@ -145,14 +147,14 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
                 .setFastestInterval(1 * 1000);
 
         ad_text = findViewById(R.id.ad_text);
-        img_capture=findViewById(R.id.img_capture);
-        img_take=findViewById(R.id.img_take);
-        subbtn=findViewById(R.id.subbtn);
+        img_capture = findViewById(R.id.img_capture);
+        img_take = findViewById(R.id.img_take);
+        subbtn = findViewById(R.id.subbtn);
 
 
-        imgBack=(ImageView)findViewById(R.id.imgBack);
-        imgHome=(ImageView)findViewById(R.id.imgHome);
-        attCode=getIntent().getStringExtra("attCode");
+        imgBack = (ImageView) findViewById(R.id.imgBack);
+        imgHome = (ImageView) findViewById(R.id.imgHome);
+        attCode = getIntent().getStringExtra("attCode");
         setUpMapIfNeeded();
         onClick();
 
@@ -222,7 +224,7 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           String[] permissions, int[] grantResults) {
         switch (requestCode) {
 
             // other 'case' lines to check for other
@@ -294,7 +296,6 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         mMap.setMinZoomPreference(15);
 
         showCurrentLocationOnMap();*/
-
 
 
     }
@@ -376,16 +377,15 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
 
         latLng = new LatLng(lat, lng);
         address = getCompleteAddressString(lat, lng);
-        Log.d("attenaddrsees",address);
+        address1= address.replaceAll("#","abc").replaceAll("\\s+", "%20");
+        Log.d("attenaddrsees", address);
 
 
         MarkerOptions options = new MarkerOptions()
                 .position(latLng)
                 .title(address)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker));
-        ad_text.setText("You are at: "+address);
-
-
+        ad_text.setText("You are at: " + address);
 
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -407,7 +407,7 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
             List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
             if (addresses != null) {
                 Address returnedAddress = addresses.get(0);
-                StringBuilder strReturnedAddress = new StringBuilder("");
+                StringBuilder strReturnedAddress = new StringBuilder();
 
                 for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
                     strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
@@ -459,7 +459,7 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         }
     }
 
-    private void onClick(){
+    private void onClick() {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -470,7 +470,7 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Em3AttendnaceActivity.this, UserDashBoardActivity.class);
+                Intent intent = new Intent(Em3AttendnaceActivity.this, UserDashBoardActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -479,31 +479,12 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         subbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (flag==0){
-                    Toast.makeText(Em3AttendnaceActivity.this, "Please take a Picture", Toast.LENGTH_SHORT).show();
-                    //StyleableToast.makeText(getApplicationContext(), "please take a picture", Toast.LENGTH_LONG, R.style.mytoastfailure).show();
 
-                }else{
-                    Log.i("insidebutton","hi");
-                    if (ContextCompat.checkSelfPermission(getApplicationContext(),
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED) {
-
-                        ActivityCompat.requestPermissions(Em3AttendnaceActivity.this,
-                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                1);
-                    } else {
-                       /* if (attCode.equals("0")){
-                            attendanceAlert();
-                        }else {*/
-                            attenDancePunch("ok","0");
-                      //  }
-
-
-                    }
-
+                if (flag==1) {
+                    attenDancePunch("ok", "0");
+                }else {
+                    attendancefunction();
                 }
-
 
 
             }
@@ -524,8 +505,7 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         dialogBuilder.setView(dialogView);
         TextView tvInvalidDate = (TextView) dialogView.findViewById(R.id.tvSuccess);
 
-            tvInvalidDate.setText("Attendance saved successfully");
-
+        tvInvalidDate.setText("Attendance saved successfully");
 
 
         Button btnOk = (Button) dialogView.findViewById(R.id.btnOk);
@@ -552,10 +532,10 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_attendnaceoption, null);
         dialogBuilder.setView(dialogView);
-        Spinner spOption=(Spinner)dialogView.findViewById(R.id.spOption);
+        Spinner spOption = (Spinner) dialogView.findViewById(R.id.spOption);
         attendanceOptionList.add("Home");
         attendanceOptionList.add("Office");
-        final LinearLayout llReason=(LinearLayout)dialogView.findViewById(R.id.llReason);
+        final LinearLayout llReason = (LinearLayout) dialogView.findViewById(R.id.llReason);
 
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
                 (Em3AttendnaceActivity.this, android.R.layout.simple_spinner_item,
@@ -563,17 +543,17 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spOption.setAdapter(spinnerArrayAdapter);
 
-        final EditText etReason=(EditText)dialogView.findViewById(R.id.etReason);
+        final EditText etReason = (EditText) dialogView.findViewById(R.id.etReason);
         spOption.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                attendnaceOption=attendanceOptionList.get(i);
-                if (attendnaceOption.equals("Home")){
-                    attenID="1";
+                attendnaceOption = attendanceOptionList.get(i);
+                if (attendnaceOption.equals("Home")) {
+                    attenID = "1";
                     llReason.setVisibility(View.VISIBLE);
 
-                }else {
-                    attenID="0";
+                } else {
+                    attenID = "0";
                     llReason.setVisibility(View.GONE);
 
                 }
@@ -585,19 +565,19 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
             }
         });
 
-        LinearLayout llSubmit=(LinearLayout)dialogView.findViewById(R.id.llSubmit) ;
+        LinearLayout llSubmit = (LinearLayout) dialogView.findViewById(R.id.llSubmit);
         llSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (attenID.equals("1")){
-                    if (etReason.getText().toString().length()>0){
-                        attenDancePunch(etReason.getText().toString(),"1");
-                    }else {
-                        Toast.makeText(Em3AttendnaceActivity.this,"Please Enter Your Reason",Toast.LENGTH_LONG).show();
+                if (attenID.equals("1")) {
+                    if (etReason.getText().toString().length() > 0) {
+                        attenDancePunch(etReason.getText().toString(), "1");
+                    } else {
+                        Toast.makeText(Em3AttendnaceActivity.this, "Please Enter Your Reason", Toast.LENGTH_LONG).show();
                     }
 
-                }else {
-                    attenDancePunch("Work From Office","0");
+                } else {
+                    attenDancePunch("Work From Office", "0");
                 }
             }
         });
@@ -608,18 +588,19 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         window.setGravity(Gravity.CENTER);
         alertDialog.show();
     }
-    private void attenDancePunch(String reason,String attenID){
-        final ProgressDialog progressDialog=new ProgressDialog(Em3AttendnaceActivity.this);
+
+    private void attenDancePunch(String reason, String attenID) {
+        final ProgressDialog progressDialog = new ProgressDialog(Em3AttendnaceActivity.this);
         progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
         AndroidNetworking.upload("https://www.cloud.geniusconsultant.com/GHRMSApi/api/post_SelfAttendanceWithImage")
-                .addMultipartFile("ImageFile",compressedImageFile)
-                .addMultipartParameter("AEMEmployeeID",pref.getEmpId())
-                .addMultipartParameter("Address",address)
-                .addMultipartParameter("Longitude",ling)
-                .addMultipartParameter("Latitude",laat)
-                .addMultipartParameter("SecurityCode","1135")
+                .addMultipartFile("ImageFile", compressedImageFile)
+                .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
+                .addMultipartParameter("Address", address)
+                .addMultipartParameter("Longitude", ling)
+                .addMultipartParameter("Latitude", laat)
+                .addMultipartParameter("SecurityCode", "1135")
                 .setTag("Uploadfirst")
                 .setPriority(Priority.HIGH)
                 .build()
@@ -633,9 +614,9 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
             public void onResponse(JSONObject response) {
                 Log.i("response", String.valueOf(response));
                 progressDialog.dismiss();
-                JSONObject ob=response;
-                String s1=ob.optString("responseCode");
-                if (s1.equals("1")){
+                JSONObject ob = response;
+                String s1 = ob.optString("responseCode");
+                if (s1.equals("1")) {
                     successAlert();
 
                 }
@@ -649,20 +630,21 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
             }
         });
     }
-    private void attenDancePunchTest(String reason,String attenID){
-        final ProgressDialog progressDialog=new ProgressDialog(Em3AttendnaceActivity.this);
+
+    private void attenDancePunchTest(String reason, String attenID) {
+        final ProgressDialog progressDialog = new ProgressDialog(Em3AttendnaceActivity.this);
         progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        AndroidNetworking.upload(pref.getIpAddress()+"api/post_SelfAttendanceWithImage")
-                .addMultipartFile("ImageFile",compressedImageFile)
-                .addMultipartParameter("AEMEmployeeID",pref.getEmpId())
-                .addMultipartParameter("Address",address)
-                .addMultipartParameter("Longitude",ling)
-                .addMultipartParameter("Latitude",laat)
-             /*   .addMultipartParameter("PunchFrom",attenID)
-                .addMultipartParameter("PunchFromReason",reason)*/
-                .addMultipartParameter("SecurityCode","1135")
+        AndroidNetworking.upload(pref.getIpAddress() + "api/post_SelfAttendanceWithImage")
+                .addMultipartFile("ImageFile", compressedImageFile)
+                .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
+                .addMultipartParameter("Address", address)
+                .addMultipartParameter("Longitude", ling)
+                .addMultipartParameter("Latitude", laat)
+                /*   .addMultipartParameter("PunchFrom",attenID)
+                   .addMultipartParameter("PunchFromReason",reason)*/
+                .addMultipartParameter("SecurityCode", "1135")
                 .setTag("Uploadfirst")
                 .setPriority(Priority.HIGH)
                 .build()
@@ -676,9 +658,9 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
             public void onResponse(JSONObject response) {
                 Log.i("response", String.valueOf(response));
                 progressDialog.dismiss();
-                JSONObject ob=response;
-                String s1=ob.optString("responseCode");
-                if (s1.equals("1")){
+                JSONObject ob = response;
+                String s1 = ob.optString("responseCode");
+                if (s1.equals("1")) {
                     successAlert();
 
                 }
@@ -693,7 +675,58 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         });
     }
 
-    private void check(){
+    private void attendancefunction() {
+        String surl = pref.getIpAddress() + "GHRMSApi/api/post_SelfAttendance?AEMEmployeeID=" + pref.getEmpId() + "&Address=" + address1 + "&Longitude=" + ling + "&Latitude=" + laat + "&SecurityCode=" + pref.getSecurityCode();
+        Log.d("attendenceinput", surl);
+        final ProgressDialog progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);//you can cancel it by pressing back button
+        progressBar.setMessage("Loading...");
+        progressBar.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("responseLeave", response);
+                        progressBar.dismiss();
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+
+                            String responseText = job1.optString("responseText");
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+                                successAlert();
+
+
+                            }
+
+
+                            // boolean _status = job1.getBoolean("status");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(Em3AttendnaceActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressBar.dismiss();
+                Toast.makeText(Em3AttendnaceActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
+
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(Em3AttendnaceActivity.this);
+        requestQueue.add(stringRequest);
+
+    }
+
+    private void check() {
 
     }
 }
