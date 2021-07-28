@@ -75,7 +75,7 @@ public class BacklogActivity extends AppCompatActivity {
 
     private void initView() {
         pref = new Pref(getApplicationContext());
-        securityCode="1138";
+        securityCode=pref.getSecurityCode();
         tvToolBar = findViewById(R.id.tvToolBar);
         rvItem = findViewById(R.id.rvItem);
         LinearLayoutManager layoutManager
@@ -155,7 +155,7 @@ public class BacklogActivity extends AppCompatActivity {
     }
 
     private void getBackLogData() {
-        String surl = "https://www.cloud.geniusconsultant.com/EM3agriservices/Em3testapi/api/Attendance/AttendanceBakLog?CompanyID=" + pref.getEmpClintId() + "&EmployeeID=" + pref.getEmpId() + "&SecurityCode=" + securityCode;
+        String surl = pref.getIpAddress() + "GHRMSApi/api/Attendance/AttendanceBakLog?CompanyID=" + pref.getEmpClintId() + "&EmployeeID=" + pref.getEmpId() + "&SecurityCode=" + securityCode;
         Log.d("backlogURL",surl);
         llLoader.setVisibility(View.VISIBLE);
         llMain.setVisibility(View.GONE);
@@ -260,7 +260,7 @@ public class BacklogActivity extends AppCompatActivity {
         pg.setMessage("Loading..");
         pg.setCancelable(false);
         pg.show();
-        AndroidNetworking.upload( "https://www.cloud.geniusconsultant.com/EM3agriservices/Em3testapi/api/Attendance/AttendanceBakLogSave")
+        AndroidNetworking.upload( pref.getIpAddress() + "GHRMSApi/api/Attendance/AttendanceBakLogSave")
                 .addMultipartParameter("CompanyID", pref.getEmpClintId())
                 .addMultipartParameter("StrAttData", backlogDetails)
                 .addMultipartParameter("EmployeeID", pref.getEmpId())

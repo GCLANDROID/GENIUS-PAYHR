@@ -89,12 +89,10 @@ public class AttendanceApprovalFragment extends Fragment {
 
     private void initView() {
         pref = new Pref(getContext());
-        securityCode="1138";
-        if (pref.getSecurityCode().equals("1135")){
-            url="https://www.cloud.geniusconsultant.com/EM3agriservices/Em3testapi/";
-        }else {
-            url=pref.getIpAddress()+"/GHRMSApi";
-        }
+        securityCode=pref.getSecurityCode();
+
+        url=pref.getIpAddress()+"/GHRMSApi";
+
         rvItem = (RecyclerView) v.findViewById(R.id.rvItem);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

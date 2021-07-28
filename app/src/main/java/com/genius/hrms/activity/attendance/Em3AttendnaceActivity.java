@@ -485,9 +485,14 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
                 }else {
                     attendancefunction();
                 }*/
+
                 if (attCode.equals("1"))
                 {
-                    attenDancePunchTest("OK","0");
+                    if (flag==1) {
+                        attenDancePunchTest("OK", "0");
+                    }else {
+                        attenDancePunchTestWithoutImage("OK", "0");
+                    }
                 }else {
                     attendanceAlert();
                 }
@@ -577,13 +582,21 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
             public void onClick(View view) {
                 if (attenID.equals("1")) {
                     if (etReason.getText().toString().length() > 0) {
-                        attenDancePunchTest(etReason.getText().toString(), "1");
+                        if (flag==1) {
+                            attenDancePunchTest("OK", "0");
+                        }else {
+                            attenDancePunchTestWithoutImage("OK", "0");
+                        }
                     } else {
                         Toast.makeText(Em3AttendnaceActivity.this, "Please Enter Your Reason", Toast.LENGTH_LONG).show();
                     }
 
                 } else {
-                    attenDancePunchTest("Work From Office", "0");
+                    if (flag==1) {
+                        attenDancePunchTest("OK", "0");
+                    }else {
+                        attenDancePunchTestWithoutImage("OK", "0");
+                    }
                 }
             }
         });
@@ -645,7 +658,7 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        AndroidNetworking.upload("https://www.cloud.geniusconsultant.com/EM3agriservices/Em3testapi/api/post_selfattendancewithimageEM3")
+        AndroidNetworking.upload(pref.getIpAddress() + "GHRMSApi/api/post_selfattendancewithimageEM3")
                 .addMultipartFile("ImageFile", compressedImageFile)
                 .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
                 .addMultipartParameter("Address", address)
@@ -653,7 +666,7 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
                 .addMultipartParameter("Latitude", laat)
                    .addMultipartParameter("PunchFrom",attenID)
                    .addMultipartParameter("PunchFromReason",reason)
-                .addMultipartParameter("SecurityCode", "1138")
+                .addMultipartParameter("SecurityCode", pref.getSecurityCode())
                 .setTag("Uploadfirst")
                 .setPriority(Priority.HIGH)
                 .build()
@@ -684,8 +697,10 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         });
     }
 
-    private void attendancefunction() {
-        String surl = pref.getIpAddress() + "GHRMSApi/api/post_SelfAttendance?AEMEmployeeID=" + pref.getEmpId() + "&Address=" + address1 + "&Longitude=" + ling + "&Latitude=" + laat + "&SecurityCode=" + pref.getSecurityCode();
+
+
+    private void attenDancePunchTestWithoutImage(String reason, String attenID) {
+        String surl = pref.getIpAddress() + "GHRMSApi/api/post_SelfAttendanceEM3?AEMEmployeeID=" + pref.getEmpId() + "&Address=" + address1 + "&Longitude=" + ling + "&Latitude=" + laat + "&SecurityCode=" + pref.getSecurityCode()+"&PunchFrom="+attenID+"&PunchFromReason="+reason.replaceAll("\\s+", "%20");
         Log.d("attendenceinput", surl);
         final ProgressDialog progressBar = new ProgressDialog(this);
         progressBar.setCancelable(true);//you can cancel it by pressing back button

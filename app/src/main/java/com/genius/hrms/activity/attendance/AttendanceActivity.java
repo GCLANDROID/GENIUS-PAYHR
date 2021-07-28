@@ -458,7 +458,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
         progressDialog.setMessage("Loadingg..");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        String surl = "https://www.cloud.geniusconsultant.com/EM3agriservices/Em3testapi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID="+pref.getEmpId()+"&AttendanceDate="+formattedDate+"&SecurityCode=1138";
+        String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID="+pref.getEmpId()+"&AttendanceDate="+formattedDate+"&SecurityCode="+pref.getSecurityCode();
         Log.d("input", surl);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
                 new Response.Listener<String>() {
