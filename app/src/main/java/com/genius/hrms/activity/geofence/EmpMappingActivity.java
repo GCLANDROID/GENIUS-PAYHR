@@ -95,7 +95,7 @@ public class EmpMappingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_emp_mapping);
+        setContentView(R.layout.activity_semf);
         initView();
         onClick();
     }
@@ -113,6 +113,7 @@ public class EmpMappingActivity extends AppCompatActivity {
         imgHome = (ImageView) findViewById(R.id.imgHome);
         btnMap = (Button) findViewById(R.id.btnMap);
         point = getIntent().getStringExtra("point");
+        Log.d("point",point);
         etSearch=(EditText)findViewById(R.id.etSearch);
         tvToolBar=(TextView)findViewById(R.id.tvToolBar);
         if (pref.getLanguage().equals("hi")){

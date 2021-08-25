@@ -1,5 +1,6 @@
 package com.genius.hrms.activity.profile;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -238,7 +239,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvQuali.setText("Qualification");
             tvStatus.setText("Martial status");
             tvBlood.setText("Blood group");
-            tvPerAdd.setText("Permamnent address");
+            tvPerAdd.setText("Permanent address");
             tvPreAdd.setText("present address");
             tvPhone.setText("Phone number");
             tvEmailID.setText("Email Id");
@@ -1013,6 +1014,8 @@ public class ProfileActivity extends AppCompatActivity {
                                         tvBloodGroup.setText(BloodGroup);
                                     }
 
+                                    final String permanentpincode=obj.optString("PermanentPinCode");
+
                                     final String PermanentAddress = obj.optString("PermanentAddress");
                                     if (pref.getLanguage().equals("hi")) {
                                         final Handler textViewHandler14 = new Handler();
@@ -1032,7 +1035,13 @@ public class ProfileActivity extends AppCompatActivity {
 
                                                         Log.d("sssh", translation.getTranslatedText());
                                                         String h = translation.getTranslatedText();
-                                                        tvParAddr.setText(h);
+                                                        if (permanentpincode.equals("null")){
+                                                            Log.d("null",permanentpincode);
+                                                            tvParAddr.setText(h);
+                                                        }else {
+                                                            Log.d("value",permanentpincode);
+                                                            tvParAddr.setText(h + "," + permanentpincode);
+                                                        }
 
                                                     }
                                                 });
@@ -1054,8 +1063,18 @@ public class ProfileActivity extends AppCompatActivity {
 
                                         }.execute();
                                     } else {
-                                        tvParAddr.setText(PermanentAddress);
+                                        if (permanentpincode.equals("null")){
+                                            Log.d("null",permanentpincode);
+                                            tvParAddr.setText(PermanentAddress);
+                                        }else {
+                                            Log.d("value",permanentpincode);
+                                            tvParAddr.setText(PermanentAddress + "," + permanentpincode);
+                                        }
+                                       // tvParAddr.setText(PermanentAddress+","+permanentpincode);
                                     }
+
+
+                                    final  String presentpincode=obj.optString("PresentPincode");
 
 
                                     final String PresentAddress = obj.optString("PresentAddress");
@@ -1072,12 +1091,20 @@ public class ProfileActivity extends AppCompatActivity {
                                                         translate.translate(PresentAddress,
                                                                 Translate.TranslateOption.sourceLanguage("en"),   Translate.TranslateOption.targetLanguage(pref.getLanguage()));
                                                 textViewHandler15.post(new Runnable() {
+                                                    @SuppressLint("StaticFieldLeak")
                                                     @Override
                                                     public void run() {
 
                                                         Log.d("sssh", translation.getTranslatedText());
                                                         String h = translation.getTranslatedText();
-                                                        tvPreAddr.setText(h);
+                                                        if (presentpincode.equals("null")){
+                                                            Log.d("null",presentpincode);
+                                                            tvPreAddr.setText(h);
+                                                        }else{
+                                                            Log.d("value",presentpincode);
+                                                            tvPreAddr.setText(h+","+presentpincode);
+                                                        }
+
 
                                                     }
                                                 });
@@ -1099,7 +1126,14 @@ public class ProfileActivity extends AppCompatActivity {
 
                                         }.execute();
                                     } else {
-                                        tvPreAddr.setText(PresentAddress);
+                                        if (presentpincode.equals("null")){
+                                            Log.d("null",presentpincode);
+                                            tvPreAddr.setText(PresentAddress);
+                                        }else{
+                                            Log.d("value",presentpincode);
+                                            tvPreAddr.setText(PresentAddress+","+presentpincode);
+                                        }
+                                        //tvPreAddr.setText(PresentAddress+","+presentpincode);
                                     }
 
                                     String Mobile = obj.optString("Mobile");

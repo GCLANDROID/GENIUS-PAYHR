@@ -492,19 +492,19 @@ public class SingleFenceConfigActivity extends AppCompatActivity implements OnMa
         if (pref.getLanguage().equals("hi")){
             tvFencing.setText("भू बाड़");
             tvStart.setText("जियो फेंस की शुरुआत");
-            tvLatt.setText("अक्षांश");
-            tvLon.setText("देशान्तर");
+            tvLatt.setText("अक्षांश:-");
+            tvLon.setText("देशान्तर:-");
             tvSubmit.setText("प्रस्तुत");
-            tvRadius.setText("त्रिज्या");
+            tvRadius.setText("त्रिज्या:-");
             etLocation.setHint("अपना भू बाड़ स्थान दर्ज करें");
 
         }else {
             tvFencing.setText("Geo fencing");
             tvStart.setText("Geo Fence starting");
-            tvLatt.setText("latitude");
-            tvLon.setText("longitude");
+            tvLatt.setText("latitude:-");
+            tvLon.setText("longitude:-");
             tvSubmit.setText("Submit");
-            tvRadius.setText("Radius");
+            tvRadius.setText("Radius:-");
             etLocation.setHint("enter your geo fence location");
         }
 

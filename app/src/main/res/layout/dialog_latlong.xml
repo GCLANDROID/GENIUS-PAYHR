@@ -60,12 +60,13 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/designcolor1"
                         android:textAppearance="?android:textAppearanceSmall"
-                        android:text="Latitude:"/>
+                        android:text="Latitude:-"/>
                     <TextView
                         android:id="@+id/tvLat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/green"
+                        android:layout_marginLeft="2dp"
                         android:textAppearance="?android:textAppearanceSmall"
                         />
                 </LinearLayout>
@@ -81,12 +82,13 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/designcolor1"
                         android:textAppearance="?android:textAppearanceSmall"
-                        android:text="Longitude:"/>
+                        android:text="Longitude:-"/>
                     <TextView
                         android:id="@+id/tvLong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/green"
+                        android:layout_marginLeft="2dp"
                         android:textAppearance="?android:textAppearanceSmall"
                         />
                 </LinearLayout>
@@ -122,11 +124,12 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:textColor="@android:color/black"
-                    android:text="Radius:"/>
+                    android:text="Radius:-"/>
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="150dp"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="5dp"
                     android:background="@drawable/lldesign7">
                     <EditText
                         android:id="@+id/etRadius"

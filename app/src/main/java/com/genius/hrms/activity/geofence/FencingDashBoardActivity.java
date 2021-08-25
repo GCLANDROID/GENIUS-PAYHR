@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -148,6 +149,7 @@ public class FencingDashBoardActivity extends AppCompatActivity {
             llMapping.setVisibility(View.GONE);
         }
         point=getIntent().getStringExtra("point");
+        Log.d("point",point);
         tvToolBar=(TextView)findViewById(R.id.tvToolBar);
         tvConfig=(TextView)findViewById(R.id.tvConfig);
         tvEmpMapping=(TextView)findViewById(R.id.tvEmpMapping);

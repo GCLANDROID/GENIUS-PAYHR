@@ -3,6 +3,7 @@ package com.genius.hrms.activity.geofence;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,6 +47,7 @@ public class EmployeeMappingNumberActivity extends AppCompatActivity {
         imgBack=(ImageView)findViewById(R.id.imgBack);
         imgHome=(ImageView)findViewById(R.id.imgHome);
         point=getIntent().getStringExtra("point");
+        Log.d("point",point);
     }
 
     private void onClick(){

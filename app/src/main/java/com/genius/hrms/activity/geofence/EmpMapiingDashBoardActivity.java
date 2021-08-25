@@ -3,6 +3,7 @@ package com.genius.hrms.activity.geofence;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,6 +43,7 @@ public class EmpMapiingDashBoardActivity extends AppCompatActivity {
         tvReport=(TextView)findViewById(R.id.tvReport);
 
         point = getIntent().getStringExtra("point");
+        Log.d("point",point);
         if (pref.getLanguage().equals("hi")){
             tvToolBar.setText("एम्प्लॉई मैपिंग");
             tvManage.setText("प्रबंधन");

@@ -539,9 +539,9 @@ public class GeoFenceActivity extends AppCompatActivity implements OnMapReadyCal
         });
         TextView tvText = (TextView) dialogView.findViewById(R.id.tvText);
         if (pref.getLanguage().equals("hi")) {
-            tvText.setText("गतिविधि सफलतापूर्वक सबमिट की गई");
+            tvText.setText("उपस्थिति सफलतापूर्वक सहेज ली गई है\n");
         } else {
-            tvText.setText("Activity submitted successfully");
+            tvText.setText("Attendance has been saved successfully");
         }
 
 
