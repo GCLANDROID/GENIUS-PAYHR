@@ -131,8 +131,6 @@ public class DailyActivityManageActivity extends AppCompatActivity implements On
     Spinner spProjectName;
     ArrayList<SpinnerModel> mainProjectList = new ArrayList<>();
     ArrayList<String> projectList = new ArrayList<>();
-
-
     LinearLayout llLoader, llMain;
     String projectcode = "";
     String subProject = "";
@@ -150,10 +148,6 @@ public class DailyActivityManageActivity extends AppCompatActivity implements On
     String cuuaddress;
     String currlat,currlong;
     TextView tvManage,tvCode,tvProject,tvSubmit;
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
