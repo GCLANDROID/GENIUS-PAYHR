@@ -1984,7 +1984,7 @@ public class ApplicationFragment extends Fragment {
         pd.setMessage("Loading...");
         pd.setCancelable(true);
         pd.show();
-        String surl = "http://172.16.0.139/ghrmsapi/api/Leave/CompBreakUp?CompanyID=" + pref.getEmpClintId() + "&EmployeeID=" + pref.getEmpId() + "&StartDate=" + startDate + "&EndDate=" + endDate + "&LeaveTypeID=" + typeId + "&Iscompoff=" + category + "&SecurityCode=" + pref.getSecurityCode();
+        String surl = pref.getIpAddress()+"ghrmsapi/api/Leave/CompBreakUp?CompanyID=" + pref.getEmpClintId() + "&EmployeeID=" + pref.getEmpId() + "&StartDate=" + startDate + "&EndDate=" + endDate + "&LeaveTypeID=" + typeId + "&Iscompoff=" + category + "&SecurityCode=" + pref.getSecurityCode();
         Log.d("printcompff", surl);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
                 new Response.Listener<String>() {

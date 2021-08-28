@@ -203,7 +203,7 @@ public class AttendanceApprovalFragment extends Fragment {
                         Log.d("responseAttendance", response);
                         itemList.clear();
 
-                        // attendabceInfiList.clear();
+
 
                         try {
                             JSONObject job1 = new JSONObject(response);
@@ -354,8 +354,6 @@ public class AttendanceApprovalFragment extends Fragment {
         final ProgressDialog pd = new ProgressDialog(getContext());
         pd.setMessage("Loading..");
         pd.setCancelable(false);
-
-
         AndroidNetworking.upload(pref.getIpAddress() + "GHRMSApi/API/Attendance/SelfAttendanceApproval")
                 .addMultipartParameter("CompanyID", pref.getEmpClintId())
                 .addMultipartParameter("StrAttData", aid)
@@ -385,11 +383,6 @@ public class AttendanceApprovalFragment extends Fragment {
                             Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                         }
 
-
-                        // boolean _status = job1.getBoolean("status");
-
-
-                        // do anything with response
                     }
 
                     @Override
@@ -437,12 +430,6 @@ public class AttendanceApprovalFragment extends Fragment {
                         } else {
                             Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                         }
-
-
-                        // boolean _status = job1.getBoolean("status");
-
-
-                        // do anything with response
                     }
 
                     @Override
