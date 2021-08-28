@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginscreendesign"
     android:orientation="vertical"
     tools:context=".activity.activity.LoginActivity">
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -84,7 +84,6 @@
                                     <EditText
                                         android:textStyle="bold"
                                         android:textSize="14sp"
-                                        android:id="@+id/etUserId"
                                         android:layout_marginLeft="5dp"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -114,7 +113,6 @@
                                         android:textSize="14sp"
                                         android:inputType="textPassword"
                                         android:layout_weight="1"
-                                        android:id="@+id/etPassword"
                                         android:layout_marginLeft="5dp"
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
@@ -129,9 +127,8 @@
                                         android:layout_height="match_parent"
                                         android:layout_weight="0.3">
                                         <TextView
-                                            android:textStyle="bold"
                                             android:visibility="visible"
-                                            android:id="@+id/tvShow"
+
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center"
@@ -139,9 +136,8 @@
                                             android:textSize="15sp"
                                             android:text="SHOW"/>
                                         <TextView
-                                            android:textStyle="bold"
+
                                             android:visibility="gone"
-                                            android:id="@+id/tvHide"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center"
@@ -167,7 +163,6 @@
                                     <EditText
                                         android:textStyle="bold"
                                         android:textSize="14sp"
-                                        android:id="@+id/etSecuritycode"
                                         android:layout_marginLeft="5dp"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -188,7 +183,6 @@
                                     android:layout_marginTop="10dp">
                                     <CheckBox
                                         android:layout_weight="1"
-                                        android:id="@+id/ckRemember"
                                         android:layout_width="0dp"
                                         android:layout_height="50dp"
                                         android:backgroundTint="@android:color/white"
@@ -200,7 +194,6 @@
                                         android:layout_height="wrap_content"
                                         android:textSize="12sp"
                                         android:textColor="@android:color/white"
-                                        android:id="@+id/tvForgot"
                                         android:text="Forgot Password"/>
                                 </LinearLayout>
                                 <LinearLayout
@@ -210,7 +203,6 @@
                                     android:gravity="center">
                                     <LinearLayout
                                         android:gravity="center"
-                                        android:id="@+id/llSignIn"
                                         android:layout_width="60dp"
                                         android:layout_height="60dp"
                                         android:background="@drawable/llovaldesign">
@@ -220,7 +212,6 @@
                                             android:layout_height="wrap_content"
                                             >
                                             <ImageView
-                                                android:id="@+id/imgForward"
                                                 android:visibility="visible"
                                                 android:src="@drawable/logforwardicon"
                                                 android:layout_width="30dp"
@@ -228,7 +219,6 @@
                                                 android:layout_gravity="center"/>
                                             <ProgressBar
                                                 android:visibility="gone"
-                                                android:id="@+id/pgBar"
                                                 android:layout_width="30dp"
                                                 android:layout_height="30dp"
                                                 android:layout_gravity="center"/>
@@ -260,7 +250,226 @@
 
         </LinearLayout>
     </FrameLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@mipmap/topbgloginpayhr"
+                ></ImageView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/useridpayhr"/>
+                        <EditText
+                            android:textSize="14sp"
+                            android:id="@+id/etUserId"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@android:color/black"
+                            android:hint="Enter user id"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E1DFDF"></LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/passwordpayhr"/>
+                        <EditText
+                            android:textSize="14sp"
+                            android:inputType="textPassword"
+                            android:layout_weight="1"
+                            android:id="@+id/etPassword"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@android:color/black"
+                            android:hint="Enter Password"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3">
+                            <TextView
+                                android:textStyle="bold"
+                                android:visibility="visible"
+                                android:id="@+id/tvShow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"
+                                android:text="SHOW"/>
+                            <TextView
+                                android:textStyle="bold"
+                                android:visibility="gone"
+                                android:id="@+id/tvHide"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"
+                                android:text="HIDE"/>
+<!--                            <ImageView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:visibility="visible"-->
+<!--                                android:id="@+id/imgShow"-->
+<!--                                android:src="@drawable/showiconpayhr"></ImageView>-->
+<!--                            <ImageView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:visibility="gone"-->
+<!--                                android:id="@+id/imghide"-->
+<!--                                android:src="@drawable/showiconpayhr"></ImageView>-->
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E1DFDF"></LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/scodepayhr"/>
+                        <EditText
+                            android:textSize="14sp"
+                            android:id="@+id/etSecuritycode"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:imeOptions="actionNext"
+                            android:singleLine="true"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@android:color/black"
+                            android:hint="Enter Security Code"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E1DFDF"></LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+                        <CheckBox
+                            android:layout_weight="1"
+                            android:id="@+id/ckRemember"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:backgroundTint="@android:color/white"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"
+                            android:text="Remember Me"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:gravity="right"
+                            android:textColor="@android:color/black"
+                            android:id="@+id/tvForgot"
+                            android:text="Forgot Password"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:gravity="center">
+                        <LinearLayout
+                            android:gravity="center"
+                            android:id="@+id/llSignIn"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            >
+                            <FrameLayout
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                >
+                                <ImageView
+                                    android:id="@+id/imgForward"
+                                    android:visibility="visible"
+                                    android:src="@drawable/loginbuttonpayhr"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"/>
+                                <ProgressBar
+                                    android:visibility="gone"
+                                    android:id="@+id/pgBar"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"/>
+                            </FrameLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#9C27B0"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:layout_marginBottom="5dp"
+                            android:text="2021 @ Genius Consultant Ltd."
+                            android:textSize="12sp"></TextView>
+                    </LinearLayout>
 
+                </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
 
 
 

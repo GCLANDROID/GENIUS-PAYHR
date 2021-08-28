@@ -80,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
     String version;
     CheckBox ckRemember;
     TextView tvShow, tvHide;
+    ImageView imgshow,imghide;
     LinearLayout llLoader;
     int MY_SOCKET_TIMEOUT_MS = 60000;
     GPSTracker gps;
@@ -166,6 +167,8 @@ public class LoginActivity extends AppCompatActivity {
 
         tvShow = (TextView) findViewById(R.id.tvShow);
         tvHide = (TextView) findViewById(R.id.tvHide);
+//        imgshow=(ImageView) findViewById(R.id.imgShow);
+//        imghide=(ImageView) findViewById(R.id.imghide);
 
         imgForward = (ImageView) findViewById(R.id.imgForward);
         pgBar = (ProgressBar) findViewById(R.id.pgBar);
@@ -315,6 +318,23 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+//        imgshow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                imghide.setVisibility(View.VISIBLE);
+//                imgshow.setVisibility(View.GONE);
+//                etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//
+//            }
+//        });
+//        imghide.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                imgshow.setVisibility(View.VISIBLE);
+//                imghide.setVisibility(View.GONE);
+//                etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//            }
+//        });
 
         tvForgot.setOnClickListener(new View.OnClickListener() {
             @Override
