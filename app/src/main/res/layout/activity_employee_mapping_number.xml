@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@drawable/lltoolbardesign">
+        android:background="@mipmap/headerribbon">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
