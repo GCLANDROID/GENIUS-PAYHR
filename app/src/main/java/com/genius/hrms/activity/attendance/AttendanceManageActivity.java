@@ -251,7 +251,8 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         }
         address=getCompleteAddressString(latitude,longitude);
         address1 = address.replaceAll("#","abc").replaceAll("\\s+", "%20");
-        tvAddress.setText("Hi! "+pref.getEmpName()+" You are at: "+address);
+        //tvAddress.setText("Hi! "+pref.getEmpName()+" You are at: "+address);
+        tvAddress.setText(address);
         llClick=(LinearLayout)findViewById(R.id.llClick);
 
         //locationalerts();
