@@ -262,7 +262,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="280dp"
                 android:background="@mipmap/topbgloginpayhr"
                 ></ImageView>
         </LinearLayout>
@@ -308,8 +308,8 @@
                         android:orientation="horizontal">
                         <ImageView
                             android:layout_gravity="center"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:src="@drawable/passwordpayhr"/>
                         <EditText
                             android:textSize="14sp"
@@ -374,8 +374,8 @@
                         android:orientation="horizontal">
                         <ImageView
                             android:layout_gravity="center"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:src="@drawable/scodepayhr"/>
                         <EditText
                             android:textSize="14sp"

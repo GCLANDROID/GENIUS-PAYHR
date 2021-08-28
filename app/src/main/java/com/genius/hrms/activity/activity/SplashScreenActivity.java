@@ -93,7 +93,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
                 }
             }, 3000);
         } else {
-            startActivity(new Intent(SplashScreenActivity.this, DashBoardActivity.class));
+            startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
             finish();
         }
 
