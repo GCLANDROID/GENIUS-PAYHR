@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:orientation="horizontal"
-        android:background="@drawable/lltoolbardesign">
+        android:background="@drawable/attandance_toolbar">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -446,9 +446,9 @@
         android:orientation="vertical"
         android:paddingTop="10dp"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingRight="20dp"
+        android:visibility="gone">
         <LinearLayout
-            android:id="@+id/llAttandanceManage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -478,7 +478,6 @@
             android:background="@color/bar1"></LinearLayout>
         <LinearLayout
             android:layout_marginTop="10dp"
-            android:id="@+id/llAttendanceReport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -591,7 +590,6 @@
 
         <LinearLayout
             android:layout_marginTop="10dp"
-            android:id="@+id/llSupervisior"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -628,7 +626,6 @@
         <LinearLayout
             android:visibility="visible"
             android:layout_marginTop="10dp"
-            android:id="@+id/llBackLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -700,6 +697,78 @@
 
         </LinearLayout>
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="5dp"
+        android:layout_marginTop="20dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+
+                <LinearLayout
+                    android:layout_width="160dp"
+                    android:layout_height="130dp"
+                    android:id="@+id/llAttandanceManage"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/manage_box"></ImageView>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="160dp"
+                    android:layout_height="130dp"
+                    android:id="@+id/llAttendanceReport"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/report_box"></ImageView>
+                </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="160dp"
+                    android:layout_height="130dp"
+                    android:id="@+id/llSupervisior"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/supervisior_box"></ImageView>
+                </LinearLayout>
+
+
+                            <LinearLayout
+                    android:layout_width="160dp"
+                    android:layout_height="130dp"
+                     android:layout_weight="1"
+                    android:id="@+id/llBackLog">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/backlog_attendance_box"></ImageView>
+                </LinearLayout>
+
+
+        </LinearLayout>
     </LinearLayout>
 
 
