@@ -9,33 +9,20 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
+                android:padding="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.4"
-                android:background="@color/colorAccent"></LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.3"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:background="@mipmap/top_header">
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/llUser"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
@@ -46,25 +33,38 @@
                         android:layout_height="30dp"
                         android:src="@drawable/woman"></ImageView>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></LinearLayout>
+                <ImageView
+                    android:id="@+id/imgMenu"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/avatar"></ImageView>
                 <TextView
+                    android:textStyle="italic"
+                    android:fontFamily="serif"
                     android:layout_marginTop="5dp"
                     android:id="@+id/tvGreeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Good Morning"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     />
                 <TextView
+
                     android:id="@+id/tvEmployeeName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Demo"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textSize="20sp"
+                    android:textStyle="italic|bold" />
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_marginBottom="5dp"
                     android:id="@+id/tvLoginDateTime"
                     android:layout_width="wrap_content"
@@ -72,6 +72,10 @@
                     android:text="9 august 2018"
                     android:textColor="@android:color/white"
                     android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></LinearLayout>
 
 
             </LinearLayout>
@@ -82,13 +86,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp">
-                <androidx.cardview.widget.CardView
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    card_view:cardElevation="5dp"
-                    card_view:cardUseCompatPadding="true"
-                    android:background="@android:color/white">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -160,7 +158,7 @@
                                 android:text="No internet connection.Please try again"></TextView>
                         </LinearLayout>
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
+
 
             </LinearLayout>
         </LinearLayout>
