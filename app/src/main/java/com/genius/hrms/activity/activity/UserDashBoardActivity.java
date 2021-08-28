@@ -88,7 +88,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
         llNoConnection=(LinearLayout)findViewById(R.id.llNoConnection);
 
         rvItem=(RecyclerView)findViewById(R.id.rvItem);
-        rvItem.setLayoutManager(new GridLayoutManager(this, 3));
+        rvItem.setLayoutManager(new GridLayoutManager(this, 2));
 
         if (pref.getSecurityCode().equals("1080")){
             ipAddress="https://adityabirla.geniusconsultant.com/";
