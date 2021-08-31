@@ -415,6 +415,7 @@
       android:orientation="vertical"
       android:paddingTop="10dp"
       android:paddingLeft="20dp"
+      android:visibility="gone"
       android:paddingRight="20dp">
     <LinearLayout
         android:id="@+id/llRem"
@@ -447,7 +448,6 @@
         android:background="@color/bar1"></LinearLayout>
     <LinearLayout
         android:layout_marginTop="10dp"
-        android:id="@+id/llCTC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -463,11 +463,10 @@
           <ImageView
               android:layout_width="25dp"
               android:layout_height="25dp"
-              android:src="@drawable/ctcimg"></ImageView>
+              ></ImageView>
 
         </LinearLayout>
         <TextView
-            android:id="@+id/tvCtc"
             android:layout_marginLeft="5dp"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
@@ -485,7 +484,6 @@
 
     <LinearLayout
         android:layout_marginTop="10dp"
-        android:id="@+id/llSalary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -505,7 +503,6 @@
 
         </LinearLayout>
         <TextView
-            android:id="@+id/tvSalary"
             android:layout_marginLeft="5dp"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
@@ -560,6 +557,97 @@
 
 
 
+  </LinearLayout>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="5dp"
+      android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="160dp"
+        android:layout_height="130dp"
+        android:id="@+id/llCTC"
+        android:layout_weight="1">
+      <androidx.cardview.widget.CardView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_margin="10dp"
+        app:cardCornerRadius="8dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+          <ImageView
+              android:layout_width="70dp"
+              android:layout_height="70dp"
+              android:padding="10dp"
+              android:layout_alignParentRight="true"
+              android:layout_alignParentBottom="true"
+              android:id="@+id/ctcimg"
+              android:src="@drawable/ctc_icon_payhr"
+              ></ImageView>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_above="@+id/ctcimg"
+              android:id="@+id/tvCtc"
+              android:padding="10dp"
+              android:textColor="#2196F3"
+              android:text="CTC"
+              android:layout_alignParentLeft="true"
+
+
+              ></TextView>
+
+        </RelativeLayout>
+
+
+      </androidx.cardview.widget.CardView>
+
+
+          </LinearLayout>
+    <LinearLayout
+        android:layout_width="160dp"
+        android:layout_height="130dp"
+        android:id="@+id/llSalary"
+        android:layout_weight="1">
+      <androidx.cardview.widget.CardView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_margin="10dp"
+          app:cardCornerRadius="8dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+          <ImageView
+              android:layout_width="70dp"
+              android:layout_height="70dp"
+              android:padding="10dp"
+              android:layout_alignParentRight="true"
+              android:layout_alignParentBottom="true"
+              android:id="@+id/imgsalary"
+              android:src="@drawable/salary_icon_payhr"
+              ></ImageView>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_above="@+id/imgsalary"
+              android:padding="10dp"
+              android:id="@+id/tvSalary"
+              android:textColor="#2196F3"
+              android:text="Salary"
+              android:layout_alignParentLeft="true"
+
+
+              ></TextView>
+
+        </RelativeLayout>
+
+
+      </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
   </LinearLayout>
 
 </LinearLayout>

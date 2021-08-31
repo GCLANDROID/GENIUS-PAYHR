@@ -131,7 +131,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
     ImageView imgBack, imgHome;
     AlertDialog alerDialog1, alertDialog, alertDialog2;
     Button btnSubmit;
-    Button goSubmit;
+    Button btnMarkAttendance;
     Pref pref;
     String address = "N/A";
     double currentLatitude, currentLongitude;
@@ -179,7 +179,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
 
 
     private void initialize() {
-        goSubmit=findViewById(R.id.goSubmit);
+        btnMarkAttendance=findViewById(R.id.btnMarkAttendance);
         pref = new Pref(getApplicationContext());
         SERVER_PATH = pref.getIpAddress() + "GHRMSApi/api/";
         empId = pref.getEmpId();
@@ -239,11 +239,11 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         if (pref.getLanguage().equals("hi")) {
             tvToolBar.setText("उपस्थिति प्रबंधन");
            // btnSubmit.setText("प्रस्तुत");
-            goSubmit.setText("अपनी उपस्थिति दर्ज करें\n");
+            btnMarkAttendance.setText("अपनी उपस्थिति दर्ज करें\n");
         } else {
             tvToolBar.setText("Attendance manage");
             //btnSubmit.setText("Submit");
-            goSubmit.setText("Mark Your Attendance");
+            btnMarkAttendance.setText("Mark Your Attendance");
         }
 
         gps = new GPSTracker(AttendanceManageActivity.this);
@@ -270,7 +270,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
 
 
     private void onClick() {
-        goSubmit.setOnClickListener(new View.OnClickListener() {
+        btnMarkAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 address=getCompleteAddressString(latitude,longitude);

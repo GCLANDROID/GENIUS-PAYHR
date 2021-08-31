@@ -139,7 +139,7 @@
                         android:textColor="@color/white"
 
                         android:background="@drawable/attandance_toolbar"
-                        android:id="@+id/goSubmit"></Button>
+                        android:id="@+id/btnMarkDailyLogSubmit"></Button>
                 </LinearLayout>
 
             </FrameLayout>

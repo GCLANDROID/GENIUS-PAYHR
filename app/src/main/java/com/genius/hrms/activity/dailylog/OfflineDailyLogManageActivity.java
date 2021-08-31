@@ -165,7 +165,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     TextView tvName;
     AlertDialog al1;
     File compressedImageFile;
-    Button gosubmit;
+    Button btnMarkDailyLogSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,7 +179,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     }
 
     private void initialize() {
-        gosubmit=findViewById(R.id.goSubmit);
+        btnMarkDailyLogSubmit=findViewById(R.id.btnMarkDailyLogSubmit);
         pref = new Pref(getApplicationContext());
         SERVER_PATH = pref.getIpAddress()+"GHRMSApi/api/";
         DATA_SAVED_BROADCAST = pref.getIpAddress()+"GHRMSApi/api/post_OfflineDailyLogActivity";
@@ -255,12 +255,12 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
             tvToolbar.setText("दैनिक लॉग प्रबंधन");
 //            tvRemark.setText("टिप्पणियों");
 //            btnSubmit.setText("गतिविधि सबमिट करें");
-            gosubmit.setText("अपनी उपस्थिति को चिह्नित करें");
+            btnMarkDailyLogSubmit.setText("अपनी उपस्थिति को चिह्नित करें");
         }else {
             tvToolbar.setText("Daily log manage");
 //            tvRemark.setText("Remarks");
 //            btnSubmit.setText("Submit");
-            gosubmit.setText("Mark Your Attendance");
+            btnMarkDailyLogSubmit.setText("Mark Your Attendance");
         }
         pd=new ProgressDialog(this);
         pd.setMessage("Loading..");
@@ -563,7 +563,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     }
 
     private void onClick() {
-        gosubmit.setOnClickListener(new View.OnClickListener() {
+        btnMarkDailyLogSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 address=getCompleteAddressString(latitude,longitude);

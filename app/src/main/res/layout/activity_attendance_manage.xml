@@ -237,7 +237,7 @@
                         android:text="Mark Your Attendance"
                         android:textColor="@color/white"
                         android:background="@drawable/attandance_toolbar"
-                        android:id="@+id/goSubmit"></Button>
+                        android:id="@+id/btnMarkAttendance"></Button>
                 </LinearLayout>
 
             </FrameLayout>

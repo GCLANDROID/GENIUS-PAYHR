@@ -84,6 +84,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
     LinearLayout llWeeklyOff, llHolidayMap;
     TextView tvWeeklyOff, tvHoliDayMap;
     LinearLayout llSupervisior;
+    TextView tvSupervisior;
     TextView tvBackLog,tvRegulization;
     LinearLayout llBackLog,llRegulization;
     GPSTracker gps;
@@ -102,6 +103,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
 
     private void initialize() {
         pref = new Pref(getApplicationContext());
+        tvSupervisior=findViewById(R.id.tvSupervisior);
         connectionCheck = new NetworkConnectionCheck(this);
         llAttandanceManage = (LinearLayout) findViewById(R.id.llAttandanceManage);
         llAttendanceReport = (LinearLayout) findViewById(R.id.llAttendanceReport);
@@ -178,6 +180,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
             tvHoliDayMap.setText("छुट्टी की मैपिंग");
             tvBackLog.setText("बैकलॉग उपस्थिति");
             tvRegulization.setText("अटेन्डेस रेगुलाइजेशन");
+            tvSupervisior.setText("पर्यवेक्षक");
         } else {
             tvReport.setText("Report");
             tvManage.setText("Manage");
@@ -186,6 +189,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
             tvHoliDayMap.setText("Holiday Mapping");
             tvBackLog.setText("Backlog Attendance");
             tvRegulization.setText("Attendance Regulization");
+            tvSupervisior.setText("Supervisior");
         }
 
         myPermission = new CreativePermission(this, PERMISSION_ALL);
