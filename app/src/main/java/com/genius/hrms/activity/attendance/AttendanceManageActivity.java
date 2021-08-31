@@ -78,6 +78,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -115,7 +116,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-
+    BottomSheetDialog dialog;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     NetworkConnectionCheck connectionCheck;
     LatLng latLng;
@@ -129,6 +130,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
     ImageView imgBack, imgHome;
     AlertDialog alerDialog1, alertDialog, alertDialog2;
     Button btnSubmit;
+    Button goSubmit;
     Pref pref;
     String address = "N/A";
     double currentLatitude, currentLongitude;
@@ -171,9 +173,12 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         initialize();
         setUpMapIfNeeded();
         onClick();
+
     }
 
+
     private void initialize() {
+        goSubmit=findViewById(R.id.goSubmit);
         pref = new Pref(getApplicationContext());
         SERVER_PATH = pref.getIpAddress() + "GHRMSApi/api/";
         empId = pref.getEmpId();
@@ -189,9 +194,9 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         connectionCheck = new NetworkConnectionCheck(this);
 
         //  mapView = findViewById(R.id.map);
-        tvAddress = (TextView) findViewById(R.id.tvAddress);
-        imgCamera = (ImageView) findViewById(R.id.imgCamera);
-        imgEmp = (ImageView) findViewById(R.id.imgEmp);
+        //tvAddress = (TextView) findViewById(R.id.tvAddress);
+        //imgCamera = (ImageView) findViewById(R.id.imgCamera);
+        //imgEmp = (ImageView) findViewById(R.id.imgEmp);
         imgBack = (ImageView) findViewById(R.id.imgBack);
         imgHome = (ImageView) findViewById(R.id.imgHome);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
@@ -252,7 +257,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         address=getCompleteAddressString(latitude,longitude);
         address1 = address.replaceAll("#","abc").replaceAll("\\s+", "%20");
         //tvAddress.setText("Hi! "+pref.getEmpName()+" You are at: "+address);
-        tvAddress.setText(address);
+        //tvAddress.setText(address);
         llClick=(LinearLayout)findViewById(R.id.llClick);
 
         //locationalerts();
@@ -260,13 +265,52 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
 
     }
 
+
     private void onClick() {
-        imgCamera.setOnClickListener(new View.OnClickListener() {
+        goSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                cameraIntent();
+            public void onClick(View v) {
+                address=getCompleteAddressString(latitude,longitude);
+                v= getLayoutInflater().inflate(R.layout.fragment_bottom_screen, null);
+
+                dialog = new BottomSheetDialog(AttendanceManageActivity.this);
+                dialog.setContentView(v);
+                dialog.findViewById(R.id.imgCamera).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cameraIntent();
+                    }
+                });
+                imgEmp=dialog.findViewById(R.id.imgEmp);
+                tvAddress=dialog.findViewById(R.id.tvAddress);
+                tvAddress.setText(address);
+                dialog.findViewById(R.id.btnSubmit).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (connectionCheck.isNetworkAvailable()) {
+                            if (addflag == 1) {
+                                attendance();
+                            } else {
+                                attendancefunction();
+                            }
+
+                        } else {
+                            connectionCheck.getNetworkActiveAlert().show();
+                        }
+                    }
+                });
+                dialog.show();
+
+
             }
         });
+
+//        imgCamera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                cameraIntent();
+//            }
+//        });
 
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -292,23 +336,23 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
                 onBackPressed();
             }
         });
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (connectionCheck.isNetworkAvailable()) {
-                    if (addflag == 1) {
-                        attendance();
-                    } else {
-                        attendancefunction();
-                    }
-
-                } else {
-                    connectionCheck.getNetworkActiveAlert().show();
-                }
-
-
-            }
-        });
+//        btnSubmit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (connectionCheck.isNetworkAvailable()) {
+//                    if (addflag == 1) {
+//                        attendance();
+//                    } else {
+//                        attendancefunction();
+//                    }
+//
+//                } else {
+//                    connectionCheck.getNetworkActiveAlert().show();
+//                }
+//
+//
+//            }
+//        });
 
         llClick.setOnClickListener(new View.OnClickListener() {
             @Override
