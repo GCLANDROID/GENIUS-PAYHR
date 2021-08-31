@@ -4,94 +4,72 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp">
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card_view:cardElevation="5dp"
-        card_view:cardUseCompatPadding="true"
-        android:layout_marginTop="20dp">
-        <LinearLayout
+        android:layout_height="match_parent">
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:src="@drawable/dayicon"/>
+            android:layout_height="match_parent">
             <LinearLayout
-                android:layout_width="1dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:background="@color/color1"></LinearLayout>
-            <TextView
-                android:id="@+id/tvPurpose"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@android:color/black"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:src="@drawable/dateimg"/>
-            <LinearLayout
-                android:layout_width="1dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:background="@color/color1"></LinearLayout>
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@android:color/black"/>
-        </LinearLayout>
-            <LinearLayout
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp">
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/timeimg"/>
-                <LinearLayout
-                    android:layout_width="1dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:background="@color/color1"></LinearLayout>
+                android:layout_height="70dp"
+                android:background="@mipmap/boxbg"
+                android:orientation="vertical"
+                android:layout_marginLeft="50dp"
+                android:paddingLeft="60dp">
                 <TextView
-                    android:id="@+id/tvDay"
-                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:id="@+id/tvPurpose"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@android:color/black"/>
+                    android:layout_marginTop="10dp"
+                    android:textColor="#989898"
+                    android:fontFamily="sans-serif"
+                    android:textSize="14sp"
+                    android:text="Saraswati Puja"></TextView>
+                <TextView
+                    android:id="@+id/tvDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#d18832"
+                    android:fontFamily="sans-serif"
+                    android:textSize="12sp"
+                    android:text="Monday"></TextView>
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:orientation="vertical"
+                >
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/llFut"
+                        android:background="@mipmap/bluebg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></LinearLayout>
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:paddingRight="12dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/tvDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:text="12 feb 2021"></TextView>
+                    </LinearLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>
