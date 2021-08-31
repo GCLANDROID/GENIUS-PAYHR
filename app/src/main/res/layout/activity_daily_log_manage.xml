@@ -64,22 +64,21 @@
         android:orientation="vertical"
         android:id="@+id/llMain"
         android:visibility="visible"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="10dp">
+        >
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="0.6">
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
                 <LinearLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
@@ -89,9 +88,9 @@
                         android:id="@+id/map"
                         android:name="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="120dp"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
+
                         />
 
                     <LinearLayout
@@ -101,6 +100,7 @@
                         android:layout_gravity="center"
                         android:paddingLeft="5dp"
                         android:layout_marginBottom="25dp"
+                        android:visibility="gone"
                         android:paddingTop="5dp"
                         >
                         <TextView
@@ -116,6 +116,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:visibility="gone"
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -126,6 +127,20 @@
 
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="bottom">
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mark Your Attendance"
+                        android:textColor="@color/white"
+
+                        android:background="@drawable/attandance_toolbar"
+                        android:id="@+id/goSubmit"></Button>
+                </LinearLayout>
 
             </FrameLayout>
         </LinearLayout>
@@ -134,6 +149,7 @@
             android:layout_height="0dp"
             android:layout_weight="0.3"
             android:gravity="center"
+            android:visibility="gone"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="35dp"
@@ -160,13 +176,16 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical"
+
             android:layout_marginTop="10dp">
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="gone">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:visibility="gone"
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"

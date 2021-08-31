@@ -72,6 +72,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
@@ -106,6 +107,9 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
+    BottomSheetDialog dialog;
+    TextView tvtextAddress;
+    TextView tvcapturest;
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     NetworkConnectionCheck connectionCheck;
@@ -161,6 +165,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     TextView tvName;
     AlertDialog al1;
     File compressedImageFile;
+    Button gosubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,6 +179,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     }
 
     private void initialize() {
+        gosubmit=findViewById(R.id.goSubmit);
         pref = new Pref(getApplicationContext());
         SERVER_PATH = pref.getIpAddress()+"GHRMSApi/api/";
         DATA_SAVED_BROADCAST = pref.getIpAddress()+"GHRMSApi/api/post_OfflineDailyLogActivity";
@@ -209,7 +215,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Uploading...");
-        etRemarks = (EditText) findViewById(R.id.etRemarks);
+       // etRemarks = (EditText) findViewById(R.id.etRemarks);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
 
         gps = new GPSTracker(OfflineDailyLogManageActivity.this);
@@ -240,19 +246,21 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
 
         registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
         llImage = (LinearLayout) findViewById(R.id.llImage);
-        imgCamera = (ImageView) findViewById(R.id.imgCamera);
-        imgPic = (ImageView) findViewById(R.id.imgEmp);
+        //imgCamera = (ImageView) findViewById(R.id.imgCamera);
+        //imgPic = (ImageView) findViewById(R.id.imgEmp);
         llLoader = (LinearLayout) findViewById(R.id.llLoader);
         tvToolbar=(TextView)findViewById(R.id.tvToolBar);
-        tvRemark=(TextView)findViewById(R.id.tvRemark);
+        //tvRemark=(TextView)findViewById(R.id.tvRemark);
         if (pref.getLanguage().equals("hi")){
             tvToolbar.setText("दैनिक लॉग प्रबंधन");
-            tvRemark.setText("टिप्पणियों");
-            btnSubmit.setText("गतिविधि सबमिट करें");
+//            tvRemark.setText("टिप्पणियों");
+//            btnSubmit.setText("गतिविधि सबमिट करें");
+            gosubmit.setText("अपनी उपस्थिति को चिह्नित करें");
         }else {
             tvToolbar.setText("Daily log manage");
-            tvRemark.setText("Remarks");
-            btnSubmit.setText("Submit");
+//            tvRemark.setText("Remarks");
+//            btnSubmit.setText("Submit");
+            gosubmit.setText("Mark Your Attendance");
         }
         pd=new ProgressDialog(this);
         pd.setMessage("Loading..");
@@ -261,7 +269,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         tvName=(TextView)findViewById(R.id.tvName);
         tvName.setText("Hi! "+pref.getEmpName());
 
-        tvAddress.setText("YOU ARE AT: "+cuuaddress);
+        //tvAddress.setText("YOU ARE AT: "+cuuaddress);
 
 
 
@@ -555,6 +563,75 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     }
 
     private void onClick() {
+        gosubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                address=getCompleteAddressString(latitude,longitude);
+                v= getLayoutInflater().inflate(R.layout.fragment_daily_log_bottom_sheet, null);
+
+                dialog = new BottomSheetDialog(OfflineDailyLogManageActivity.this);
+                dialog.setContentView(v);
+                dialog.findViewById(R.id.imgCamera).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cameraIntent();
+                    }
+                });
+                imgPic=dialog.findViewById(R.id.imgEmp);
+                tvAddress=dialog.findViewById(R.id.tvAddress);
+                tvAddress.setText(address);
+                tvRemark=dialog.findViewById(R.id.tvRemark);
+                etRemarks=dialog.findViewById(R.id.etRemarks);
+                btnSubmit=dialog.findViewById(R.id.btnSubmit);
+                tvcapturest=dialog.findViewById(R.id.tvcapturest);
+                tvtextAddress=dialog.findViewById(R.id.tvtextAddress);
+                btnSubmit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (cameraflag == 1) {
+                            Date d = new Date();
+                            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                            String currentDateTimeString = sdf.format(d);
+
+                            Date dof = Calendar.getInstance().getTime();
+
+
+                            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                            String formattedDate = df.format(dof);
+
+                            String date = formattedDate + "  " + currentDateTimeString;
+
+                            if (connectionCheck.isNetworkAvailable()) {
+                                dailyActivity(date);
+                            } else {
+                                attendanceGivenfunction(date);
+                            }
+
+
+                        } else {
+                            showAlert();
+
+                        }
+                    }
+                });
+                dialog.show();
+                if (pref.getLanguage().equals("hi")){
+                   // tvToolbar.setText("दैनिक लॉग प्रबंधन");
+            tvRemark.setText("टिप्पणियों");
+            btnSubmit.setText("गतिविधि सबमिट करें");
+            tvcapturest.setText("छवि कैप्चर करें");
+            tvtextAddress.setText("पता");
+                }else {
+                  //  tvToolbar.setText("Daily log manage");
+            tvRemark.setText("Remarks");
+            btnSubmit.setText("Submit");
+             tvcapturest.setText("Capture Image");
+                    tvtextAddress.setText("Address");
+                }
+
+
+            }
+        });
 
 
         imgHome.setOnClickListener(new View.OnClickListener() {
@@ -603,12 +680,12 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         });
 
 
-        imgCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cameraIntent();
-            }
-        });
+//        imgCamera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                cameraIntent();
+//            }
+//        });
 
 
     }

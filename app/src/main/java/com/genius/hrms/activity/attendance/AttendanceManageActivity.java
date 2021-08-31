@@ -119,6 +119,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
     BottomSheetDialog dialog;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     NetworkConnectionCheck connectionCheck;
+    TextView tvbscaptureimage,tvaddressst;
     LatLng latLng;
     TextView tvAddress;
     ImageView imgCamera, imgEmp;
@@ -237,10 +238,12 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         tvToolBar = (TextView) findViewById(R.id.tvToolBar);
         if (pref.getLanguage().equals("hi")) {
             tvToolBar.setText("उपस्थिति प्रबंधन");
-            btnSubmit.setText("प्रस्तुत");
+           // btnSubmit.setText("प्रस्तुत");
+            goSubmit.setText("अपनी उपस्थिति दर्ज करें\n");
         } else {
             tvToolBar.setText("Attendance manage");
-            btnSubmit.setText("Submit");
+            //btnSubmit.setText("Submit");
+            goSubmit.setText("Mark Your Attendance");
         }
 
         gps = new GPSTracker(AttendanceManageActivity.this);
@@ -284,7 +287,10 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
                 imgEmp=dialog.findViewById(R.id.imgEmp);
                 tvAddress=dialog.findViewById(R.id.tvAddress);
                 tvAddress.setText(address);
-                dialog.findViewById(R.id.btnSubmit).setOnClickListener(new View.OnClickListener() {
+                tvaddressst=dialog.findViewById(R.id.tvaddressst);
+                tvbscaptureimage=dialog.findViewById(R.id.tvbscaptureimage);
+                btnSubmit=dialog.findViewById(R.id.btnSubmit);
+                btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (connectionCheck.isNetworkAvailable()) {
@@ -300,6 +306,19 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
                     }
                 });
                 dialog.show();
+                if (pref.getLanguage().equals("hi")) {
+                    //tvToolBar.setText("उपस्थिति प्रबंधन");
+                    tvaddressst.setText("पता");
+                     btnSubmit.setText("प्रस्तुत");
+                     tvbscaptureimage.setText("छवि कैप्चर करें");
+                    //goSubmit.setText("अपनी उपस्थिति दर्ज करें\n");
+                } else {
+                    //tvToolBar.setText("Attendance manage");
+                    tvaddressst.setText("Address");
+                    btnSubmit.setText("Submit");
+                    tvbscaptureimage.setText("Capture Image");
+                    //goSubmit.setText("Mark Your Attendance");
+                }
 
 
             }
