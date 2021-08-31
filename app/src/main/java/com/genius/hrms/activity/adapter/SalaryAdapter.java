@@ -40,49 +40,7 @@ public class SalaryAdapter extends RecyclerView.Adapter<SalaryAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
         pref=new Pref(context);
-        if (pref.getLanguage().equals("hi")) {
-            final Handler textViewHandler1 = new Handler();
-            new AsyncTask<Void, Void, Void>() {
-                @Override
-                protected Void doInBackground(Void... params) {
-                    TranslateOptions options = TranslateOptions.newBuilder()
-                            .setApiKey("AIzaSyDL1itt-7WRkrelJeuvOfiC-_SGc3JZ4vY")
-                            .build();
-                    Translate translate = options.getService();
-                    final Translation translation =
-                            translate.translate(salryinfoList.get(i).getYear(),
-                                    Translate.TranslateOption.sourceLanguage("en"),    Translate.TranslateOption.targetLanguage(pref.getLanguage()));
-                    textViewHandler1.post(new Runnable() {
-                        @Override
-                        public void run() {
 
-                            Log.d("sssh", translation.getTranslatedText());
-                            String hLoc = translation.getTranslatedText();
-                            myViewHolder.tvYear.setText(hLoc);
-
-
-                        }
-                    });
-                    return null;
-                }
-
-                @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
-
-                }
-
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
-
-                }
-
-
-            }.execute();
-        }else {
-            myViewHolder.tvYear.setText(salryinfoList.get(i).getYear());
-        }
         if (pref.getLanguage().equals("hi")) {
             final Handler textViewHandler2 = new Handler();
             new AsyncTask<Void, Void, Void>() {
@@ -137,10 +95,10 @@ public class SalaryAdapter extends RecyclerView.Adapter<SalaryAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvYear,tvMonth,tvSalary;
+        TextView tvMonth,tvSalary;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvYear=(TextView)itemView.findViewById(R.id.tvYear);
+
             tvMonth=(TextView)itemView.findViewById(R.id.tvMonth);
             tvSalary=(TextView)itemView.findViewById(R.id.tvSalary);
         }
