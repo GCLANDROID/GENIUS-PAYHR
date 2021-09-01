@@ -258,59 +258,13 @@ public class ProfileActivity extends AppCompatActivity {
         llOffical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (imgOffiPlus.getVisibility() == view.VISIBLE) {
-                    imgOffiPlus.setVisibility(View.GONE);
-                    imgOffiMinus.setVisibility(View.VISIBLE);
+                if (llOffDetail.getVisibility() == view.GONE) {
+
                     llOffDetail.setVisibility(View.VISIBLE);
-                    llPerDetail.setVisibility(View.GONE);
-                    imgPerPlus.setVisibility(View.VISIBLE);
-                    imgConPlus.setVisibility(View.VISIBLE);
-                    llConDetail.setVisibility(View.GONE);
-                    llMisDetail.setVisibility(View.GONE);
-                    imgMisPlus.setVisibility(View.VISIBLE);
-                    imgOffFor.setVisibility(View.GONE);
-                    imgOffFor1.setVisibility(View.VISIBLE);
-                    imgPerFor.setVisibility(View.VISIBLE);
-                    imgPerFor1.setVisibility(View.GONE);
-                    imgConFor.setVisibility(View.VISIBLE);
-                    imgConFor1.setVisibility(View.GONE);
-                    imgMisFor.setVisibility(View.VISIBLE);
-                    imgMisFor1.setVisibility(View.GONE);
-                    llOffical.setBackgroundColor(Color.parseColor("#075994"));
-                    llPer.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llCon.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llMis.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    tvOff.setTextColor(Color.parseColor("#ffffff"));
-                    tvPer.setTextColor(Color.parseColor("#000000"));
-                    tvCon.setTextColor(Color.parseColor("#000000"));
-                    tvMis.setTextColor(Color.parseColor("#000000"));
 
                 } else {
-                    imgOffiPlus.setVisibility(View.VISIBLE);
-                    imgOffiMinus.setVisibility(View.GONE);
+
                     llOffDetail.setVisibility(View.GONE);
-                    llPerDetail.setVisibility(View.GONE);
-                    imgPerPlus.setVisibility(View.VISIBLE);
-                    imgConPlus.setVisibility(View.VISIBLE);
-                    llConDetail.setVisibility(View.GONE);
-                    llMisDetail.setVisibility(View.GONE);
-                    imgMisPlus.setVisibility(View.VISIBLE);
-                    imgOffFor.setVisibility(View.VISIBLE);
-                    imgOffFor1.setVisibility(View.GONE);
-                    imgPerFor.setVisibility(View.VISIBLE);
-                    imgPerFor1.setVisibility(View.GONE);
-                    imgConFor.setVisibility(View.VISIBLE);
-                    imgConFor1.setVisibility(View.GONE);
-                    imgMisFor.setVisibility(View.VISIBLE);
-                    imgMisFor1.setVisibility(View.GONE);
-                    llOffical.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llPer.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llCon.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llMis.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    tvOff.setTextColor(Color.parseColor("#000000"));
-                    tvPer.setTextColor(Color.parseColor("#000000"));
-                    tvCon.setTextColor(Color.parseColor("#000000"));
-                    tvMis.setTextColor(Color.parseColor("#000000"));
 
 
                 }
@@ -320,61 +274,13 @@ public class ProfileActivity extends AppCompatActivity {
         llPer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (imgPerPlus.getVisibility() == view.VISIBLE) {
-                    imgPerPlus.setVisibility(View.GONE);
-                    imgPerMinus.setVisibility(View.VISIBLE);
-                    llPerDetail.setVisibility(View.VISIBLE);
-                    llOffDetail.setVisibility(View.GONE);
-                    imgOffiPlus.setVisibility(View.VISIBLE);
-                    imgConPlus.setVisibility(View.VISIBLE);
-                    llConDetail.setVisibility(View.GONE);
-                    llMisDetail.setVisibility(View.GONE);
-                    imgMisPlus.setVisibility(View.VISIBLE);
-                    imgOffFor.setVisibility(View.VISIBLE);
-                    imgOffFor1.setVisibility(View.GONE);
-                    imgPerFor.setVisibility(View.GONE);
-                    imgPerFor1.setVisibility(View.VISIBLE);
-                    imgConFor.setVisibility(View.VISIBLE);
-                    imgConFor1.setVisibility(View.GONE);
-                    imgMisFor.setVisibility(View.VISIBLE);
-                    imgMisFor1.setVisibility(View.GONE);
-                    llOffical.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llPer.setBackgroundColor(Color.parseColor("#075994"));
-                    llCon.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llMis.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    tvOff.setTextColor(Color.parseColor("#000000"));
-                    tvPer.setTextColor(Color.parseColor("#ffffff"));
-                    tvCon.setTextColor(Color.parseColor("#000000"));
-                    tvMis.setTextColor(Color.parseColor("#000000"));
+                if (llPerDetail.getVisibility() == view.GONE) {
 
+                    llPerDetail.setVisibility(View.VISIBLE);
 
                 } else {
-                    imgPerPlus.setVisibility(View.VISIBLE);
-                    imgPerMinus.setVisibility(View.GONE);
-                    llPerDetail.setVisibility(View.GONE);
-                    llOffDetail.setVisibility(View.GONE);
-                    imgOffiPlus.setVisibility(View.VISIBLE);
-                    imgConPlus.setVisibility(View.VISIBLE);
-                    llConDetail.setVisibility(View.GONE);
-                    llMisDetail.setVisibility(View.GONE);
-                    imgMisPlus.setVisibility(View.VISIBLE);
-                    imgOffFor.setVisibility(View.VISIBLE);
-                    imgOffFor1.setVisibility(View.GONE);
-                    imgPerFor.setVisibility(View.VISIBLE);
-                    imgPerFor1.setVisibility(View.GONE);
-                    imgConFor.setVisibility(View.VISIBLE);
-                    imgConFor1.setVisibility(View.GONE);
-                    imgMisFor.setVisibility(View.VISIBLE);
-                    imgMisFor1.setVisibility(View.GONE);
-                    llOffical.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llPer.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llCon.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llMis.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    tvOff.setTextColor(Color.parseColor("#000000"));
-                    tvPer.setTextColor(Color.parseColor("#000000"));
-                    tvCon.setTextColor(Color.parseColor("#000000"));
-                    tvMis.setTextColor(Color.parseColor("#000000"));
 
+                    llPerDetail.setVisibility(View.GONE);
 
                 }
             }
@@ -383,59 +289,13 @@ public class ProfileActivity extends AppCompatActivity {
         llCon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (imgConPlus.getVisibility() == view.VISIBLE) {
-                    imgConPlus.setVisibility(View.GONE);
-                    imgConMinus.setVisibility(View.VISIBLE);
+                if (llConDetail.getVisibility() == view.GONE) {
+
                     llConDetail.setVisibility(View.VISIBLE);
-                    imgOffiPlus.setVisibility(View.VISIBLE);
-                    llOffDetail.setVisibility(View.GONE);
-                    llPerDetail.setVisibility(View.GONE);
-                    imgPerPlus.setVisibility(View.VISIBLE);
-                    llMisDetail.setVisibility(View.GONE);
-                    imgMisPlus.setVisibility(View.VISIBLE);
-                    imgOffFor.setVisibility(View.VISIBLE);
-                    imgOffFor1.setVisibility(View.GONE);
-                    imgPerFor.setVisibility(View.VISIBLE);
-                    imgPerFor1.setVisibility(View.GONE);
-                    imgConFor.setVisibility(View.GONE);
-                    imgConFor1.setVisibility(View.VISIBLE);
-                    imgMisFor.setVisibility(View.VISIBLE);
-                    imgMisFor1.setVisibility(View.GONE);
-                    llOffical.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llPer.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llCon.setBackgroundColor(Color.parseColor("#075994"));
-                    llMis.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    tvOff.setTextColor(Color.parseColor("#000000"));
-                    tvPer.setTextColor(Color.parseColor("#000000"));
-                    tvCon.setTextColor(Color.parseColor("#ffffff"));
-                    tvMis.setTextColor(Color.parseColor("#000000"));
 
                 } else {
-                    imgConPlus.setVisibility(View.VISIBLE);
-                    imgConMinus.setVisibility(View.GONE);
+
                     llConDetail.setVisibility(View.GONE);
-                    imgOffiPlus.setVisibility(View.VISIBLE);
-                    llOffDetail.setVisibility(View.GONE);
-                    llPerDetail.setVisibility(View.GONE);
-                    imgPerPlus.setVisibility(View.VISIBLE);
-                    llMisDetail.setVisibility(View.GONE);
-                    imgMisPlus.setVisibility(View.VISIBLE);
-                    imgOffFor.setVisibility(View.VISIBLE);
-                    imgOffFor1.setVisibility(View.GONE);
-                    imgPerFor.setVisibility(View.VISIBLE);
-                    imgPerFor1.setVisibility(View.GONE);
-                    imgConFor.setVisibility(View.VISIBLE);
-                    imgConFor1.setVisibility(View.GONE);
-                    imgMisFor.setVisibility(View.VISIBLE);
-                    imgMisFor1.setVisibility(View.GONE);
-                    llOffical.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llPer.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llCon.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llMis.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    tvOff.setTextColor(Color.parseColor("#000000"));
-                    tvPer.setTextColor(Color.parseColor("#000000"));
-                    tvCon.setTextColor(Color.parseColor("#000000"));
-                    tvMis.setTextColor(Color.parseColor("#000000"));
 
                 }
             }
@@ -444,58 +304,14 @@ public class ProfileActivity extends AppCompatActivity {
         llMis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (imgMisPlus.getVisibility() == View.VISIBLE) {
-                    imgMisPlus.setVisibility(View.GONE);
+                if (llMisDetail.getVisibility() == View.GONE) {
+
                     llMisDetail.setVisibility(View.VISIBLE);
-                    imgMisMinus.setVisibility(View.VISIBLE);
-                    imgOffiPlus.setVisibility(View.VISIBLE);
-                    imgConPlus.setVisibility(View.VISIBLE);
-                    imgPerPlus.setVisibility(View.VISIBLE);
-                    llOffDetail.setVisibility(View.GONE);
-                    llPerDetail.setVisibility(View.GONE);
-                    llConDetail.setVisibility(View.GONE);
-                    imgOffFor.setVisibility(View.VISIBLE);
-                    imgOffFor1.setVisibility(View.GONE);
-                    imgPerFor.setVisibility(View.VISIBLE);
-                    imgPerFor1.setVisibility(View.GONE);
-                    imgConFor.setVisibility(View.VISIBLE);
-                    imgConFor1.setVisibility(View.GONE);
-                    imgMisFor.setVisibility(View.GONE);
-                    imgMisFor1.setVisibility(View.VISIBLE);
-                    llOffical.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llPer.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llCon.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llMis.setBackgroundColor(Color.parseColor("#075994"));
-                    tvOff.setTextColor(Color.parseColor("#000000"));
-                    tvPer.setTextColor(Color.parseColor("#000000"));
-                    tvCon.setTextColor(Color.parseColor("#000000"));
-                    tvMis.setTextColor(Color.parseColor("#ffffff"));
+
                 } else {
-                    imgMisPlus.setVisibility(View.VISIBLE);
+
                     llMisDetail.setVisibility(View.GONE);
-                    imgMisMinus.setVisibility(View.GONE);
-                    imgOffiPlus.setVisibility(View.VISIBLE);
-                    imgConPlus.setVisibility(View.VISIBLE);
-                    imgPerPlus.setVisibility(View.VISIBLE);
-                    llOffDetail.setVisibility(View.GONE);
-                    llPerDetail.setVisibility(View.GONE);
-                    llConDetail.setVisibility(View.GONE);
-                    imgOffFor.setVisibility(View.VISIBLE);
-                    imgOffFor1.setVisibility(View.GONE);
-                    imgPerFor.setVisibility(View.VISIBLE);
-                    imgPerFor1.setVisibility(View.GONE);
-                    imgConFor.setVisibility(View.VISIBLE);
-                    imgConFor1.setVisibility(View.GONE);
-                    imgMisFor.setVisibility(View.VISIBLE);
-                    imgMisFor1.setVisibility(View.GONE);
-                    llOffical.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llPer.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llCon.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    llMis.setBackgroundColor(Color.parseColor("#c8c9ca"));
-                    tvOff.setTextColor(Color.parseColor("#000000"));
-                    tvPer.setTextColor(Color.parseColor("#000000"));
-                    tvCon.setTextColor(Color.parseColor("#000000"));
-                    tvMis.setTextColor(Color.parseColor("#000000"));
+
                 }
             }
         });
