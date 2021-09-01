@@ -237,7 +237,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                         mContex.startActivity(intent);
                     }else if (pref.getSecurityCode().equals("1000")||pref.getSecurityCode().equals("1080")){
 
-                        Intent intent = new Intent(mContex, LeaveApplicationDashboardActivity.class);
+                        Intent intent = new Intent(mContex, LeaveApplicationActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContex.startActivity(intent);
                     }else {
