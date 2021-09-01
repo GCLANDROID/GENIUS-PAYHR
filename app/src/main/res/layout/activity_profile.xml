@@ -426,6 +426,49 @@
                                     android:layout_height="1dp"
                                     android:layout_marginTop="10dp"
                                     android:background="@color/barcolor"></LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="horizontal"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp">
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.5">
+
+                                        <TextView
+                                            android:id="@+id/tvBranch"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Branch"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/text_color" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                        <TextView
+                                            android:id="@+id/tvBranchName"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="10dp"
+                                            android:text="--"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/text_color" />
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/barcolor"></LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -1340,6 +1383,48 @@
                                     android:layout_height="1dp"
                                     android:layout_marginTop="10dp"
                                     android:background="@color/barcolor"></LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="horizontal"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp">
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.5">
+
+                                        <TextView
+                                            android:id="@+id/tvUAN"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="UAN Number"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/text_color" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                        <TextView
+                                            android:id="@+id/tvUanNumber"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="10dp"
+                                            android:text="--"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/text_color" />
+                                    </LinearLayout>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/barcolor"></LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -1510,7 +1595,6 @@
                                             android:textColor="@color/text_color" />
                                     </LinearLayout>
                                 </LinearLayout>
-
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="1dp"
@@ -1531,10 +1615,10 @@
                                         android:layout_weight="0.5">
 
                                         <TextView
-                                            android:id="@+id/tvUAN"
+                                            android:id="@+id/tvPan"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="UAN Number"
+                                            android:text="Pan Number"
                                             android:textAppearance="?android:textAppearanceSmall"
                                             android:textColor="@color/text_color" />
                                     </LinearLayout>
@@ -1545,7 +1629,7 @@
                                         android:layout_weight="1">
 
                                         <TextView
-                                            android:id="@+id/tvUanNumber"
+                                            android:id="@+id/tvPanNumber"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="10dp"
@@ -1560,6 +1644,13 @@
                                     android:layout_height="1dp"
                                     android:layout_marginTop="10dp"
                                     android:background="@color/barcolor"></LinearLayout>
+
+
+<!--                                <LinearLayout-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="1dp"-->
+<!--                                    android:layout_marginTop="10dp"-->
+<!--                                    android:background="@color/barcolor"></LinearLayout>-->
 
 
                             </LinearLayout>

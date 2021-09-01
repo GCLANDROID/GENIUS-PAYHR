@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView imgOffiPlus, imgOffiMinus, imgPerPlus, imgPerMinus, imgConPlus, imgConMinus, imgMisPlus, imgMisMinus;
     ImageView imgHome, imgBack;
     TextView tvEmplId, tvEmpCode, tvEmpName, tvDOJ, tvDepartment, tvDesignation, tvLocation, tvGender, tvEmpDOB, tvGurdianName, tvRealtionShip, tvQualification, tvMarital, tvBloodGroup;
-    TextView tvParAddr, tvPreAddr, tvPhnNumber, tvEmail, tvPfNumber, tvEsiNumber, tvBankName, tvAcNumber, tvAddharNumber, tvUanNumber;
+    TextView tvParAddr, tvPreAddr, tvPhnNumber, tvEmail, tvPfNumber, tvEsiNumber, tvBankName, tvAcNumber,tvEName, tvAddharNumber,tvPanNumber,tvPan,tvBranch,tvBranchName, tvUanNumber;
     Pref pref;
     String empConsId, empClinId, empClintOffId, empId;
     NetworkConnectionCheck connectionCheck;
@@ -102,10 +102,13 @@ public class ProfileActivity extends AppCompatActivity {
         imgBack = (ImageView) findViewById(R.id.imgBack);
 
         tvEmplId = (TextView) findViewById(R.id.tvEmplId);
+        tvEName=(TextView)findViewById(R.id.tvEName);
         tvEmpCode = (TextView) findViewById(R.id.tvEmpCode);
         tvEmpName = (TextView) findViewById(R.id.tvEmpName);
         tvDOJ = (TextView) findViewById(R.id.tvDOJ);
         tvDepartment = (TextView) findViewById(R.id.tvDepartment);
+        tvBranch=(TextView)findViewById(R.id.tvBranch);
+        tvBranchName=(TextView)findViewById(R.id.tvBranchName);
         tvDesignation = (TextView) findViewById(R.id.tvDesignation);
         tvLocation = (TextView) findViewById(R.id.tvLocation);
 
@@ -128,6 +131,8 @@ public class ProfileActivity extends AppCompatActivity {
         tvAcNumber = (TextView) findViewById(R.id.tvAcNumber);
         tvBankName = (TextView) findViewById(R.id.tvBankName);
         tvAddharNumber = (TextView) findViewById(R.id.tvAddharNumber);
+        tvPanNumber=(TextView) findViewById(R.id.tvPanNumber);
+        tvPan=(TextView)findViewById(R.id.tvPan);
         tvUanNumber = (TextView) findViewById(R.id.tvUanNumber);
         empConsId = pref.getEmpConId();
         Log.d("empConsId", empConsId);
@@ -199,6 +204,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvName.setText("नाम");
             tvDateoJ.setText("जुड़ने की तारीख");
             tvDept.setText("विभाग");
+            tvBranch.setText("डाली");
             tvDes.setText("पद");
             tvLoc.setText("स्थान");
             tvGen.setText("लिंग");
@@ -206,6 +212,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvGName.setText("अभिभावक का नाम");
             tvRelation.setText("संबंध");
             tvQuali.setText("योग्यता");
+            tvStatus.setText("वैवाहिक स्थिति");
             tvStatus.setText("वैवाहिक स्थिति");
             tvBlood.setText("रक्त समूह");
             tvPerAdd.setText("स्थाई पता");
@@ -217,6 +224,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvBank.setText("बैंक का नाम");
             tvAc.setText("खाता संख्या");
             tvAadhar.setText("आधार संख्या");
+            tvPan.setText("पैन नंबर");
             tvUAN.setText("यूएएन नंबर");
         } else {
             tvOff.setText("Official");
@@ -230,6 +238,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvName.setText("Name");
             tvDateoJ.setText("Date of joining");
             tvDept.setText("Department");
+            tvBranch.setText("Branch");
             tvDes.setText("Designation");
             tvLoc.setText("Location");
             tvGen.setText("Gender");
@@ -248,6 +257,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvBank.setText("Bank name");
             tvAc.setText("A/C number");
             tvAadhar.setText("Aadhar number");
+            tvPan.setText("Pan Number");
             tvUAN.setText("UAN number");
         }
 
@@ -418,8 +428,52 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                                     //Name field
-                                    String Name = obj.optString("Name");
-                                    tvEmpName.setText(Name);
+                                    final String Name = obj.optString("Name");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler1 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyDL1itt-7WRkrelJeuvOfiC-_SGc3JZ4vY")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(Name,
+                                                                Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler1.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String hName = translation.getTranslatedText();
+                                                        tvEName.setText(hName);
+                                                        tvEmpName.setText(hName);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    }else{
+                                        tvEName.setText(Name);
+                                        tvEmpName.setText(Name);
+                                    }
+
 
 
                                     //DOJ
@@ -471,6 +525,50 @@ public class ProfileActivity extends AppCompatActivity {
                                     } else {
                                         tvDepartment.setText(Department);
                                     }
+                                    final String Branch = obj.optString("Branch");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler4 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyDL1itt-7WRkrelJeuvOfiC-_SGc3JZ4vY")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(Branch,
+                                                                Translate.TranslateOption.sourceLanguage("en"),   Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler4.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        tvBranchName.setText(h);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        tvBranchName.setText(Branch);
+                                    }
+
 
                                     final String Designation = obj.optString("Designation");
                                     if (pref.getLanguage().equals("hi")) {
@@ -1041,6 +1139,12 @@ public class ProfileActivity extends AppCompatActivity {
                                         tvUanNumber.setText(UanNo);
                                     } else {
                                         tvUanNumber.setText("N/A");
+                                    }
+                                    String panNo=obj.optString("PanNo");
+                                    if (!panNo.equals("")){
+                                        tvPanNumber.setText(panNo);
+                                    }else{
+                                        tvPanNumber.setText("N/A");
                                     }
                                 }
                             } else {
