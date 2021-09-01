@@ -5,7 +5,7 @@
         android:id="@+id/lnMin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/lldesign"
+        android:background="@mipmap/report_bg"
         android:orientation="vertical"
         android:layout_marginBottom="10dp">
 
@@ -333,7 +333,7 @@
                         android:id="@+id/llInImage"
                         android:layout_width="130dp"
                         android:layout_height="30dp"
-                        android:background="@color/orange"
+                        android:background="@mipmap/attendance_report_bg"
                         android:gravity="center">
                         <TextView
                             android:textAlignment="center"
@@ -349,7 +349,7 @@
                         android:layout_width="130dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/darkblue"
+                        android:background="@mipmap/attendance_report_bg"
                         android:gravity="center">
 
                         <TextView

@@ -65,6 +65,7 @@ import java.util.Date;
 
 
 public class AttendanceActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+    private static final int PERMISSION_ALL = 100;
     LinearLayout llAttandanceManage, llAttendanceReport;
     ImageView imgBack, imgHome;
     AlertDialog alerDialog1;
@@ -79,18 +80,16 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
     GoogleApiClient googleApiClient;
     AlertDialog alertDialog;
     TextView tvManage, tvReport, tvToolBar;
-    private CreativePermission myPermission;
-    private static final int PERMISSION_ALL = 100;
     LinearLayout llWeeklyOff, llHolidayMap;
     TextView tvWeeklyOff, tvHoliDayMap;
     LinearLayout llSupervisior;
     TextView tvSupervisior;
-    TextView tvBackLog,tvRegulization;
-    LinearLayout llBackLog,llRegulization;
+    TextView tvBackLog, tvRegulization;
+    LinearLayout llBackLog, llRegulization;
     GPSTracker gps;
     double latitude;
     String attCode;
-
+    private CreativePermission myPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,13 +102,13 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
 
     private void initialize() {
         pref = new Pref(getApplicationContext());
-        tvSupervisior=findViewById(R.id.tvSupervisior);
+        tvSupervisior = findViewById(R.id.tvSupervisior);
         connectionCheck = new NetworkConnectionCheck(this);
-        llAttandanceManage = (LinearLayout) findViewById(R.id.llAttandanceManage);
-        llAttendanceReport = (LinearLayout) findViewById(R.id.llAttendanceReport);
-        llWeeklyOff = (LinearLayout) findViewById(R.id.llWeeklyOff);
-        llHolidayMap = (LinearLayout) findViewById(R.id.llHolidayMap);
-        llBackLog = (LinearLayout) findViewById(R.id.llBackLog);
+        llAttandanceManage = findViewById(R.id.llAttandanceManage);
+        llAttendanceReport = findViewById(R.id.llAttendanceReport);
+        llWeeklyOff = findViewById(R.id.llWeeklyOff);
+        llHolidayMap = findViewById(R.id.llHolidayMap);
+        llBackLog = findViewById(R.id.llBackLog);
         if (pref.getWeeklyOffFlag().equals("1")) {
             llWeeklyOff.setVisibility(View.VISIBLE);
         } else {
@@ -123,8 +122,8 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
         }
 
 
-        imgBack = (ImageView) findViewById(R.id.imgBack);
-        imgHome = (ImageView) findViewById(R.id.imgHome);
+        imgBack = findViewById(R.id.imgBack);
+        imgHome = findViewById(R.id.imgHome);
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         formattedDate = df.format(c);
@@ -165,13 +164,13 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
 
 //
 
-        tvToolBar = (TextView) findViewById(R.id.tvToolBar);
-        tvManage = (TextView) findViewById(R.id.tvManage);
-        tvReport = (TextView) findViewById(R.id.tvReport);
-        tvWeeklyOff = (TextView) findViewById(R.id.tvWeeklyOff);
-        tvHoliDayMap = (TextView) findViewById(R.id.tvHoliDayMap);
-        tvBackLog = (TextView) findViewById(R.id.tvBackLog);
-        tvRegulization = (TextView) findViewById(R.id.tvRegulization);
+        tvToolBar = findViewById(R.id.tvToolBar);
+        tvManage = findViewById(R.id.tvManage);
+        tvReport = findViewById(R.id.tvReport);
+        tvWeeklyOff = findViewById(R.id.tvWeeklyOff);
+        tvHoliDayMap = findViewById(R.id.tvHoliDayMap);
+        tvBackLog = findViewById(R.id.tvBackLog);
+        tvRegulization = findViewById(R.id.tvRegulization);
         if (pref.getLanguage().equals("hi")) {
             tvReport.setText("रिपोर्ट");
             tvManage.setText("प्रबंधन");
@@ -193,11 +192,11 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
         }
 
         myPermission = new CreativePermission(this, PERMISSION_ALL);
-        llSupervisior = (LinearLayout) findViewById(R.id.llSupervisior);
-        llRegulization = (LinearLayout) findViewById(R.id.llRegulization);
+        llSupervisior = findViewById(R.id.llSupervisior);
+        llRegulization = findViewById(R.id.llRegulization);
         gps = new GPSTracker(AttendanceActivity.this);
         if (gps.canGetLocation()) {
-             latitude = gps.getLatitude();
+            latitude = gps.getLatitude();
             Log.d("saikatdas", String.valueOf(latitude));
             double longitude = gps.getLongitude();
         } else {
@@ -206,10 +205,10 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
 // Ask user to enable GPS/network in settings
 
         }
-        if (pref.getSecurityCode().equals("123")){
+        if (pref.getSecurityCode().equals("123")) {
             llBackLog.setVisibility(View.GONE);
             llRegulization.setVisibility(View.GONE);
-        }else {
+        } else {
             llBackLog.setVisibility(View.VISIBLE);
             llRegulization.setVisibility(View.GONE);
         }
@@ -222,7 +221,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AttendanceActivity.this, BacklogActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -231,7 +230,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AttendanceActivity.this, AttendanceRegulizationActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -239,20 +238,14 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
             @Override
             public void onClick(View v) {
                 if (connectionCheck.isNetworkAvailable()) {
-                    if (pref.getAttenFlag().equals("0")) {
-                        if (latitude!=0.0) {
+                    if (connectionCheck.isGPSEnabled()) {
 
 
-                            attenDanceIntent();
-                        }else {
-                            Toast.makeText(getApplicationContext(),"Sorry!Your current address not found.Please check your GPS connection",Toast.LENGTH_LONG).show();
-                        }
-
-
-
-                    } else {
-                        blockshowing();
+                        attenDanceIntent();
+                    }else {
+                        connectionCheck.getSettingsAlert().show();
                     }
+
 
                 } else {
                     connectionCheck.getNetworkActiveAlert().show();
@@ -390,11 +383,11 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_blocked, null);
         dialogBuilder.setView(dialogView);
-        TextView tvSuccess = (TextView) dialogView.findViewById(R.id.tvSuccess);
+        TextView tvSuccess = dialogView.findViewById(R.id.tvSuccess);
         tvSuccess.setText("Your attendance has been blocked");
 
 
-        Button btnOk = (Button) dialogView.findViewById(R.id.btnOk);
+        Button btnOk = dialogView.findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -416,9 +409,9 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
             Intent intent = new Intent(AttendanceActivity.this, AttendanceManageForPPSActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        } else if (pref.getSecurityCode().equals("1135")){
-           getAttendanceInformation();
-        }else {
+        } else if (pref.getSecurityCode().equals("1135")) {
+            getAttendanceInformation();
+        } else {
             Intent intent = new Intent(AttendanceActivity.this, AttendanceManageActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -432,7 +425,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
             Intent intent = new Intent(AttendanceActivity.this, AttendanceReportForPPSActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        } else  {
+        } else {
             Intent intent = new Intent(AttendanceActivity.this, AttendanceReportActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -456,13 +449,13 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
 
     }
 
-    private void getAttendanceInformation(){
+    private void getAttendanceInformation() {
         Log.d("Arpan", "arpan");
-        final ProgressDialog progressDialog=new ProgressDialog(AttendanceActivity.this);
+        final ProgressDialog progressDialog = new ProgressDialog(AttendanceActivity.this);
         progressDialog.setMessage("Loadingg..");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID="+pref.getEmpId()+"&AttendanceDate="+formattedDate+"&SecurityCode="+pref.getSecurityCode();
+        String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
         Log.d("input", surl);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
                 new Response.Listener<String>() {
@@ -484,17 +477,16 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
                             if (responseStatus) {
                                 // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
 
-                              attCode="1";
-
+                                attCode = "1";
 
 
                             } else {
-                                attCode="0";
+                                attCode = "0";
                             }
 
                             Intent intent = new Intent(AttendanceActivity.this, Em3AttendnaceActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("attCode",attCode);
+                            intent.putExtra("attCode", attCode);
                             startActivity(intent);
 
 
@@ -518,8 +510,6 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
         RequestQueue requestQueue = Volley.newRequestQueue(AttendanceActivity.this);
         requestQueue.add(stringRequest);
     }
-
-
 
 
 }

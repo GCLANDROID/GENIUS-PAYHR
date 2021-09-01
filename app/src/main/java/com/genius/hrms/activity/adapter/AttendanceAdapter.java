@@ -90,6 +90,18 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
             });
         }
 
+        if (!jsonObject.optString("EmpOutFnameUrl").equals("")) {
+            holder.binding.llOutImage.setVisibility(View.VISIBLE);
+        }else {
+            holder.binding.llOutImage.setVisibility(View.GONE);
+        }
+
+        if (!jsonObject.optString("EmpInFnameUrl").equals("")) {
+            holder.binding.llInImage.setVisibility(View.VISIBLE);
+        }else {
+            holder.binding.llInImage.setVisibility(View.GONE);
+        }
+
 
     }
 
