@@ -25,5 +25,6 @@
     <color name="color7">#8f8f8f</color>
     <color name="color8">#085A96</color>
     <color name="menutextcolor">#419aec</color>
+    <color name="grey">#D9DCDB</color>
 
 </resources>
