@@ -146,6 +146,22 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }else {
             myViewHolder.tvDate.setText(itemList.get(i).getDate());
         }
+        if (pref.getLanguage().equals("hi")) {
+            myViewHolder.tvDateTitle.setText("दिनांक");
+            myViewHolder.tvLocationTitle.setText("स्थान/शाखाएं");
+            myViewHolder.tvTotalTitle.setText("कुल कर्मचारी");
+            myViewHolder.tvPresentTitle.setText("में");
+            myViewHolder.tvAbsentTitle.setText("बाहर");
+            myViewHolder.tvNotMarkTitle.setText("मार्क नहीं");
+
+        }else{
+            myViewHolder.tvDateTitle.setText("Date");
+            myViewHolder.tvLocationTitle.setText("Location/Branches");
+            myViewHolder.tvTotalTitle.setText("Total Employee");
+            myViewHolder.tvPresentTitle.setText("IN");
+            myViewHolder.tvAbsentTitle.setText("OUT");
+            myViewHolder.tvNotMarkTitle.setText("NOT MARK");
+        }
 
         myViewHolder.llIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,6 +216,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvLocation,tvTotal,tvPresent,tvAbsent,tvDate,tvPresentPer,tvAbsentPer,tvNotMarkPer,tvNotMark;
+        TextView tvDateTitle,tvLocationTitle,tvPresentTitle,tvAbsentTitle,tvTotalTitle,tvNotMarkTitle;
         LinearLayout llIn,llOut,llNot;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -213,6 +230,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             tvNotMarkPer=(TextView)itemView.findViewById(R.id.tvNotMarkPer);
             tvAbsentPer=(TextView)itemView.findViewById(R.id.tvAbsentPer);
             tvPresentPer=(TextView)itemView.findViewById(R.id.tvPresentPer);
+
+            tvDateTitle=(TextView)itemView.findViewById(R.id.tvDateTitle);
+            tvLocationTitle=(TextView)itemView.findViewById(R.id.tvLocationTitle);
+            tvTotalTitle=(TextView)itemView.findViewById(R.id.tvTotalTitle);
+            tvPresentTitle=(TextView)itemView.findViewById(R.id.tvPresentTitle);
+            tvAbsentTitle=(TextView)itemView.findViewById(R.id.tvAbsentTitle);
+            tvNotMarkTitle=(TextView)itemView.findViewById(R.id.tvNotMarkTitle);
 
             llIn=(LinearLayout)itemView.findViewById(R.id.llIn);
             llOut=(LinearLayout)itemView.findViewById(R.id.llOut);
