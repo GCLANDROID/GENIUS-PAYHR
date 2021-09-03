@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
+import com.genius.hrms.activity.activity.WebViewActivity;
 import com.genius.hrms.activity.utility.Pref;
 
 
@@ -195,7 +197,10 @@ public class PayrollActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                openBrowser();
+                Intent intent=new Intent(PayrollActivity.this, WebViewActivity.class);
+                intent.putExtra("imageurl",pref.getCTCURL());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
         llRem.setOnClickListener(new View.OnClickListener() {

@@ -35,6 +35,7 @@ import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
+import com.genius.hrms.activity.activity.WebViewActivity;
 import com.genius.hrms.activity.adapter.SalaryAdapter;
 import com.genius.hrms.activity.model.SalaryModule;
 import com.genius.hrms.activity.model.SpinnerModel;
@@ -248,7 +249,10 @@ public class SalaryActivity extends AppCompatActivity implements RecyclerItemCli
     @Override
     public void onItemClick(View childView, int position) {
         surl = salaryList.get(position).getSurl();
-        operBrowser();
+        Intent intent=new Intent(SalaryActivity.this, WebViewActivity.class);
+        intent.putExtra("imageurl",surl);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
 
     }
 
