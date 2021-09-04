@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,8 +36,9 @@ import org.json.JSONObject;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     EditText etUserId, etSecuritycode;
-    TextView tvForgot;
-    Button btnSubmit;
+    TextView tvForgot,tvToolBar;
+    //Button btnSubmit;
+    ImageView btnSubmit,imgHome,imgBack;
     Pref pref;
     AlertDialog alerDialog1;
 
@@ -50,24 +52,29 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private void initView() {
         pref = new Pref(getApplicationContext());
+
         etUserId = (EditText) findViewById(R.id.etUserId);
         etSecuritycode = (EditText) findViewById(R.id.etSecuritycode);
 
         tvForgot = (TextView) findViewById(R.id.tvForgot);
-        btnSubmit = (Button) findViewById(R.id.btnSubmit);
+        //btnSubmit = (Button) findViewById(R.id.btnSubmit);
+        btnSubmit=(ImageView) findViewById(R.id.btnsubmit);
+        tvToolBar=findViewById(R.id.tvToolBar);
+        imgBack=(ImageView)findViewById(R.id.imgBack);
+        imgHome=(ImageView)findViewById(R.id.imgHome);
 
         if (pref.getLanguage().equals("hi")) {
-
+            tvToolBar.setText("पासवर्ड भूल गया");
             etUserId.setHint("अपनी उपयोगकर्ता आईडी दर्ज करें");
             etSecuritycode.setHint("अपना गुप्त कोड डालो");
-            tvForgot.setText("पासवर्ड भूल गए");
-            btnSubmit.setText("प्रस्तुत");
+            //tvForgot.setText("पासवर्ड भूल गए");
+            //btnSubmit.setText("प्रस्तुत");
         } else {
-
+            tvToolBar.setText("FORGOT PASSWORD");
             etUserId.setHint("Enter your userid");
             etSecuritycode.setHint("Enter your security code");
-            tvForgot.setText("Forgot Password");
-            btnSubmit.setText("SUBMIT");
+            //tvForgot.setText("Forgot Password");
+           // btnSubmit.setText("SUBMIT");
         }
     }
 
@@ -76,6 +83,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 forgotpassword();
+            }
+        });
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        imgHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), UserDashBoardActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
