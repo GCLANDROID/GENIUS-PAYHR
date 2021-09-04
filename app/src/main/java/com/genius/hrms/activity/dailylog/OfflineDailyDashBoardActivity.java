@@ -17,13 +17,14 @@ import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.attendance.AttendanceActivity;
 import com.genius.hrms.activity.attendance.AttendanceReportActivity;
 import com.genius.hrms.activity.attendance.AttendanceReportForPPSActivity;
+import com.genius.hrms.activity.attendance.BacklogActivity;
 import com.genius.hrms.activity.attendance.SuperVisiorActivity;
 import com.genius.hrms.activity.utility.NetworkConnectionCheck;
 import com.genius.hrms.activity.utility.Pref;
 
 
 public class OfflineDailyDashBoardActivity extends AppCompatActivity {
-    LinearLayout llManage, llReport, llLog,llSubordinate;
+    LinearLayout llManage, llReport, llLog,llSubordinate,llBackLog;
 
     ImageView imgBack, imgHome;
     NetworkConnectionCheck connectionCheck;
@@ -49,6 +50,7 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
 
 
         llLog = (LinearLayout) findViewById(R.id.llLog);
+        llBackLog=(LinearLayout)findViewById(R.id.llBackLog);
 
         imgBack = (ImageView) findViewById(R.id.imgBack);
         imgHome = (ImageView) findViewById(R.id.imgHome);
@@ -77,6 +79,14 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
     }
 
     private void onClick() {
+        llBackLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OfflineDailyDashBoardActivity.this, BacklogActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
         llManage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

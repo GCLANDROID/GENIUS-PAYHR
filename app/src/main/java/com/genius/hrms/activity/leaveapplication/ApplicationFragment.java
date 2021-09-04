@@ -1166,7 +1166,7 @@ public class ApplicationFragment extends Fragment {
         });
 
         alert1 = dialogBuilder.create();
-        alert1.setCancelable(true);
+        alert1.setCancelable(false);
         Window window = alert1.getWindow();
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.TOP);
