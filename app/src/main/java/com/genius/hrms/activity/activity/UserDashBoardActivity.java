@@ -87,7 +87,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
         imgLogout=findViewById(R.id.imgLogout);
 
         rvItem=(RecyclerView)findViewById(R.id.rvItem);
-        rvItem.setLayoutManager(new GridLayoutManager(this, 4));
+        rvItem.setLayoutManager(new GridLayoutManager(this, 3));
 
         if (pref.getSecurityCode().equals("1080")){
             ipAddress="https://adityabirla.geniusconsultant.com/";
