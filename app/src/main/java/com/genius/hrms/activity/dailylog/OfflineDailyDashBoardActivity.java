@@ -29,7 +29,7 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
     ImageView imgBack, imgHome;
     NetworkConnectionCheck connectionCheck;
     ProgressDialog progressDialog;
-    TextView tvManage,tvLogBook,tvReport,tvToolBar,tvsubordinate;
+    TextView tvManage,tvLogBook,tvReport,tvToolBar,tvsubordinate,tvBackLog;
     Pref pref;
 
 
@@ -63,18 +63,21 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         tvReport=(TextView)findViewById(R.id.tvReport);
         tvToolBar=(TextView)findViewById(R.id.tvToolBar);
         tvsubordinate=(TextView)findViewById(R.id.tvsubordinate);
+        tvBackLog=findViewById(R.id.tvBackLog);
         if (pref.getLanguage().equals("hi")){
             tvManage.setText("प्रबंधन");
             tvLogBook.setText("कार्यपंजी");
             tvReport.setText("रिपोर्ट");
             tvToolBar.setText("दैनिक लॉग");
             tvsubordinate.setText("टीम रिपोर्ट");
+            tvBackLog.setText("बैकलॉग उपस्थिति\n");
         }else {
             tvManage.setText("Manage");
             tvLogBook.setText("Log Book");
             tvReport.setText("Report");
             tvToolBar.setText("Daily Log");
             tvsubordinate.setText("Team Report");
+            tvBackLog.setText("Backlog Attendance");
         }
     }
 

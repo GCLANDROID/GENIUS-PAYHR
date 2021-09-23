@@ -231,42 +231,62 @@
             android:layout_width="160dp"
             android:layout_height="130dp"
             android:id="@+id/llMultiple"
+            android:gravity="center"
+            android:background="@drawable/layoutstroke"
+            android:orientation="vertical"
             android:layout_weight="1">
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                app:cardCornerRadius="8dp">
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:padding="10dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:id="@+id/multipleimg"
-                        android:src="@drawable/multipule_geofence_payhr"
-                        ></ImageView>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/multipleimg"
-                        android:id="@+id/tvMultiple"
-                        android:padding="10dp"
-                        android:textColor="#2196F3"
-                        android:text="Multiple Geo Fence"
-                        android:layout_alignParentLeft="true"
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_margin="10dp"-->
+<!--                app:cardCornerRadius="8dp">-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    >-->
+<!--                    <ImageView-->
+<!--                        android:layout_width="70dp"-->
+<!--                        android:layout_height="70dp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_alignParentBottom="true"-->
+<!--                        android:id="@+id/multipleimg"-->
+<!--                        android:src="@drawable/multipule_geofence_payhr"-->
+<!--                        ></ImageView>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_above="@+id/multipleimg"-->
+<!--                        android:id="@+id/tvMultiple"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:textColor="#2196F3"-->
+<!--                        android:text="Multiple Geo Fence"-->
+<!--                        android:layout_alignParentLeft="true"-->
 
 
-                        ></TextView>
+<!--                        ></TextView>-->
 
-                </RelativeLayout>
+<!--                </RelativeLayout>-->
 
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
+            <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:padding="10dp"
+                                    android:id="@+id/multipleimg"
+                                    android:src="@drawable/multipulegeofenceiconagain_payhr"
+                                    ></ImageView>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/tvMultiple"
+                                    android:padding="10dp"
+                                    android:textColor="#000000"
+                                    android:text="Multiple Geo Fence"
+
+
+                                    ></TextView>
 
 
         </LinearLayout>
@@ -274,43 +294,66 @@
             android:layout_width="160dp"
             android:layout_height="130dp"
             android:id="@+id/llSingle"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/layoutstrokebottom"
             android:layout_weight="1">
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                app:cardCornerRadius="8dp">
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:padding="10dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:id="@+id/imgsingle"
-                        android:src="@drawable/single_geofence_payhr"
-                        ></ImageView>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/imgsingle"
-                        android:padding="10dp"
-                        android:id="@+id/tvSingle"
-                        android:textColor="#2196F3"
-                        android:text="Single Geo Fence"
-                        android:layout_alignParentLeft="true"
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_margin="10dp"-->
+<!--                app:cardCornerRadius="8dp">-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    >-->
+<!--                    <ImageView-->
+<!--                        android:layout_width="70dp"-->
+<!--                        android:layout_height="70dp"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_alignParentBottom="true"-->
+<!--                        android:id="@+id/imgsingle"-->
+<!--                        android:src="@drawable/single_geofence_payhr"-->
+<!--                        ></ImageView>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_above="@+id/imgsingle"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:id="@+id/tvSingle"-->
+<!--                        android:textColor="#2196F3"-->
+<!--                        android:text="Single Geo Fence"-->
+<!--                        android:layout_alignParentLeft="true"-->
 
 
-                        ></TextView>
+<!--                        ></TextView>-->
 
-                </RelativeLayout>
+<!--                </RelativeLayout>-->
 
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:padding="10dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentBottom="true"
+                                    android:id="@+id/imgsingle"
+                                    android:src="@drawable/singlegeofenceiconagain_payhr"
+                                    ></ImageView>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_above="@+id/imgsingle"
+                                    android:padding="10dp"
+                                    android:id="@+id/tvSingle"
+                                    android:textColor="#000000"
+                                    android:text="Single Geo Fence"
+                                    android:layout_alignParentLeft="true"
 
+
+                                    ></TextView>
         </LinearLayout>
     </LinearLayout>
 

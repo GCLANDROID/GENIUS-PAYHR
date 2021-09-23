@@ -117,46 +117,46 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
         }
 
         if (itemList.get(i).getMenuId()==1){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.profile);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.profile_payhr);
         }
         else if (itemList.get(i).getMenuId()==5){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.attedance);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.attendance_payhr);
         }
         else if (itemList.get(i).getMenuId()==6){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.payroll);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.payroll_payhr);
         }
         else if (itemList.get(i).getMenuId()==7){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.dailylog);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.dailylog_payhr);
         }
         else if (itemList.get(i).getMenuId()==8){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.dailylog);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.dailylog_payhr);
         }
         else if (itemList.get(i).getMenuId()==9){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.geofence);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.geofence_payhr);
         }
         else if (itemList.get(i).getMenuId()==10){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.leaveapplication);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.leaveapplication_payhr);
         }
         else if (itemList.get(i).getMenuId()==11){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.subordinate_report);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.subordinatereport_payhr);
         }
         else if (itemList.get(i).getMenuId()==12){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.holiday_list);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.holidaylist_payhr);
         }
         else if (itemList.get(i).getMenuId()==13){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.bilangual);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.bilingual_payhr);
         }
         else if (itemList.get(i).getMenuId()==14){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.elearning);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.elearning_payhr);
         }
         else if (itemList.get(i).getMenuId()==4){
             myViewHolder.imgMenu.setImageResource(R.drawable.conversation);
         }
         else  if (itemList.get(i).getMenuId()==2){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.logout);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.logout_payhr);
         }
         else  if (itemList.get(i).getMenuId()==3){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.changepassword);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.changepassword_payhr);
         }
         else  if (itemList.get(i).getMenuId()==101){
             myViewHolder.imgMenu.setImageResource(R.drawable.questionicon);

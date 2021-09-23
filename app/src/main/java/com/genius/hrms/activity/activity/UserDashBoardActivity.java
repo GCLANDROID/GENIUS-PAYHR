@@ -67,6 +67,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
     TextView tvGreeting, tvLoginDateTime, tvEmployeeName;
     AlertDialog alerDialog1,alert1;
     LinearLayout llUser;
+    ImageView imgLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +84,10 @@ public class UserDashBoardActivity extends AppCompatActivity {
         llLoader=(LinearLayout)findViewById(R.id.llLoader);
         llMain=(LinearLayout)findViewById(R.id.llMain);
         llNoConnection=(LinearLayout)findViewById(R.id.llNoConnection);
+        imgLogout=findViewById(R.id.imgLogout);
 
         rvItem=(RecyclerView)findViewById(R.id.rvItem);
-        rvItem.setLayoutManager(new GridLayoutManager(this, 2));
+        rvItem.setLayoutManager(new GridLayoutManager(this, 4));
 
         if (pref.getSecurityCode().equals("1080")){
             ipAddress="https://adityabirla.geniusconsultant.com/";
@@ -229,6 +231,13 @@ public class UserDashBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(UserDashBoardActivity.this, LeaveApplicationDashboardActivity.class);
+                startActivity(intent);
+            }
+        });
+        imgLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(UserDashBoardActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });
