@@ -73,13 +73,10 @@ public class UserDashBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_dash_board);
         initView();
-
         onClick();
-
     }
 
     private void initView(){
-
         pref=new Pref(UserDashBoardActivity.this);
         pref.setFirstTimeLaunch(true);
 
@@ -126,10 +123,8 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
             if (pref.getLanguage().equals("hi")) {
                 tvGreeting.setText("सुसंध्या");
-
             } else {
                 tvGreeting.setText("Good Evening");
-
             }
         }
 
@@ -148,11 +143,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
             getMenuList();
         }
         llUser=(LinearLayout)findViewById(R.id.llUser);
-
-
-    }
-
-
+   }
     private void getMenuList() {
         Log.d("Arpan", "arpan");
         llLoader.setVisibility(View.VISIBLE);
@@ -186,8 +177,6 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
                                     MenuItemModel obj2 = new MenuItemModel(MenuItemName,MenuItemId);
                                     itemList.add(obj2);
-
-
                                 }
                                // itemList.add(new MenuItemModel("Post Query",101));
                                 llLoader.setVisibility(View.GONE);
@@ -200,14 +189,10 @@ public class UserDashBoardActivity extends AppCompatActivity {
                                 llMain.setVisibility(View.GONE);
                                 llNoConnection.setVisibility(View.GONE);
                                 //Toast.makeText(getApplicationContext(), "No data found", Toast.LENGTH_LONG).show();
-
                             }
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                             // Toast.makeText(AttendanceReportActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
-
                         }
 
                     }
@@ -240,9 +225,6 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 swipeToRefresh.setRefreshing(false);
             }
         });
-
-
-
         llUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -252,11 +234,6 @@ public class UserDashBoardActivity extends AppCompatActivity {
         });
 
     }
-
-
-
-
-
     public void shoeDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(UserDashBoardActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -270,11 +247,9 @@ public class UserDashBoardActivity extends AppCompatActivity {
         final ImageView imgBlueTajMahal=(ImageView)dialogView.findViewById(R.id.imgBlueTajMahal);
         final TextView tvEnglish=(TextView)dialogView.findViewById(R.id.tvEnglish);
         final TextView tvHindi=(TextView)dialogView.findViewById(R.id.tvHindi);
-
         llHindi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 pref.saveLanguage("hi");
                 alert2.dismiss();
                 getMenuList();
@@ -282,24 +257,13 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
                 if (timeOfDay >= 0 && timeOfDay < 12) {
-
                         tvGreeting.setText("शुभ प्रभात");
-
                 } else if (timeOfDay >= 12 && timeOfDay < 16) {
-
                         tvGreeting.setText("नमस्कार");
-
                 } else if (timeOfDay >= 16 && timeOfDay < 21) {
-
                         tvGreeting.setText("सुसंध्या");
-
-
                 } else if (timeOfDay >= 21 && timeOfDay < 24) {
-
-
                         tvGreeting.setText("सुसंध्या");
-
-
                 }
                 imgGreyBridge.setVisibility(View.VISIBLE);
                 imgBlueBridge.setVisibility(View.GONE);
@@ -307,10 +271,6 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 imgGreyTajMahal.setVisibility(View.GONE);
                 tvEnglish.setTextColor(Color.parseColor("#72128E"));
                 tvHindi.setTextColor(Color.parseColor("#B1ACAC"));
-
-
-
-
             }
         });
 
@@ -325,24 +285,13 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
                 if (timeOfDay >= 0 && timeOfDay < 12) {
-
                         tvGreeting.setText("Good Morning");
-
                 } else if (timeOfDay >= 12 && timeOfDay < 16) {
-
                         tvGreeting.setText("Good Afternoon");
-
                 } else if (timeOfDay >= 16 && timeOfDay < 21) {
-
                         tvGreeting.setText("Good Evening");
-
-
                 } else if (timeOfDay >= 21 && timeOfDay < 24) {
-
-
                         tvGreeting.setText("Good Evening");
-
-
                 }
 
                 imgGreyBridge.setVisibility(View.GONE);
@@ -352,16 +301,8 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
                 tvEnglish.setTextColor(Color.parseColor("#B1ACAC"));
                 tvHindi.setTextColor(Color.parseColor("#72128E"));
-
-
-
-
-
             }
         });
-
-
-
         if (pref.getLanguage().equals("hi")) {
             imgGreyBridge.setVisibility(View.VISIBLE);
             imgBlueBridge.setVisibility(View.GONE);
@@ -369,9 +310,6 @@ public class UserDashBoardActivity extends AppCompatActivity {
             imgGreyTajMahal.setVisibility(View.GONE);
             tvEnglish.setTextColor(Color.parseColor("#B1ACAC"));
             tvHindi.setTextColor(Color.parseColor("#72128E"));
-
-
-
         } else {
             imgGreyBridge.setVisibility(View.GONE);
             imgBlueBridge.setVisibility(View.VISIBLE);
@@ -379,21 +317,14 @@ public class UserDashBoardActivity extends AppCompatActivity {
             imgGreyTajMahal.setVisibility(View.VISIBLE);
             tvEnglish.setTextColor(Color.parseColor("#72128E"));
             tvHindi.setTextColor(Color.parseColor("#B1ACAC"));
-
-
         }
-
         alert2 = dialogBuilder.create();
         alert2.setCancelable(false);
         Window window = alert2.getWindow();
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
         alert2.show();
-
-
     }
-
-
     private void msgAlert() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(UserDashBoardActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -401,18 +332,13 @@ public class UserDashBoardActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
         TextView tvInvalidDate = (TextView) dialogView.findViewById(R.id.tvSuccess);
         tvInvalidDate.setText(pref.getMsg());
-
-
-
         Button btnOk = (Button) dialogView.findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alerDialog1.dismiss();
-
             }
         });
-
         alerDialog1 = dialogBuilder.create();
         alerDialog1.setCancelable(true);
         Window window = alerDialog1.getWindow();
@@ -435,8 +361,6 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 getMenuList();
             }
         });
-
-
         alert1 = dialogBuilder.create();
         alert1.setCancelable(true);
         Window window = alert1.getWindow();
@@ -444,7 +368,5 @@ public class UserDashBoardActivity extends AppCompatActivity {
         window.setGravity(Gravity.CENTER );
         alert1.show();
     }
-
-
 
 }
