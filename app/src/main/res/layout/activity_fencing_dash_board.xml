@@ -337,43 +337,60 @@
                 android:layout_width="160dp"
                 android:layout_height="130dp"
                 android:id="@+id/llFenceConfig"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/layoutstroke"
                 android:layout_weight="1">
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    app:cardCornerRadius="8dp">
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-                        <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:padding="10dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentBottom="true"
-                            android:id="@+id/configureationimg"
-                            android:src="@drawable/config_payhr"
-                            ></ImageView>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_above="@+id/configureationimg"
-                            android:id="@+id/tvConfig"
-                            android:padding="10dp"
-                            android:textColor="#2196F3"
-                            android:text="Manage"
-                            android:layout_alignParentLeft="true"
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_margin="10dp"-->
+<!--                    app:cardCornerRadius="8dp">-->
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        >-->
+<!--                        <ImageView-->
+<!--                            android:layout_width="70dp"-->
+<!--                            android:layout_height="70dp"-->
+<!--                            android:padding="10dp"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:layout_alignParentBottom="true"-->
+<!--                            android:id="@+id/configureationimg"-->
+<!--                            android:src="@drawable/config_payhr"-->
+<!--                            ></ImageView>-->
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_above="@+id/configureationimg"-->
+<!--                            android:id="@+id/tvConfig"-->
+<!--                            android:padding="10dp"-->
+<!--                            android:textColor="#2196F3"-->
+<!--                            android:text="Manage"-->
+<!--                            android:layout_alignParentLeft="true"-->
 
 
-                            ></TextView>
+<!--                            ></TextView>-->
 
-                    </RelativeLayout>
+<!--                    </RelativeLayout>-->
 
 
-                </androidx.cardview.widget.CardView>
-
+<!--                </androidx.cardview.widget.CardView>-->
+                                        <ImageView
+                                            android:layout_width="70dp"
+                                            android:layout_height="70dp"
+                                            android:padding="10dp"
+                                            android:id="@+id/configureationimg"
+                                            android:src="@drawable/configurationiconagain_payhr"
+                                            ></ImageView>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:id="@+id/tvConfig"
+                                            android:padding="10dp"
+                                            android:textColor="#000000"
+                                            android:text="Manage"
+                                            ></TextView>
             </LinearLayout>
 
 
@@ -382,43 +399,62 @@
                 android:layout_width="160dp"
                 android:layout_height="130dp"
                 android:id="@+id/llMapping"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/layoutstrokebottom"
                 android:layout_weight="1">
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    app:cardCornerRadius="8dp">
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-                        <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:padding="10dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentBottom="true"
-                            android:id="@+id/empmappingimg"
-                            android:src="@drawable/manager"
-                            ></ImageView>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_above="@+id/empmappingimg"
-                            android:id="@+id/tvEmpMapping"
-                            android:padding="10dp"
-                            android:textColor="#2196F3"
-                            android:text="Employee Mapping"
-                            android:layout_alignParentLeft="true"
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_margin="10dp"-->
+<!--                    app:cardCornerRadius="8dp">-->
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        >-->
+<!--                        <ImageView-->
+<!--                            android:layout_width="70dp"-->
+<!--                            android:layout_height="70dp"-->
+<!--                            android:padding="10dp"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:layout_alignParentBottom="true"-->
+<!--                            android:id="@+id/empmappingimg"-->
+<!--                            android:src="@drawable/manager"-->
+<!--                            ></ImageView>-->
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_above="@+id/empmappingimg"-->
+<!--                            android:id="@+id/tvEmpMapping"-->
+<!--                            android:padding="10dp"-->
+<!--                            android:textColor="#2196F3"-->
+<!--                            android:text="Employee Mapping"-->
+<!--                            android:layout_alignParentLeft="true"-->
 
 
-                            ></TextView>
+<!--                            ></TextView>-->
 
-                    </RelativeLayout>
+<!--                    </RelativeLayout>-->
 
 
-                </androidx.cardview.widget.CardView>
+<!--                </androidx.cardview.widget.CardView>-->
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:padding="10dp"
+                    android:id="@+id/empmappingimg"
+                    android:src="@drawable/employeemappingiconagain_payhr"
+                    ></ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvEmpMapping"
+                    android:padding="10dp"
+                    android:textColor="#000000"
+                    android:text="Employee Mapping"
 
+
+                    ></TextView>
             </LinearLayout>
 
 
@@ -433,43 +469,63 @@
                 android:layout_width="160dp"
                 android:layout_height="130dp"
                 android:id="@+id/llFence"
+                android:orientation="vertical"
+                android:background="@drawable/layoutstroke"
+                android:gravity="center"
                 android:layout_weight="1">
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    app:cardCornerRadius="8dp">
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-                        <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:padding="10dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentBottom="true"
-                            android:id="@+id/activityimg"
-                            android:src="@drawable/workfromhome"
-                            ></ImageView>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_above="@+id/activityimg"
-                            android:id="@+id/tvActivity"
-                            android:padding="10dp"
-                            android:textColor="#2196F3"
-                            android:text="Supervisior"
-                            android:layout_alignParentLeft="true"
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_margin="10dp"-->
+<!--                    app:cardCornerRadius="8dp">-->
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        >-->
+<!--                        <ImageView-->
+<!--                            android:layout_width="70dp"-->
+<!--                            android:layout_height="70dp"-->
+<!--                            android:padding="10dp"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:layout_alignParentBottom="true"-->
+<!--                            android:id="@+id/activityimg"-->
+<!--                            android:src="@drawable/workfromhome"-->
+<!--                            ></ImageView>-->
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_above="@+id/activityimg"-->
+<!--                            android:id="@+id/tvActivity"-->
+<!--                            android:padding="10dp"-->
+<!--                            android:textColor="#2196F3"-->
+<!--                            android:text="Supervisior"-->
+<!--                            android:layout_alignParentLeft="true"-->
 
 
-                            ></TextView>
+<!--                            ></TextView>-->
 
-                    </RelativeLayout>
+<!--                    </RelativeLayout>-->
 
 
-                </androidx.cardview.widget.CardView>
+<!--                </androidx.cardview.widget.CardView>-->
 
+                                        <ImageView
+                                            android:layout_width="70dp"
+                                            android:layout_height="70dp"
+                                            android:padding="10dp"
+                                            android:id="@+id/activityimg"
+                                            android:src="@drawable/activityiconagain_payhr"
+                                            ></ImageView>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:id="@+id/tvActivity"
+                                            android:padding="10dp"
+                                            android:textColor="#000000"
+                                            android:text="Supervisior"
+
+
+                                            ></TextView>
 
             </LinearLayout>
 
