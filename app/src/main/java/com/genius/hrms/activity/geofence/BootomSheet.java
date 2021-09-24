@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genius.hrms.R;
@@ -44,7 +45,8 @@ public class BootomSheet extends BottomSheetDialogFragment {
         Log.d("sixzz", String.valueOf(arraylist.size()));
         tvReset=(TextView)v.findViewById(R.id.tvReset);
         rvItem=(RecyclerView)v.findViewById(R.id.rvItem);
-        rvItem.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        rvItem.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        //rvItem.setLayoutManager(new LinearLayoutManager(getContext()));
         AddLocationAdapter adAdapter=new AddLocationAdapter(arraylist);
         rvItem.setAdapter(adAdapter);
         tvReset=(TextView)v.findViewById(R.id.tvReset);

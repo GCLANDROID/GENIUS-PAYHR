@@ -492,6 +492,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -542,8 +543,8 @@
 <!--                </androidx.cardview.widget.CardView>-->
 
                                             <ImageView
-                                            android:layout_width="70dp"
-                                            android:layout_height="70dp"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
                                             android:padding="10dp"
                                             android:layout_alignParentRight="true"
                                             android:layout_alignParentBottom="true"
@@ -554,6 +555,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:id="@+id/tvManage"
+                                            android:textSize="10sp"
                                             android:padding="10dp"
                                             android:textColor="#000000"
                                             android:text="Manage"
@@ -567,7 +569,7 @@
                 android:layout_width="0dp"
                 android:layout_height="130dp"
                 android:id="@+id/llLog"
-                android:background="@drawable/layoutstrokebottom"
+                android:background="@drawable/layoutstroke"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_weight="1">
@@ -608,8 +610,8 @@
 <!--                </androidx.cardview.widget.CardView>-->
 
                                             <ImageView
-                                            android:layout_width="70dp"
-                                            android:layout_height="70dp"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
                                             android:padding="10dp"
                                             android:id="@+id/logbookimg"
                                             android:src="@drawable/logbookicon_payhr"
@@ -619,12 +621,75 @@
                                             android:layout_height="wrap_content"
                                             android:id="@+id/tvLogBook"
                                             android:padding="10dp"
+                                            android:textSize="10sp"
                                             android:textColor="#000000"
                                             android:text="LogBook"
 
 
                                             ></TextView>
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:id="@+id/llSubordinate"
+                android:orientation="vertical"
+                android:background="@drawable/layoutstrokebottom"
+                android:gravity="center"
+                android:layout_weight="1">
+                <!--                <androidx.cardview.widget.CardView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:layout_margin="10dp"-->
+                <!--                    app:cardCornerRadius="8dp">-->
+                <!--                    <RelativeLayout-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        >-->
+                <!--                        <ImageView-->
+                <!--                            android:layout_width="70dp"-->
+                <!--                            android:layout_height="70dp"-->
+                <!--                            android:padding="10dp"-->
+                <!--                            android:layout_alignParentRight="true"-->
+                <!--                            android:layout_alignParentBottom="true"-->
+                <!--                            android:id="@+id/dailylogsubordinateimg"-->
+                <!--                            android:src="@drawable/report_payhr"-->
+                <!--                            ></ImageView>-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_above="@+id/dailylogsubordinateimg"-->
+                <!--                            android:id="@+id/tvsubordinate"-->
+                <!--                            android:padding="10dp"-->
+                <!--                            android:textColor="#2196F3"-->
+                <!--                            android:text="Team Report"-->
+                <!--                            android:layout_alignParentLeft="true"-->
+
+
+                <!--                            ></TextView>-->
+
+                <!--                    </RelativeLayout>-->
+
+
+                <!--                </androidx.cardview.widget.CardView>-->
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="10dp"
+                    android:id="@+id/dailylogsubordinateimg"
+                    android:src="@drawable/teamreportagain_payhr"
+                    ></ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvsubordinate"
+                    android:padding="10dp"
+                    android:textSize="10sp"
+                    android:textColor="#000000"
+                    android:text="Team Report"
+
+                    ></TextView>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -676,8 +741,8 @@
 <!--                </androidx.cardview.widget.CardView>-->
 
                                         <ImageView
-                                            android:layout_width="70dp"
-                                            android:layout_height="70dp"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
                                             android:padding="10dp"
                                             android:id="@+id/dailylogreportimg"
                                             android:src="@drawable/reporticonagain_payhr"
@@ -685,7 +750,7 @@
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-
+                                            android:textSize="10sp"
                                             android:id="@+id/tvReport"
                                             android:padding="10dp"
                                             android:textColor="#000000"
@@ -697,130 +762,75 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="130dp"
-                android:id="@+id/llSubordinate"
-                android:orientation="vertical"
-                android:background="@drawable/layoutstrokebottom"
-                android:gravity="center"
-                android:layout_weight="1">
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_margin="10dp"-->
-<!--                    app:cardCornerRadius="8dp">-->
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        >-->
-<!--                        <ImageView-->
-<!--                            android:layout_width="70dp"-->
-<!--                            android:layout_height="70dp"-->
-<!--                            android:padding="10dp"-->
-<!--                            android:layout_alignParentRight="true"-->
-<!--                            android:layout_alignParentBottom="true"-->
-<!--                            android:id="@+id/dailylogsubordinateimg"-->
-<!--                            android:src="@drawable/report_payhr"-->
-<!--                            ></ImageView>-->
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_above="@+id/dailylogsubordinateimg"-->
-<!--                            android:id="@+id/tvsubordinate"-->
-<!--                            android:padding="10dp"-->
-<!--                            android:textColor="#2196F3"-->
-<!--                            android:text="Team Report"-->
-<!--                            android:layout_alignParentLeft="true"-->
-
-
-<!--                            ></TextView>-->
-
-<!--                    </RelativeLayout>-->
-
-
-<!--                </androidx.cardview.widget.CardView>-->
-
-                                        <ImageView
-                                            android:layout_width="70dp"
-                                            android:layout_height="70dp"
-                                            android:padding="10dp"
-                                            android:id="@+id/dailylogsubordinateimg"
-                                            android:src="@drawable/teamreportagain_payhr"
-                                            ></ImageView>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:id="@+id/tvsubordinate"
-                                            android:padding="10dp"
-                                            android:textColor="#000000"
-                                            android:text="Team Report"
-
-                                            ></TextView>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="130dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:background="@drawable/layoutstroke"
                 android:id="@+id/llBackLog">
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_margin="10dp"-->
-<!--                    app:cardCornerRadius="8dp">-->
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        >-->
-<!--                        <ImageView-->
-<!--                            android:layout_width="70dp"-->
-<!--                            android:layout_height="70dp"-->
-<!--                            android:padding="10dp"-->
-<!--                            android:layout_alignParentRight="true"-->
-<!--                            android:layout_alignParentBottom="true"-->
-<!--                            android:id="@+id/backlogimg"-->
-<!--                            android:src="@drawable/backlog_payhr"-->
-<!--                            ></ImageView>-->
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_above="@+id/backlogimg"-->
-<!--                            android:id="@+id/tvBackLog"-->
-<!--                            android:padding="10dp"-->
-<!--                            android:textColor="#2196F3"-->
-<!--                            android:text="Backlog Attendance"-->
-<!--                            android:layout_alignParentLeft="true"-->
+                <!--                <androidx.cardview.widget.CardView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:layout_margin="10dp"-->
+                <!--                    app:cardCornerRadius="8dp">-->
+                <!--                    <RelativeLayout-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        >-->
+                <!--                        <ImageView-->
+                <!--                            android:layout_width="70dp"-->
+                <!--                            android:layout_height="70dp"-->
+                <!--                            android:padding="10dp"-->
+                <!--                            android:layout_alignParentRight="true"-->
+                <!--                            android:layout_alignParentBottom="true"-->
+                <!--                            android:id="@+id/backlogimg"-->
+                <!--                            android:src="@drawable/backlog_payhr"-->
+                <!--                            ></ImageView>-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_above="@+id/backlogimg"-->
+                <!--                            android:id="@+id/tvBackLog"-->
+                <!--                            android:padding="10dp"-->
+                <!--                            android:textColor="#2196F3"-->
+                <!--                            android:text="Backlog Attendance"-->
+                <!--                            android:layout_alignParentLeft="true"-->
 
 
-<!--                            ></TextView>-->
+                <!--                            ></TextView>-->
 
-<!--                    </RelativeLayout>-->
-
-
-<!--                </androidx.cardview.widget.CardView>-->
-                                        <ImageView
-                                            android:layout_width="70dp"
-                                            android:layout_height="70dp"
-                                            android:padding="10dp"
-                                            android:id="@+id/backlogimg"
-                                            android:src="@drawable/backattendanceicon_payhr"
-                                            ></ImageView>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:id="@+id/tvBackLog"
-                                            android:padding="10dp"
-                                            android:textColor="#000000"
-                                            android:text="Backlog Attendance"
+                <!--                    </RelativeLayout>-->
 
 
-                                            ></TextView>
+                <!--                </androidx.cardview.widget.CardView>-->
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="10dp"
+                    android:id="@+id/backlogimg"
+                    android:src="@drawable/backattendanceicon_payhr"
+                    ></ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvBackLog"
+                    android:padding="10dp"
+                    android:textSize="10sp"
+                    android:textColor="#000000"
+                    android:text="Backlog Attendance"
+
+
+                    ></TextView>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="1"></LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
         </LinearLayout>
     </LinearLayout>
 

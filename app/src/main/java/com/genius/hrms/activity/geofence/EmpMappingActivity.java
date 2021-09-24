@@ -137,7 +137,7 @@ public class EmpMappingActivity extends AppCompatActivity {
         }else {
 
         }
-        tvEmpName=(TextView)findViewById(R.id.tvEmpName);
+      //  tvEmpName=(TextView)findViewById(R.id.tvEmpName);
     }
 
     private void onClick() {
@@ -444,7 +444,7 @@ public class EmpMappingActivity extends AppCompatActivity {
         empId = d.replaceAll("\\s+", "");
         String emp=empName.toString();
         String replace=emp.replace("[", "").replace("]", "");
-        tvEmpName.setText(replace);
+//        tvEmpName.setText(replace);
 
 
         cAdapter.notifyDataSetChanged();

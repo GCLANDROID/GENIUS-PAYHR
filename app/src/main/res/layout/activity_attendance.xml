@@ -704,6 +704,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
             >
 
@@ -751,8 +752,8 @@
 
 <!--                    </androidx.cardview.widget.CardView>-->
                                             <ImageView
-                                                    android:layout_width="70dp"
-                                                    android:layout_height="70dp"
+                                                    android:layout_width="60dp"
+                                                    android:layout_height="60dp"
                                                     android:padding="10dp"
                                                     android:layout_gravity="center"
                                                     android:id="@+id/manageimg"
@@ -762,6 +763,7 @@
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="center"
+                                                    android:textSize="10sp"
                                                     android:id="@+id/tvManage"
                                                     android:padding="10dp"
                                                     android:textColor="#000000"
@@ -776,7 +778,7 @@
                     android:layout_width="160dp"
                     android:layout_height="130dp"
                     android:id="@+id/llAttendanceReport"
-                    android:background="@drawable/layoutstrokebottom"
+                    android:background="@drawable/layoutstroke"
                     android:orientation="vertical"
                     android:layout_weight="1">
 <!--                    <androidx.cardview.widget.CardView-->
@@ -815,8 +817,8 @@
 
 <!--                    </androidx.cardview.widget.CardView>-->
                                                     <ImageView
-                                                    android:layout_width="70dp"
-                                                    android:layout_height="70dp"
+                                                    android:layout_width="60dp"
+                                                    android:layout_height="60dp"
                                                     android:padding="10dp"
                                                         android:layout_gravity="center"
                                                         android:id="@+id/reportimg"
@@ -827,6 +829,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:id="@+id/tvReport"
                                                     android:padding="10dp"
+                                                    android:textSize="10sp"
                                                     android:layout_gravity="center"
                                                     android:textColor="#000000"
                                                     android:text="Report"
@@ -837,7 +840,69 @@
 
 
                 </LinearLayout>
+            <LinearLayout
+                android:layout_width="160dp"
+                android:layout_height="130dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:background="@drawable/layoutstrokebottom"
+                android:id="@+id/llBackLog">
+                <!--                        <androidx.cardview.widget.CardView-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="match_parent"-->
+                <!--                            android:layout_margin="10dp"-->
+                <!--                            app:cardCornerRadius="8dp">-->
+                <!--                            <RelativeLayout-->
+                <!--                                android:layout_width="wrap_content"-->
+                <!--                                android:layout_height="wrap_content"-->
+                <!--                                >-->
+                <!--                                <ImageView-->
+                <!--                                    android:layout_width="70dp"-->
+                <!--                                    android:layout_height="70dp"-->
+                <!--                                    android:padding="10dp"-->
+                <!--                                    android:layout_alignParentRight="true"-->
+                <!--                                    android:layout_alignParentBottom="true"-->
+                <!--                                    android:id="@+id/backlogimg"-->
+                <!--                                    android:src="@drawable/backlog_payhr"-->
+                <!--                                    ></ImageView>-->
+                <!--                                <TextView-->
+                <!--                                    android:layout_width="wrap_content"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:layout_above="@+id/backlogimg"-->
+                <!--                                    android:id="@+id/tvBackLog"-->
+                <!--                                    android:padding="10dp"-->
+                <!--                                    android:textColor="#2196F3"-->
+                <!--                                    android:text="Backlog Attendance"-->
+                <!--                                    android:layout_alignParentLeft="true"-->
 
+
+                <!--                                    ></TextView>-->
+
+                <!--                            </RelativeLayout>-->
+
+
+                <!--                        </androidx.cardview.widget.CardView>-->
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/backlogimg"
+                    android:src="@drawable/backlogattendanceiconagain_payhr"
+                    ></ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvBackLog"
+                    android:textSize="10sp"
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    android:textColor="#000000"
+                    android:text="Backlog Attendance"
+                    ></TextView>
+
+
+            </LinearLayout>
 
         </LinearLayout>
         <LinearLayout
@@ -890,8 +955,8 @@
 <!--                    </androidx.cardview.widget.CardView>-->
 
                                                     <ImageView
-                                                    android:layout_width="70dp"
-                                                    android:layout_height="70dp"
+                                                    android:layout_width="60dp"
+                                                    android:layout_height="60dp"
                                                     android:padding="10dp"
                                                         android:layout_gravity="center"
                                                     android:id="@+id/supervisiorimg"
@@ -902,75 +967,22 @@
                                                     android:layout_height="wrap_content"
                                                     android:id="@+id/tvSupervisior"
                                                     android:padding="10dp"
+                                                    android:textSize="10sp"
                                                     android:layout_gravity="center"
                                                     android:textColor="#000000"
                                                     android:text="Supervisior"
                                                     ></TextView>
                 </LinearLayout>
 
+<LinearLayout
+    android:layout_width="160dp"
+    android:layout_height="130dp"
+    android:layout_weight="1"></LinearLayout>
+            <LinearLayout
+                android:layout_width="160dp"
+                android:layout_height="130dp"
+                android:layout_weight="1"></LinearLayout>
 
-                    <LinearLayout
-                    android:layout_width="160dp"
-                    android:layout_height="130dp"
-                        android:orientation="vertical"
-                     android:layout_weight="1"
-                        android:background="@drawable/layoutstrokebottom"
-                    android:id="@+id/llBackLog">
-<!--                        <androidx.cardview.widget.CardView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:layout_margin="10dp"-->
-<!--                            app:cardCornerRadius="8dp">-->
-<!--                            <RelativeLayout-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                >-->
-<!--                                <ImageView-->
-<!--                                    android:layout_width="70dp"-->
-<!--                                    android:layout_height="70dp"-->
-<!--                                    android:padding="10dp"-->
-<!--                                    android:layout_alignParentRight="true"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:id="@+id/backlogimg"-->
-<!--                                    android:src="@drawable/backlog_payhr"-->
-<!--                                    ></ImageView>-->
-<!--                                <TextView-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_above="@+id/backlogimg"-->
-<!--                                    android:id="@+id/tvBackLog"-->
-<!--                                    android:padding="10dp"-->
-<!--                                    android:textColor="#2196F3"-->
-<!--                                    android:text="Backlog Attendance"-->
-<!--                                    android:layout_alignParentLeft="true"-->
-
-
-<!--                                    ></TextView>-->
-
-<!--                            </RelativeLayout>-->
-
-
-<!--                        </androidx.cardview.widget.CardView>-->
-                                                            <ImageView
-                                                            android:layout_width="70dp"
-                                                            android:layout_height="70dp"
-                                                            android:padding="10dp"
-                                                                android:layout_gravity="center"
-                                                            android:id="@+id/backlogimg"
-                                                            android:src="@drawable/backlogattendanceiconagain_payhr"
-                                                            ></ImageView>
-                                                        <TextView
-                                                            android:layout_width="wrap_content"
-                                                            android:layout_height="wrap_content"
-                                                            android:id="@+id/tvBackLog"
-                                                            android:padding="10dp"
-                                                            android:layout_gravity="center"
-                                                            android:textColor="#000000"
-                                                            android:text="Backlog Attendance"
-                                                            ></TextView>
-
-
-                    </LinearLayout>
 
 
         </LinearLayout>

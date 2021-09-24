@@ -232,6 +232,12 @@ public class MulFenceConfigActivity extends AppCompatActivity implements OnMapRe
                 etLong.setText("");
                 etLat.setText("");
                 Toast.makeText(getApplicationContext(),"Location Added Successfully",Toast.LENGTH_LONG).show();
+                Log.d("sixzz", String.valueOf(latList.size()));
+                BottomSheetDialogFragment bottomSheetDialogFragment = new BootomSheet();
+                Bundle bundle = new Bundle();
+                bundle. putParcelableArrayList("arraylist", loactionName);
+                bottomSheetDialogFragment.setArguments(bundle);
+                bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
 
             }
         });
@@ -240,12 +246,12 @@ public class MulFenceConfigActivity extends AppCompatActivity implements OnMapRe
         tvAdded.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("sixzz", String.valueOf(latList.size()));
+               /* Log.d("sixzz", String.valueOf(latList.size()));
                 BottomSheetDialogFragment bottomSheetDialogFragment = new BootomSheet();
                 Bundle bundle = new Bundle();
                 bundle. putParcelableArrayList("arraylist", loactionName);
                 bottomSheetDialogFragment.setArguments(bundle);
-                bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+                bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());*/
             }
         });
         etLat=(EditText)findViewById(R.id.etLat);

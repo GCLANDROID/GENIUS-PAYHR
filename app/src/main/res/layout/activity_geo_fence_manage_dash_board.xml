@@ -367,8 +367,8 @@
 <!--            </androidx.cardview.widget.CardView>-->
 
                                 <ImageView
-                                    android:layout_width="70dp"
-                                    android:layout_height="70dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
                                     android:padding="10dp"
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentBottom="true"
@@ -380,6 +380,7 @@
                                     android:layout_height="wrap_content"
                                     android:id="@+id/tvManage"
                                     android:padding="10dp"
+                                    android:textSize="10sp"
                                     android:textColor="#000000"
                                     android:text="Manage"
 
@@ -430,8 +431,8 @@
 
 <!--            </androidx.cardview.widget.CardView>-->
                                 <ImageView
-                                    android:layout_width="70dp"
-                                    android:layout_height="70dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
                                     android:padding="10dp"
                                     android:id="@+id/imgreport"
                                     android:src="@drawable/reporticonagain_payhr"
@@ -440,6 +441,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="10dp"
+                                    android:textSize="10sp"
                                     android:id="@+id/tvReport"
                                     android:textColor="#000000"
                                     android:text="Report"

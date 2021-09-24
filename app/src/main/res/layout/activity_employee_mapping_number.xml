@@ -281,8 +281,8 @@
 
 <!--            </androidx.cardview.widget.CardView>-->
                                 <ImageView
-                                    android:layout_width="70dp"
-                                    android:layout_height="70dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
                                     android:padding="10dp"
                                     android:id="@+id/multipleimg"
                                     android:src="@drawable/multipulegeofenceiconagain_payhr"
@@ -291,7 +291,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:id="@+id/tvMultiple"
-                                    android:textSize="8dp"
+                                    android:textSize="10dp"
                                     android:padding="10dp"
                                     android:textColor="#000000"
                                     android:text="Multiple employee single Location"
@@ -346,8 +346,8 @@
 
 <!--            </androidx.cardview.widget.CardView>-->
                                 <ImageView
-                                    android:layout_width="70dp"
-                                    android:layout_height="70dp"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
                                     android:padding="10dp"
                                     android:id="@+id/imgsingle"
                                     android:src="@drawable/singlegeofenceiconagain_payhr"
@@ -356,7 +356,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="10dp"
-                                    android:textSize="8dp"
+                                    android:textSize="10dp"
                                     android:id="@+id/tvSingle"
                                     android:textColor="#000000"
                                     android:text="Single employee multiple Location"
