@@ -7,11 +7,17 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.MotionEvent;
+import android.view.View;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.genius.hrms.R;
@@ -21,6 +27,10 @@ import im.delight.android.webview.AdvancedWebView;
 public class WebViewActivity extends AppCompatActivity implements AdvancedWebView.Listener{
     String imageurl;
     AdvancedWebView wbUrl;
+    private static final int CLICK_ON_WEBVIEW = 1;
+    private static final int CLICK_ON_URL = 2;
+
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,4 +115,9 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
 
     @Override
     public void onExternalPageRequest(String url) { }
+
+
+
+
+
 }

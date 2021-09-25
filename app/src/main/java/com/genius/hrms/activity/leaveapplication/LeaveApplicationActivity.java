@@ -51,12 +51,12 @@ public class LeaveApplicationActivity extends AppCompatActivity {
         if (pref.getLanguage().equals("hi")){
             tvApllication.setText("छुट्टी की अर्जी");
             tvDetails.setText("रिपोर्ट");
-            tvApproval.setText("छुट्टी की अनुमोदन");
+            tvApproval.setText("टीम रिपोर्ट");
             tvToolBar.setText("छुट्टी की अर्जी");
         }else {
             tvApllication.setText("Leave Application");
             tvDetails.setText("Report");
-            tvApproval.setText("Leave Approval");
+            tvApproval.setText("Team Report");
             tvToolBar.setText("Leave Application");
         }
     }

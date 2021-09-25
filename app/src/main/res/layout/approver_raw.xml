@@ -32,10 +32,11 @@
                         android:id="@+id/llTick"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:background="@drawable/lldesignovalgreen"
+                        android:background="@drawable/lldesign9"
                         android:gravity="center">
 
                         <ImageView
+                            android:tint="@color/black"
                             android:id="@+id/imgTick"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
