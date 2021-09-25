@@ -275,7 +275,7 @@
                     android:textSize="22sp"
                     android:textColor="@color/white"
                     android:padding="20dp"
-                    android:text="Welcome To\nGenius Payhr "></TextView>
+                    android:text="Welcome To\nGenius PayHR "></TextView>
             </FrameLayout>
 
         </LinearLayout>
