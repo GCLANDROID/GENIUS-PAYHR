@@ -600,7 +600,8 @@ public class EmpMappingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 alerDialog4.dismiss();
 
-                Intent intent = new Intent(EmpMappingActivity.this, ConfigNumberActivity.class);
+                Intent intent = new Intent(EmpMappingActivity.this, FencingDashBoardActivity.class);
+                intent.putExtra("point",pref.getPoint());
                 startActivity(intent);
                 finish();
 

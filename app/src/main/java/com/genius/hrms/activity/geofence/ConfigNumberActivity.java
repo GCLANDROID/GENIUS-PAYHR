@@ -92,6 +92,7 @@ public class ConfigNumberActivity extends AppCompatActivity {
                 Intent intent=new Intent(ConfigNumberActivity.this, FencingDashBoardActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("point","mul");
+                pref.savePoint("mul");
                 startActivity(intent);
             }
         });
@@ -103,11 +104,13 @@ public class ConfigNumberActivity extends AppCompatActivity {
                     Intent intent = new Intent(ConfigNumberActivity.this, FencingDashBoardActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("point", "sin");
+                    pref.savePoint("sin");
                     startActivity(intent);
                 }else {
                     Intent intent = new Intent(ConfigNumberActivity.this, GeoFenceManageDashBoardActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("point", "sin");
+                    pref.savePoint("sin");
                     startActivity(intent);
                 }
             }

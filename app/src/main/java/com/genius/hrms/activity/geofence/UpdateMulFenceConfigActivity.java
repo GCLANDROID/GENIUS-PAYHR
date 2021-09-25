@@ -121,7 +121,7 @@ public class UpdateMulFenceConfigActivity extends AppCompatActivity implements O
     public ArrayList<String> longList = new ArrayList<>();
     public ArrayList<String> locationList = new ArrayList<>();
     ArrayList<AddedLocationModel>loactionName=new ArrayList<>();
-    TextView tvAdded;
+    TextView tvAdded,tvToolBar,tvLat,tvLocation,tvPoint,tvAdd;
     EditText locationSearch;
     EditText etLat,etLong;
     ArrayList<MulFenceConfigModel>itemList=new ArrayList<>();
@@ -165,6 +165,7 @@ public class UpdateMulFenceConfigActivity extends AppCompatActivity implements O
                 intent.putExtra("locationList",locationPoint);
                 intent.putExtra("updateflag","1");
                 startActivity(intent);
+
             }
         });
         llEnd = (LinearLayout) findViewById(R.id.llEnd);
@@ -234,6 +235,12 @@ public class UpdateMulFenceConfigActivity extends AppCompatActivity implements O
                 etLong.setText("");
                 etLat.setText("");
                 Toast.makeText(getApplicationContext(),"Location Added Successfully",Toast.LENGTH_LONG).show();
+                BottomSheetDialogFragment bottomSheetDialogFragment = new BootomSheet();
+                Bundle bundle = new Bundle();
+                bundle. putParcelableArrayList("arraylist", loactionName);
+                bottomSheetDialogFragment.setArguments(bundle);
+                bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+
 
             }
         });
@@ -243,16 +250,37 @@ public class UpdateMulFenceConfigActivity extends AppCompatActivity implements O
             @Override
             public void onClick(View v) {
                 Log.d("sixzz", String.valueOf(latList.size()));
-                BottomSheetDialogFragment bottomSheetDialogFragment = new BootomSheet();
-                Bundle bundle = new Bundle();
-                bundle. putParcelableArrayList("arraylist", loactionName);
-                bottomSheetDialogFragment.setArguments(bundle);
-                bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+//                BottomSheetDialogFragment bottomSheetDialogFragment = new BootomSheet();
+//                Bundle bundle = new Bundle();
+//                bundle. putParcelableArrayList("arraylist", loactionName);
+//                bottomSheetDialogFragment.setArguments(bundle);
+//                bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
             }
         });
         etLat=(EditText)findViewById(R.id.etLat);
         etLong=(EditText)findViewById(R.id.etLong);
         imgLatSearch=(ImageView)findViewById(R.id.imgLatSearch);
+        tvToolBar=(TextView)findViewById(R.id.tvToolBar);
+        tvLat=(TextView)findViewById(R.id.tvLat);
+        tvLocation=(TextView)findViewById(R.id.tvLocation);
+        tvPoint=(TextView)findViewById(R.id.tvPoint);
+        tvAdd=(TextView)findViewById(R.id.tvAdd);
+        if (pref.getLanguage().equals("hi")){
+            tvToolBar.setText("स्थान खोजें");
+            tvLat.setText("लाटिट्यूड / लॉन्गटिटूड द्वारा खोजें");
+            tvLocation.setText("स्थान के आधार पर खोजें");
+            tvPoint.setText("इस स्थान को जियोफेंस के रूप में कॉन्फ़िगर करें");
+            tvAdded.setText("जोड़ा स्थान देखें");
+            tvAdd.setText("स्थान जोड़ना");
+
+        }else {
+            tvToolBar.setText("Search Location");
+            tvLat.setText("Search by Lattitude/Longtitude");
+            tvLocation.setText("Search by location");
+            tvPoint.setText("Configure this location as geofence");
+            tvAdded.setText("View added location");
+            tvAdd.setText("Add location");
+        }
         imgLatSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

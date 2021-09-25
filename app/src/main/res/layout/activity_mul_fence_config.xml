@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:textColor="@android:color/white"
-                    android:text="Configuration"/>
+                    android:text="Search Location"/>
             </LinearLayout>
 
             <LinearLayout
@@ -245,6 +245,7 @@
                                 android:layout_marginRight="5dp"
                                 android:layout_gravity="center"
                                 android:textSize="10sp"
+                                android:visibility="gone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@android:color/white"
@@ -297,7 +298,7 @@
                         android:id="@+id/tvPoint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="View Map Point"
+                        android:text="Configure this location as geofence"
                         android:textAppearance="?android:textAppearanceSmall"
                         android:textColor="@android:color/white" />
                 </LinearLayout>

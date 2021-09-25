@@ -632,6 +632,75 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="130dp"
+                android:id="@+id/llReport"
+                android:gravity="center"
+                android:background="@drawable/layoutstroke"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <!--                <androidx.cardview.widget.CardView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:layout_margin="10dp"-->
+                <!--                    app:cardCornerRadius="8dp">-->
+                <!--                    <RelativeLayout-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        >-->
+                <!--                        <ImageView-->
+                <!--                            android:layout_width="70dp"-->
+                <!--                            android:layout_height="70dp"-->
+                <!--                            android:padding="10dp"-->
+                <!--                            android:layout_alignParentRight="true"-->
+                <!--                            android:layout_alignParentBottom="true"-->
+                <!--                            android:id="@+id/dailylogreportimg"-->
+                <!--                            android:src="@drawable/report_icon_payhr"-->
+                <!--                            ></ImageView>-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_above="@+id/dailylogreportimg"-->
+                <!--                            android:id="@+id/tvReport"-->
+                <!--                            android:padding="10dp"-->
+                <!--                            android:textColor="#2196F3"-->
+                <!--                            android:text="Report"-->
+                <!--                            android:layout_alignParentLeft="true"-->
+
+
+                <!--                            ></TextView>-->
+
+                <!--                    </RelativeLayout>-->
+
+
+                <!--                </androidx.cardview.widget.CardView>-->
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="10dp"
+                    android:id="@+id/dailylogreportimg"
+                    android:src="@drawable/reporticonagain_payhr"
+                    ></ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:id="@+id/tvReport"
+                    android:padding="10dp"
+                    android:textColor="#000000"
+                    android:text="Report"
+
+
+                    ></TextView>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="130dp"
                 android:id="@+id/llSubordinate"
                 android:orientation="vertical"
                 android:background="@drawable/layoutstrokebottom"
@@ -690,74 +759,6 @@
                     android:text="Team Report"
 
                     ></TextView>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="130dp"
-                android:id="@+id/llReport"
-                android:gravity="center"
-                android:background="@drawable/layoutstroke"
-                android:orientation="vertical"
-                android:layout_weight="1">
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_margin="10dp"-->
-<!--                    app:cardCornerRadius="8dp">-->
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        >-->
-<!--                        <ImageView-->
-<!--                            android:layout_width="70dp"-->
-<!--                            android:layout_height="70dp"-->
-<!--                            android:padding="10dp"-->
-<!--                            android:layout_alignParentRight="true"-->
-<!--                            android:layout_alignParentBottom="true"-->
-<!--                            android:id="@+id/dailylogreportimg"-->
-<!--                            android:src="@drawable/report_icon_payhr"-->
-<!--                            ></ImageView>-->
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_above="@+id/dailylogreportimg"-->
-<!--                            android:id="@+id/tvReport"-->
-<!--                            android:padding="10dp"-->
-<!--                            android:textColor="#2196F3"-->
-<!--                            android:text="Report"-->
-<!--                            android:layout_alignParentLeft="true"-->
-
-
-<!--                            ></TextView>-->
-
-<!--                    </RelativeLayout>-->
-
-
-<!--                </androidx.cardview.widget.CardView>-->
-
-                                        <ImageView
-                                            android:layout_width="60dp"
-                                            android:layout_height="60dp"
-                                            android:padding="10dp"
-                                            android:id="@+id/dailylogreportimg"
-                                            android:src="@drawable/reporticonagain_payhr"
-                                            ></ImageView>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="10sp"
-                                            android:id="@+id/tvReport"
-                                            android:padding="10dp"
-                                            android:textColor="#000000"
-                                            android:text="Report"
-
-
-                                            ></TextView>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"

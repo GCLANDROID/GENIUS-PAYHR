@@ -29,6 +29,14 @@ public class Pref {
     public String getFlag(){
         return _pref.getString("flag","");
     }
+    public void savePoint(String point){
+        _editorPref.putString("point", point);
+        _editorPref.commit();
+    }
+
+    public String getPoint(){
+        return _pref.getString("point","");
+    }
 
     public void saveEmpName(String name){
         _editorPref.putString("name", name);

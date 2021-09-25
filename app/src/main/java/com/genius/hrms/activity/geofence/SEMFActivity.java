@@ -578,7 +578,8 @@ public class SEMFActivity extends AppCompatActivity {
             public void onClick(View view) {
                 alerDialog4.dismiss();
 
-                Intent intent = new Intent(SEMFActivity.this, ConfigNumberActivity.class);
+                Intent intent = new Intent(SEMFActivity.this, FencingDashBoardActivity.class);
+                intent.putExtra("point",pref.getPoint());
                 startActivity(intent);
                 finish();
 

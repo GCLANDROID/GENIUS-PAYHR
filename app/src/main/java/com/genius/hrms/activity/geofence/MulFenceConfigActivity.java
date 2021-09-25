@@ -278,18 +278,18 @@ public class MulFenceConfigActivity extends AppCompatActivity implements OnMapRe
         tvPoint=(TextView)findViewById(R.id.tvPoint);
         tvAdd=(TextView)findViewById(R.id.tvAdd);
        if (pref.getLanguage().equals("hi")){
-           tvToolBar.setText("विन्यास");
+           tvToolBar.setText("स्थान खोजें");
            tvLat.setText("लाटिट्यूड / लॉन्गटिटूड द्वारा खोजें");
            tvLocation.setText("स्थान के आधार पर खोजें");
-           tvPoint.setText("मैप प्वाइंट देखें");
+           tvPoint.setText("इस स्थान को जियोफेंस के रूप में कॉन्फ़िगर करें");
            tvAdded.setText("जोड़ा स्थान देखें");
            tvAdd.setText("स्थान जोड़ना");
 
        }else {
-           tvToolBar.setText("Configuration");
+           tvToolBar.setText("Search Location");
            tvLat.setText("Search by Lattitude/Longtitude");
            tvLocation.setText("Search by location");
-           tvPoint.setText("View map point");
+           tvPoint.setText("Configure this location as geofence");
            tvAdded.setText("View added location");
            tvAdd.setText("Add location");
        }
