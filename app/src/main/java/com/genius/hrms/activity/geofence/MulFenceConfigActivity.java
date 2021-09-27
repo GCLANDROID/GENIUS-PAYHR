@@ -127,6 +127,9 @@ public class MulFenceConfigActivity extends AppCompatActivity implements OnMapRe
 
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,7 +147,7 @@ public class MulFenceConfigActivity extends AppCompatActivity implements OnMapRe
         llStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String a = latList.toString();
+                /*String a = latList.toString();
                 String latValue = a.replace("[", "").replace("]", "");
 
                 String b = longList.toString();
@@ -163,7 +166,7 @@ public class MulFenceConfigActivity extends AppCompatActivity implements OnMapRe
                 intent.putExtra("locationName",locationList);
                 intent.putExtra("locationList",locationPoint);
                 intent.putExtra("updateflag","2");
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
         llEnd = (LinearLayout) findViewById(R.id.llEnd);
@@ -233,12 +236,43 @@ public class MulFenceConfigActivity extends AppCompatActivity implements OnMapRe
                 etLat.setText("");
                 Toast.makeText(getApplicationContext(),"Location Added Successfully",Toast.LENGTH_LONG).show();
                 Log.d("sixzz", String.valueOf(latList.size()));
+                String a = latList.toString();
+                String latValue = a.replace("[", "").replace("]", "");
+                Log.d("lat",latValue);
+
+                String b = longList.toString();
+                String longValue = b.replace("[", "").replace("]", "");
+
+                String sLocation=locationList.toString();
+                String locationPoint=sLocation.replace("[","").replace("]","");
+                Log.d("locationPoint",locationPoint);
                 BottomSheetDialogFragment bottomSheetDialogFragment = new BootomSheet();
                 Bundle bundle = new Bundle();
                 bundle. putParcelableArrayList("arraylist", loactionName);
+                bundle.putString("latValue", latValue);
+                bundle.putString("longtiValue", longValue);
+                bundle.putStringArrayList("arrayLatValue", latList);
+                bundle.putStringArrayList("arrayLongValue", longList);
+                bundle.putStringArrayList("locationName",locationList);
+                bundle.putString("locationList",locationPoint);
+                bundle.putString("updateflag","2");
+
                 bottomSheetDialogFragment.setArguments(bundle);
                 bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
 
+
+                Bundle bundle1=new Bundle();
+                //Intent intent = new Intent(MulFenceConfigActivity.this, BootomSheet.class);
+//                bundle1.putString("latValue", latValue);
+//                bundle1.putString("longtiValue", longValue);
+//                bundle1.putStringArrayList("arrayLatValue", latList);
+//                bundle1.putStringArrayList("arrayLongValue", longList);
+//                bundle1.putStringArrayList("locationName",locationList);
+//                bundle1.putString("locationList",locationPoint);
+//                bundle1.putString("updateflag","2");
+//                BootomSheet bs=new BootomSheet();
+//                bs.setArguments(bundle1);
+//                //startActivity(intent);
             }
         });
         tvAdded = (TextView) findViewById(R.id.tvAdded);
@@ -307,6 +341,28 @@ public class MulFenceConfigActivity extends AppCompatActivity implements OnMapRe
             mGoogleApiClient.disconnect();
         }
     }
+    public void sendData(){
+     String a = latList.toString();
+                String latValue = a.replace("[", "").replace("]", "");
+
+                String b = longList.toString();
+                String longValue = b.replace("[", "").replace("]", "");
+
+                String sLocation=locationList.toString();
+                String locationPoint=sLocation.replace("[","").replace("]","");
+                Log.d("locationPoint",locationPoint);
+
+        Intent intent = new Intent(MulFenceConfigActivity.this, MapPointActivity.class);
+        intent.putExtra("latValue", latValue);
+        intent.putExtra("longtiValue", longValue);
+        intent.putExtra("arrayLatValue", latList);
+        intent.putExtra("arrayLongValue", longList);
+        intent.putExtra("locationName",locationList);
+        intent.putExtra("locationList",locationPoint);
+        intent.putExtra("updateflag","2");
+        startActivity(intent);
+    }
+
 
 
     private void setUpMapIfNeeded() {

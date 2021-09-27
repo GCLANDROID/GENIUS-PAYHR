@@ -158,10 +158,10 @@ public class MapPointActivity extends AppCompatActivity implements OnMapReadyCal
         tvLat.setText("Fence Latitiude Value:"+latValue);
         tvLong.setText("Fence Longtitude Value:"+longiValue);
         latList=(ArrayList<String>) getIntent().getSerializableExtra("arrayLatValue");
-        Log.d("latList",latList.toString());
+        Log.d("latList", String.valueOf(latList));
         longList=(ArrayList<String>) getIntent().getSerializableExtra("arrayLongValue");
         locationNameList=(ArrayList<String>) getIntent().getSerializableExtra("locationName");
-        Log.d("locationNameList",locationNameList.toString());
+        Log.d("locationNameList", String.valueOf(locationNameList));
         locationList= getIntent().getStringExtra("locationList");
 
         llConfigure=(LinearLayout)findViewById(R.id.llConfigure);

@@ -145,26 +145,26 @@ public class UpdateMulFenceConfigActivity extends AppCompatActivity implements O
         llStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String a = latList.toString();
-                String latValue = a.replace("[", "").replace("]", "");
+//                String a = latList.toString();
+//                String latValue = a.replace("[", "").replace("]", "");
+//
+//                String b = longList.toString();
+//                String longValue = b.replace("[", "").replace("]", "");
+//
+//                String sLocation=locationList.toString();
+//                String locationPoint=sLocation.replace("[","").replace("]","");
+//                Log.d("locationPoint",locationPoint);
 
-                String b = longList.toString();
-                String longValue = b.replace("[", "").replace("]", "");
 
-                String sLocation=locationList.toString();
-                String locationPoint=sLocation.replace("[","").replace("]","");
-                Log.d("locationPoint",locationPoint);
-
-
-                Intent intent = new Intent(UpdateMulFenceConfigActivity.this, MapPointActivity.class);
-                intent.putExtra("latValue", latValue);
-                intent.putExtra("longtiValue", longValue);
-                intent.putExtra("arrayLatValue", latList);
-                intent.putExtra("arrayLongValue", longList);
-                intent.putExtra("locationName",locationList);
-                intent.putExtra("locationList",locationPoint);
-                intent.putExtra("updateflag","1");
-                startActivity(intent);
+//                Intent intent = new Intent(UpdateMulFenceConfigActivity.this, MapPointActivity.class);
+//                intent.putExtra("latValue", latValue);
+//                intent.putExtra("longtiValue", longValue);
+//                intent.putExtra("arrayLatValue", latList);
+//                intent.putExtra("arrayLongValue", longList);
+//                intent.putExtra("locationName",locationList);
+//                intent.putExtra("locationList",locationPoint);
+//                intent.putExtra("updateflag","1");
+//                startActivity(intent);
 
             }
         });
@@ -235,9 +235,25 @@ public class UpdateMulFenceConfigActivity extends AppCompatActivity implements O
                 etLong.setText("");
                 etLat.setText("");
                 Toast.makeText(getApplicationContext(),"Location Added Successfully",Toast.LENGTH_LONG).show();
+                String a = latList.toString();
+                String latValue = a.replace("[", "").replace("]", "");
+
+                String b = longList.toString();
+                String longValue = b.replace("[", "").replace("]", "");
+
+                String sLocation=locationList.toString();
+                String locationPoint=sLocation.replace("[","").replace("]","");
+                Log.d("locationPoint",locationPoint);
                 BottomSheetDialogFragment bottomSheetDialogFragment = new BootomSheet();
                 Bundle bundle = new Bundle();
                 bundle. putParcelableArrayList("arraylist", loactionName);
+                bundle.putString("latValue", latValue);
+                bundle.putString("longtiValue", longValue);
+                bundle.putStringArrayList("arrayLatValue", latList);
+                bundle.putStringArrayList("arrayLongValue", longList);
+                bundle.putStringArrayList("locationName",locationList);
+                bundle.putString("locationList",locationPoint);
+                bundle.putString("updateflag","1");
                 bottomSheetDialogFragment.setArguments(bundle);
                 bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
 

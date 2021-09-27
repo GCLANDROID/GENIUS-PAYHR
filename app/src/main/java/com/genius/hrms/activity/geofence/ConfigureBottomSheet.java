@@ -158,6 +158,7 @@ public class ConfigureBottomSheet extends BottomSheetDialogFragment {
                     Log.d("riku", "withocamera");
                 } else {
                     Toast.makeText(getContext(),extraWorkingDayModel.responseText,Toast.LENGTH_LONG).show();
+                    Log.i("error",extraWorkingDayModel.responseText);
                 }
             }
 
