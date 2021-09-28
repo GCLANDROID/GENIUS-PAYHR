@@ -9,32 +9,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/lldesign9">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/messengerImageView"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/employee" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+           android:padding="5dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
-
             <LinearLayout
+                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/lldesignroundedgreen">
+                android:gravity="right">
                 <TextView
-                    android:paddingLeft="5dp"
+                    android:id="@+id/messengerTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color6"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+
                     android:id="@+id/messageTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                   android:textColor="@android:color/white"
+                   android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -47,31 +56,17 @@
                 android:adjustViewBounds="true"
                 android:background="@color/colorPrimary"
                 android:scaleType="fitCenter" />
+
             <LinearLayout
+                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/lldesignroundedgreen1">
-            <TextView
-                android:id="@+id/messengerTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:textColor="@android:color/white"
-                android:paddingLeft="5dp"
-                android:textSize="12sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/lldesignroundedyellow">
+                android:gravity="right">
                 <TextView
-                    android:paddingRight="5dp"
                     android:id="@+id/tvTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:textColor="@android:color/white"
-                    android:paddingLeft="5dp"
+                    android:textColor="@color/darkblue"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>

@@ -59,7 +59,7 @@ public class ChatActivity extends AppCompatActivity {
         TextView messageTextView;
         ImageView messageImageView;
         TextView messengerTextView,tvTime;
-        CircleImageView messengerImageView;
+
 
         public MessageViewHolder(View v) {
             super(v);
@@ -67,7 +67,7 @@ public class ChatActivity extends AppCompatActivity {
             messageImageView = (ImageView) itemView.findViewById(R.id.messageImageView);
             messengerTextView = (TextView) itemView.findViewById(R.id.messengerTextView);
             tvTime = (TextView) itemView.findViewById(R.id.tvTime);
-            messengerImageView = (CircleImageView) itemView.findViewById(R.id.messengerImageView);
+
         }
 
     }
@@ -189,12 +189,9 @@ public class ChatActivity extends AppCompatActivity {
                 viewHolder.messengerTextView.setText(friendlyMessage.getName());
                 viewHolder.tvTime.setText(friendlyMessage.getDateTime());
                 if (friendlyMessage.getPhotoUrl() == null) {
-                    viewHolder.messengerImageView.setImageDrawable(ContextCompat.getDrawable(ChatActivity.this,
-                            R.drawable.employee));
+
                 } else {
-                    Glide.with(ChatActivity.this)
-                            .load(friendlyMessage.getPhotoUrl())
-                            .into(viewHolder.messengerImageView);
+
                 }
 
             }
