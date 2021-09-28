@@ -8,24 +8,24 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        android:name=".activity.utility.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme"
-        tools:node="replace"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".activity.attendance.AttendanceRegulizationActivity"></activity>
+        android:usesCleartextTraffic="true"
+        tools:node="replace">
+        <activity android:name=".activity.attendance.AttendanceRegulizationActivity" />
         <activity
             android:name=".activity.attendance.BacklogActivity"
             android:screenOrientation="userPortrait"
@@ -314,16 +314,13 @@
         <activity
             android:name=".activity.attendance.AttenApprovalActivity"
             android:screenOrientation="userPortrait" />
-        <activity android:name="com.wajahatkarim3.longimagecamera.LongImageCameraActivity"></activity>
-        <activity android:name=".activity.dailylog.DailyLogManageForMaxActivity"
-            android:screenOrientation="userPortrait"></activity>
-
-        <activity android:name=".activity.attendance.Em3AttendnaceActivity"
-            android:screenOrientation="userPortrait"></activity>
-
-
-
-
+        <activity android:name="com.wajahatkarim3.longimagecamera.LongImageCameraActivity" />
+        <activity
+            android:name=".activity.dailylog.DailyLogManageForMaxActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.attendance.Em3AttendnaceActivity"
+            android:screenOrientation="userPortrait" />
     </application>
 
 </manifest>

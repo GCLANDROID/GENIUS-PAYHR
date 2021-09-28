@@ -7,8 +7,8 @@ android {
         applicationId "com.genius.hrms"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 67
-        versionName "7.0"
+        versionCode 69
+        versionName "7.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         packagingOptions {
