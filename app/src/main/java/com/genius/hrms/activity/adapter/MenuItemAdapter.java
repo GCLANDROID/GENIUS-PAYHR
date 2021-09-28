@@ -150,7 +150,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
             myViewHolder.imgMenu.setImageResource(R.mipmap.elearning_payhr);
         }
         else if (itemList.get(i).getMenuId()==4){
-            myViewHolder.imgMenu.setImageResource(R.drawable.conversation);
+            myViewHolder.imgMenu.setImageResource(R.mipmap.chaticon_payhr);
         }
         else  if (itemList.get(i).getMenuId()==2){
             myViewHolder.imgMenu.setImageResource(R.mipmap.logout_payhr);
