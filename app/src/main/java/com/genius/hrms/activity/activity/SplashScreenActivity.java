@@ -418,7 +418,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
     }
 
     private void checkBersion() {
-        String surl = "https://www.cloud.geniusconsultant.com/GHRMSAPI/api/ApkVersionAndAutoUpdateStatus?SecurityCode="+pref.getSecurityCode();
+        String surl = "https://cloud.geniusconsultant.com/GHRMSAPI/api/ApkVersionAndAutoUpdateStatus?SecurityCode="+pref.getSecurityCode();
         Log.d("apkcheck",surl);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
                 new Response.Listener<String>() {

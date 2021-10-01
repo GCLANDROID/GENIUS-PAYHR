@@ -632,7 +632,7 @@ public class EmployeeDashBoardActivity extends AppCompatActivity {
             ipAddress="https://adityabirla.geniusconsultant.com/";
 
         }else {
-            ipAddress="https://www.cloud.geniusconsultant.com/";
+            ipAddress="https://cloud.geniusconsultant.com/";
         }
         pref.saveIpAddress(ipAddress);
 

@@ -613,7 +613,7 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
         progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        AndroidNetworking.upload("https://www.cloud.geniusconsultant.com/GHRMSApi/api/post_SelfAttendanceWithImage")
+        AndroidNetworking.upload("https://cloud.geniusconsultant.com/GHRMSApi/api/post_SelfAttendanceWithImage")
                 .addMultipartFile("ImageFile", compressedImageFile)
                 .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
                 .addMultipartParameter("Address", address)

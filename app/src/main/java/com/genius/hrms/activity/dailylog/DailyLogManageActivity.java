@@ -115,7 +115,7 @@ public class DailyLogManageActivity extends AppCompatActivity implements OnMapRe
     int addflag = 0;
     AlertDialog alert1;
     File file,seccondcompress,thirdcompress;
-    private static String SERVER_PATH = "https://www.cloud.geniusconsultant.com/GHRMSApi/api/";
+    private static String SERVER_PATH = "https://cloud.geniusconsultant.com/GHRMSApi/api/";
     private AttendanceService uploadService;
     ProgressDialog progressDialog;
     Pref pref;

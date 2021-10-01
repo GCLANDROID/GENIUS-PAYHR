@@ -89,7 +89,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         if (pref.getSecurityCode().equals("1080")){
             ipAddress="https://adityabirla.geniusconsultant.com/";
         }else {
-            ipAddress="https://www.cloud.geniusconsultant.com/";
+            ipAddress="https://cloud.geniusconsultant.com/";
         }
          SERVER_PATH = ipAddress+"GHRMSApi/api/Authentication/";
 

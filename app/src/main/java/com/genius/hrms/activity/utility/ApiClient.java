@@ -12,7 +12,7 @@ import retrofit2.http.Part;
 
 
 public class ApiClient {
-    public  static  String baseUrl="https://www.cloud.geniusconsultant.com/GHRMSApi/api/";
+    public  static  String baseUrl="https://cloud.geniusconsultant.com/GHRMSApi/api/";
     public static GetDataWorkingDay getDataWorkingDay = null;
 
     public static GetDataWorkingDay getService()

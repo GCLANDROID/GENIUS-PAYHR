@@ -334,7 +334,7 @@ public class ReimActivity extends AppCompatActivity implements RecyclerItemClick
     }
 
     private void setYearItem() {
-        String surl = "https://www.cloud.geniusconsultant.com/GHRMSApi/api/Commonddl?ddltype=1&id1=0&id2=0&id3=0&SecurityCode="+pref.getSecurityCode();
+        String surl = "https://cloud.geniusconsultant.com/GHRMSApi/api/Commonddl?ddltype=1&id1=0&id2=0&id3=0&SecurityCode="+pref.getSecurityCode();
         Log.d("compurl", surl);
         final ProgressDialog progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);//you can cancel it by pressing back button

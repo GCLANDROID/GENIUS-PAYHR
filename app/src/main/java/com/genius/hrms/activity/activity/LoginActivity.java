@@ -368,7 +368,7 @@ public class LoginActivity extends AppCompatActivity {
             ipAddress = "https://adityabirla.geniusconsultant.com/";
 
         } else {
-            ipAddress = "https://www.cloud.geniusconsultant.com/";
+            ipAddress = "https://cloud.geniusconsultant.com/";
         }
 
 
@@ -619,7 +619,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void checkBersion() {
-        String surl = "https://www.cloud.geniusconsultant.com/GHRMSAPI/api/ApkVersionAndAutoUpdateStatus?SecurityCode=" + pref.getSecurityCode();
+        String surl = "https://cloud.geniusconsultant.com/GHRMSAPI/api/ApkVersionAndAutoUpdateStatus?SecurityCode=" + pref.getSecurityCode();
         Log.d("apkversion", surl);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
                 new Response.Listener<String>() {

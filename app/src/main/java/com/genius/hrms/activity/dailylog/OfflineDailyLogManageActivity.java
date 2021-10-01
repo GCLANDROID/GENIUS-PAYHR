@@ -133,7 +133,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     int addflag = 0;
     AlertDialog alert1;
     File file, seccondcompress, thirdcompress;
-    private static String SERVER_PATH = "https://www.cloud.geniusconsultant.com/GHRMSApi/api/";
+    private static String SERVER_PATH = "https://cloud.geniusconsultant.com/GHRMSApi/api/";
     private AttendanceService uploadService;
     ProgressDialog progressDialog;
     Pref pref;
@@ -152,7 +152,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     private DatabaseHelper db;
     public static final int NAME_SYNCED_WITH_SERVER = 1;
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
-    public static String DATA_SAVED_BROADCAST = "https://www.cloud.geniusconsultant.com/GHRMSApi/api/post_OfflineDailyLogActivity";
+    public static String DATA_SAVED_BROADCAST = "https://cloud.geniusconsultant.com/GHRMSApi/api/post_OfflineDailyLogActivity";
     private BroadcastReceiver broadcastReceiver;
     ;
     AlertDialog alerDialog4;

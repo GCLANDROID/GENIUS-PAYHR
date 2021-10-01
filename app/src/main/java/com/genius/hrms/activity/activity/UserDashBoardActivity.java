@@ -93,7 +93,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
             ipAddress="https://adityabirla.geniusconsultant.com/";
 
         }else {
-            ipAddress="https://www.cloud.geniusconsultant.com/";
+            ipAddress="https://cloud.geniusconsultant.com/";
         }
         pref.saveIpAddress(ipAddress);
         swipeToRefresh=(SwipeRefreshLayout)findViewById(R.id.swipeToRefresh);
@@ -151,7 +151,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
         llLoader.setVisibility(View.VISIBLE);
         llMain.setVisibility(View.GONE);
         llNoConnection.setVisibility(View.GONE);
-        String surl = "https://www.cloud.geniusconsultant.com/GHRMSApi/api/MenuItemList?SecurityCode="+pref.getSecurityCode();
+        String surl = "https://cloud.geniusconsultant.com/GHRMSApi/api/MenuItemList?SecurityCode="+pref.getSecurityCode();
         Log.d("inputMenu", surl);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
                 new Response.Listener<String>() {

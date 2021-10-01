@@ -247,7 +247,7 @@ public class DashBoardActivity extends AppCompatActivity {
     }
 
     private void checkBersion() {
-        String surl = "https://www.cloud.geniusconsultant.com/GHRMSApi/api/get_apkversion";
+        String surl = "https://cloud.geniusconsultant.com/GHRMSApi/api/get_apkversion";
         final ProgressDialog progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);//you can cancel it by pressing back button
         progressBar.setMessage("Loading...");
@@ -374,7 +374,7 @@ public class DashBoardActivity extends AppCompatActivity {
     }
 
     private void operBrowser() {
-        Uri uri = Uri.parse("https://www.geniusconsultant.com/PDF-doc/GCL_BROCHURE.pdf"); // missing 'http://' will cause crashed
+        Uri uri = Uri.parse("https://geniusconsultant.com/PDF-doc/GCL_BROCHURE.pdf"); // missing 'http://' will cause crashed
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
