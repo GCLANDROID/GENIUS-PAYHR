@@ -273,7 +273,7 @@
                     android:id="@+id/tvCtc"
                     android:padding="10dp"
                     android:textSize="10sp"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:text="CTC"
 
 
@@ -338,7 +338,7 @@
                     android:padding="10dp"
                     android:textSize="10sp"
                     android:id="@+id/tvSalary"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:text="Salary"
 
 

@@ -766,7 +766,7 @@
                                                     android:textSize="10sp"
                                                     android:id="@+id/tvManage"
                                                     android:padding="10dp"
-                                                    android:textColor="#000000"
+                                                    android:textColor="@color/black"
                                                     android:text="Manage"
                                                     ></TextView>
 
@@ -831,7 +831,7 @@
                                                     android:padding="10dp"
                                                     android:textSize="10sp"
                                                     android:layout_gravity="center"
-                                                    android:textColor="#000000"
+                                                    android:textColor="@color/black"
                                                     android:text="Report"
                                                     android:layout_alignParentLeft="true"
 
@@ -897,7 +897,7 @@
                     android:textSize="10sp"
                     android:padding="10dp"
                     android:layout_gravity="center"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:text="Backlog Attendance"
                     ></TextView>
 
@@ -969,7 +969,7 @@
                                                     android:padding="10dp"
                                                     android:textSize="10sp"
                                                     android:layout_gravity="center"
-                                                    android:textColor="#000000"
+                                                    android:textColor="@color/black"
                                                     android:text="Supervisior"
                                                     ></TextView>
                 </LinearLayout>

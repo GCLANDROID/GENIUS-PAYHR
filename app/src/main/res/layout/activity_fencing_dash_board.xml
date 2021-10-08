@@ -389,7 +389,7 @@
                                             android:id="@+id/tvConfig"
                                             android:textSize="10sp"
                                             android:padding="10dp"
-                                            android:textColor="#000000"
+                                            android:textColor="@color/black"
                                             android:text="Manage"
                                             ></TextView>
             </LinearLayout>
@@ -452,7 +452,7 @@
                     android:id="@+id/tvEmpMapping"
                     android:padding="10dp"
                     android:textSize="10sp"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:text="Employee Mapping"
 
 
@@ -515,7 +515,7 @@
                     android:id="@+id/tvActivity"
                     android:padding="10dp"
                     android:textSize="10sp"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:text="Supervisior"
 
 

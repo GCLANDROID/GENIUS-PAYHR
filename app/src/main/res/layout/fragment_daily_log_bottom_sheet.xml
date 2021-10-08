@@ -30,7 +30,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:textSize="12sp"
-                    android:textColor="#673AB7"
+                    android:textColor="@color/light_purple"
                     android:id="@+id/tvtextAddress"
                     android:text="Address:">
                 </TextView>
@@ -39,7 +39,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:textSize="12sp"
-                    android:textColor="#673AB7"
+                    android:textColor="@color/light_purple"
                     android:id="@+id/tvAddress"
                     android:layout_weight="1"></TextView>
 
@@ -69,7 +69,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Capture Image"
-                        android:textColor="#673AB7"
+                        android:textColor="@color/light_purple"
                         android:textSize="12sp"
                         android:id="@+id/tvcapturest"
                         android:gravity="center"
@@ -107,7 +107,7 @@
                     android:id="@+id/tvRemark"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="#673AB7"
+                    android:textColor="@color/light_purple"
                     android:gravity="center"
                     android:layout_weight="2"
                     android:textAppearance="?android:textAppearanceSmall"

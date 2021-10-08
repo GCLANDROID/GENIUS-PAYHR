@@ -557,7 +557,7 @@
                                             android:id="@+id/tvManage"
                                             android:textSize="10sp"
                                             android:padding="10dp"
-                                            android:textColor="#000000"
+                                            android:textColor="@color/black"
                                             android:text="Manage"
                                             android:layout_alignParentLeft="true"
 
@@ -622,8 +622,8 @@
                                             android:id="@+id/tvLogBook"
                                             android:padding="10dp"
                                             android:textSize="10sp"
-                                            android:textColor="#000000"
-                                            android:text="Log Book"
+                                            android:textColor="@color/black"
+                                            android:text="LogBook"
 
 
                                             ></TextView>
@@ -686,7 +686,7 @@
                     android:textSize="10sp"
                     android:id="@+id/tvReport"
                     android:padding="10dp"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:text="Report"
 
 
@@ -755,7 +755,7 @@
                     android:id="@+id/tvsubordinate"
                     android:padding="10dp"
                     android:textSize="10sp"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:text="Team Report"
 
                     ></TextView>
@@ -816,7 +816,7 @@
                     android:id="@+id/tvBackLog"
                     android:padding="10dp"
                     android:textSize="10sp"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:text="Backlog Attendance"
 
 
