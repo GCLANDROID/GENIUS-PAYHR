@@ -29,7 +29,7 @@
                     android:gravity="center"
                     android:textSize="12sp"
                     android:id="@+id/tvaddressst"
-                    android:textColor="#673AB7"
+                    android:textColor="@color/light_purple"
                     android:text="Address:">
                 </TextView>
                 <TextView
@@ -38,7 +38,7 @@
                     android:layout_margin="2dp"
                     android:textSize="12sp"
                     android:gravity="center"
-                    android:textColor="#673AB7"
+                    android:textColor="@color/light_purple"
                     android:id="@+id/tvAddress"
                     android:layout_weight="1"></TextView>
 
@@ -68,7 +68,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:textColor="#673AB7"
+                        android:textColor="@color/light_purple"
                         android:text="Capture Image"
                         android:id="@+id/tvbscaptureimage"></TextView>
                 </LinearLayout>

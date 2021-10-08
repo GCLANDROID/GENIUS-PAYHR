@@ -283,7 +283,7 @@
                                     android:id="@+id/tvMultiple"
                                     android:padding="10dp"
                                     android:textSize="10sp"
-                                    android:textColor="#000000"
+                                    android:textColor="@color/black"
                                     android:text="Multiple Geo Fence"
 
 
@@ -350,7 +350,7 @@
                                     android:padding="10dp"
                                     android:textSize="10sp"
                                     android:id="@+id/tvSingle"
-                                    android:textColor="#000000"
+                                    android:textColor="@color/black"
                                     android:text="Single Geo Fence"
                                     android:layout_alignParentLeft="true"
 

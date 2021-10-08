@@ -303,7 +303,7 @@
                                     android:id="@+id/tvManage"
                                     android:padding="10dp"
                                     android:textSize="10sp"
-                                    android:textColor="#000000"
+                                    android:textColor="@color/black"
                                     android:text="Manage"
 
 
@@ -366,7 +366,7 @@
                                     android:padding="10dp"
                                     android:textSize="10sp"
                                     android:id="@+id/tvReport"
-                                    android:textColor="#000000"
+                                    android:textColor="@color/black"
                                     android:text="Report"
 
 
