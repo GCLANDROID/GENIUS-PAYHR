@@ -43,7 +43,7 @@ public class FencePointAdapter extends RecyclerView.Adapter<FencePointAdapter.My
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
         pref=new Pref(context);
         pd=new ProgressDialog(context);
-        pd.setMessage("Loadingg..");
+        pd.setMessage("Loading..");
         pd.setCancelable(true);
 
          if (pref.getLanguage().equals("hi")) {

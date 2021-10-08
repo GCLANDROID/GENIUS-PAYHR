@@ -623,7 +623,7 @@
                                             android:padding="10dp"
                                             android:textSize="10sp"
                                             android:textColor="#000000"
-                                            android:text="LogBook"
+                                            android:text="Log Book"
 
 
                                             ></TextView>

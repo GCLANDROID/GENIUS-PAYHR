@@ -54,7 +54,7 @@ public class ELearningActivity extends AppCompatActivity {
     private void initialize(){
         pref=new Pref(getApplicationContext());
         tvToolBar=(TextView)findViewById(R.id.tvToolBar);
-        tvToolBar.setText(pref.getTutorialText());
+        tvToolBar.setText("E-LEARNING / PRIVACY POLICY");
         llLoader=(LinearLayout)findViewById(R.id.llLoader);
         llMain=(LinearLayout)findViewById(R.id.llMain);
         llNoData=(LinearLayout)findViewById(R.id.llNoData);

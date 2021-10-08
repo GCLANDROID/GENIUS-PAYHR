@@ -64,7 +64,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
         final Pref pref=new Pref(mContex);
         final ProgressDialog pd=new ProgressDialog(mContex);
-        pd.setMessage("Loadingg");
+        pd.setMessage("Loading..");
         pd.setCancelable(false);
 //AIzaSyCjK28Qn10raw876c8jHJiLOy4yDXEH7ww
         //AIzaSyABnTOmX0ySqLO0OBnsNVZZBrKbz0cohO8

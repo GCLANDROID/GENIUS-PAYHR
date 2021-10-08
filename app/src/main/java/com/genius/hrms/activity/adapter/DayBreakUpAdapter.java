@@ -49,7 +49,7 @@ public class DayBreakUpAdapter extends RecyclerView.Adapter<DayBreakUpAdapter.My
         final DayBreakUpModel dayModel = itemList.get(i);
         final Pref pref=new Pref(context1);
         final ProgressDialog pd=new ProgressDialog(context1);
-        pd.setMessage("loading..");
+        pd.setMessage("Loading..");
         pd.setCancelable(false);
 
         if (pref.getLanguage().equals("hi")) {
