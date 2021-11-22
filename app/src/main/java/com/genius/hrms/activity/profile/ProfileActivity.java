@@ -382,7 +382,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                     //code feild
                                     final String Code = obj.optString("Code");
-
+                                    pref.saveempCode(Code);
                                     if (pref.getLanguage().equals("hi")) {
                                         final Handler textViewHandler1 = new Handler();
                                         new AsyncTask<Void, Void, Void>() {
@@ -429,6 +429,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                     //Name field
                                     final String Name = obj.optString("Name");
+                                    pref.saveempName(Name);
                                     if (pref.getLanguage().equals("hi")) {
                                         final Handler textViewHandler1 = new Handler();
                                         new AsyncTask<Void, Void, Void>() {

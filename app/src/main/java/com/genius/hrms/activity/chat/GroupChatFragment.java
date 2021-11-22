@@ -1,11 +1,15 @@
-package com.genius.hrms.activity.activity;
+package com.genius.hrms.activity.chat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-
-
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,19 +24,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
 import com.genius.hrms.R;
-
+import com.genius.hrms.activity.chat.adapter.MessageAdapter;
 import com.genius.hrms.activity.model.FriendlyMessage;
-import com.genius.hrms.activity.utility.Constants;
 import com.genius.hrms.activity.utility.Pref;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,13 +49,25 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ChatActivity extends AppCompatActivity {
+import static android.app.Activity.RESULT_OK;
+import static com.genius.hrms.activity.chat.GroupChatFragment.MessageViewHolder.MSG_TYPE_RIGHT;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link GroupChatFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class GroupChatFragment extends Fragment {
 
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder{
         TextView messageTextView;
         ImageView messageImageView;
         TextView messengerTextView,tvTime;
+        public static final int MSG_TYPE_LEFT=0;
+        public static final int MSG_TYPE_RIGHT=1;
+
+
 
 
         public MessageViewHolder(View v) {
@@ -70,7 +80,8 @@ public class ChatActivity extends AppCompatActivity {
         }
 
     }
-
+    Context context;
+    View view;
     private static final String TAG = "ChatActivity";
     public static String MESSAGES_CHILD = "hr";
     private static final int REQUEST_INVITE = 1;
@@ -96,24 +107,65 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mFirebaseDatabaseReference;
-    private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>
+    private FirebaseRecyclerAdapter<FriendlyMessage,MessageViewHolder>
             mFirebaseAdapter;
 
     Pref pref;
     ImageView imgSend;
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public GroupChatFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment GroupChatFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static GroupChatFragment newInstance(String param1, String param2) {
+        GroupChatFragment fragment = new GroupChatFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
-        pref=new Pref(ChatActivity.this);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        //return inflater.inflate(R.layout.fragment_group_chat, container, false);
+        view=inflater.inflate(R.layout.fragment_group_chat, container, false);
+        pref=new Pref(getContext());
+        final FriendlyMessage fr=new FriendlyMessage();
         mUsername = pref.getEmpName();
         MESSAGES_CHILD=pref.getSecurityCode();
 //        mChatPresenter= new GroupChatPresenter((GroupChatContract.View) this);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mMessageRecyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView);
-        mLinearLayoutManager = new LinearLayoutManager(this);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        mMessageRecyclerView = (RecyclerView) view.findViewById(R.id.messageRecyclerView);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
@@ -125,7 +177,7 @@ public class ChatActivity extends AppCompatActivity {
                 if (friendlyMessage != null) {
                     friendlyMessage.setId(dataSnapshot.getKey());
                 }else {
-                    Toast.makeText(getApplicationContext(),"No Found",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"No Found",Toast.LENGTH_LONG).show();
                 }
                 return friendlyMessage;
             }
@@ -136,12 +188,14 @@ public class ChatActivity extends AppCompatActivity {
                 new FirebaseRecyclerOptions.Builder<FriendlyMessage>()
                         .setQuery(messagesRef, parser)
                         .build();
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>(options) {
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<FriendlyMessage,MessageViewHolder>(options) {
             @Override
             public MessageViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
                 LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-                return new MessageViewHolder(inflater.inflate(R.layout.item_message, viewGroup, false));
-            }
+                return new MessageViewHolder(inflater.inflate(R.layout.item_message_right, viewGroup, false));
+                            }
+
+
 
             @Override
             protected void onBindViewHolder(final MessageViewHolder viewHolder,
@@ -217,7 +271,7 @@ public class ChatActivity extends AppCompatActivity {
 
         mMessageRecyclerView.setAdapter(mFirebaseAdapter);
 
-        mMessageEditText = (EditText) findViewById(R.id.messageEditText);
+        mMessageEditText = (EditText) view.findViewById(R.id.messageEditText);
         mMessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -237,7 +291,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        imgSend = (ImageView) findViewById(R.id.imgSend);
+        imgSend = (ImageView) view.findViewById(R.id.imgSend);
         imgSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -260,15 +314,12 @@ public class ChatActivity extends AppCompatActivity {
                         .push().setValue(friendlyMessage);
                 mMessageEditText.setText("");
 
-//                String to = getArguments().getString(Constants.ARG_GROUPID);
-                String sender = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-                //mChatInteractor.sendMessageToFirebaseUser(context, chat);
 
 
             }
         });
 
-        mAddMessageImageView = (ImageView) findViewById(R.id.addMessageImageView);
+        mAddMessageImageView = (ImageView) view.findViewById(R.id.addMessageImageView);
         mAddMessageImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -278,27 +329,12 @@ public class ChatActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_IMAGE);
             }
         });
+
+        return view;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mFirebaseAdapter.startListening();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-
-
-
-
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
 
@@ -354,13 +390,13 @@ public class ChatActivity extends AppCompatActivity {
         SimpleDateFormat sdf=new SimpleDateFormat("hh:mm a");
         String currentDateTimeString = sdf.format(d);
         final String actualDateTime=formattedDate+"-"+currentDateTimeString;
-        storageReference.putFile(uri).addOnCompleteListener(ChatActivity.this,
+        storageReference.putFile(uri).addOnCompleteListener(getActivity(),
                 new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()) {
                             task.getResult().getMetadata().getReference().getDownloadUrl()
-                                    .addOnCompleteListener(ChatActivity.this,
+                                    .addOnCompleteListener(getActivity(),
                                             new OnCompleteListener<Uri>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Uri> task) {
@@ -380,8 +416,15 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void sendPushNotificationToReceiver(String to, String sender, String message, String groupName) {
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mFirebaseAdapter.startListening();
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 }
