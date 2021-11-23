@@ -18,4 +18,7 @@
     <dimen name="layout_margin_left_right">5dp</dimen>
     <dimen name="toobarimgsize">40dp</dimen>
     <dimen name="toobarhomeimgsize">25dp</dimen>
+    <dimen name="alert_height">280dp</dimen>
+    <dimen name="alert_width">350dp</dimen>
+
 </resources>

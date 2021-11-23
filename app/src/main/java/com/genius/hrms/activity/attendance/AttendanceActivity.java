@@ -88,6 +88,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
     LinearLayout llBackLog, llRegulization;
     GPSTracker gps;
     double latitude;
+    LinearLayout llFace;
     String attCode;
     private CreativePermission myPermission;
 
@@ -102,6 +103,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
 
     private void initialize() {
         pref = new Pref(getApplicationContext());
+        llFace=findViewById(R.id.llFace);
         tvSupervisior = findViewById(R.id.tvSupervisior);
         connectionCheck = new NetworkConnectionCheck(this);
         llAttandanceManage = findViewById(R.id.llAttandanceManage);
@@ -217,6 +219,15 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
     }
 
     private void onClick() {
+        llFace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AttendanceActivity.this, FRDashboard.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+
+            }
+        });
         llBackLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

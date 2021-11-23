@@ -25,7 +25,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:node="replace">
-        <activity android:name=".activity.chat.MessageActivity"></activity>
+        <activity android:name=".activity.attendance.MarkInAttendance"></activity>
+        <activity android:name=".activity.attendance.AddPerson" />
+        <activity android:name=".activity.attendance.FRDashboard" />
+        <activity android:name=".activity.attendance.PreviewActivity" />
+        <activity android:name=".activity.chat.MessageActivity" />
         <activity android:name=".activity.chat.ChatHomePage" />
         <activity android:name=".activity.attendance.AttendanceRegulizationActivity" />
         <activity
@@ -73,6 +77,9 @@
             android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.leaveapplication.LeaveApplicationActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.attendance.FaceRecognitation"
             android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.geofence.SEMFActivity"
@@ -280,22 +287,23 @@
         <service
             android:name=".activity.utility.LocationAlertIntentService"
             android:allowBackup="true" />
-        <service android:name=".activity.FCM.MyFirebaseInstanceIDService"
+        <service
+            android:name=".activity.FCM.MyFirebaseInstanceIDService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.google.firebase.components.ComponentDiscoveryService" >
+        <service android:name="com.google.firebase.components.ComponentDiscoveryService">
             <meta-data
                 android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
         </service>
-
-        <service android:name=".activity.FCM.MyFirebaseMessagingService"
-            android:exported="true"
-            android:enabled="true">
+        <service
+            android:name=".activity.FCM.MyFirebaseMessagingService"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

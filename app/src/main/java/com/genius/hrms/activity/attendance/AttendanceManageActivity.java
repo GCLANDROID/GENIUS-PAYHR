@@ -281,6 +281,9 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
                 dialog.findViewById(R.id.imgCamera).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+//                        Intent intent = new Intent(AttendanceManageActivity.this, FaceRecognitation.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivity(intent);
                         cameraIntent();
                     }
                 });

@@ -977,7 +977,31 @@
 <LinearLayout
     android:layout_width="160dp"
     android:layout_height="130dp"
-    android:layout_weight="1"></LinearLayout>
+    android:layout_weight="1"
+    android:background="@drawable/layoutstroke"
+    android:id="@+id/llFace"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:id="@+id/imgFace"
+        app:tint="@color/primary"
+        android:src="@drawable/face"
+        ></ImageView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvFace"
+        android:padding="10dp"
+        android:textSize="10sp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:text="Face Recognition Attendance"
+        ></TextView>
+</LinearLayout>
             <LinearLayout
                 android:layout_width="160dp"
                 android:layout_height="130dp"
