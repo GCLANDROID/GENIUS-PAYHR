@@ -574,7 +574,8 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
                 dialog.findViewById(R.id.imgCamera).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cameraIntent();
+                        //cameraIntent();
+                        dialogCamera();
                     }
                 });
                 imgPic=dialog.findViewById(R.id.imgEmp);
@@ -878,9 +879,10 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
                     imgPic.setImageBitmap(putImage);
                     file = (File) data.getExtras().get("picture");
                     Log.d("fjjgk", file.toString());
+                    cameraflag=1;
 
                     try {
-                        compressedImageFile = new ImageZipper(OfflineDailyLogManageActivity.this)
+                        imageZipperFile = new ImageZipper(OfflineDailyLogManageActivity.this)
                                 .setQuality(100)
                                 .setMaxWidth(300)
                                 .setMaxHeight(300)
@@ -1024,6 +1026,39 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         alertDialogBuilder.show();
 
 
+    }
+    public void dialogCamera(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OfflineDailyLogManageActivity.this, R.style.CustomDialogNew);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.dialog_camera, null);
+        dialogBuilder.setView(dialogView);
+        //TextView tvInvalidDate = (TextView) dialogView.findViewById(R.id.tvSuccess);
+        Button btnCamera1=(Button) dialogView.findViewById(R.id.btnCamera1);
+        Button btnCamera2=(Button) dialogView.findViewById(R.id.btnCamera2);
+
+        btnCamera1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog2.dismiss();
+//                Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(intent,CAMERA_REQUEST);
+                cameraIntent();
+            }
+        });
+        btnCamera2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog2.dismiss();
+                LongImageCameraActivity.launch(OfflineDailyLogManageActivity.this);
+            }
+        });
+
+        alertDialog2 = dialogBuilder.create();
+        alertDialog2.setCancelable(true);
+        Window window = alertDialog2.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+        alertDialog2.show();
     }
 
 
