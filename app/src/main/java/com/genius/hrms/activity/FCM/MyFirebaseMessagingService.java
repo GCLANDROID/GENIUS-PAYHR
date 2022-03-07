@@ -5,7 +5,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -13,12 +15,22 @@ import android.os.Bundle;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.genius.hrms.R;
 
 
+import com.genius.hrms.activity.chat.MessageActivity;
+import com.genius.hrms.activity.chat.Token;
 import com.genius.hrms.activity.geofence.NotificationActivity;
+import com.genius.hrms.activity.utility.Constants;
+import com.genius.hrms.activity.utility.Pref;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -30,70 +42,132 @@ import com.google.firebase.messaging.RemoteMessage;
  */
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
+    Pref pref;
 
     private static final String TAG = "MyFirebaseMsgService";
+    @Override
+    public void onNewToken(@NonNull String s) {
+        super.onNewToken(s);
+
+//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+//        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+        //if (null != firebaseUser) {
+            updateToken(s);
+        //}
+
+    }
+    private void updateToken(String refreshToken) {
+        pref=new Pref(this);
+        //FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token=new Token(refreshToken);
+        databaseReference.child(pref.getempcode()).setValue(token);
+    }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.d("MyFirebaseMsgService", "From: " + remoteMessage.getFrom());
         Log.d("MyFirebaseMsgService", "Notification Message Body: " + remoteMessage.getData().toString());
-        String msg  = remoteMessage.getData().get("msg");
-        String title  = remoteMessage.getData().get("title");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            sendOreoNotification(remoteMessage);
-        } else {
+//        String msg  = remoteMessage.getData().get("msg");
+//        String title  = remoteMessage.getData().get("title");
+        super.onMessageReceived(remoteMessage);
+        String sent = remoteMessage.getData().get("sent");
+        String user = remoteMessage.getData().get("user");
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-            builder.setSmallIcon(android.R.drawable.ic_dialog_alert);
-            Intent intent = new Intent(this, NotificationActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-            builder.setContentIntent(pendingIntent);
-            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-            builder.setContentTitle("GENIUSHRMS");
-            builder.setContentText(msg);
-            builder.setSubText("");
+//        SharedPreferences preferences = getSharedPreferences("PREFS", MODE_PRIVATE);
+//        String currentUser = preferences.getString("currentuser", "none");
 
-            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+       // FirebaseAuth mAuth = FirebaseAuth.getInstance();
+       // FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-            // Will display the notification in the notification bar
-            notificationManager.notify(1, builder.build());
-        }
-
-        //sendNotification(msg,title);
-    }
-    private void sendNotification(String messageBody, String title) {
-
+        assert sent != null;
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+                    sendOreoNotification(remoteMessage);
+                }else{
+                sendNotification(remoteMessage);
+            }
 
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void sendOreoNotification(RemoteMessage remoteMessage) {
 
-    private void sendOreoNotification(RemoteMessage remoteMessage){
         String user = remoteMessage.getData().get("user");
         String icon = remoteMessage.getData().get("icon");
         String title = remoteMessage.getData().get("title");
         String body = remoteMessage.getData().get("body");
 
         RemoteMessage.Notification notification = remoteMessage.getNotification();
+
+        assert user != null;
         int j = Integer.parseInt(user.replaceAll("[\\D]", ""));
-        Intent intent = new Intent(this, NotificationActivity.class);
+
+        Intent intent = new Intent(this, MessageActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("userid", user);
+        bundle.putString("userId", user);
         intent.putExtras(bundle);
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, j, intent, PendingIntent.FLAG_ONE_SHOT);
+
         Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         OreoNotification oreoNotification = new OreoNotification(this);
-        Notification.Builder builder = oreoNotification.getOreoNotification(title, body, pendingIntent,
-                defaultSound, icon);
+        Notification.Builder builder = oreoNotification.getOreoNotification(title, body, pendingIntent, defaultSound, icon);
 
         int i = 0;
-        if (j > 0){
+        if (j > 0) {
             i = j;
         }
 
         oreoNotification.getManager().notify(i, builder.build());
+    }
 
+    private void sendNotification(RemoteMessage remoteMessage) {
+        long[] v = {500,1000};
+
+
+        String user = remoteMessage.getData().get("user");
+        String icon = remoteMessage.getData().get("icon");
+        String title = remoteMessage.getData().get("title");
+        String body = remoteMessage.getData().get("body");
+
+        RemoteMessage.Notification notification = remoteMessage.getNotification();
+        assert user != null;
+        int j = Integer.parseInt(user.replaceAll("[\\D]", ""));
+        Intent intent = new Intent(this, MessageActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", user);
+
+        intent.putExtras(bundle);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, j, intent, PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        assert icon != null;
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
+                        R.mipmap.ic_launcher))
+                .setContentTitle(title)
+                .setColor(Color.GREEN)
+                .setVibrate(v)
+                .setContentText(body)
+                .setAutoCancel(true)
+                .setSound(defaultSound)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        int i = 0;
+        if (j > 0) {
+            i = j;
+        }
+
+        assert notificationManager != null;
+        notificationManager.notify(i, builder.build());
     }
 
 }

@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +32,7 @@ import com.firebase.ui.database.SnapshotParser;
 import com.genius.hrms.R;
 
 import com.genius.hrms.activity.model.FriendlyMessage;
+import com.genius.hrms.activity.utility.Constants;
 import com.genius.hrms.activity.utility.Pref;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,11 +50,10 @@ import com.google.firebase.storage.UploadTask;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatActivity extends AppCompatActivity {
+
+
     public static class MessageViewHolder extends RecyclerView.ViewHolder{
         TextView messageTextView;
         ImageView messageImageView;
@@ -99,6 +98,7 @@ public class ChatActivity extends AppCompatActivity {
     private DatabaseReference mFirebaseDatabaseReference;
     private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>
             mFirebaseAdapter;
+
     Pref pref;
     ImageView imgSend;
 
@@ -110,7 +110,7 @@ public class ChatActivity extends AppCompatActivity {
 
         mUsername = pref.getEmpName();
         MESSAGES_CHILD=pref.getSecurityCode();
-
+//        mChatPresenter= new GroupChatPresenter((GroupChatContract.View) this);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mMessageRecyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView);
         mLinearLayoutManager = new LinearLayoutManager(this);
@@ -259,6 +259,12 @@ public class ChatActivity extends AppCompatActivity {
                 mFirebaseDatabaseReference.child(MESSAGES_CHILD)
                         .push().setValue(friendlyMessage);
                 mMessageEditText.setText("");
+
+//                String to = getArguments().getString(Constants.ARG_GROUPID);
+                String sender = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                //mChatInteractor.sendMessageToFirebaseUser(context, chat);
+
+
             }
         });
 
@@ -374,4 +380,8 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 });
     }
+    private void sendPushNotificationToReceiver(String to, String sender, String message, String groupName) {
+
+    }
+
 }

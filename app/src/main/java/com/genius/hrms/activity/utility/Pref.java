@@ -712,6 +712,22 @@ public class Pref {
 
         return _pref.getBoolean("MsgStatus",false);
     }
+    public void saveempCode(String empcode){
+        _editorPref.putString("empcode", empcode);
+        _editorPref.commit();
+    }
+
+    public String getempcode(){
+        return _pref.getString("empcode","");
+    }
+    public void saveempName(String empname){
+        _editorPref.putString("empname", empname);
+        _editorPref.commit();
+    }
+
+    public String getempname(){
+        return _pref.getString("empname","");
+    }
 
 
 

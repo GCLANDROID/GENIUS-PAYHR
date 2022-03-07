@@ -5,21 +5,28 @@
         android:id="@+id/lnMin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/report_bg"
         android:orientation="vertical"
         android:layout_marginBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+
+            android:background="@drawable/reportdesign"
             android:padding="5dp">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="0.3"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
+                android:background="@drawable/topdesign"
                 android:orientation="vertical">
 
                 <TextView
@@ -28,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
                     android:text="14-09-2020"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/white"
                     android:textSize="13sp"
                     android:textStyle="bold"></TextView>
                 <TextView
@@ -46,13 +53,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="gone"
                 android:background="#bdbdbd"></LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:paddingLeft="5dp"
@@ -68,13 +76,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.3">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="In Time:"
-                            android:textColor="@color/darkblue"
-                            android:textSize="11sp"
-                            android:textStyle="bold"></TextView>
 
                     </LinearLayout>
 
@@ -83,6 +84,28 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.5">
 
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="In Time:"
+                            android:textColor="@color/darkblue"
+                            android:textSize="11sp"
+                            android:textStyle="bold"></TextView>
                         <TextView
                             android:id="@+id/tvInTime"
                             android:layout_width="wrap_content"
@@ -92,19 +115,12 @@
                             android:textSize="12sp"></TextView>
 
                     </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
-
                     <LinearLayout
                         android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.3">
-
+                        android:orientation="vertical">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -112,14 +128,6 @@
                             android:textColor="@color/darkblue"
                             android:textSize="11sp"
                             android:textStyle="bold"></TextView>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5">
-
                         <TextView
                             android:id="@+id/tvOutTime"
                             android:layout_width="wrap_content"
@@ -127,23 +135,19 @@
                             android:text="5 Units"
                             android:textColor="@color/text_color"
                             android:textSize="12sp"></TextView>
-
                     </LinearLayout>
-
-
                 </LinearLayout>
-
                 <LinearLayout
-                    android:id="@+id/llType"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
-
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
                     <LinearLayout
                         android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.3">
-
+                        android:gravity="center"
+                        android:id="@+id/llType"
+                        android:orientation="vertical">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -151,13 +155,6 @@
                             android:textColor="@color/darkblue"
                             android:textSize="11sp"
                             android:textStyle="bold"></TextView>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5">
 
                         <TextView
                             android:id="@+id/tvType"
@@ -169,57 +166,12 @@
 
                     </LinearLayout>
 
-
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/llReason"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
-
                     <LinearLayout
                         android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.3">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Reason:"
-                            android:textColor="@color/darkblue"
-                            android:textSize="11sp"
-                            android:textStyle="bold"></TextView>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5">
-
-                        <TextView
-                            android:id="@+id/tvReason"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="5 Units"
-                            android:textColor="@color/text_color"
-                            android:textSize="12sp"></TextView>
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.3">
-
+                        android:gravity="center"
+                        android:orientation="vertical">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -227,13 +179,6 @@
                             android:textColor="@color/darkblue"
                             android:textSize="11sp"
                             android:textStyle="bold"></TextView>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5">
 
                         <TextView
                             android:id="@+id/tvStatus"
@@ -244,6 +189,132 @@
                             android:textSize="12sp"></TextView>
 
                     </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="2dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="In Location:"
+                            android:textColor="@color/darkblue"
+                            android:textSize="11sp"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/tvLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="5 Units"
+                            android:textColor="@color/text_color"
+                            android:textSize="12sp"></TextView>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        android:id="@+id/llReason"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Reason:"
+                            android:textColor="@color/darkblue"
+                            android:textSize="11sp"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/tvReason"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5 Units"
+                            android:textColor="@color/text_color"
+                            android:textSize="12sp"></TextView>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginTop="5dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.3">
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5">
+
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.3">
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5">
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                   android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.3">
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5">
+
+
+                    </LinearLayout>
 
 
                 </LinearLayout>
@@ -258,13 +329,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.3">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="In Location:"
-                            android:textColor="@color/darkblue"
-                            android:textSize="11sp"
-                            android:textStyle="bold"></TextView>
 
                     </LinearLayout>
 
@@ -273,13 +337,32 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.5">
 
-                        <TextView
-                            android:id="@+id/tvLocation"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="5 Units"
-                            android:textColor="@color/text_color"
-                            android:textSize="12sp"></TextView>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginTop="5dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.3">
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5">
+
 
                     </LinearLayout>
 
@@ -288,6 +371,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginTop="5dp">
 
                     <LinearLayout
@@ -308,6 +392,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:visibility="gone"
                         android:layout_weight="0.5">
 
                         <TextView
@@ -327,6 +412,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginTop="5dp">
 
                     <LinearLayout

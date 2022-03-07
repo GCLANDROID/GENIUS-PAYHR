@@ -79,6 +79,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.wajahatkarim3.longimagecamera.LongImageCameraActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -281,7 +282,11 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
                 dialog.findViewById(R.id.imgCamera).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cameraIntent();
+//                        Intent intent = new Intent(AttendanceManageActivity.this, FaceRecognitation.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivity(intent);
+                        //cameraIntent();
+                        dialogCamera();
                     }
                 });
                 imgEmp=dialog.findViewById(R.id.imgEmp);
@@ -806,6 +811,30 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            case LongImageCameraActivity.LONG_IMAGE_RESULT_CODE:
+
+
+                if (resultCode == RESULT_OK && requestCode == LongImageCameraActivity.LONG_IMAGE_RESULT_CODE) {
+                    file = (File) data.getExtras().get("picture");
+                    try {
+                        compressedImageFile = new ImageZipper(AttendanceManageActivity.this)
+                                .setQuality(80)
+                                .setMaxWidth(250)
+                                .setMaxHeight(250)
+                                .compressToFile(file);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String imageFileName = data.getStringExtra(LongImageCameraActivity.IMAGE_PATH_KEY);
+                    Log.d("imageFileName", imageFileName);
+                    Bitmap d = BitmapFactory.decodeFile(imageFileName);
+                    int newHeight = (int) (d.getHeight() * (512.0 / d.getWidth()));
+                    Bitmap putImage = Bitmap.createScaledBitmap(d, 512, newHeight, true);
+                    imgEmp.setImageBitmap(putImage);
+                    addflag=1;
+
+                }
+                break;
             case CAMERA_REQUEST:
 
                 if (resultCode == Activity.RESULT_OK) {
@@ -953,6 +982,39 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
         alertDialog.show();
+    }
+    public void dialogCamera(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceManageActivity.this, R.style.CustomDialogNew);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.dialog_camera, null);
+        dialogBuilder.setView(dialogView);
+        //TextView tvInvalidDate = (TextView) dialogView.findViewById(R.id.tvSuccess);
+        Button btnCamera1=(Button) dialogView.findViewById(R.id.btnCamera1);
+        Button btnCamera2=(Button) dialogView.findViewById(R.id.btnCamera2);
+
+        btnCamera1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog2.dismiss();
+//                Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(intent,CAMERA_REQUEST);
+                cameraIntent();
+            }
+        });
+        btnCamera2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog2.dismiss();
+                LongImageCameraActivity.launch(AttendanceManageActivity.this);
+            }
+        });
+
+        alertDialog2 = dialogBuilder.create();
+        alertDialog2.setCancelable(true);
+        Window window = alertDialog2.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+        alertDialog2.show();
     }
 
 

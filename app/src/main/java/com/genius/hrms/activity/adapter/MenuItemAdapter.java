@@ -26,6 +26,7 @@ import com.genius.hrms.activity.activity.LoginActivity;
 import com.genius.hrms.activity.activity.QueryActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.attendance.AttendanceActivity;
+import com.genius.hrms.activity.chat.ChatHomePage;
 import com.genius.hrms.activity.dailyactivity.DailyTaskDashBoardActivity;
 import com.genius.hrms.activity.dailylog.OfflineDailyDashBoardActivity;
 import com.genius.hrms.activity.geofence.ConfigNumberActivity;
@@ -201,7 +202,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 }
                 else if (itemList.get(i).getMenuId()==4){
                     //chat
-                    Intent intent=new Intent(mContex, ChatActivity.class);
+                    Intent intent=new Intent(mContex, ChatHomePage.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContex.startActivity(intent);
                 }

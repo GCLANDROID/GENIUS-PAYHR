@@ -18,6 +18,17 @@
         <item>@color/dot_dark_screen6</item>
         <item>@color/dot_dark_screen7</item>
     </array>
+    <string name="a_sample_message">A sample message</string>
+    <string name="type_your_messages_here">type_your_messages_here</string>
+    <string name="username">username</string>
+    <string name="seen">seen</string>
+    <string name="profile">profile</string>
+    <string name="s">s</string>
+    <string name="bio">bio</string>
+    <string name="hey_there">hey_there</string>
+    <string name="todo">todo</string>
+    <string name="once_you_start_chatting_all_your_chat_appear_here">once_you_start_chatting_all_your_chat_appear_here</string>
+    <string name="_9_00_pm">9:00 PM</string>
     <color name="dot_dark_screen1">#6f11d2</color>
     <color name="dot_dark_screen2">#424bec</color>
     <color name="dot_dark_screen3">#2278d4</color>
@@ -41,6 +52,12 @@
     <string name="skip">SKIP</string>
 
     <string name="start">GOT IT</string>
+    <string name="flash_auto">Flash auto</string>
+    <string name="flash_off">Flash off</string>
+    <string name="flash_on">Flash on</string>
+    <string name="switch_camera">Switch camera</string>
+    <string name="picture_taken">Picture taken</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

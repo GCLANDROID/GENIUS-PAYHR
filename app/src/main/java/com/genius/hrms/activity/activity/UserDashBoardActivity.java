@@ -1,11 +1,14 @@
 package com.genius.hrms.activity.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -25,6 +28,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,11 +44,19 @@ import com.genius.hrms.activity.attendance.AttendanceReportActivity;
 import com.genius.hrms.activity.leaveapplication.LeaveApplicationDashboardActivity;
 import com.genius.hrms.activity.model.AttendanceModule;
 import com.genius.hrms.activity.model.MenuItemModel;
+import com.genius.hrms.activity.profile.ProfileActivity;
 import com.genius.hrms.activity.utility.Pref;
 import com.google.android.gms.common.data.DataHolder;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,6 +64,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class UserDashBoardActivity extends AppCompatActivity {
@@ -68,6 +81,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
     AlertDialog alerDialog1,alert1;
     LinearLayout llUser;
     ImageView imgLogout;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,8 +157,10 @@ public class UserDashBoardActivity extends AppCompatActivity {
             msgAlertD();
         }else {
             getMenuList();
+            profileFunction();
         }
         llUser=(LinearLayout)findViewById(R.id.llUser);
+
    }
     private void getMenuList() {
         Log.d("Arpan", "arpan");
@@ -244,18 +260,25 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
     }
     public void shoeDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(UserDashBoardActivity.this, R.style.CustomDialogNew);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(UserDashBoardActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.language_dialoge, null);
         dialogBuilder.setView(dialogView);
         LinearLayout llEnglish = (LinearLayout) dialogView.findViewById(R.id.llEnglish);
         LinearLayout llHindi = (LinearLayout) dialogView.findViewById(R.id.llHindi);
+        ImageView imgCancelDialog=(ImageView) dialogView.findViewById(R.id.imgCancelDialog);
         final ImageView imgGreyBridge=(ImageView)dialogView.findViewById(R.id.imgGreyBridge);
         final ImageView imgBlueBridge=(ImageView)dialogView.findViewById(R.id.imgBlueBridge);
         final ImageView imgGreyTajMahal=(ImageView)dialogView.findViewById(R.id.imgGreyTajMahal);
         final ImageView imgBlueTajMahal=(ImageView)dialogView.findViewById(R.id.imgBlueTajMahal);
         final TextView tvEnglish=(TextView)dialogView.findViewById(R.id.tvEnglish);
         final TextView tvHindi=(TextView)dialogView.findViewById(R.id.tvHindi);
+        imgCancelDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert2.dismiss();
+            }
+        });
         llHindi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -376,6 +399,206 @@ public class UserDashBoardActivity extends AppCompatActivity {
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER );
         alert1.show();
+    }
+    public void profileFunction() {
+        String surl;
+        if (pref.getSecurityCode().equals("11")||pref.getSecurityCode().equals("123")){
+            surl ="http://111.93.182.174/GeniusiOSApi/api/gcl_KYC?AEMConsultantID="+pref.getEmpConId()+"&AEMClientID="+pref.getEmpClintId()+"&AEMClientOfficeID="+pref.getEmpClintOffId()+"&AEMEmployeeID="+pref.getEmpId() +"&SecurityCode="+pref.getSecurityCode()+"&WorkingStatus=1&CurrentPage=0";
+
+        }else {
+
+            surl = pref.getIpAddress() + "GHRMSApi/api/GCLKYC_New?AEMConsultantID=" + pref.getEmpConId() + "&AEMClientID=" + pref.getEmpClintId() + "&AEMClientOfficeID=" + pref.getEmpClintOffId() + "&AEMEmployeeID=" + pref.getEmpId() + "&WorkingStatus=1&CurrentPage=1&SecurityCode=" + pref.getSecurityCode();
+        }
+        Log.d("kyc", surl);
+        final ProgressDialog progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);//you can cancel it by pressing back button
+        progressBar.setMessage("Loading...");
+        progressBar.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("responseLogin", response);
+                        progressBar.dismiss();
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+                                //   Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+                                JSONArray responseData = job1.optJSONArray("responseData");
+                                for (int i = 0; i < responseData.length(); i++) {
+                                    JSONObject obj = responseData.getJSONObject(i);
+                                    //AEEMPID
+                                    final String AEMEmployeeID = obj.optString("AEMEmployeeID");
+                                    // tvEmplId.setText(AEMEmployeeID);
+                                    final String ID = AEMEmployeeID;
+                                   // tvEmplId.setText(ID);
+
+
+                                    //code feild
+                                    final String Code = obj.optString("Code");
+                                    pref.saveempCode(Code);
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler1 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(Code,
+                                                                Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler1.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String hCode = translation.getTranslatedText();
+                                                        //tvEmpCode.setText(hCode);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                       // tvEmpCode.setText(Code);
+                                    }
+
+
+                                    //Name field
+                                    final String Name = obj.optString("Name");
+                                    pref.saveempName(Name);
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler1 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(Name,
+                                                                Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler1.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String hName = translation.getTranslatedText();
+//                                                        tvEName.setText(hName);
+//                                                        tvEmpName.setText(hName);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    }else{
+//                                        tvEName.setText(Name);
+//                                        tvEmpName.setText(Name);
+                                    }
+                                    Log.d("id",pref.getempcode());
+                                    Log.d("name",pref.getempname());
+                                    reference= FirebaseDatabase.getInstance().getReference("Users-"+pref.getSecurityCode()).child(pref.getempcode());
+                                    ValueEventListener valueEventListener=new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if (!dataSnapshot.exists()){
+                                                HashMap<String,String> map=new HashMap<>();
+                                                map.put("id",pref.getempcode());
+                                                map.put("username",pref.getempname());
+                                                map.put("imageUrl","default");
+                                                map.put("status","offline");
+                                                map.put("search",pref.getempname().toLowerCase());
+                                                reference.setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()){
+                                                            Log.d("status","successfull");
+//                    Intent i=new Intent(RegisterActivity.this,MainActivity.class);
+//                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    startActivity(i);
+//                    finish();
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    };
+                                    reference.addListenerForSingleValueEvent(valueEventListener);
+
+
+
+
+
+
+                                }
+                            } else {
+
+
+                            }
+
+                            // boolean _status = job1.getBoolean("status");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(UserDashBoardActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressBar.dismiss();
+                Toast.makeText(UserDashBoardActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(UserDashBoardActivity.this);
+        requestQueue.add(stringRequest);
+
     }
 
 }
