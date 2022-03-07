@@ -260,18 +260,25 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
     }
     public void shoeDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(UserDashBoardActivity.this, R.style.CustomDialogNew);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(UserDashBoardActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.language_dialoge, null);
         dialogBuilder.setView(dialogView);
         LinearLayout llEnglish = (LinearLayout) dialogView.findViewById(R.id.llEnglish);
         LinearLayout llHindi = (LinearLayout) dialogView.findViewById(R.id.llHindi);
+        ImageView imgCancelDialog=(ImageView) dialogView.findViewById(R.id.imgCancelDialog);
         final ImageView imgGreyBridge=(ImageView)dialogView.findViewById(R.id.imgGreyBridge);
         final ImageView imgBlueBridge=(ImageView)dialogView.findViewById(R.id.imgBlueBridge);
         final ImageView imgGreyTajMahal=(ImageView)dialogView.findViewById(R.id.imgGreyTajMahal);
         final ImageView imgBlueTajMahal=(ImageView)dialogView.findViewById(R.id.imgBlueTajMahal);
         final TextView tvEnglish=(TextView)dialogView.findViewById(R.id.tvEnglish);
         final TextView tvHindi=(TextView)dialogView.findViewById(R.id.tvHindi);
+        imgCancelDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert2.dismiss();
+            }
+        });
         llHindi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -439,7 +446,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
                                             @Override
                                             protected Void doInBackground(Void... params) {
                                                 TranslateOptions options = TranslateOptions.newBuilder()
-                                                        .setApiKey("AIzaSyDL1itt-7WRkrelJeuvOfiC-_SGc3JZ4vY")
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
                                                         .build();
                                                 Translate translate = options.getService();
                                                 final Translation translation =
@@ -486,7 +493,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
                                             @Override
                                             protected Void doInBackground(Void... params) {
                                                 TranslateOptions options = TranslateOptions.newBuilder()
-                                                        .setApiKey("AIzaSyDL1itt-7WRkrelJeuvOfiC-_SGc3JZ4vY")
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
                                                         .build();
                                                 Translate translate = options.getService();
                                                 final Translation translation =

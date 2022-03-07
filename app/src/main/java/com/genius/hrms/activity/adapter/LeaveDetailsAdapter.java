@@ -62,7 +62,7 @@ public class LeaveDetailsAdapter extends RecyclerView.Adapter<LeaveDetailsAdapte
                 @Override
                 protected Void doInBackground(Void... params) {
                     TranslateOptions options = TranslateOptions.newBuilder()
-                            .setApiKey("AIzaSyDL1itt-7WRkrelJeuvOfiC-_SGc3JZ4vY")
+                            .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
                             .build();
                     Translate translate = options.getService();
                     final Translation translation =
@@ -112,7 +112,7 @@ public class LeaveDetailsAdapter extends RecyclerView.Adapter<LeaveDetailsAdapte
                 @Override
                 protected Void doInBackground(Void... params) {
                     TranslateOptions options = TranslateOptions.newBuilder()
-                            .setApiKey("AIzaSyDL1itt-7WRkrelJeuvOfiC-_SGc3JZ4vY")
+                            .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
                             .build();
                     Translate translate = options.getService();
                     final Translation translation =
@@ -161,7 +161,7 @@ public class LeaveDetailsAdapter extends RecyclerView.Adapter<LeaveDetailsAdapte
                 @Override
                 protected Void doInBackground(Void... params) {
                     TranslateOptions options = TranslateOptions.newBuilder()
-                            .setApiKey("AIzaSyDL1itt-7WRkrelJeuvOfiC-_SGc3JZ4vY")
+                            .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
                             .build();
                     Translate translate = options.getService();
                     final Translation translation =
@@ -211,7 +211,7 @@ public class LeaveDetailsAdapter extends RecyclerView.Adapter<LeaveDetailsAdapte
                 @Override
                 protected Void doInBackground(Void... params) {
                     TranslateOptions options = TranslateOptions.newBuilder()
-                            .setApiKey("AIzaSyDL1itt-7WRkrelJeuvOfiC-_SGc3JZ4vY")
+                            .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
                             .build();
                     Translate translate = options.getService();
                     final Translation translation =
