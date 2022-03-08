@@ -1,3 +1,4 @@
+include ':dlib'
 include ':longimagecamera-lib'
 include ':app', ':SearchableSpinner'
 rootProject.name='GeniusPayHr'
