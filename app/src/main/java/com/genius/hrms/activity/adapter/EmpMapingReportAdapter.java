@@ -45,7 +45,7 @@ public class EmpMapingReportAdapter extends RecyclerView.Adapter<EmpMapingReport
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
         pref=new Pref(context);
         final ProgressDialog pd=new ProgressDialog(context);
-        pd.setMessage("loading...");
+        pd.setMessage("Loading...");
         pd.setCancelable(false);
         if (pref.getLanguage().equals("hi")) {
             final Handler textViewHandler1 = new Handler();

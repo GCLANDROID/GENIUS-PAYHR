@@ -142,7 +142,7 @@ public class MapReportActivity extends AppCompatActivity implements OnMapReadyCa
         if (pref.getLanguage().equals("hi")){
             tvToolBar.setText("नक्शा दृश्य");
         }else {
-            tvToolBar.setText("Map View");
+            tvToolBar.setText("MAP VIEW");
         }
 
 

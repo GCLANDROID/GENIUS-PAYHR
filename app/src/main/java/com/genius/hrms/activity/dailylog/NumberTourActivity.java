@@ -140,7 +140,7 @@ public class NumberTourActivity extends AppCompatActivity {
             tvLogBook.setText("Logbook");
         }
         pd=new ProgressDialog(NumberTourActivity.this);
-        pd.setMessage("Loding.........");
+        pd.setMessage("Loading.........");
     }
 
    private void onClick(){

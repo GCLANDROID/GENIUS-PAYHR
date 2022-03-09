@@ -1,6 +1,7 @@
 package com.genius.hrms.activity.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -113,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
         onClick();
     }
 
+    @SuppressLint("MissingPermission")
     private void initialize() {
         gps = new GPSTracker(LoginActivity.this);
         pref = new Pref(LoginActivity.this);
