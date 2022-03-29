@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.leaveapplication.LeaveDashboardActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@mipmap/headerribbon"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/toobarimgsize"
+                android:layout_height="@dimen/toobarimgsize"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/backimg" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvToolBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leave Dashboard"
+                android:textAllCaps="true"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="right">
+
+            <ImageView
+                android:id="@+id/imgHome"
+                android:layout_width="@dimen/toobarhomeimgsize"
+                android:layout_height="@dimen/toobarhomeimgsize"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/homeimg" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="160dp"
+            android:layout_height="130dp"
+            android:id="@+id/llLeaveApplication"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/layoutstroke"
+            android:layout_weight="1">
+            <!--      <androidx.cardview.widget.CardView-->
+            <!--          android:layout_width="match_parent"-->
+            <!--          android:layout_height="match_parent"-->
+            <!--          android:layout_margin="10dp"-->
+            <!--        app:cardCornerRadius="8dp">-->
+            <!--        <RelativeLayout-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            >-->
+            <!--          <ImageView-->
+            <!--              android:layout_width="70dp"-->
+            <!--              android:layout_height="70dp"-->
+            <!--              android:padding="10dp"-->
+            <!--              android:layout_alignParentRight="true"-->
+            <!--              android:layout_alignParentBottom="true"-->
+            <!--              android:id="@+id/ctcimg"-->
+            <!--              android:src="@drawable/ctc_icon_payhr"-->
+            <!--              ></ImageView>-->
+            <!--          <TextView-->
+            <!--              android:layout_width="wrap_content"-->
+            <!--              android:layout_height="wrap_content"-->
+            <!--              android:layout_above="@+id/ctcimg"-->
+            <!--              android:id="@+id/tvCtc"-->
+            <!--              android:padding="10dp"-->
+            <!--              android:textColor="#2196F3"-->
+            <!--              android:text="CTC"-->
+            <!--              android:layout_alignParentLeft="true"-->
+
+
+            <!--              ></TextView>-->
+
+            <!--        </RelativeLayout>-->
+
+
+            <!--      </androidx.cardview.widget.CardView>-->
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="10dp"
+                android:id="@+id/ctcimg"
+                android:src="@drawable/leave_application_dash"
+                ></ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvLeave"
+                android:padding="10dp"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:text="Leave Application"
+
+
+                ></TextView>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="160dp"
+            android:layout_height="130dp"
+            android:id="@+id/llLeaveBalance"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/layoutstrokebottom"
+            android:layout_weight="1">
+            <!--      <androidx.cardview.widget.CardView-->
+            <!--          android:layout_width="match_parent"-->
+            <!--          android:layout_height="match_parent"-->
+            <!--          android:layout_margin="10dp"-->
+            <!--          app:cardCornerRadius="8dp">-->
+            <!--        <RelativeLayout-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            >-->
+            <!--          <ImageView-->
+            <!--              android:layout_width="70dp"-->
+            <!--              android:layout_height="70dp"-->
+            <!--              android:padding="10dp"-->
+            <!--              android:layout_alignParentRight="true"-->
+            <!--              android:layout_alignParentBottom="true"-->
+            <!--              android:id="@+id/imgsalary"-->
+            <!--              android:src="@drawable/salary_icon_payhr"-->
+            <!--              ></ImageView>-->
+            <!--          <TextView-->
+            <!--              android:layout_width="wrap_content"-->
+            <!--              android:layout_height="wrap_content"-->
+            <!--              android:layout_above="@+id/imgsalary"-->
+            <!--              android:padding="10dp"-->
+            <!--              android:id="@+id/tvSalary"-->
+            <!--              android:textColor="#2196F3"-->
+            <!--              android:text="Salary"-->
+            <!--              android:layout_alignParentLeft="true"-->
+
+
+            <!--              ></TextView>-->
+
+            <!--        </RelativeLayout>-->
+
+
+            <!--      </androidx.cardview.widget.CardView>-->
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="10dp"
+                android:id="@+id/imgsalary"
+                android:src="@drawable/leave_balance_dash"
+                ></ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="10sp"
+                android:id="@+id/tvLeaveBalance"
+                android:textColor="@color/black"
+                android:text="Leave Balance"
+
+
+                ></TextView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

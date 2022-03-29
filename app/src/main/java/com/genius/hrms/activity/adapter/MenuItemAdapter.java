@@ -35,6 +35,7 @@ import com.genius.hrms.activity.geofence.NotificationActivity;
 import com.genius.hrms.activity.leaveapplication.ApproverFragment;
 import com.genius.hrms.activity.leaveapplication.LeaveApplicationActivity;
 import com.genius.hrms.activity.leaveapplication.LeaveApplicationDashboardActivity;
+import com.genius.hrms.activity.leaveapplication.LeaveDashboardActivity;
 import com.genius.hrms.activity.leaveapplication.LeaveWebViewActivity;
 import com.genius.hrms.activity.model.ApprovalModel;
 import com.genius.hrms.activity.model.MenuItemModel;
@@ -238,11 +239,11 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                         mContex.startActivity(intent);
                     }else if (pref.getSecurityCode().equals("1000")||pref.getSecurityCode().equals("1080")){
 
-                        Intent intent = new Intent(mContex, LeaveApplicationActivity.class);
+                        Intent intent = new Intent(mContex, LeaveDashboardActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContex.startActivity(intent);
                     }else {
-                        Intent intent = new Intent(mContex, LeaveApplicationActivity.class);
+                        Intent intent = new Intent(mContex, LeaveDashboardActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContex.startActivity(intent);
                     }

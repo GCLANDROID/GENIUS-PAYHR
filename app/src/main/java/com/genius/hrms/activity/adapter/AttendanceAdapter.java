@@ -3,6 +3,9 @@ package com.genius.hrms.activity.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.genius.hrms.R;
+import com.genius.hrms.activity.utility.Pref;
 import com.genius.hrms.databinding.RawBinding;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,7 +43,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AttendanceAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final AttendanceAdapter.ViewHolder holder, int position) {
         final JSONObject jsonObject = itemList.optJSONObject(position);
         holder.binding.tvDate.setText(jsonObject.optString("EmpAttendanceDate"));
         holder.binding.tvInTime.setText(jsonObject.optString("EmpInTime"));
@@ -102,7 +109,145 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
             holder.binding.llInImage.setVisibility(View.GONE);
         }
 
+        final Pref pref=new Pref(context);
+        if (pref.getLanguage().equals("hi")) {
+            final Handler textViewHandler2 = new Handler();
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    TranslateOptions options = TranslateOptions.newBuilder()
+                            .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                            .build();
+                    Translate translate = options.getService();
+                    final Translation translation =
+                            translate.translate(jsonObject.optString("EmpApprovalStatus"),
+                                    Translate.TranslateOption.sourceLanguage("en"),    Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                    textViewHandler2.post(new Runnable() {
+                        @Override
+                        public void run() {
 
+                            Log.d("sssh", translation.getTranslatedText());
+                            String hLoc = translation.getTranslatedText();
+                            holder.binding.tvStatus.setText(hLoc);
+
+
+                        }
+                    });
+                    return null;
+                }
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    //progressDialog.show();
+
+
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    //progressDialog.dismiss();
+
+
+                }
+
+
+            }.execute();
+            final Handler textViewHandler3 = new Handler();
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    TranslateOptions options = TranslateOptions.newBuilder()
+                            .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                            .build();
+                    Translate translate = options.getService();
+                    final Translation translation =
+                            translate.translate(jsonObject.optString("PunchFrom"),
+                                    Translate.TranslateOption.sourceLanguage("en"),    Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                    textViewHandler3.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Log.d("sssh", translation.getTranslatedText());
+                            String hLoc = translation.getTranslatedText();
+                            holder.binding.tvType.setText(hLoc);
+
+
+                        }
+                    });
+                    return null;
+                }
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    //progressDialog.show();
+
+
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    //progressDialog.dismiss();
+
+
+                }
+
+
+            }.execute();
+            final Handler textViewHandler4 = new Handler();
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    TranslateOptions options = TranslateOptions.newBuilder()
+                            .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                            .build();
+                    Translate translate = options.getService();
+                    final Translation translation =
+                            translate.translate(jsonObject.optString("EmpInAddress"),
+                                    Translate.TranslateOption.sourceLanguage("en"),    Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                    textViewHandler4.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Log.d("sssh", translation.getTranslatedText());
+                            String hLoc = translation.getTranslatedText();
+                            holder.binding.tvLocation.setText(hLoc);
+
+
+                        }
+                    });
+                    return null;
+                }
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    //progressDialog.show();
+
+
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    //progressDialog.dismiss();
+
+
+                }
+
+
+            }.execute();
+            holder.binding.tvInTimeTitle.setText("समय के भीतर");
+            holder.binding.tvOutTimeTitle.setText("बाहर जाने का समय");
+            holder.binding.tvTypeTitle.setText("प्रकार");
+            holder.binding.tvStatusTitle.setText("अनुमोदन स्थिति");
+            holder.binding.tvLocationTitle.setText("स्थान");
+
+
+        }
     }
 
     @Override
