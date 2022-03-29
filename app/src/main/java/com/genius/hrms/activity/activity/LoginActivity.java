@@ -37,6 +37,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -52,6 +53,11 @@ import com.genius.hrms.R;
 import com.genius.hrms.activity.utility.GPSTracker;
 import com.genius.hrms.activity.utility.NetworkConnectionCheck;
 import com.genius.hrms.activity.utility.Pref;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 
@@ -103,7 +109,8 @@ public class LoginActivity extends AppCompatActivity {
     String responseText;
     String address;
     TextView tvQuery;
-
+    String loginFlag="1";
+    private FirebaseDatabase mFirebaseInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
     private void initialize() {
         gps = new GPSTracker(LoginActivity.this);
         pref = new Pref(LoginActivity.this);
+        mFirebaseInstance = FirebaseDatabase.getInstance();
         if (gps.canGetLocation()) {
             latitude = gps.getLatitude();
             Log.d("saikatdas", String.valueOf(latitude));
@@ -227,6 +235,7 @@ public class LoginActivity extends AppCompatActivity {
         tvQuery=(TextView)findViewById(R.id.tvQuery);
 
 
+
     }
 
     private void onClick() {
@@ -260,12 +269,14 @@ public class LoginActivity extends AppCompatActivity {
                     if (etPassword.getText().toString().length() > 0) {
                         if (connectionCheck.isNetworkAvailable()) {
                             if (etSecurityCode.getText().toString().length() > 0) {
-                                if (etSecurityCode.getText().toString().equals("11")||etSecurityCode.getText().toString().equals("123"))
-                                {
-                                    loginFunctionForPPS();
-                                }else {
-                                    loginFunction();
-                                }
+
+                                    if (etSecurityCode.getText().toString().equals("11")||etSecurityCode.getText().toString().equals("123"))
+                                    {
+                                        loginFunctionForPPS();
+                                    }else {
+                                        getBlockingStatus();
+                                    }
+
                             } else {
                                 etSecurityCode.setError("please enter Security Code");
                                 etSecurityCode.requestFocus();
@@ -471,7 +482,7 @@ public class LoginActivity extends AppCompatActivity {
                                     String MultiLangFlag = obj.optString("MultiLangFlag");
                                     pref.saveLanguageFlag(MultiLangFlag);
                                     pref.saveLanguage("en");
-                                    LoginFlag = obj.optString("LoginFlag");//hardcode on sp by dk and it willbe remove .sp name:GHRMSUserAuthenticationWithnDevice_New
+                                    LoginFlag = "1";//hardcode on sp by dk and it willbe remove .sp name:GHRMSUserAuthenticationWithnDevice_New
                                     String ITPage = obj.optString("ITPage");
                                     pref.saveITView(ITPage);
                                     String TeamRptFlag = obj.optString("TeamRptFlag");
@@ -641,7 +652,7 @@ public class LoginActivity extends AppCompatActivity {
                             pref.saveMsgStatus(AppRenameFlag);
                             pref.saveMsg(AppRenameText);
                             if (version.equals(AndriodVersion)) {
-                                if (LoginFlag.equals("1")) {
+                                if (loginFlag.equals("1")) {
                                     if (IsModified.equals("1")) {
                                         Intent intent = new Intent(LoginActivity.this, UserDashBoardActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -649,7 +660,7 @@ public class LoginActivity extends AppCompatActivity {
                                         imgForward.setVisibility(View.GONE);
                                         pgBar.setVisibility(View.VISIBLE);
                                     } else {
-                                        Intent intent = new Intent(LoginActivity.this, ChangePasswordActivity.class);
+                                        Intent intent = new Intent(LoginActivity.this, UserDashBoardActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.putExtra("ismodiFied", IsModified);
                                         intent.putExtra("empId", AEMEmployeeID);
@@ -668,7 +679,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (bAndriodAutoUpdateStatus) {
                                     upDateAlert(AndriodVersion,version);
                                 } else {
-                                    if (LoginFlag.equals("1")) {
+                                    if (loginFlag.equals("1")) {
                                         if (IsModified.equals("1")) {
                                             Intent intent = new Intent(LoginActivity.this, UserDashBoardActivity.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -676,7 +687,7 @@ public class LoginActivity extends AppCompatActivity {
                                             imgForward.setVisibility(View.GONE);
                                             pgBar.setVisibility(View.VISIBLE);
                                         } else {
-                                            Intent intent = new Intent(LoginActivity.this, ChangePasswordActivity.class);
+                                            Intent intent = new Intent(LoginActivity.this, UserDashBoardActivity.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             intent.putExtra("ismodiFied", IsModified);
                                             intent.putExtra("empId", AEMEmployeeID);
@@ -913,6 +924,38 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+    }
+    private void getBlockingStatus() {
+
+        DatabaseReference active_users = mFirebaseInstance.getReference("Blocking");
+        active_users.child(etSecurityCode.getText().toString()).child("Code").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null){
+                    //for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    String code = (String) dataSnapshot.getValue();
+
+                    Log.d("blobkcode",code);
+
+                    if (!code.equals("") && code!=null){
+
+                        loginFlag=code;
+
+
+                    }else {
+                        loginFlag="1";
+                    }
+
+                    // }
+                }
+                loginFunction();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

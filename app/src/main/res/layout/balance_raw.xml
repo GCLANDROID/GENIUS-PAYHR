@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
     >
     <LinearLayout
@@ -13,12 +13,13 @@
             android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="120dp"
                 android:background="@mipmap/boxbg"
                 android:orientation="vertical"
                 android:layout_marginLeft="50dp"
                 android:paddingLeft="60dp">
                 <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp">
@@ -33,6 +34,7 @@
                         android:textSize="14sp"
                         android:text="Leave Opening:"></TextView>
                     <TextView
+                        android:layout_marginLeft="5dp"
                         android:textStyle="bold"
                         android:id="@+id/tvOpening"
                         android:layout_marginTop="10dp"
@@ -57,6 +59,7 @@
                         android:layout_marginTop="5dp"
                         android:text="Leave Taken:"></TextView>
                     <TextView
+                        android:layout_marginLeft="5dp"
                         android:id="@+id/tvTaken"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -80,6 +83,7 @@
                         android:layout_marginTop="5dp"
                         android:text="Leave Available:"></TextView>
                     <TextView
+                        android:layout_marginLeft="5dp"
                         android:id="@+id/tvAvailable"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -93,11 +97,11 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="110dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="7dp"
+                android:layout_height="100dp"
                 android:orientation="vertical"
                 >
                 <FrameLayout
+                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <LinearLayout
@@ -108,6 +112,7 @@
                         android:layout_height="match_parent"></LinearLayout>
 
                     <LinearLayout
+
                         android:gravity="center"
                         android:paddingRight="12dp"
                         android:layout_width="match_parent"

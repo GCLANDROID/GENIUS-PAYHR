@@ -50,7 +50,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-public class SalaryActivity extends AppCompatActivity implements RecyclerItemClickListener.OnItemClickListener {
+public class SalaryActivity extends AppCompatActivity  {
     RecyclerView rvSalary;
     ArrayList<SalaryModule> salaryList = new ArrayList<>();
     SalaryAdapter salaryAdapter;
@@ -92,7 +92,6 @@ public class SalaryActivity extends AppCompatActivity implements RecyclerItemCli
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(SalaryActivity.this, LinearLayoutManager.VERTICAL, false);
         rvSalary.setLayoutManager(layoutManager);
-        rvSalary.addOnItemTouchListener(new RecyclerItemClickListener(SalaryActivity.this, SalaryActivity.this));
 
         spYear = (Spinner) findViewById(R.id.spYear);
         //SpinnerAdapter spinnerAdapter = new SpinnerAdapter(SalaryActivity.this, spYearList);
@@ -246,20 +245,7 @@ public class SalaryActivity extends AppCompatActivity implements RecyclerItemCli
 
 
 
-    @Override
-    public void onItemClick(View childView, int position) {
-        surl = salaryList.get(position).getSurl();
-        Intent intent=new Intent(SalaryActivity.this, WebViewActivity.class);
-        intent.putExtra("imageurl",surl);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
 
-    }
-
-    @Override
-    public void onItemLongPress(View childView, int position) {
-
-    }
 
     private void operBrowser() {
         Uri uri = Uri.parse(surl); // missing 'http://' will cause crashed

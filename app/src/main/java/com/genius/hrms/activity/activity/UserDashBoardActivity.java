@@ -42,6 +42,7 @@ import com.genius.hrms.activity.adapter.MenuItemAdapter;
 import com.genius.hrms.activity.attendance.AttendanceManageActivity;
 import com.genius.hrms.activity.attendance.AttendanceReportActivity;
 import com.genius.hrms.activity.leaveapplication.LeaveApplicationDashboardActivity;
+import com.genius.hrms.activity.model.ActiveUserModel;
 import com.genius.hrms.activity.model.AttendanceModule;
 import com.genius.hrms.activity.model.MenuItemModel;
 import com.genius.hrms.activity.profile.ProfileActivity;
@@ -62,10 +63,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class UserDashBoardActivity extends AppCompatActivity {
     LinearLayout llLoader,llMain,llNoConnection;
@@ -82,7 +86,8 @@ public class UserDashBoardActivity extends AppCompatActivity {
     LinearLayout llUser;
     ImageView imgLogout;
     DatabaseReference reference;
-
+    private FirebaseDatabase mFirebaseInstance;
+    String formattedDate,deviceName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +98,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
     private void initView(){
         pref=new Pref(UserDashBoardActivity.this);
+        mFirebaseInstance = FirebaseDatabase.getInstance();
         pref.setFirstTimeLaunch(true);
 
         llLoader=(LinearLayout)findViewById(R.id.llLoader);
@@ -160,6 +166,13 @@ public class UserDashBoardActivity extends AppCompatActivity {
             profileFunction();
         }
         llUser=(LinearLayout)findViewById(R.id.llUser);
+        Date cd = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + cd);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        formattedDate = df.format(cd);
+        deviceName=android.os.Build.MODEL;
+        activeUsers();
 
    }
     private void getMenuList() {
@@ -600,5 +613,16 @@ public class UserDashBoardActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
+
+
+    public void activeUsers(){
+
+        ActiveUserModel model=new ActiveUserModel(formattedDate,deviceName,"");
+        final DatabaseReference refUnread = mFirebaseInstance.getReference("HRMS_COMMON");
+        refUnread.child("Active_User").child(pref.getSecurityCode()).child(formattedDate).child(pref.getMasterId()).setValue(model);
+
+
+    }
+
 
 }

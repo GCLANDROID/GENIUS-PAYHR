@@ -1,6 +1,7 @@
 package com.genius.hrms.activity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
 
@@ -16,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.genius.hrms.R;
 
+import com.genius.hrms.activity.activity.WebViewActivity;
 import com.genius.hrms.activity.model.SalaryModule;
+import com.genius.hrms.activity.payroll.SalaryActivity;
 import com.genius.hrms.activity.utility.Pref;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
@@ -85,6 +88,15 @@ public class SalaryAdapter extends RecyclerView.Adapter<SalaryAdapter.MyViewHold
             myViewHolder.tvMonth.setText(salryinfoList.get(i).getMonth());
         }
         myViewHolder.tvSalary.setText(salryinfoList.get(i).getAmount());
+        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, WebViewActivity.class);
+                intent.putExtra("imageurl",salryinfoList.get(i).getSurl());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
 
 
     }

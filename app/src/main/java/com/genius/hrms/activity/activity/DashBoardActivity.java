@@ -40,17 +40,23 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
 
+import com.genius.hrms.activity.model.ActiveUserModel;
 import com.genius.hrms.activity.utility.NetworkConnectionCheck;
 import com.genius.hrms.activity.utility.Pref;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -74,6 +80,7 @@ public class DashBoardActivity extends AppCompatActivity {
     Pref pref;
     TextView tvNumberName,tvAbout,tvContactUs,tvServices,tvBrochure,tvLogin,tvLanguage;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +94,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
     private void initialize() {
         pref=new Pref(DashBoardActivity.this);
+
         if (pref.getAccessFlag().equals("1")){
             Intent intent=new Intent(DashBoardActivity.this,LoginActivity.class);
             startActivity(intent);
@@ -156,6 +164,7 @@ public class DashBoardActivity extends AppCompatActivity {
         tvBrochure=(TextView)findViewById(R.id.tvBrochure);
         tvLogin=(TextView)findViewById(R.id.tvLogin);
         tvLanguage=(TextView)findViewById(R.id.tvLanguage);
+
 
 
     }
@@ -416,6 +425,7 @@ public class DashBoardActivity extends AppCompatActivity {
         System.out.printf("Text: %s%n", text);
         Log.d("Translation: %s%n", translation.getTranslatedText());
     }
+
 
 
 

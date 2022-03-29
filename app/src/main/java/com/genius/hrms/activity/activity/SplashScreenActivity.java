@@ -38,6 +38,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
+import com.genius.hrms.activity.model.BlockingModel;
 import com.genius.hrms.activity.utility.CreativePermission;
 import com.genius.hrms.activity.utility.NetworkConnectionCheck;
 import com.genius.hrms.activity.utility.Pref;
@@ -52,6 +53,11 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
@@ -73,6 +79,9 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
     String IsModified;
     String AEMEmployeeID;
     String SecurityCode;
+    private FirebaseDatabase mFirebaseInstance;
+    private static boolean s_persistenceInitialized = false;
+    String loginFlag="1";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,8 +96,13 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    if (loginFlag.equals("1")){
+                        loginFunction();
+                    }else {
+                        Toast.makeText(SplashScreenActivity.this,"Block by administrator",Toast.LENGTH_LONG).show();
+                    }
 
-                    loginFunction();
+
 
                 }
             }, 3000);
@@ -126,6 +140,8 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
 
     private void initialize() {
         pref = new Pref(getApplicationContext());
+        mFirebaseInstance = FirebaseDatabase.getInstance();
+        getBlockingStatus();
         connectionCheck = new NetworkConnectionCheck(this);
         myPermission = new CreativePermission(this, PERMISSION_ALL);
         refreshedToken ="1234";
@@ -381,7 +397,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
 
 
                             } else {
-                                Intent intent = new Intent(SplashScreenActivity.this, DashBoardActivity.class);
+                                Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
 
@@ -400,7 +416,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
             public void onErrorResponse(VolleyError error) {
 
 
-                Intent intent = new Intent(SplashScreenActivity.this, DashBoardActivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 Log.e("ert", error.toString());
@@ -451,7 +467,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
                                         startActivity(intent);
                                         finish();
                                     } else {
-                                        Intent intent = new Intent(SplashScreenActivity.this, ChangePasswordActivity.class);
+                                        Intent intent = new Intent(SplashScreenActivity.this, UserDashBoardActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.putExtra("ismodiFied", IsModified);
                                         intent.putExtra("empId", AEMEmployeeID );
@@ -472,7 +488,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
                                             startActivity(intent);
                                             finish();
                                         } else {
-                                            Intent intent = new Intent(SplashScreenActivity.this, ChangePasswordActivity.class);
+                                            Intent intent = new Intent(SplashScreenActivity.this, UserDashBoardActivity.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             intent.putExtra("ismodiFied", IsModified);
                                             intent.putExtra("empId", AEMEmployeeID );
@@ -563,6 +579,37 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
         alertDialog.show();
+    }
+
+    private void getBlockingStatus() {
+        DatabaseReference active_users = mFirebaseInstance.getReference("Blocking");
+        active_users.child(pref.getSecurityCode()).child("Code").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null){
+                    //for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+                    String code = (String) dataSnapshot.getValue();
+
+                    Log.d("blobkcode",code);
+
+                    if (!code.equals("") && code!=null){
+
+                        loginFlag=code;
+
+
+                    }else {
+                        loginFlag="1";
+                    }
+
+                    // }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

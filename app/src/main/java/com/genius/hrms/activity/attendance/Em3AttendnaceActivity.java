@@ -377,7 +377,7 @@ public class Em3AttendnaceActivity extends AppCompatActivity implements OnMapRea
 
         latLng = new LatLng(lat, lng);
         address = getCompleteAddressString(lat, lng);
-        address1= address.replaceAll("#","abc").replaceAll("\\s+", "%20");
+        address1= address.replaceAll("#","abc").replaceAll("\\s+", "_");
         Log.d("attenaddrsees", address);
 
 
