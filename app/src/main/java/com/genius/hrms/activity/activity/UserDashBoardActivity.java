@@ -562,10 +562,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()){
                                                             Log.d("status","successfull");
-//                    Intent i=new Intent(RegisterActivity.this,MainActivity.class);
-//                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    startActivity(i);
-//                    finish();
+
                                                         }
                                                     }
                                                 });
