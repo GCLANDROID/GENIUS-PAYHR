@@ -25,6 +25,7 @@ import com.genius.hrms.activity.activity.HolidayActivity;
 import com.genius.hrms.activity.activity.LoginActivity;
 import com.genius.hrms.activity.activity.QueryActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
+import com.genius.hrms.activity.activity.VoiceAssistantActivity;
 import com.genius.hrms.activity.attendance.AttendanceActivity;
 import com.genius.hrms.activity.chat.ChatHomePage;
 import com.genius.hrms.activity.dailyactivity.DailyTaskDashBoardActivity;
@@ -162,6 +163,10 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
         }
         else  if (itemList.get(i).getMenuId()==101){
             myViewHolder.imgMenu.setImageResource(R.drawable.questionicon);
+        }  else  if (itemList.get(i).getMenuId()==16){
+            myViewHolder.imgMenu.setImageResource(R.drawable.voiceassistant);
+        }else {
+            myViewHolder.itemView.setVisibility(View.GONE);
         }
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -276,6 +281,12 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                     //elearning
                     Intent intent=new Intent(mContex, QueryActivity.class);
                     intent.putExtra("goingFlag","2");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContex.startActivity(intent);
+
+                }else if (itemList.get(i).getMenuId()==16){
+                    //voiceassistant
+                    Intent intent=new Intent(mContex, VoiceAssistantActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContex.startActivity(intent);
 
