@@ -1,4 +1,4 @@
-package com.genius.hrms.activity.attendance;
+package com.genius.hrms.activity.geofence;
 
 import android.Manifest;
 import android.app.Activity;
@@ -21,7 +21,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -35,7 +34,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -48,11 +46,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.hrms.R;
-
-import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
-import com.genius.hrms.activity.dailylog.DailyLogManageActivity;
-import com.genius.hrms.activity.geofence.GeoFenceActivity;
+import com.genius.hrms.activity.attendance.AttendanceReportActivity;
 import com.genius.hrms.activity.utility.AttendanceService;
 import com.genius.hrms.activity.utility.GPSTracker;
 import com.genius.hrms.activity.utility.NetworkConnectionCheck;
@@ -89,7 +84,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -98,8 +92,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-
-import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -112,8 +104,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class AttendanceManageActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
-    public static final String TAG = AttendanceManageActivity.class.getSimpleName();
+public class GeoFenceAttendanceManageActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+    public static final String TAG = GeoFenceAttendanceManageActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     //  private MapView mapView;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -251,7 +243,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
             btnMarkAttendance.setText("Mark Your Attendance");
         }
 
-        gps = new GPSTracker(AttendanceManageActivity.this);
+        gps = new GPSTracker(GeoFenceAttendanceManageActivity.this);
         if (gps.canGetLocation()) {
             currentLatitude = gps.getLatitude();
             Log.d("saikatdas", String.valueOf(latitude));
@@ -267,6 +259,9 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         //tvAddress.setText("Hi! "+pref.getEmpName()+" You are at: "+address);
         //tvAddress.setText(address);
         llClick=(LinearLayout)findViewById(R.id.llClick);
+
+
+            getValueForGeoFence();
 
 
 
@@ -285,7 +280,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
                 address=getCompleteAddressString(currentLatitude,currentLongitude);
                 v= getLayoutInflater().inflate(R.layout.fragment_bottom_screen, null);
 
-                dialog = new BottomSheetDialog(AttendanceManageActivity.this);
+                dialog = new BottomSheetDialog(GeoFenceAttendanceManageActivity.this);
                 dialog.setContentView(v);
                 dialog.findViewById(R.id.imgCamera).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -306,7 +301,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        if (flagt){
                             if (connectionCheck.isNetworkAvailable()) {
                                 if (addflag == 1) {
                                     attendance();
@@ -317,6 +312,9 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
                             } else {
                                 connectionCheck.getNetworkActiveAlert().show();
                             }
+                        }else {
+                            Toast.makeText(GeoFenceAttendanceManageActivity.this,"The system detects that you are not inside your fencing zone.",Toast.LENGTH_LONG).show();
+                        }
 
                     }
                 });
@@ -349,7 +347,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AttendanceManageActivity.this, UserDashBoardActivity.class);
+                Intent intent = new Intent(GeoFenceAttendanceManageActivity.this, UserDashBoardActivity.class);
                 startActivity(intent);
                 finish();
                /* new Handler().postDelayed(new Runnable() {
@@ -433,7 +431,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(AttendanceManageActivity.this,
+            if (ContextCompat.checkSelfPermission(GeoFenceAttendanceManageActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 //Location Permission already granted
@@ -458,7 +456,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
     @Override
     public void onConnected(Bundle bundle) {
 
-        if (ContextCompat.checkSelfPermission(AttendanceManageActivity.this,
+        if (ContextCompat.checkSelfPermission(GeoFenceAttendanceManageActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -472,7 +470,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
 
     protected synchronized void buildGoogleApiClient() {
 
-        mGoogleApiClient = new GoogleApiClient.Builder(AttendanceManageActivity.this)
+        mGoogleApiClient = new GoogleApiClient.Builder(GeoFenceAttendanceManageActivity.this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
@@ -490,7 +488,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         if (connectionResult.hasResolution()) {
             try {
                 // Start an Activity that tries to resolve the error
-                connectionResult.startResolutionForResult(AttendanceManageActivity.this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                connectionResult.startResolutionForResult(GeoFenceAttendanceManageActivity.this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
                 /*
                  * Thrown if Google Play services canceled the original
                  * PendingIntent
@@ -547,24 +545,24 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
 
 
     private void checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(AttendanceManageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(GeoFenceAttendanceManageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(AttendanceManageActivity.this,
+            if (ActivityCompat.shouldShowRequestPermissionRationale(GeoFenceAttendanceManageActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-                new AlertDialog.Builder(AttendanceManageActivity.this)
+                new AlertDialog.Builder(GeoFenceAttendanceManageActivity.this)
                         .setTitle("Location Permission Needed")
                         .setMessage("This app needs the Location permission, please accept to use location functionality")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(AttendanceManageActivity.this,
+                                ActivityCompat.requestPermissions(GeoFenceAttendanceManageActivity.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION);
                             }
@@ -575,7 +573,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
 
             } else {
                 // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(AttendanceManageActivity.this,
+                ActivityCompat.requestPermissions(GeoFenceAttendanceManageActivity.this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
             }
@@ -595,7 +593,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
 
                     // permission was granted, yay! Do the
                     // location-related task you need to do.
-                    if (ContextCompat.checkSelfPermission(AttendanceManageActivity.this,
+                    if (ContextCompat.checkSelfPermission(GeoFenceAttendanceManageActivity.this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
 
@@ -609,7 +607,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
 
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(AttendanceManageActivity.this, "permission denied", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GeoFenceAttendanceManageActivity.this, "permission denied", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -686,7 +684,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(AttendanceManageActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+                            Toast.makeText(GeoFenceAttendanceManageActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -694,21 +692,21 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressBar.dismiss();
-                Toast.makeText(AttendanceManageActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(GeoFenceAttendanceManageActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
 
                 Log.e("ert", error.toString());
             }
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceManageActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(GeoFenceAttendanceManageActivity.this);
         requestQueue.add(stringRequest);
 
     }
 
 
     private void successAlert() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceManageActivity.this, R.style.CustomDialogNew);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GeoFenceAttendanceManageActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_success, null);
         dialogBuilder.setView(dialogView);
@@ -725,7 +723,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
             @Override
             public void onClick(View view) {
                 alerDialog1.dismiss();
-                Intent intent = new Intent(AttendanceManageActivity.this, AttendanceReportActivity.class);
+                Intent intent = new Intent(GeoFenceAttendanceManageActivity.this, AttendanceReportActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -741,7 +739,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
 
 
     private void locationAlert() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceManageActivity.this, R.style.CustomDialogNew);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GeoFenceAttendanceManageActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_location, null);
         dialogBuilder.setView(dialogView);
@@ -770,7 +768,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         if (googleApiClient == null) {
             googleApiClient = new GoogleApiClient.Builder(this)
                     .addApi(LocationServices.API).addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(AttendanceManageActivity.this).build();
+                    .addOnConnectionFailedListener(GeoFenceAttendanceManageActivity.this).build();
             googleApiClient.connect();
             LocationRequest locationRequest = LocationRequest.create();
             locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -798,7 +796,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
                         case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                             try {
                                 try {
-                                    status.startResolutionForResult(AttendanceManageActivity.this, 1000);
+                                    status.startResolutionForResult(GeoFenceAttendanceManageActivity.this, 1000);
                                 } catch (IntentSender.SendIntentException e) {
                                     // Ignore the error.
                                 }
@@ -827,7 +825,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
                 if (resultCode == RESULT_OK && requestCode == LongImageCameraActivity.LONG_IMAGE_RESULT_CODE) {
                     file = (File) data.getExtras().get("picture");
                     try {
-                        compressedImageFile = new ImageZipper(AttendanceManageActivity.this)
+                        compressedImageFile = new ImageZipper(GeoFenceAttendanceManageActivity.this)
                                 .setQuality(80)
                                 .setMaxWidth(250)
                                 .setMaxHeight(250)
@@ -852,7 +850,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
                         try {
                             String imageurl = /*"file://" +*/ getRealPathFromURI(imageUri);
                             file = new File(imageurl);
-                            compressedImageFile = new ImageZipper(AttendanceManageActivity.this)
+                            compressedImageFile = new ImageZipper(GeoFenceAttendanceManageActivity.this)
                                     .setQuality(100)
                                     .setMaxWidth(300)
                                     .setMaxHeight(300)
@@ -971,7 +969,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
     }
 
     private void errorshowing() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceManageActivity.this, R.style.CustomDialogNew);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GeoFenceAttendanceManageActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_error, null);
         dialogBuilder.setView(dialogView);
@@ -994,7 +992,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         alertDialog.show();
     }
     public void dialogCamera(){
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceManageActivity.this, R.style.CustomDialogNew);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GeoFenceAttendanceManageActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_camera, null);
         dialogBuilder.setView(dialogView);
@@ -1015,7 +1013,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
             @Override
             public void onClick(View view) {
                 alertDialog2.dismiss();
-                LongImageCameraActivity.launch(AttendanceManageActivity.this);
+                LongImageCameraActivity.launch(GeoFenceAttendanceManageActivity.this);
             }
         });
 
@@ -1027,7 +1025,95 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         alertDialog2.show();
     }
 
+    private void getValueForGeoFence() {
 
+        String surl =  pref.getIpAddress()+"GHRMSApi/api/get_EmployeeGeofenceConfigure?EmployeeId=" + pref.getEmpId() + "&GeoFenceId=000&Operation=1&SecurityCode=" + pref.getSecurityCode();
+        Log.d("valuefetechurl", surl);
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        pd.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("responseconfig", response);
+
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("responseconfig", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+
+                                JSONArray responseData = job1.optJSONArray("responseData");
+                                for (int i = 0; i < responseData.length(); i++) {
+                                    JSONObject obj = responseData.getJSONObject(i);
+                                    double SLongitude = Double.parseDouble(obj.optString("SLongitude"));
+                                    double SLatitude = Double.parseDouble(obj.optString("SLatitude"));
+                                    double EndPoint = Double.parseDouble(obj.optString("EndPoint"));
+                                    double s=EndPoint/100;
+
+                                    p = new LatLng(SLatitude, SLongitude);
+                                    LatLng q=new LatLng(currentLatitude,currentLongitude);
+                                    Double distance=CalculationByDistance(p,q);
+                                    Log.d("distancecal", String.valueOf(distance));
+                                    if (distance<s || distance==s){
+                                        flagt=true;
+                                        Log.d("desus","1");
+                                    }else {
+                                        Log.d("desus","0");
+                                    }
+
+                                }
+
+
+
+
+
+
+                                //LatLng q=new LatLng(currentLatitude,currentLongitude);
+                                // double distance=CalculationByDistance(p,q);
+
+
+                                pd.dismiss();
+
+
+                            } else {
+                                flagt=true;
+                                pd.dismiss();
+                                Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG).show();
+
+                            }
+
+
+                            // boolean _status = job1.getBoolean("status");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            //  Toast.makeText(EmployeeDashBoardActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Toast.makeText(EmployeeDashBoardActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
+
+                Log.e("ert", error.toString());
+
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(GeoFenceAttendanceManageActivity.this);
+        requestQueue.add(stringRequest);
+
+
+    }
 
     public double CalculationByDistance(LatLng StartP, LatLng EndP) {
         int Radius = 6371;// radius of earth in Km

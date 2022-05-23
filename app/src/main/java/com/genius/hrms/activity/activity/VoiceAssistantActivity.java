@@ -96,6 +96,7 @@ public class VoiceAssistantActivity extends AppCompatActivity {
         imgMic=(ImageView)findViewById(R.id.imgMic);
         imgMicSearch=(ImageView)findViewById(R.id.imgMicSearch);
         etText=(EditText)findViewById(R.id.etText);
+        etText.setEnabled(false);
         y= Calendar.getInstance().get(Calendar.YEAR);
         cuyear=String.valueOf(y);
 

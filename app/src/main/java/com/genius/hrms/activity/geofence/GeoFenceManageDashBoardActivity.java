@@ -22,6 +22,8 @@ import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
+import com.genius.hrms.activity.attendance.AttendanceActivity;
+import com.genius.hrms.activity.attendance.AttendanceManageActivity;
 import com.genius.hrms.activity.utility.LocationUpdaterService;
 import com.genius.hrms.activity.utility.Pref;
 
@@ -73,11 +75,9 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
         llManage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (point.equals("mul")){
-                    getMulValue();
-                }else {
-                    getValue();
-                }
+                Intent intent = new Intent(GeoFenceManageDashBoardActivity.this, GeoFenceAttendanceManageActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
 
