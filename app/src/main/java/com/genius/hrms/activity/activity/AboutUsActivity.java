@@ -58,6 +58,7 @@ public class AboutUsActivity extends AppCompatActivity {
     }
 
     private void initialize() {
+        //TEST
 
         connectionCheck=new NetworkConnectionCheck(AboutUsActivity.this);
         imgBack = (ImageView) findViewById(R.id.imgBack);
