@@ -1,4 +1,4 @@
-package com.genius.hrms.activity.dailylog;
+package com.genius.hrms.activity.geofence;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -20,13 +20,10 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-
-import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -53,11 +50,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.hrms.R;
-
-import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.attendance.AttendanceManageActivity;
-import com.genius.hrms.activity.geofence.GeoFenceAttendanceManageActivity;
+import com.genius.hrms.activity.dailylog.NumberTourActivity;
+import com.genius.hrms.activity.dailylog.OfflineDailyDashBoardActivity;
+import com.genius.hrms.activity.dailylog.OfflineDailyLogReportActivity;
 import com.genius.hrms.activity.helper.DatabaseHelper;
 import com.genius.hrms.activity.utility.ApiClient;
 import com.genius.hrms.activity.utility.AttendanceService;
@@ -79,9 +76,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.cloud.translate.Translate;
-import com.google.cloud.translate.TranslateOptions;
-import com.google.cloud.translate.Translation;
 import com.inforoeste.mocklocationdetector.MockLocationDetector;
 import com.wajahatkarim3.longimagecamera.LongImageCameraActivity;
 
@@ -111,7 +105,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class OfflineDailyLogManageActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     public static final String TAG = AttendanceManageActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     //  private MapView mapView;
@@ -185,6 +179,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_log_manage);
 
+
         initialize();
 
         setUpMapIfNeeded();
@@ -231,7 +226,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
        // etRemarks = (EditText) findViewById(R.id.etRemarks);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
 
-        gps = new GPSTracker(OfflineDailyLogManageActivity.this);
+        gps = new GPSTracker(GeoFenceDailyLogManageActivity.this);
         if (gps.canGetLocation()) {
             currentLatitude = gps.getLatitude();
             currlat = String.valueOf(latitude);
@@ -282,6 +277,8 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         tvName=(TextView)findViewById(R.id.tvName);
         tvName.setText("Hi! "+pref.getEmpName());
 
+        getValueForGeoFence();
+
         //tvAddress.setText("YOU ARE AT: "+cuuaddress);
 
 
@@ -321,7 +318,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(OfflineDailyLogManageActivity.this,
+            if (ContextCompat.checkSelfPermission(GeoFenceDailyLogManageActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 //Location Permission already granted
@@ -388,7 +385,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     @Override
     public void onConnected(Bundle bundle) {
 
-        if (ContextCompat.checkSelfPermission(OfflineDailyLogManageActivity.this,
+        if (ContextCompat.checkSelfPermission(GeoFenceDailyLogManageActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             @SuppressLint("MissingPermission") Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -402,7 +399,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
 
     protected synchronized void buildGoogleApiClient() {
 
-        mGoogleApiClient = new GoogleApiClient.Builder(OfflineDailyLogManageActivity.this)
+        mGoogleApiClient = new GoogleApiClient.Builder(GeoFenceDailyLogManageActivity.this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
@@ -413,7 +410,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     @SuppressLint("MissingPermission")
     @Override
     public void onConnectionSuspended(int i) {
-        if (ContextCompat.checkSelfPermission(OfflineDailyLogManageActivity.this,
+        if (ContextCompat.checkSelfPermission(GeoFenceDailyLogManageActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -432,7 +429,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         if (connectionResult.hasResolution()) {
             try {
                 // Start an Activity that tries to resolve the error
-                connectionResult.startResolutionForResult(OfflineDailyLogManageActivity.this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                connectionResult.startResolutionForResult(GeoFenceDailyLogManageActivity.this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
                 /*
                  * Thrown if Google Play services canceled the original
                  * PendingIntent
@@ -458,24 +455,24 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
 
 
     private void checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(OfflineDailyLogManageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(GeoFenceDailyLogManageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(OfflineDailyLogManageActivity.this,
+            if (ActivityCompat.shouldShowRequestPermissionRationale(GeoFenceDailyLogManageActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-                new AlertDialog.Builder(OfflineDailyLogManageActivity.this)
+                new AlertDialog.Builder(GeoFenceDailyLogManageActivity.this)
                         .setTitle("Location Permission Needed")
                         .setMessage("This app needs the Location permission, please accept to use location functionality")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(OfflineDailyLogManageActivity.this,
+                                ActivityCompat.requestPermissions(GeoFenceDailyLogManageActivity.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION);
                             }
@@ -486,7 +483,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
 
             } else {
                 // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(OfflineDailyLogManageActivity.this,
+                ActivityCompat.requestPermissions(GeoFenceDailyLogManageActivity.this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
             }
@@ -508,7 +505,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
 
                     // permission was granted, yay! Do the
                     // location-related task you need to do.
-                    if (ContextCompat.checkSelfPermission(OfflineDailyLogManageActivity.this,
+                    if (ContextCompat.checkSelfPermission(GeoFenceDailyLogManageActivity.this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
 
@@ -522,7 +519,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
 
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(OfflineDailyLogManageActivity.this, "permission denied", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GeoFenceDailyLogManageActivity.this, "permission denied", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -557,7 +554,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     }
 
     private void locationalerts() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OfflineDailyLogManageActivity.this, R.style.CustomDialogNew);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GeoFenceDailyLogManageActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_locationalert, null);
         dialogBuilder.setView(dialogView);
@@ -582,7 +579,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
                 address=getCompleteAddressString(currentLatitude,currentLongitude);
                 v= getLayoutInflater().inflate(R.layout.fragment_daily_log_bottom_sheet, null);
 
-                dialog = new BottomSheetDialog(OfflineDailyLogManageActivity.this);
+                dialog = new BottomSheetDialog(GeoFenceDailyLogManageActivity.this);
                 dialog.setContentView(v);
                 dialog.findViewById(R.id.imgCamera).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -614,12 +611,17 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
                             String formattedDate = df.format(dof);
 
                             String date = formattedDate + "  " + currentDateTimeString;
+                             if (flagt){
+                                 if (connectionCheck.isNetworkAvailable()) {
+                                     dailyActivity(date);
+                                 } else {
+                                     attendanceGivenfunction(date);
+                                 }
+                             }else {
+                                 Toast.makeText(GeoFenceDailyLogManageActivity.this,"The system detects that you are not inside your fencing zone.",Toast.LENGTH_LONG).show();
 
-                            if (connectionCheck.isNetworkAvailable()) {
-                                dailyActivity(date);
-                            } else {
-                                attendanceGivenfunction(date);
-                            }
+                             }
+
 
 
                         } else {
@@ -651,7 +653,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OfflineDailyLogManageActivity.this, UserDashBoardActivity.class);
+                Intent intent = new Intent(GeoFenceDailyLogManageActivity.this, UserDashBoardActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -760,7 +762,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
     }
 
     private void successAlert() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OfflineDailyLogManageActivity.this, R.style.CustomDialogNew);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GeoFenceDailyLogManageActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_success, null);
         dialogBuilder.setView(dialogView);
@@ -777,13 +779,12 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
             public void onClick(View view) {
                 alerDialog4.dismiss();
                 if (connectionCheck.isNetworkAvailable()) {
-                    Intent intent = new Intent(OfflineDailyLogManageActivity.this, OfflineDailyDashBoardActivity.class);
+                    Intent intent = new Intent(GeoFenceDailyLogManageActivity.this, NumberTourActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                    finish();
-
 
                 } else {
-                    Intent intent = new Intent(OfflineDailyLogManageActivity.this, OfflineDailyDashBoardActivity.class);
+                    Intent intent = new Intent(GeoFenceDailyLogManageActivity.this, OfflineDailyDashBoardActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -798,7 +799,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         alerDialog4.show();
     }
     private void uploadAlert() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OfflineDailyLogManageActivity.this, R.style.CustomDialogNew);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GeoFenceDailyLogManageActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_upload, null);
         dialogBuilder.setView(dialogView);
@@ -809,7 +810,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
             @Override
             public void onClick(View view) {
                 al1.dismiss();
-                LongImageCameraActivity.launch(OfflineDailyLogManageActivity.this);
+                LongImageCameraActivity.launch(GeoFenceDailyLogManageActivity.this);
 
             }
         });
@@ -847,7 +848,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
                         try {
                             String imageurl = /*"file://" +*/ getRealPathFromURI(imageUri);
                             file = new File(imageurl);
-                            imageZipperFile = new ImageZipper(OfflineDailyLogManageActivity.this)
+                            imageZipperFile = new ImageZipper(GeoFenceDailyLogManageActivity.this)
                                     .setQuality(100)
                                     .setMaxWidth(300)
                                     .setMaxHeight(300)
@@ -895,7 +896,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
                     cameraflag=1;
 
                     try {
-                        imageZipperFile = new ImageZipper(OfflineDailyLogManageActivity.this)
+                        imageZipperFile = new ImageZipper(GeoFenceDailyLogManageActivity.this)
                                 .setQuality(100)
                                 .setMaxWidth(300)
                                 .setMaxHeight(300)
@@ -1041,7 +1042,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
 
     }
     public void dialogCamera(){
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OfflineDailyLogManageActivity.this, R.style.CustomDialogNew);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GeoFenceDailyLogManageActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_camera, null);
         dialogBuilder.setView(dialogView);
@@ -1062,7 +1063,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
             @Override
             public void onClick(View view) {
                 alertDialog2.dismiss();
-                LongImageCameraActivity.launch(OfflineDailyLogManageActivity.this);
+                LongImageCameraActivity.launch(GeoFenceDailyLogManageActivity.this);
             }
         });
 
@@ -1131,7 +1132,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
 
 
                             } else {
-                                flagt=true;
+                                flagt=false;
                                 pd.dismiss();
                                 Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG).show();
 
@@ -1159,7 +1160,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(OfflineDailyLogManageActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(GeoFenceDailyLogManageActivity.this);
         requestQueue.add(stringRequest);
 
 

@@ -547,7 +547,6 @@ public class EmpMappingActivity extends AppCompatActivity {
                             boolean responseStatus = job1.optBoolean("responseStatus");
                             if (responseStatus) {
 
-
                                 successAlert(responseText);
 
 

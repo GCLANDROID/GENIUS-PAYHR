@@ -130,24 +130,8 @@ public class FencingDashBoardActivity extends AppCompatActivity {
         llMapping = (LinearLayout) findViewById(R.id.llMapping);
         imgBack = (ImageView) findViewById(R.id.imgBack);
 
-        if (pref.getGeoFenceFlag().equals("1")) {
-            llFence.setVisibility(View.VISIBLE);
-        } else {
-            llFence.setVisibility(View.GONE);
-        }
 
 
-        if (pref.getGeoFenceConfig().equals("1")) {
-            llFenceConfig.setVisibility(View.VISIBLE);
-        } else {
-            llFenceConfig.setVisibility(View.GONE);
-        }
-
-        if (pref.getEmpMapAccessFlag().equals("1")){
-            llMapping.setVisibility(View.VISIBLE);
-        }else {
-            llMapping.setVisibility(View.GONE);
-        }
         point=getIntent().getStringExtra("point");
         Log.d("point",point);
         tvToolBar=(TextView)findViewById(R.id.tvToolBar);

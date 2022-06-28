@@ -104,11 +104,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
     private void initialize() {
         pref = new Pref(getApplicationContext());
         llFace=findViewById(R.id.llFace);
-        if (pref.getSecurityCode().equalsIgnoreCase("1000")){
-            llFace.setVisibility(View.VISIBLE);
-        }else {
-            llFace.setVisibility(View.GONE);
-        }
+
         tvSupervisior = findViewById(R.id.tvSupervisior);
         connectionCheck = new NetworkConnectionCheck(this);
         llAttandanceManage = findViewById(R.id.llAttandanceManage);

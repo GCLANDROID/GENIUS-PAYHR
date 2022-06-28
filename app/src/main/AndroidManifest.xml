@@ -33,6 +33,8 @@
             android:screenOrientation="userPortrait"/>
         <activity android:name=".activity.geofence.GeoFenceAttendanceManageActivity"
             android:screenOrientation="userPortrait"></activity>
+        <activity android:name=".activity.geofence.GeoFenceDailyLogManageActivity"
+            android:screenOrientation="userPortrait"></activity>
         <activity android:name=".activity.attendance.MarkInAttendance" />
         <activity android:name=".activity.attendance.AddPerson" />
         <activity android:name=".activity.attendance.FRDashboard" />

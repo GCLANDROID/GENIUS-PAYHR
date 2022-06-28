@@ -49,13 +49,14 @@ public class ConfigNumberActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_number);
-        getApproverOrNot();
+
         initView();
         onClick();
     }
 
     private void initView() {
         pref = new Pref(getApplicationContext());
+        getApproverOrNot();
         llMultiple = (LinearLayout) findViewById(R.id.llMultiple);
         llSingle = (LinearLayout) findViewById(R.id.llSingle);
         menu = pref.getFenceSubMenu();
@@ -159,7 +160,7 @@ public class ConfigNumberActivity extends AppCompatActivity {
     }
 
     private void getApproverOrNot() {
-        final ProgressDialog pd = new ProgressDialog(getApplicationContext());
+        final ProgressDialog pd = new ProgressDialog(ConfigNumberActivity.this);
         pd.setMessage("Loading...");
         pd.setCancelable(true);
         pd.show();

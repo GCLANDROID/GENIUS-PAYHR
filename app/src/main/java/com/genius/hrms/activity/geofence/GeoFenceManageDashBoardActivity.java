@@ -24,6 +24,8 @@ import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.attendance.AttendanceActivity;
 import com.genius.hrms.activity.attendance.AttendanceManageActivity;
+import com.genius.hrms.activity.dailylog.NumberTourActivity;
+import com.genius.hrms.activity.dailylog.OfflineDailyLogReportActivity;
 import com.genius.hrms.activity.utility.LocationUpdaterService;
 import com.genius.hrms.activity.utility.Pref;
 
@@ -75,7 +77,7 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
         llManage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GeoFenceManageDashBoardActivity.this, GeoFenceAttendanceManageActivity.class);
+                Intent intent = new Intent(GeoFenceManageDashBoardActivity.this, GeoFenceDailyLogManageActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -84,7 +86,7 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
         llReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ReportActivityActivity.class);
+                Intent intent = new Intent(getApplicationContext(), NumberTourActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
