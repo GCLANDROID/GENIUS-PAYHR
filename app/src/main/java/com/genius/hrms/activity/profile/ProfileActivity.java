@@ -42,7 +42,7 @@ import java.util.Calendar;
 
 
 public class ProfileActivity extends AppCompatActivity {
-    LinearLayout llOffical, llOffDetail, llCon, llConDetail, llPer, llPerDetail, llMis, llMisDetail;
+    LinearLayout llOffical, llOffDetail, llCon, llConDetail, llPer, llPerDetail, llMis, llMisDetail,llDocuments;
     ImageView imgOffiPlus, imgOffiMinus, imgPerPlus, imgPerMinus, imgConPlus, imgConMinus, imgMisPlus, imgMisMinus;
     ImageView imgHome, imgBack;
     TextView tvEmplId, tvEmpCode, tvEmpName, tvDOJ, tvDepartment, tvDesignation, tvLocation, tvGender, tvEmpDOB, tvGurdianName, tvRealtionShip, tvQualification, tvMarital, tvBloodGroup;
@@ -51,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
     String empConsId, empClinId, empClintOffId, empId;
     NetworkConnectionCheck connectionCheck;
     ImageView imgOffFor, imgOffFor1, imgPerFor, imgPerFor1, imgConFor, imgConFor1, imgMisFor, imgMisFor1;
-    TextView tvOff, tvPer, tvCon, tvMis;
+    TextView tvOff, tvPer, tvCon, tvMis,tvDocuments;
     LinearLayout llEmpId;
     TextView tvToolbar, tvPersonal, tvContact, tvToolBar;
     TextView tvUAN, tvAadhar, tvAc, tvBank, tvEsi, tvPf, tvEmailID, tvPhone, tvPreAdd, tvPerAdd, tvBlood, tvStatus, tvQuali, tvRelation, tvGName, tvDateoOB, tvGen, tvLoc, tvDes, tvDept, tvDateoJ, tvName, tvCode, tvId;
@@ -73,6 +73,8 @@ public class ProfileActivity extends AppCompatActivity {
     private void initialize() {
         pref = new Pref(ProfileActivity.this);
         connectionCheck = new NetworkConnectionCheck(this);
+
+        llDocuments = (LinearLayout) findViewById(R.id.llDocuments);
 
         llOffical = (LinearLayout) findViewById(R.id.llOffical);
         llOffDetail = (LinearLayout) findViewById(R.id.llOffiDetail);
@@ -197,6 +199,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvPer.setText("व्यक्तिगत जानकारी");
             tvCon.setText("संपर्क विवरण");
             tvMis.setText("विविध");
+            tvDocuments.setText("दस्तावेजों");
             tvToolBar.setText("प्रोफ़ाइल");
 
             tvId.setText("आयडी");
@@ -231,6 +234,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvPer.setText("Personal");
             tvCon.setText("Contact");
             tvMis.setText("Miscellaneous");
+            tvDocuments.setText("Documents");
             tvToolBar.setText("Profile");
 
             tvId.setText("Id");
@@ -325,6 +329,17 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
+
+        llDocuments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, DocumentActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
+
 
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
