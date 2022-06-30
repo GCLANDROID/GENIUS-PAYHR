@@ -1676,10 +1676,11 @@
 
                                     <ImageView
                                         android:id="@+id/imgDocFor1"
+                                        android:src="@drawable/document_profile"
                                         android:layout_width="20dp"
                                         android:layout_height="20dp"
                                         android:layout_gravity="center"
-                                        android:visibility="gone" />
+                                        android:visibility="visible" />
                                 </FrameLayout>
 
 
