@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.genius.hrms"
-        minSdkVersion 19
-        targetSdkVersion 30
+        minSdkVersion 22
+        targetSdkVersion 31
         versionCode 77
         versionName "8.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -89,7 +89,7 @@ dependencies {
     implementation 'com.android.support:design:24.1.1'
     implementation 'com.google.firebase:firebase-core:11.6.2'
     implementation 'com.google.firebase:firebase-messaging:11.6.2'
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation 'com.google.cloud:google-cloud-translate:1.90.0'
     implementation 'com.google.firebase:firebase-database:11.6.2'

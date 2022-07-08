@@ -33,19 +33,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.genius.hrms.R;
+import com.genius.hrms.activity.activity.LoginActivity;
 import com.genius.hrms.activity.adapter.AddFaceReportAdapter;
 import com.genius.hrms.activity.model.AddFaceModel;
-import com.genius.hrms.activity.utility.AppController;
 import com.genius.hrms.activity.utility.FileUtils;
 import com.genius.hrms.activity.utility.Pref;
 import com.tzutalin.dlib.Constants;
@@ -610,7 +613,12 @@ public class AddPerson extends AppCompatActivity {
         }) {
 
         };
-        AppController.getInstance().addToRequestQueue(stringRequest, "string_req");
+        RequestQueue requestQueue = Volley.newRequestQueue(AddPerson.this);
+        requestQueue.add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                100000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     private void setAdapter(){
@@ -681,6 +689,11 @@ public class AddPerson extends AppCompatActivity {
         }) {
 
         };
-        AppController.getInstance().addToRequestQueue(stringRequest, "string_req");
+        RequestQueue requestQueue = Volley.newRequestQueue(AddPerson.this);
+        requestQueue.add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                100000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 }

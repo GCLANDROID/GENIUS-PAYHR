@@ -4,38 +4,30 @@ import android.app.Application;
 import android.os.StrictMode;
 import android.text.TextUtils;
 
-import androidx.appcompat.app.AppCompatDelegate;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.FirebaseApp;
 
-
-public class AppController extends Application {
-    public static final String TAG = AppController.class
+public class App extends Application {
+    public static final String TAG = App.class
             .getSimpleName();
 
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
-    private static AppController mInstance;
+    private static App mInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        //MultiDex.install(this);
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
         FirebaseApp.initializeApp(getApplicationContext());
-       /*
-        registerActivityLifecycleCallbacks(new MyLifecycleHandler());
-*/
         mInstance = this;
+
     }
-    public static synchronized AppController getInstance() {
+
+    public static synchronized App getInstance() {
         return mInstance;
     }
 
@@ -72,5 +64,4 @@ public class AppController extends Application {
             mRequestQueue.cancelAll(tag);
         }
     }
-
 }
