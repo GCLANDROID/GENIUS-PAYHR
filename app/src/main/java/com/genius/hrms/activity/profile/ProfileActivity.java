@@ -192,6 +192,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.tvName);
         tvCode = (TextView) findViewById(R.id.tvCode);
         tvId = (TextView) findViewById(R.id.tvId);
+        tvDocuments = (TextView) findViewById(R.id.tvDocuments);
 
 
         if (pref.getLanguage().equals("hi")) {
@@ -336,6 +337,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(ProfileActivity.this, DocumentActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+
             }
         });
 

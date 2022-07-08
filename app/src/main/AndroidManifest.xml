@@ -25,7 +25,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:node="replace">
-        <activity android:name=".activity.profile.DocumentActivity"></activity>
+        <activity android:name=".activity.profile.DocumentDetails"></activity>
+        <activity android:name=".activity.profile.DocumentActivity" />
         <activity
             android:name=".activity.activity.VoiceAssistantActivity"
             android:screenOrientation="userPortrait" />

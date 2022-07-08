@@ -729,6 +729,15 @@ public class Pref {
         return _pref.getString("empname","");
     }
 
+    public void saveHRManualID(int HRManualID){
+        _editorPref.putInt("HRManualID", HRManualID);
+        _editorPref.commit();
+    }
+
+    public int getHRManualID(){
+        return _pref.getInt("HRManualID",0);
+    }
+
 
 
 
