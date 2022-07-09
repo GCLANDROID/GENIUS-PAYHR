@@ -118,7 +118,7 @@ public class DocumentActivity extends AppCompatActivity {
         pd.setMessage("Loading..");
         pd.setCancelable(false);
         pd.show();
-         surl = "https://cloud.geniusconsultant.com/PayHR_Demo_V2/WebApiForMobileApp/api/Documents/GetDocuments?DocumentIndexId=0&AEMClientID=" + pref.getEmpClintId()+"&AEMEmployeeID=" + pref.getEmpId() +"&FinancialYear="+pref.getDate()+"&SecurityCode=" + pref.getSecurityCode();
+         surl = "https://cloud.geniusconsultant.com/PayHR_Demo_V2/WebApiForMobileApp/api/Documents/GetDocuments?DocumentIndexId=0&AEMClientID=" + pref.getEmpClintId()+"&AEMEmployeeID=" + pref.getEmpId() +"&FinancialYear=0&SecurityCode=" + pref.getSecurityCode();
         Log.d("documentlist", surl);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,

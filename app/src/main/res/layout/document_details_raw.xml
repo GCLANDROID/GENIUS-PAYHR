@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginBottom="10dp">
 
     <LinearLayout
         android:background="@drawable/name_dr"
@@ -18,43 +19,52 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:paddingLeft="5dp"
+                android:gravity="left"
                 android:textStyle="bold"
                 android:id="@+id/tvLeaveAttendance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Leave &amp; Attendance Policy"
-                android:textSize="18sp"
+                android:text=" Leave Attendance Policy"
+                android:textSize="20sp"
                 android:textColor="@color/black"
-                android:gravity="center"/>
+                android:layout_marginBottom="10dp"
+               />
 
             <TextView
+                android:paddingLeft="5dp"
                 android:id="@+id/tvLeaveApplication"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="( Leave Application &amp; Approval )"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/black"
-                android:gravity="center"/>
+                android:gravity="left"
+                android:layout_marginBottom="10dp"/>
 
             <TextView
+                android:paddingLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descriprtion "
+                android:textSize="16sp"
+                android:textColor="@color/blue"
+                android:gravity="left" />
+
+
+            <TextView
+                android:paddingLeft="5dp"
                 android:id="@+id/tvDescriprtion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" Descriprtion "
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textColor="@color/black"
-                android:gravity="center"/>
+                android:gravity="left"
+                android:layout_marginBottom="10dp"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
-        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,12 +80,9 @@
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:text="VIEW DETAILS"/>
+                android:text="VIEW DOCUMENT"/>
 
         </LinearLayout>
-
-
-
 
 
     </LinearLayout>
