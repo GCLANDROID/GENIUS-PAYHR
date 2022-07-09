@@ -1,6 +1,8 @@
 package com.genius.hrms.activity.model;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +28,22 @@ public class DocumentDetailsAdapter extends RecyclerView.Adapter<DocumentDetails
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DocumentDetailsAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DocumentDetailsAdapter.MyViewHolder holder, final int position) {
         holder.tvLeaveAttendance.setText(reportList.get(position).getManualCategory());
         holder.tvLeaveApplication.setText("( " + reportList.get(position).getManualSubCategory() + " )");
         holder.tvDescriprtion.setText(reportList.get(position).getManualDescription());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(reportList.get(position).getDocumentPath()));
+                browserIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContex.startActivity(browserIntent);
+            }
+        });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -49,8 +62,9 @@ public class DocumentDetailsAdapter extends RecyclerView.Adapter<DocumentDetails
             tvDescriprtion = (TextView) itemView.findViewById(R.id.tvDescriprtion);
         }
     }
-    public DocumentDetailsAdapter(ArrayList<DocumentDetailsModel> reportList)
-    {
+
+    public DocumentDetailsAdapter(ArrayList<DocumentDetailsModel> reportList, Context mContex) {
         this.reportList = reportList;
+        this.mContex = mContex;
     }
 }

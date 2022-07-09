@@ -5,6 +5,7 @@ public class DocumentDetailsModel {
     String ManualCategory;
     String ManualSubCategory;
     String ManualDescription;
+    String documentPath;
 
     public DocumentDetailsModel(String manualCategory, String manualSubCategory, String manualDescription) {
         ManualCategory = manualCategory;
@@ -34,5 +35,13 @@ public class DocumentDetailsModel {
 
     public void setManualDescription(String manualDescription) {
         ManualDescription = manualDescription;
+    }
+
+    public String getDocumentPath() {
+        return documentPath;
+    }
+
+    public void setDocumentPath(String documentPath) {
+        this.documentPath = documentPath;
     }
 }

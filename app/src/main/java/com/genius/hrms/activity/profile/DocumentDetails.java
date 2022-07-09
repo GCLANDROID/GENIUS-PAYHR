@@ -32,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class DocumentDetails extends AppCompatActivity {
@@ -140,13 +141,14 @@ public class DocumentDetails extends AppCompatActivity {
                                     String ManualCategory = obj.optString("ManualCategory");
                                     String ManualSubCategory = obj.optString("ManualSubCategory");
                                     String ManualDescription = obj.optString("ManualDescription");
-
+                                    String FilePath=obj.optString("FilePath");
 
                                     DocumentDetailsModel myModel = new DocumentDetailsModel(ManualCategory,ManualSubCategory, ManualDescription);
+                                    myModel.setDocumentPath(FilePath);
                                     itemList.add(myModel);
 
                                 }
-                                DocumentDetailsAdapter reportAdapter = new DocumentDetailsAdapter(itemList);
+                                DocumentDetailsAdapter reportAdapter = new DocumentDetailsAdapter(itemList,DocumentDetails.this);
                                 rvDocumentDetails.setAdapter(reportAdapter);
 
                             } else {
