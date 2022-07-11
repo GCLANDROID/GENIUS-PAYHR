@@ -281,13 +281,17 @@ public class UserDashBoardActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
         LinearLayout llEnglish = (LinearLayout) dialogView.findViewById(R.id.llEnglish);
         LinearLayout llHindi = (LinearLayout) dialogView.findViewById(R.id.llHindi);
+        LinearLayout llTamil = (LinearLayout) dialogView.findViewById(R.id.llTamil);
         ImageView imgCancelDialog=(ImageView) dialogView.findViewById(R.id.imgCancelDialog);
         final ImageView imgGreyBridge=(ImageView)dialogView.findViewById(R.id.imgGreyBridge);
         final ImageView imgBlueBridge=(ImageView)dialogView.findViewById(R.id.imgBlueBridge);
         final ImageView imgGreyTajMahal=(ImageView)dialogView.findViewById(R.id.imgGreyTajMahal);
         final ImageView imgBlueTajMahal=(ImageView)dialogView.findViewById(R.id.imgBlueTajMahal);
+        final ImageView imgGreyTamil=(ImageView)dialogView.findViewById(R.id.imgGreyTamil);
+        final ImageView imgBlueTamil=(ImageView)dialogView.findViewById(R.id.imgBlueTamil);
         final TextView tvEnglish=(TextView)dialogView.findViewById(R.id.tvEnglish);
         final TextView tvHindi=(TextView)dialogView.findViewById(R.id.tvHindi);
+        final TextView tvTamil=(TextView)dialogView.findViewById(R.id.tvTamil);
         imgCancelDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -316,8 +320,12 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 imgBlueBridge.setVisibility(View.GONE);
                 imgBlueTajMahal.setVisibility(View.VISIBLE);
                 imgGreyTajMahal.setVisibility(View.GONE);
-                tvEnglish.setTextColor(Color.parseColor("#72128E"));
-                tvHindi.setTextColor(Color.parseColor("#B1ACAC"));
+                imgGreyTamil.setVisibility(View.VISIBLE);
+                imgBlueTamil.setVisibility(View.GONE);
+                //72128E
+                tvEnglish.setTextColor(Color.parseColor("#B1ACAC"));
+                tvHindi.setTextColor(Color.parseColor("#72128E"));
+                tvTamil.setTextColor(Color.parseColor("#B1ACAC"));
             }
         });
 
@@ -345,9 +353,43 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 imgBlueBridge.setVisibility(View.VISIBLE);
                 imgBlueTajMahal.setVisibility(View.GONE);
                 imgGreyTajMahal.setVisibility(View.VISIBLE);
+                imgGreyTamil.setVisibility(View.VISIBLE);
+                imgBlueTamil.setVisibility(View.GONE);
+                tvEnglish.setTextColor(Color.parseColor("#72128E"));
+                tvHindi.setTextColor(Color.parseColor("#B1ACAC"));
+                tvTamil.setTextColor(Color.parseColor("#B1ACAC"));
+            }
+        });
 
+        llTamil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                pref.saveLanguage("ta");
+                alert2.dismiss();
+                getMenuList();
+                Calendar c = Calendar.getInstance();
+                int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+                if (timeOfDay >= 0 && timeOfDay < 12) {
+                    tvGreeting.setText("Good Morning");
+                } else if (timeOfDay >= 12 && timeOfDay < 16) {
+                    tvGreeting.setText("Good Afternoon");
+                } else if (timeOfDay >= 16 && timeOfDay < 21) {
+                    tvGreeting.setText("Good Evening");
+                } else if (timeOfDay >= 21 && timeOfDay < 24) {
+                    tvGreeting.setText("Good Evening");
+                }
+
+                imgGreyBridge.setVisibility(View.VISIBLE);
+                imgBlueBridge.setVisibility(View.GONE);
+                imgBlueTajMahal.setVisibility(View.GONE);
+                imgGreyTajMahal.setVisibility(View.VISIBLE);
+                imgGreyTamil.setVisibility(View.GONE);
+                imgBlueTamil.setVisibility(View.VISIBLE);
                 tvEnglish.setTextColor(Color.parseColor("#B1ACAC"));
-                tvHindi.setTextColor(Color.parseColor("#72128E"));
+                tvHindi.setTextColor(Color.parseColor("#B1ACAC"));
+                tvTamil.setTextColor(Color.parseColor("#72128E"));
             }
         });
         if (pref.getLanguage().equals("hi")) {
@@ -357,12 +399,29 @@ public class UserDashBoardActivity extends AppCompatActivity {
             imgGreyTajMahal.setVisibility(View.GONE);
             tvEnglish.setTextColor(Color.parseColor("#B1ACAC"));
             tvHindi.setTextColor(Color.parseColor("#72128E"));
-        } else {
+            tvTamil.setTextColor(Color.parseColor("#B1ACAC"));
+
+        } else if (pref.getLanguage().equals("ta"))
+        {
+            imgGreyBridge.setVisibility(View.VISIBLE);
+            imgBlueBridge.setVisibility(View.GONE);
+            imgBlueTajMahal.setVisibility(View.GONE);
+            imgGreyTajMahal.setVisibility(View.VISIBLE);
+            imgGreyTamil.setVisibility(View.GONE);
+            imgBlueTamil.setVisibility(View.VISIBLE);
+            tvEnglish.setTextColor(Color.parseColor("#B1ACAC"));
+            tvHindi.setTextColor(Color.parseColor("#B1ACAC"));
+            tvTamil.setTextColor(Color.parseColor("#72128E"));
+        }
+        else {
             imgGreyBridge.setVisibility(View.GONE);
             imgBlueBridge.setVisibility(View.VISIBLE);
             imgBlueTajMahal.setVisibility(View.GONE);
             imgGreyTajMahal.setVisibility(View.VISIBLE);
+            imgGreyTamil.setVisibility(View.VISIBLE);
+            imgBlueTamil.setVisibility(View.GONE);
             tvEnglish.setTextColor(Color.parseColor("#72128E"));
+            tvHindi.setTextColor(Color.parseColor("#B1ACAC"));
             tvHindi.setTextColor(Color.parseColor("#B1ACAC"));
         }
         alert2 = dialogBuilder.create();

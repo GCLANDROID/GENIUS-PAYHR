@@ -71,7 +71,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
         pd.setCancelable(false);
 //AIzaSyCjK28Qn10raw876c8jHJiLOy4yDXEH7ww
         //AIzaSyABnTOmX0ySqLO0OBnsNVZZBrKbz0cohO8
-        if (pref.getLanguage().equals("hi")) {
+        if (pref.getLanguage().equals("hi") || pref.getLanguage().equalsIgnoreCase("ta")) {
             final Handler textViewHandler1 = new Handler();
             new AsyncTask<Void, Void, Void>() {
                 @Override
