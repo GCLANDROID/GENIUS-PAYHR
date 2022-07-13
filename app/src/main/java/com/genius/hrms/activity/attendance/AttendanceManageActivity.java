@@ -251,19 +251,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
             btnMarkAttendance.setText("Mark Your Attendance");
         }
 
-        gps = new GPSTracker(AttendanceManageActivity.this);
-        if (gps.canGetLocation()) {
-            currentLatitude = gps.getLatitude();
-            Log.d("saikatdas", String.valueOf(latitude));
-            currentLongitude = gps.getLongitude();
-        } else {
-// can't get location
-// GPS or Network is not enabled
-// Ask user to enable GPS/network in settings
 
-        }
-        address=getCompleteAddressString(currentLatitude,currentLongitude);
-        address1 = address.replaceAll("#","abc").replaceAll("\\s+", "");
         //tvAddress.setText("Hi! "+pref.getEmpName()+" You are at: "+address);
         //tvAddress.setText(address);
         llClick=(LinearLayout)findViewById(R.id.llClick);
@@ -282,7 +270,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         btnMarkAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                address=getCompleteAddressString(currentLatitude,currentLongitude);
+
                 v= getLayoutInflater().inflate(R.layout.fragment_bottom_screen, null);
 
                 dialog = new BottomSheetDialog(AttendanceManageActivity.this);
@@ -521,7 +509,10 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
         lat = String.valueOf(currentLatitude);
         currentLongitude = location.getLongitude();
         longt = String.valueOf(currentLongitude);
+        address=getCompleteAddressString(currentLatitude,currentLongitude);
+        address1 = address.replaceAll("#","abc").replaceAll("\\s+", "");
 
+        // tvAddress.setText(address);
         latLng = new LatLng(currentLatitude, currentLongitude);
        // address = getCompleteAddressString(currentLatitude, currentLongitude);
 

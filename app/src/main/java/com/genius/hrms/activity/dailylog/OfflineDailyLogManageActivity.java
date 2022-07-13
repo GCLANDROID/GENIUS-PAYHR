@@ -231,22 +231,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
        // etRemarks = (EditText) findViewById(R.id.etRemarks);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
 
-        gps = new GPSTracker(OfflineDailyLogManageActivity.this);
-        if (gps.canGetLocation()) {
-            currentLatitude = gps.getLatitude();
-            currlat = String.valueOf(latitude);
-            Log.d("saikatdas", String.valueOf(latitude));
-            currentLongitude = gps.getLongitude();
-            currlong = String.valueOf(longitude);
-        } else {
-// can't get location
-// GPS or Network is not enabled
-// Ask user to enable GPS/network in settings
-            gps.showSettingsAlert();
-        }
 
-        cuuaddress = getCompleteAddressString(currentLatitude, currentLongitude);
-        Log.d("cuuaddress", cuuaddress);
         db = new DatabaseHelper(this);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -346,8 +331,9 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         Log.d(TAG, location.toString());
 
         currentLatitude = location.getLatitude();
-        lat = String.valueOf(currentLatitude);
+        currlat = String.valueOf(currentLatitude);
         currentLongitude = location.getLongitude();
+        currlong = String.valueOf(currentLatitude);
         longt = String.valueOf(currentLongitude);
         latLng = new LatLng(currentLatitude, currentLongitude);
 
@@ -579,7 +565,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         btnMarkDailyLogSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                address=getCompleteAddressString(currentLatitude,currentLongitude);
+
                 v= getLayoutInflater().inflate(R.layout.fragment_daily_log_bottom_sheet, null);
 
                 dialog = new BottomSheetDialog(OfflineDailyLogManageActivity.this);

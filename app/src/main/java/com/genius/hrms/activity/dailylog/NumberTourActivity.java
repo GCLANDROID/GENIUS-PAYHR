@@ -71,6 +71,7 @@ public class NumberTourActivity extends AppCompatActivity {
     String hPinchin;
     ProgressDialog pd;
     String surl;
+    double minLat,minLong,maxlat,maxlong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,8 +258,31 @@ public class NumberTourActivity extends AppCompatActivity {
     }
 
     public  double distance(int i){
-        LatLng src=new LatLng(Double.parseDouble(itemList.get(i).getMinlat()),Double.parseDouble(itemList.get(i).getMinlong()));
-        LatLng des=new LatLng(Double.parseDouble(itemList.get(i).getMaxlat()),Double.parseDouble(itemList.get(i).getMaxlong()));
+        if (!itemList.get(i).getMinlat().equalsIgnoreCase("")){
+            minLat=Double.parseDouble(itemList.get(i).getMinlat());
+        }else {
+            minLat=0.0;
+        }
+
+        if (!itemList.get(i).getMinlong().equalsIgnoreCase("")){
+            minLong=Double.parseDouble(itemList.get(i).getMinlong());
+        }else {
+            minLong=0.0;
+        }
+
+        if (!itemList.get(i).getMaxlat().equalsIgnoreCase("")){
+            maxlat=Double.parseDouble(itemList.get(i).getMaxlat());
+        }else {
+            maxlat=0.0;
+        }
+
+        if (!itemList.get(i).getMaxlong().equalsIgnoreCase("")){
+            maxlong=Double.parseDouble(itemList.get(i).getMaxlong());
+        }else {
+            maxlong=0.0;
+        }
+        LatLng src=new LatLng(minLat,minLong);
+        LatLng des=new LatLng(maxlat,maxlong);
         double distance=CalculationByDistance(src,des);
 
 
