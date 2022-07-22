@@ -70,7 +70,7 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
             tvReport.setText("रिपोर्ट");
             tvToolBar.setText("दैनिक लॉग");
             tvsubordinate.setText("टीम रिपोर्ट");
-            tvBackLog.setText("बैकलॉग उपस्थिति\n");
+            tvBackLog.setText("बैकलॉग उपस्थिति");
         }else {
             tvManage.setText("Manage");
             tvLogBook.setText("Log Book");
@@ -93,12 +93,17 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         llManage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 progressDialog.show();
+                progressDialog.show();
 
-
-                Intent intent = new Intent(OfflineDailyDashBoardActivity.this, VisitLocationActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                if (pref.getSecurityCode().equals("1153")) {
+                    Intent intent = new Intent(OfflineDailyDashBoardActivity.this, SmartJuleDailyLogActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(OfflineDailyDashBoardActivity.this, VisitLocationActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
 
             }
         });

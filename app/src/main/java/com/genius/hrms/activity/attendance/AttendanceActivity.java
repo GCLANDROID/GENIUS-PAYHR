@@ -37,6 +37,7 @@ import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.LoginActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
+import com.genius.hrms.activity.dailylog.SmartJuleDailyLogActivity;
 import com.genius.hrms.activity.model.AttendanceModule;
 import com.genius.hrms.activity.utility.CreativePermission;
 import com.genius.hrms.activity.utility.GPSTracker;
@@ -423,6 +424,8 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
             startActivity(intent);
         } else if (pref.getSecurityCode().equals("1135")) {
             getAttendanceInformation();
+        }else if (pref.getSecurityCode().equals("1153")) {
+            getAttendanceInformationForSmart();
         } else {
             Intent intent = new Intent(AttendanceActivity.this, AttendanceManageActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -497,6 +500,68 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
                             }
 
                             Intent intent = new Intent(AttendanceActivity.this, Em3AttendnaceActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("attCode", attCode);
+                            startActivity(intent);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Toast.makeText(AttendanceReportActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                // Toast.makeText(AttendanceReportActivity.this, "volly 2"+error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceActivity.this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void getAttendanceInformationForSmart() {
+        Log.d("Arpan", "arpan");
+        final ProgressDialog progressDialog = new ProgressDialog(AttendanceActivity.this);
+        progressDialog.setMessage("Loadingg..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
+        Log.d("input", surl);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("responseAttendance", response);
+                        progressDialog.dismiss();
+
+                        // attendabceInfiList.clear();
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+
+
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+
+                                attCode = "1";
+
+
+                            } else {
+                                attCode = "0";
+                            }
+
+                            Intent intent = new Intent(AttendanceActivity.this, SmartJuleDailyLogActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("attCode", attCode);
                             startActivity(intent);

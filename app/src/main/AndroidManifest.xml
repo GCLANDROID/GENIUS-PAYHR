@@ -452,6 +452,12 @@
             android:name=".activity.attendance.Em3AttendnaceActivity"
             android:screenOrientation="userPortrait"
             android:exported="true"/>
+
+        <activity
+            android:name=".activity.dailylog.SmartJuleDailyLogActivity"
+            android:screenOrientation="userPortrait"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
