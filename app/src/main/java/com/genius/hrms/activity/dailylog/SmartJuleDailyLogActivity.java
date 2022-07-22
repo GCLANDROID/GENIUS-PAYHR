@@ -592,7 +592,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
             }
         });
         alertDialog = dialogBuilder.create();
-        alertDialog.setCancelable(false);
+        alertDialog.setCancelable(true);
         Window window = alertDialog.getWindow();
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
