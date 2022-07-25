@@ -476,7 +476,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                     if (flag==1) {
                         attenDancePunchTest("OK", "0");
                     }else {
-                        attenDancePunchTestWithoutImage("OK", "0");
+
                         Toast.makeText(SmartJuleDailyLogActivity.this, "Please Click Your Selfie Image", Toast.LENGTH_LONG).show();
 
                     }
@@ -572,7 +572,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                         if (flag==1) {
                             attenDancePunchTest(etReason.getText().toString(), "1");
                         }else {
-                            attenDancePunchTestWithoutImage("OK", "0");
+
                             Toast.makeText(SmartJuleDailyLogActivity.this, "Please Click Your Selfie Image", Toast.LENGTH_LONG).show();
 
                         }
@@ -584,7 +584,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                     if (flag==1) {
                         attenDancePunchTest("OK", "0");
                     }else {
-                        attenDancePunchTestWithoutImage("OK", "0");
+
                         Toast.makeText(SmartJuleDailyLogActivity.this, "Please Click Your Selfie Image", Toast.LENGTH_LONG).show();
 
                     }
