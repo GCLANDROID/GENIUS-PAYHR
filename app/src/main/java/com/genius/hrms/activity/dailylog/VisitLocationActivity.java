@@ -26,6 +26,7 @@ import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.adapter.VisitingLocationAdapter;
+import com.genius.hrms.activity.attendance.AttendanceActivity;
 import com.genius.hrms.activity.model.VisitingLocationModel;
 import com.genius.hrms.activity.utility.Pref;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -53,6 +54,7 @@ public class VisitLocationActivity extends AppCompatActivity {
     ImageView imgBack,imgHome;
     TextView tvToolBar;
     String surl;
+    String attCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,13 +188,11 @@ public class VisitLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    if (pref.getSecurityCode().equals("1134")){
+                    if (pref.getSecurityCode().equals("1153")){
                         pd.setMessage("Loading....");
                         pd.setCancelable(false);
                         pd.show();
-                        Intent intent = new Intent(VisitLocationActivity.this, DailyLogManageForMaxActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                       getAttendanceInformationForSmart();
                     }else {
                         pd.setMessage("Loading....");
                         pd.setCancelable(false);
@@ -210,13 +210,11 @@ public class VisitLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                        if (pref.getSecurityCode().equals("1134")) {
+                        if (pref.getSecurityCode().equals("1153")) {
                             pd.setMessage("Loading....");
                             pd.setCancelable(false);
                             pd.show();
-                            Intent intent = new Intent(VisitLocationActivity.this, DailyLogManageForMaxActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                          getAttendanceInformationForSmart();
                         } else {
                             pd.setMessage("Loading....");
                             pd.setCancelable(false);
@@ -250,5 +248,68 @@ public class VisitLocationActivity extends AppCompatActivity {
         super.onPostResume();
         pd.dismiss();
         pd1.dismiss();
+    }
+
+
+    private void getAttendanceInformationForSmart() {
+        Log.d("Arpan", "arpan");
+        final ProgressDialog progressDialog = new ProgressDialog(VisitLocationActivity.this);
+        progressDialog.setMessage("Loadingg..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
+        Log.d("input", surl);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("responseAttendance", response);
+                        progressDialog.dismiss();
+
+                        // attendabceInfiList.clear();
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+
+
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+
+                                attCode = "1";
+
+
+                            } else {
+                                attCode = "0";
+                            }
+
+                            Intent intent = new Intent(VisitLocationActivity.this, SmartJuleDailyLogActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("attCode", attCode);
+                            startActivity(intent);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Toast.makeText(AttendanceReportActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                // Toast.makeText(AttendanceReportActivity.this, "volly 2"+error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(VisitLocationActivity.this);
+        requestQueue.add(stringRequest);
     }
 }

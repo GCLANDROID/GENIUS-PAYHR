@@ -95,15 +95,9 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressDialog.show();
 
-                if (pref.getSecurityCode().equals("1153")) {
-                    Intent intent = new Intent(OfflineDailyDashBoardActivity.this, SmartJuleDailyLogActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                } else {
                     Intent intent = new Intent(OfflineDailyDashBoardActivity.this, VisitLocationActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                }
 
             }
         });
