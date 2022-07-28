@@ -77,7 +77,10 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -115,7 +118,9 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
     private GoogleMap mMap;
     //  private MapView mapView;
     private LocationRequest mLocationRequest;
-    String address1;
+    String address1,frstPunch;
+    Date date1,date2;
+    int days,hours,min;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +129,8 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         pref = new Pref(SmartJuleDailyLogActivity.this);
         securityCode = "1153";
+        frstPunch=getIntent().getStringExtra("frstPunch");
+        Log.d("frstPunch",frstPunch);
 
         connectionCheck = new NetworkConnectionCheck(SmartJuleDailyLogActivity.this);
         mLocationRequest = new LocationRequest();
@@ -141,6 +148,32 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         imgBack = (ImageView) findViewById(R.id.imgBack);
         imgHome = (ImageView) findViewById(R.id.imgHome);
         attCode = getIntent().getStringExtra("attCode");
+        Date d=new Date();
+        SimpleDateFormat sdf=new SimpleDateFormat("hh:mm a");
+        String currentDateTimeString = sdf.format(d);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+
+
+        try {
+            date1 = simpleDateFormat.parse(frstPunch);
+            date2 = simpleDateFormat.parse(currentDateTimeString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        long difference = date2.getTime() - date1.getTime();
+        days = (int) (difference / (1000*60*60*24));
+        hours = (int) ((difference - (1000*60*60*24*days)) / (1000*60*60));
+        min = (int) (difference - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
+        hours = (hours < 0 ? -hours : hours);
+        Log.i("Hours"," :: "+hours);
+        if (hours<9){
+            showAlert();
+        }else {
+
+        }
         setUpMapIfNeeded();
         onClick();
 
@@ -474,7 +507,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                 if (attCode.equals("1"))
                 {
                     if (flag==1) {
-                        attenDancePunchTest("OK", "0");
+                        attenDancePunchTest("OK", "1");
                     }else {
 
                         Toast.makeText(SmartJuleDailyLogActivity.this, "Please Click Your Selfie Image", Toast.LENGTH_LONG).show();
@@ -570,7 +603,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                 if (attenID.equals("1")) {
                     if (etReason.getText().toString().length() > 0) {
                         if (flag==1) {
-                            attenDancePunchTest(etReason.getText().toString(), "1");
+                            attenDancePunchTest(etReason.getText().toString(), attenID);
                         }else {
 
                             Toast.makeText(SmartJuleDailyLogActivity.this, "Please Click Your Selfie Image", Toast.LENGTH_LONG).show();
@@ -582,7 +615,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
 
                 } else {
                     if (flag==1) {
-                        attenDancePunchTest("OK", "0");
+                        attenDancePunchTest("OK", attenID);
                     }else {
 
                         Toast.makeText(SmartJuleDailyLogActivity.this, "Please Click Your Selfie Image", Toast.LENGTH_LONG).show();
@@ -748,7 +781,18 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
 
     }
 
-    private void check() {
+    private void showAlert() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("You have not completed 9 hrs of work");
+        alertDialogBuilder.setPositiveButton("ok",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        arg0.dismiss();
+                    }
+                });
+        alertDialogBuilder.show();
+
 
     }
 }

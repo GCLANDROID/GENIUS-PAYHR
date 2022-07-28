@@ -55,6 +55,8 @@ public class VisitLocationActivity extends AppCompatActivity {
     TextView tvToolBar;
     String surl;
     String attCode;
+    String frstPunch;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +143,9 @@ public class VisitLocationActivity extends AppCompatActivity {
 
 
                                 }
+
+                                JSONObject frstPunchObj=responseData.optJSONObject(0);
+                                frstPunch=frstPunchObj.optString("PunchInTime");
                                 setAdapter();
                                 llLoader.setVisibility(View.GONE);
                                 llMain.setVisibility(View.VISIBLE);
@@ -151,6 +156,7 @@ public class VisitLocationActivity extends AppCompatActivity {
                                 llLoader.setVisibility(View.GONE);
                                 llMain.setVisibility(View.GONE);
                                 llNoData.setVisibility(View.VISIBLE);
+                                frstPunch="0";
 
                             }
 
@@ -289,6 +295,7 @@ public class VisitLocationActivity extends AppCompatActivity {
                             Intent intent = new Intent(VisitLocationActivity.this, SmartJuleDailyLogActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("attCode", attCode);
+                            intent.putExtra("frstPunch",frstPunch);
                             startActivity(intent);
 
 

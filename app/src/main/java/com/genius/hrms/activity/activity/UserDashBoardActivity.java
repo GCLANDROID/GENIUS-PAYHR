@@ -87,7 +87,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
     ImageView imgLogout;
     DatabaseReference reference;
     private FirebaseDatabase mFirebaseInstance;
-    String formattedDate,deviceName;
+    String formattedDate,deviceName,menuName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -205,8 +205,12 @@ public class UserDashBoardActivity extends AppCompatActivity {
                                     JSONObject obj = responseData.getJSONObject(i);
                                     String MenuItemName = obj.optString("MenuItemName");
                                     int MenuItemId = obj.optInt("MenuItemId");
-
-                                    MenuItemModel obj2 = new MenuItemModel(MenuItemName,MenuItemId);
+                                    if (MenuItemName.equalsIgnoreCase("Dailylog")){
+                                        menuName="Dailylog Attendance";
+                                    }else {
+                                        menuName=MenuItemName;
+                                    }
+                                    MenuItemModel obj2 = new MenuItemModel(menuName,MenuItemId);
                                     itemList.add(obj2);
                                 }
 
