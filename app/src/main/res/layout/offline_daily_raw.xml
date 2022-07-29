@@ -103,7 +103,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@android:color/white"
-                                android:text="Store In Information"></TextView>
+                                android:text="Punch In Information"></TextView>
 
                         </LinearLayout>
 
@@ -265,7 +265,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@android:color/white"
-                                    android:text="Store Out Information"></TextView>
+                                    android:text="Punch Out Information"></TextView>
 
                             </LinearLayout>
 

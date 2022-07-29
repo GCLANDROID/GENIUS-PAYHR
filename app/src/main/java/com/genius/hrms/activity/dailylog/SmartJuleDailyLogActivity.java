@@ -151,29 +151,29 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         Date d=new Date();
         SimpleDateFormat sdf=new SimpleDateFormat("hh:mm a");
         String currentDateTimeString = sdf.format(d);
+        if (!frstPunch.equals("0")){
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+            try {
+                date1 = simpleDateFormat.parse(frstPunch);
+                date2 = simpleDateFormat.parse(currentDateTimeString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
 
+            long difference = date2.getTime() - date1.getTime();
+            days = (int) (difference / (1000*60*60*24));
+            hours = (int) ((difference - (1000*60*60*24*days)) / (1000*60*60));
+            min = (int) (difference - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
+            hours = (hours < 0 ? -hours : hours);
+            Log.i("Hours"," :: "+hours);
+            if (hours<9){
+                showAlert();
+            }else {
 
-        try {
-            date1 = simpleDateFormat.parse(frstPunch);
-            date2 = simpleDateFormat.parse(currentDateTimeString);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            }
         }
 
-
-        long difference = date2.getTime() - date1.getTime();
-        days = (int) (difference / (1000*60*60*24));
-        hours = (int) ((difference - (1000*60*60*24*days)) / (1000*60*60));
-        min = (int) (difference - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
-        hours = (hours < 0 ? -hours : hours);
-        Log.i("Hours"," :: "+hours);
-        if (hours<9){
-            showAlert();
-        }else {
-
-        }
         setUpMapIfNeeded();
         onClick();
 
@@ -506,13 +506,9 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
 
                 if (attCode.equals("1"))
                 {
-                    if (flag==1) {
+
                         attenDancePunchTest("OK", "1");
-                    }else {
 
-                        Toast.makeText(SmartJuleDailyLogActivity.this, "Please Click Your Selfie Image", Toast.LENGTH_LONG).show();
-
-                    }
                 }else {
                     attendanceAlert();
                 }
@@ -564,8 +560,8 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         View dialogView = inflater.inflate(R.layout.dialog_attendnaceoption, null);
         dialogBuilder.setView(dialogView);
         Spinner spOption = (Spinner) dialogView.findViewById(R.id.spOption);
-        attendanceOptionList.add("Home");
         attendanceOptionList.add("Office");
+        attendanceOptionList.add("Home");
         final LinearLayout llReason = (LinearLayout) dialogView.findViewById(R.id.llReason);
 
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
@@ -602,25 +598,17 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
             public void onClick(View view) {
                 if (attenID.equals("1")) {
                     if (etReason.getText().toString().length() > 0) {
-                        if (flag==1) {
+
                             attenDancePunchTest(etReason.getText().toString(), attenID);
-                        }else {
 
-                            Toast.makeText(SmartJuleDailyLogActivity.this, "Please Click Your Selfie Image", Toast.LENGTH_LONG).show();
-
-                        }
                     } else {
                         Toast.makeText(SmartJuleDailyLogActivity.this, "Please Enter Your Reason", Toast.LENGTH_LONG).show();
                     }
 
                 } else {
-                    if (flag==1) {
+
                         attenDancePunchTest("OK", attenID);
-                    }else {
 
-                        Toast.makeText(SmartJuleDailyLogActivity.this, "Please Click Your Selfie Image", Toast.LENGTH_LONG).show();
-
-                    }
                 }
             }
         });
@@ -677,7 +665,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
 
 
 
-    private void attenDancePunchTest(String reason, String attenID) {
+    private void attenDancePunchTest(final String reason, final String attenID) {
         final ProgressDialog progressDialog = new ProgressDialog(SmartJuleDailyLogActivity.this);
         progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
@@ -715,6 +703,9 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                 if (s1.equals("1")) {
                     successAlert();
 
+                }else {
+                    attenDancePunchWithOutImage(reason,attenID);
+
                 }
                 // /data/user/0/com.genius.hrms/cache/images/1658470402880.png
 
@@ -728,58 +719,61 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         });
     }
 
-
-
-    private void attenDancePunchTestWithoutImage(String reason, String attenID) {
-        String surl = pref.getIpAddress() + "GHRMSApi/api/post_SelfAttendanceEM3?AEMEmployeeID=" + pref.getEmpId() + "&Address=" + address1 + "&Longitude=" + ling + "&Latitude=" + laat + "&SecurityCode=" + pref.getSecurityCode()+"&PunchFrom="+attenID+"&PunchFromReason="+reason.replaceAll("\\s+", "%20");
-        Log.d("attendenceinput", surl);
-        final ProgressDialog progressBar = new ProgressDialog(this);
-        progressBar.setCancelable(true);//you can cancel it by pressing back button
-        progressBar.setMessage("Loading...");
-        progressBar.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
-                new Response.Listener<String>() {
+    private void attenDancePunchWithOutImage(String reason, String attenID) {
+        final ProgressDialog progressDialog = new ProgressDialog(SmartJuleDailyLogActivity.this);
+        progressDialog.setMessage("Loading..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        AndroidNetworking.upload(pref.getIpAddress() + "GHRMSApi/api/post_DailyLogSmartJoulesWithoutImage")
+                .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
+                .addMultipartParameter("ProjectAID","0")
+                .addMultipartParameter("SubProjectAID","0")
+                .addMultipartParameter("ApprovalStatus","0")
+                .addMultipartParameter("Remarks",reason)
+                .addMultipartParameter("Longitude", ling)
+                .addMultipartParameter("Latitude", laat)
+                .addMultipartParameter("Address", address)
+                .addMultipartParameter("Year", "0")
+                .addMultipartParameter("Month", "0")
+                .addMultipartParameter("ApprovalStatus", "0")
+                .addMultipartParameter("SecurityCode", pref.getSecurityCode())
+                .addMultipartParameter("PunchFrom",attenID)
+                .setTag("Uploadfirst")
+                .setPriority(Priority.HIGH)
+                .build()
+                .setUploadProgressListener(new UploadProgressListener() {
                     @Override
-                    public void onResponse(String response) {
-                        Log.d("responseLeave", response);
-                        progressBar.dismiss();
-                        try {
-                            JSONObject job1 = new JSONObject(response);
-
-                            String responseText = job1.optString("responseText");
-                            boolean responseStatus = job1.optBoolean("responseStatus");
-                            if (responseStatus) {
-                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
-                                successAlert();
-
-
-                            }
-
-
-                            // boolean _status = job1.getBoolean("status");
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(SmartJuleDailyLogActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
-                        }
+                    public void onProgress(long bytesUploaded, long totalBytes) {
 
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressBar.dismiss();
-             //   Toast.makeText(SmartJuleDailyLogActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
+                }).getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i("response", String.valueOf(response));
+                        progressDialog.dismiss();
+                        JSONObject ob = response;
+                        String s1 = ob.optString("responseCode");
+                        if (s1.equals("1")) {
+                            successAlert();
 
-                Log.e("ert", error.toString());
-            }
-        }) {
+                        }else {
 
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(SmartJuleDailyLogActivity.this);
-        requestQueue.add(stringRequest);
+                        }
+                        // /data/user/0/com.genius.hrms/cache/images/1658470402880.png
 
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        progressDialog.dismiss();
+                        Log.i("onError", String.valueOf(anError));
+                    }
+                });
     }
+
+
+
+
 
     private void showAlert() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

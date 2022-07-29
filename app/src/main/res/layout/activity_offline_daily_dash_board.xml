@@ -681,13 +681,14 @@
                     android:src="@drawable/reporticonagain_payhr"
                     ></ImageView>
                 <TextView
+                    android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:id="@+id/tvReport"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:text="Report"
+                    android:text="Attendance Report"
 
 
                     ></TextView>
@@ -768,41 +769,7 @@
                 android:gravity="center"
                 android:background="@drawable/layoutstroke"
                 android:id="@+id/llBackLog">
-                <!--                <androidx.cardview.widget.CardView-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:layout_margin="10dp"-->
-                <!--                    app:cardCornerRadius="8dp">-->
-                <!--                    <RelativeLayout-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        >-->
-                <!--                        <ImageView-->
-                <!--                            android:layout_width="70dp"-->
-                <!--                            android:layout_height="70dp"-->
-                <!--                            android:padding="10dp"-->
-                <!--                            android:layout_alignParentRight="true"-->
-                <!--                            android:layout_alignParentBottom="true"-->
-                <!--                            android:id="@+id/backlogimg"-->
-                <!--                            android:src="@drawable/backlog_payhr"-->
-                <!--                            ></ImageView>-->
-                <!--                        <TextView-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_above="@+id/backlogimg"-->
-                <!--                            android:id="@+id/tvBackLog"-->
-                <!--                            android:padding="10dp"-->
-                <!--                            android:textColor="#2196F3"-->
-                <!--                            android:text="Backlog Attendance"-->
-                <!--                            android:layout_alignParentLeft="true"-->
 
-
-                <!--                            ></TextView>-->
-
-                <!--                    </RelativeLayout>-->
-
-
-                <!--                </androidx.cardview.widget.CardView>-->
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -811,13 +778,14 @@
                     android:src="@drawable/backattendanceicon_payhr"
                     ></ImageView>
                 <TextView
+                    android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvBackLog"
                     android:padding="10dp"
                     android:textSize="10sp"
                     android:textColor="@color/black"
-                    android:text="Backlog Attendance"
+                    android:text="Attendance Regularization"
 
 
                     ></TextView>

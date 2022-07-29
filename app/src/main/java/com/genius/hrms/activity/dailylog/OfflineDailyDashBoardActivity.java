@@ -74,10 +74,10 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         }else {
             tvManage.setText("Manage");
             tvLogBook.setText("Log Book");
-            tvReport.setText("Report");
+            tvReport.setText("Attendance Report");
             tvToolBar.setText("Daily Log");
             tvsubordinate.setText("Team Report");
-            tvBackLog.setText("Backlog Attendance");
+            tvBackLog.setText("Attendance Regularization");
         }
     }
 

@@ -416,7 +416,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="54dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="10dp"
@@ -435,13 +435,13 @@
                     android:textStyle="bold"></TextView>
                 <TextView
                     android:layout_marginTop="10dp"
-                    android:id="@+id/tvNature"
+                    android:id="@+id/tvTotalHrs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
                     android:text="14-09-2020"
-                    android:textColor="@color/darkblue"
-                    android:textSize="10sp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
                     android:textStyle="bold"></TextView>
 
 

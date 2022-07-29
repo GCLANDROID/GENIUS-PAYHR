@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.genius.hrms.R;
 import com.genius.hrms.activity.utility.Pref;
 import com.genius.hrms.databinding.RawBinding;
+
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
@@ -25,9 +26,14 @@ import com.google.cloud.translate.Translation;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.ViewHolder> {
     Context context;
     JSONArray itemList;
+    Date date1,date2;
 
     public AttendanceAdapter(Context context, JSONArray itemList) {
         this.context=context;
@@ -60,7 +66,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
         holder.binding.tvOutLocation.setText(jsonObject.optString("EmpOutAddress"));
         holder.binding.tvInImage.setText(jsonObject.optString("EmpInFname"));
         holder.binding.tvOutImage.setText(jsonObject.optString("EmpOutFname"));
-        holder.binding.tvNature.setText(jsonObject.optString("AttendanceNature"));
+
 
         if (jsonObject.optString("PunchFrom")==null || jsonObject.optString("PunchFrom").equals("")){
             holder.binding.llType.setVisibility(View.GONE);
@@ -75,9 +81,9 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
         }
 
         if (jsonObject.optString("AttendanceNature")==null || jsonObject.optString("AttendanceNature").equals("")){
-            holder.binding.tvNature.setVisibility(View.GONE);
+
         }else {
-            holder.binding.tvNature.setVisibility(View.VISIBLE);
+
 
             holder.binding.llInImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -252,6 +258,31 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
             holder.binding.tvLocationTitle.setText("स्थान");
 
 
+        }
+
+
+
+        if (!jsonObject.optString("EmpOutTime").equals("")){
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+
+
+            try {
+               date1 = simpleDateFormat.parse(jsonObject.optString("EmpInTime"));
+               date2 = simpleDateFormat.parse(jsonObject.optString("EmpOutTime"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+            long difference = date2.getTime() - date1.getTime();
+            int days = (int) (difference / (1000*60*60*24));
+            int hours = (int) ((difference - (1000*60*60*24*days)) / (1000*60*60));
+            int min = (int) (difference - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
+            hours = (hours < 0 ? -hours : hours);
+            holder.binding.tvTotalHrs.setText("Total "+hours+" Hrs.");
+        }else {
+            holder.binding.tvTotalHrs.setText("");
         }
     }
 
