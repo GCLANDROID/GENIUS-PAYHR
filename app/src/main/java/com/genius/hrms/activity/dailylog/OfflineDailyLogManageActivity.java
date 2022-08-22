@@ -694,11 +694,9 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         Log.d("hitt", "1");
         final String serAddress;
         progressDialog.show();
-        if (!cuuaddress.equals("")) {
-            serAddress = cuuaddress;
-        } else {
-            serAddress = pref.getAddress();
-        }
+
+        serAddress = tvAddress.getText().toString();
+
         btnSubmit.setVisibility(View.GONE);
         llLoader.setVisibility(View.VISIBLE);
 
@@ -943,11 +941,9 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         progressDialog.show();
         btnSubmit.setVisibility(View.GONE);
         llLoader.setVisibility(View.VISIBLE);
-        if (!cuuaddress.equals("")) {
-            serAddress = cuuaddress;
-        } else {
-            serAddress = pref.getAddress();
-        }
+
+        serAddress = tvAddress.getText().toString();
+
 
         progressDialog.show();
         RequestBody mFile = RequestBody.create(MediaType.parse(".png"), imageZipperFile);

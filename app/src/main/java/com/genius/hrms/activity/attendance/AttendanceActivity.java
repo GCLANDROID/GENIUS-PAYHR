@@ -561,11 +561,14 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
                                 attCode = "0";
                             }
 
-                            Intent intent = new Intent(AttendanceActivity.this, SmartJuleDailyLogActivity.class);
+                           /* Intent intent = new Intent(AttendanceActivity.this, SmartJuleDailyLogActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("attCode", attCode);
                             startActivity(intent);
-
+*/
+                            Intent intent = new Intent(AttendanceActivity.this, AttendanceManageActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -198,7 +198,10 @@ public class VisitLocationActivity extends AppCompatActivity {
                         pd.setMessage("Loading....");
                         pd.setCancelable(false);
                         pd.show();
-                       getAttendanceInformationForSmart();
+                       //getAttendanceInformationForSmart();
+                        Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }else {
                         pd.setMessage("Loading....");
                         pd.setCancelable(false);

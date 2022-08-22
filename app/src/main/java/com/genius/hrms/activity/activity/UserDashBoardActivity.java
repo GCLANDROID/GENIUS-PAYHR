@@ -213,7 +213,12 @@ public class UserDashBoardActivity extends AppCompatActivity {
                                     MenuItemModel obj2 = new MenuItemModel(menuName,MenuItemId);
                                     itemList.add(obj2);
                                 }
+                                 /*if (pref.getSecurityCode().equalsIgnoreCase("1000")||pref.getSecurityCode().equals("2000")) {
+                                     itemList.add(new MenuItemModel("Resignation", 212));
+                                 }else {
 
+                                 }
+*/
 
                                // itemList.add(new MenuItemModel("Post Query",101));
                                 llLoader.setVisibility(View.GONE);

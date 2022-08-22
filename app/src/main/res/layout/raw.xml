@@ -439,7 +439,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
-                    android:text="14-09-2020"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     android:textStyle="bold"></TextView>

@@ -677,7 +677,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             } else {
                                 if (bAndriodAutoUpdateStatus) {
-                                    upDateAlert(AndriodVersion,version);
+                                    upDateAlert();
                                 } else {
                                     if (loginFlag.equals("1")) {
                                         if (IsModified.equals("1")) {
@@ -734,55 +734,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void upDateAlert(String upDateVersion,String currentVersion) {
-        androidx.appcompat.app.AlertDialog.Builder dialogBuilder = new androidx.appcompat.app.AlertDialog.Builder(LoginActivity.this, R.style.CustomDialogNew);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View dialogView = inflater.inflate(R.layout.dialog_update_alert, null);
-        dialogBuilder.setView(dialogView);
-        TextView tvAttenDate = (TextView) dialogView.findViewById(R.id.tvAttenDate);
-        tvAttenDate.setText("New version "+upDateVersion +" is available");
-        TextView tvCurrent=(TextView)dialogView.findViewById(R.id.tvCurrent);
-        tvCurrent.setText("Current Version is :"+currentVersion);
-        Button btnSkip = (Button) dialogView.findViewById(R.id.btnSkip);
-
-        Button btnOk = (Button) dialogView.findViewById(R.id.btnOk);
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
-                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                // To count with Play market backstack, After pressing back button,
-                // to taken back to our application, we need to add following flags to intent.
-                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
-                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                try {
-                    startActivity(goToMarket);
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName())));
-                }
-                alertDialog1.dismiss();
-
-
-            }
-        });
-
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, UserDashBoardActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        alertDialog1 = dialogBuilder.create();
-        alertDialog1.setCancelable(false);
-        Window window = alertDialog1.getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setGravity(Gravity.CENTER);
-        alertDialog1.show();
+    private void upDateAlert() {
+        Intent intent = new Intent(LoginActivity.this, UpdateActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 
 

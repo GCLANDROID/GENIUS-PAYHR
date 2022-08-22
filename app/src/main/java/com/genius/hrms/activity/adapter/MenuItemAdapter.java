@@ -165,6 +165,8 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
             myViewHolder.imgMenu.setImageResource(R.drawable.questionicon);
         }  else  if (itemList.get(i).getMenuId()==16){
             myViewHolder.imgMenu.setImageResource(R.drawable.voiceassistant);
+        }else  if (itemList.get(i).getMenuId()==212){
+            myViewHolder.imgMenu.setImageResource(R.drawable.resignation);
         }else {
             myViewHolder.itemView.setVisibility(View.GONE);
         }

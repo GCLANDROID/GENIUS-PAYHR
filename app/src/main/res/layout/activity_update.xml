@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.activity.UpdateActivity"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+        <pl.droidsonroids.gif.GifTextView
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:background="@drawable/playstoregif" />
+        <TextView
+            android:id="@+id/tvVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/backcolor"
+            android:fontFamily="sans-serif"
+            android:textSize="16sp"
+            android:text="New Update is Available in Play Store."></TextView>
+
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:background="@color/maincolor"
+        android:gravity="center">
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:text="UPDATE NOW!"></TextView>
+    </LinearLayout>
+
+</LinearLayout>

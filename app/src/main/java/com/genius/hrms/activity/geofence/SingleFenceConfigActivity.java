@@ -256,7 +256,7 @@ public class SingleFenceConfigActivity extends AppCompatActivity implements OnMa
                 .strokeWidth(2)
                 .strokeColor(Color.parseColor("#707070"))
                 .fillColor(Color.parseColor("#751492E6")));
-        addLocationAlert(currentLatitude, currentLongitude);
+      //  addLocationAlert(currentLatitude, currentLongitude);
         Toast.makeText(getApplicationContext(), currentLatitude + "lat", Toast.LENGTH_LONG).show();
 
     }

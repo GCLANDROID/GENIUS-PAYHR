@@ -256,6 +256,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000) {
             if (resultCode == Activity.RESULT_OK) {
                 String result = data.getStringExtra("result");
@@ -426,10 +427,6 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
         };
         RequestQueue requestQueue = Volley.newRequestQueue(SplashScreenActivity.this);
         requestQueue.add(stringRequest);
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                1000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
     }
 
@@ -479,7 +476,10 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
 
                                 } else {
                                     if (bAndriodAutoUpdateStatus){
-                                        upDateAlert(AndriodVersion,version);
+                                        Intent intent = new Intent(SplashScreenActivity.this, UpdateActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
                                     }else {
                                         if (IsModified.equals("1")) {
 
@@ -522,10 +522,6 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
         };
         RequestQueue requestQueue = Volley.newRequestQueue(SplashScreenActivity.this);
         requestQueue.add(stringRequest);
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                1000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
 
     }
