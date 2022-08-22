@@ -1180,4 +1180,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
 
 
 
+
+
+
 }

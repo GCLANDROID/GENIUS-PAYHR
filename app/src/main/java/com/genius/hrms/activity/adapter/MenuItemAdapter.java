@@ -32,6 +32,7 @@ import com.genius.hrms.activity.dailyactivity.DailyTaskDashBoardActivity;
 import com.genius.hrms.activity.dailylog.OfflineDailyDashBoardActivity;
 import com.genius.hrms.activity.geofence.ConfigNumberActivity;
 import com.genius.hrms.activity.geofence.EmpMappingActivity;
+import com.genius.hrms.activity.geofence.GeoFenceManageDashBoardActivity;
 import com.genius.hrms.activity.geofence.NotificationActivity;
 import com.genius.hrms.activity.leaveapplication.ApproverFragment;
 import com.genius.hrms.activity.leaveapplication.LeaveApplicationActivity;
@@ -234,9 +235,17 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 }
                 else if (itemList.get(i).getMenuId()==9){
                     //geofence
-                    Intent intent=new Intent(mContex, ConfigNumberActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContex.startActivity(intent);
+                    if (pref.getSecurityCode().equals("1157")){
+                        Intent intent=new Intent(mContex, GeoFenceManageDashBoardActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("point", "sin");
+                        mContex.startActivity(intent);
+                    }else {
+                        Intent intent=new Intent(mContex, ConfigNumberActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContex.startActivity(intent);
+                    }
+
                 }
                 else if (itemList.get(i).getMenuId()==10){
                     //leave

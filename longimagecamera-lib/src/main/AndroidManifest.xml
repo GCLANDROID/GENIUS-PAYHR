@@ -19,6 +19,9 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".PreviewLongImageActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity
+            android:name=".LongBackImageCameraActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

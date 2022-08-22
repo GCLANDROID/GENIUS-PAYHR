@@ -27,6 +27,7 @@ import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.adapter.VisitingLocationAdapter;
 import com.genius.hrms.activity.attendance.AttendanceActivity;
+import com.genius.hrms.activity.geofence.GeoFenceDailyLogManageActivity;
 import com.genius.hrms.activity.model.VisitingLocationModel;
 import com.genius.hrms.activity.utility.Pref;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -195,14 +196,18 @@ public class VisitLocationActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                     if (pref.getSecurityCode().equals("1153")){
-                        pd.setMessage("Loading....");
-                        pd.setCancelable(false);
-                        pd.show();
+
                        //getAttendanceInformationForSmart();
                         Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-                    }else {
+                    }else if (pref.getSecurityCode().equals("1157")){
+
+                        Intent intent = new Intent(VisitLocationActivity.this, GeoFenceDailyLogManageActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                    else {
                         pd.setMessage("Loading....");
                         pd.setCancelable(false);
                         pd.show();

@@ -465,6 +465,9 @@
             android:name="com.wajahatkarim3.longimagecamera.LongImageCameraActivity"
             android:exported="true" />
         <activity
+            android:name="com.wajahatkarim3.longimagecamera.LongBackImageCameraActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.dailylog.DailyLogManageForMaxActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />

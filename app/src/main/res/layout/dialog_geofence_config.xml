@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="320dp"
+    android:layout_height="330dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/lldesign7">
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:background="@drawable/lldesign"
+        android:padding="10dp"
+        android:backgroundTint="@color/maincolor">
+        <ImageView
+            android:id="@+id/imgCancel"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/cancelicon"
+            app:tint="@color/white"></ImageView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="serif"
+        android:text="Address:"></TextView>
+    <TextView
+        android:id="@+id/tvLatLong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="serif"
+        android:text="Lat"></TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="serif"
+        android:text="Upload Location Image"></TextView>
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+        <ImageView
+            android:id="@+id/imgCamera"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/cameraimg"></ImageView>
+        <ImageView
+            android:id="@+id/imgPic"
+            android:layout_marginLeft="5dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"></ImageView>
+    </LinearLayout>
+    <Button
+        android:backgroundTint="@color/maincolor"
+        android:id="@+id/btnSave"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:background="@drawable/lldesign"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="save"
+        android:textColor="@android:color/white"></Button>
+
+
+
+
+
+
+</LinearLayout>

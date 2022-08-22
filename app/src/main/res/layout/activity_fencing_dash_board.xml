@@ -404,41 +404,7 @@
                 android:gravity="center"
                 android:background="@drawable/layoutstroke"
                 android:layout_weight="1">
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_margin="10dp"-->
-<!--                    app:cardCornerRadius="8dp">-->
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        >-->
-<!--                        <ImageView-->
-<!--                            android:layout_width="70dp"-->
-<!--                            android:layout_height="70dp"-->
-<!--                            android:padding="10dp"-->
-<!--                            android:layout_alignParentRight="true"-->
-<!--                            android:layout_alignParentBottom="true"-->
-<!--                            android:id="@+id/empmappingimg"-->
-<!--                            android:src="@drawable/manager"-->
-<!--                            ></ImageView>-->
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_above="@+id/empmappingimg"-->
-<!--                            android:id="@+id/tvEmpMapping"-->
-<!--                            android:padding="10dp"-->
-<!--                            android:textColor="#2196F3"-->
-<!--                            android:text="Employee Mapping"-->
-<!--                            android:layout_alignParentLeft="true"-->
 
-
-<!--                            ></TextView>-->
-
-<!--                    </RelativeLayout>-->
-
-
-<!--                </androidx.cardview.widget.CardView>-->
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"

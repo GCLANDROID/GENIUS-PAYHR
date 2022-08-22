@@ -958,12 +958,7 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
         progressDialog.show();
         btnSubmit.setVisibility(View.GONE);
         llLoader.setVisibility(View.VISIBLE);
-        if (!cuuaddress.equals("")) {
-            serAddress = cuuaddress;
-        } else {
-            serAddress = pref.getAddress();
-        }
-
+        serAddress = tvAddress.getText().toString();
         progressDialog.show();
         RequestBody mFile = RequestBody.create(MediaType.parse(".png"), imageZipperFile);
         MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", imageZipperFile.getName(), mFile);
@@ -1195,6 +1190,8 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
         // Toast.makeText(getApplicationContext(),distance+"KM",Toast.LENGTH_LONG).show();
         return ddis;
     }
+
+
 
 
 
