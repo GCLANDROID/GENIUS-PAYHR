@@ -7,13 +7,27 @@
     android:orientation="vertical"
     android:background="@drawable/lldesign7">
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:background="@drawable/lldesign"
-        android:padding="10dp"
+        android:layout_height="40dp"
+        android:background="@drawable/lldesign11"
         android:backgroundTint="@color/maincolor">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Configure Your Location"></TextView>
+        </LinearLayout>
         <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
             android:id="@+id/imgCancel"
             android:layout_width="20dp"
             android:layout_height="20dp"

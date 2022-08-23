@@ -4,25 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.geofence.GeoFenceManageDashBoardActivity"
+    android:background="@drawable/llbackdesign"
     android:orientation="vertical"
-    android:background="@drawable/llbackdesign">
+    tools:context=".activity.geofence.GeoFenceManageDashBoardActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@mipmap/headerribbon">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.3">
+
             <ImageView
-                android:layout_marginLeft="5dp"
+                android:id="@+id/imgBack"
                 android:layout_width="@dimen/toobarimgsize"
                 android:layout_height="@dimen/toobarimgsize"
                 android:layout_gravity="center"
-                android:src="@drawable/backimg"
-                android:id="@+id/imgBack"/>
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/backimg" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -38,18 +42,20 @@
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.3"
             android:gravity="end">
+
             <ImageView
-                android:layout_gravity="center"
                 android:id="@+id/imgHome"
                 android:layout_width="@dimen/toobarhomeimgsize"
                 android:layout_height="@dimen/toobarhomeimgsize"
-                android:src="@drawable/homeimg"
-                android:layout_marginRight="5dp"/>
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/homeimg" />
         </LinearLayout>
     </LinearLayout>
     <!--<LinearLayout
@@ -243,238 +249,232 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:paddingTop="10dp"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:visibility="gone">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/llshadowshape"
                 android:gravity="center">
+
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/manage"></ImageView>
 
             </LinearLayout>
+
             <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="Manage"></TextView>
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="Manage"
+                android:textSize="15sp"></TextView>
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/bar1"></LinearLayout>
-        <LinearLayout
             android:layout_marginTop="10dp"
+            android:background="@color/bar1"></LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@drawable/llshadowshape"
                     android:gravity="center">
+
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/reportimg"></ImageView>
 
                 </LinearLayout>
+
                 <TextView
-                    android:layout_marginLeft="5dp"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:text="Report"></TextView>
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:text="Report"
+                    android:textSize="15sp"></TextView>
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/bar1"></LinearLayout>
 
         </LinearLayout>
 
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:weightSum="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/llManage"
+            android:layout_width="160dp"
+            android:layout_height="130dp"
+            android:layout_weight="1"
+            android:background="@drawable/layoutstroke"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/activitymanageimg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:padding="10dp"
+                android:src="@drawable/manageiconagain_payhr"></ImageView>
+
+            <TextView
+                android:id="@+id/tvManage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Manage"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+
+
+                ></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llReport"
+            android:layout_width="160dp"
+            android:layout_height="130dp"
+            android:layout_weight="1"
+            android:background="@drawable/layoutstrokebottom"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgreport"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="10dp"
+                android:src="@drawable/reporticonagain_payhr"></ImageView>
+
+            <TextView
+                android:id="@+id/tvReport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Report"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+
+
+                ></TextView>
+        </LinearLayout>
 
 
 
+        <LinearLayout
 
+            android:id="@+id/llConfig"
+            android:layout_width="160dp"
+            android:layout_height="130dp"
+            android:layout_weight="1"
+            android:background="@drawable/layoutstroke"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
 
+            <ImageView
+
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="10dp"
+                android:src="@drawable/settings"></ImageView>
+
+            <TextView
+                android:textAlignment="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Config More Location"
+                android:textColor="@color/black"
+                android:textSize="10sp"></TextView>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="3">
+
         <LinearLayout
-            android:layout_width="160dp"
-            android:layout_height="130dp"
-            android:id="@+id/llManage"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/layoutstroke"
-            android:layout_weight="1">
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_margin="10dp"-->
-<!--                app:cardCornerRadius="8dp">-->
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    >-->
-<!--                    <ImageView-->
-<!--                        android:layout_width="70dp"-->
-<!--                        android:layout_height="70dp"-->
-<!--                        android:padding="10dp"-->
-<!--                        android:layout_alignParentRight="true"-->
-<!--                        android:layout_alignParentBottom="true"-->
-<!--                        android:id="@+id/activitymanageimg"-->
-<!--                        android:src="@drawable/manageiconagain_payhr"-->
-<!--                        ></ImageView>-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_above="@+id/activitymanageimg"-->
-<!--                        android:id="@+id/tvManage"-->
-<!--                        android:padding="10dp"-->
-<!--                        android:textColor="#000000"-->
-<!--                        android:text="Manage"-->
-<!--                        android:layout_alignParentLeft="true"-->
-
-
-<!--                        ></TextView>-->
-
-<!--                </RelativeLayout>-->
-
-
-<!--            </androidx.cardview.widget.CardView>-->
-
-                                <ImageView
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:padding="10dp"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_alignParentBottom="true"
-                                    android:id="@+id/activitymanageimg"
-                                    android:src="@drawable/manageiconagain_payhr"
-                                    ></ImageView>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/tvManage"
-                                    android:padding="10dp"
-                                    android:textSize="10sp"
-                                    android:textColor="@color/black"
-                                    android:text="Manage"
-
-
-                                    ></TextView>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="160dp"
-            android:layout_height="130dp"
-            android:id="@+id/llReport"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:background="@drawable/layoutstrokebottom"
-            android:layout_weight="1">
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_margin="10dp"-->
-<!--                app:cardCornerRadius="8dp">-->
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    >-->
-<!--                    <ImageView-->
-<!--                        android:layout_width="70dp"-->
-<!--                        android:layout_height="70dp"-->
-<!--                        android:padding="10dp"-->
-<!--                        android:layout_alignParentRight="true"-->
-<!--                        android:layout_alignParentBottom="true"-->
-<!--                        android:id="@+id/imgreport"-->
-<!--                        android:src="@drawable/reporticonagain_payhr"-->
-<!--                        ></ImageView>-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_above="@+id/imgreport"-->
-<!--                        android:padding="10dp"-->
-<!--                        android:id="@+id/tvReport"-->
-<!--                        android:textColor="#000000"-->
-<!--                        android:text="Report"-->
-<!--                        android:layout_alignParentLeft="true"-->
-
-
-<!--                        ></TextView>-->
-
-<!--                </RelativeLayout>-->
-
-
-<!--            </androidx.cardview.widget.CardView>-->
-                                <ImageView
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:padding="10dp"
-                                    android:id="@+id/imgreport"
-                                    android:src="@drawable/reporticonagain_payhr"
-                                    ></ImageView>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:padding="10dp"
-                                    android:textSize="10sp"
-                                    android:id="@+id/tvReport"
-                                    android:textColor="@color/black"
-                                    android:text="Report"
-
-
-                                    ></TextView>
-        </LinearLayout>
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_width="160dp"
-            android:layout_height="130dp"
             android:id="@+id/llFenceApproval"
-            android:orientation="vertical"
-            android:gravity="center"
+            android:layout_width="160dp"
+            android:layout_height="130dp"
+            android:layout_weight="1"
             android:background="@drawable/layoutstroke"
-            android:layout_weight="1">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
+                android:id="@+id/empmappingimg"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:padding="10dp"
-                android:id="@+id/empmappingimg"
-                android:src="@drawable/employeemappingiconagain_payhr"
-                ></ImageView>
+                android:src="@drawable/employeemappingiconagain_payhr"></ImageView>
+
             <TextView
+                android:id="@+id/tvEmpMapping"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvEmpMapping"
                 android:padding="10dp"
-                android:textSize="10sp"
-                android:textColor="@color/black"
                 android:text="Geofence Approval"
-                ></TextView>
+                android:textColor="@color/black"
+                android:textSize="10sp"></TextView>
+        </LinearLayout>
+
+
+        <LinearLayout
+
+            android:layout_width="160dp"
+            android:layout_height="130dp"
+            android:layout_weight="1"
+            android:background="@drawable/layoutstroke"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible"
+            >
+
+
         </LinearLayout>
     </LinearLayout>
 

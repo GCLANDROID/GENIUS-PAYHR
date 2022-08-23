@@ -224,19 +224,26 @@ public class VisitLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                        if (pref.getSecurityCode().equals("1153")) {
-                            pd.setMessage("Loading....");
-                            pd.setCancelable(false);
-                            pd.show();
-                          getAttendanceInformationForSmart();
-                        } else {
-                            pd.setMessage("Loading....");
-                            pd.setCancelable(false);
-                            pd.show();
-                            Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        }
+                if (pref.getSecurityCode().equals("1153")){
+
+                    //getAttendanceInformationForSmart();
+                    Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }else if (pref.getSecurityCode().equals("1157")){
+
+                    Intent intent = new Intent(VisitLocationActivity.this, GeoFenceDailyLogManageActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+                else {
+                    pd.setMessage("Loading....");
+                    pd.setCancelable(false);
+                    pd.show();
+                    Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
 
 
             }

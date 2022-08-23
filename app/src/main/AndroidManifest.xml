@@ -25,8 +25,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:node="merge">
-        <activity android:name=".activity.activity.UpdateActivity"
-            android:screenOrientation="userPortrait"></activity>
+        <activity
+            android:name=".activity.geofence.GeoFenceConfigEmpReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.UpdateActivity"
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.resignation.ResignationActivity"
             android:exported="false" />
