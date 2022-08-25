@@ -151,10 +151,12 @@ public class GeoFenceConfigEmpReportActivity extends AppCompatActivity implement
                                     String SLongitude = obj.optString("Longitude");
                                     String SLatitude = obj.optString("Latitude");
                                     String Address = obj.optString("Address");
+                                    String Status=obj.optString("Status");
                                     GeoFenceReportEmpModel mModel = new GeoFenceReportEmpModel();
                                     mModel.setAddress(Address);
                                     mModel.setLaat(SLatitude);
                                     mModel.setLoong(SLongitude);
+                                    mModel.setStatus(Status);
                                     itemList.add(mModel);
 
 

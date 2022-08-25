@@ -43,7 +43,7 @@ public class GeoFenceReportEmpAdapter extends RecyclerView.Adapter<GeoFenceRepor
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
 
      myViewHolder.tvAddress.setText(itemList.get(i).getAddress()+" ( Coordinates : "+itemList.get(i).getLaat()+" , "+itemList.get(i).getLoong()+" )");
-
+     myViewHolder.tvStatus.setText("Approval Status :-"+itemList.get(i).getStatus());
     }
 
     @Override
@@ -52,12 +52,13 @@ public class GeoFenceReportEmpAdapter extends RecyclerView.Adapter<GeoFenceRepor
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvAddress;
+        TextView tvAddress,tvStatus;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvAddress=(TextView)itemView.findViewById(R.id.tvAddress);
+            tvStatus=(TextView) itemView.findViewById(R.id.tvStatus);
 
 
         }

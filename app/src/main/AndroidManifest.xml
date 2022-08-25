@@ -26,6 +26,9 @@
         android:usesCleartextTraffic="true"
         tools:node="merge">
         <activity
+            android:name=".activity.geofence.GeoFenceApprovalActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.geofence.GeoFenceConfigEmpReportActivity"
             android:exported="false" />
         <activity

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +31,7 @@ import com.genius.hrms.activity.attendance.AttendanceActivity;
 import com.genius.hrms.activity.geofence.GeoFenceDailyLogManageActivity;
 import com.genius.hrms.activity.model.VisitingLocationModel;
 import com.genius.hrms.activity.utility.Pref;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -57,6 +59,7 @@ public class VisitLocationActivity extends AppCompatActivity {
     String surl;
     String attCode;
     String frstPunch;
+    double SLongitude,SLatitude,s;
 
 
     @Override
@@ -203,9 +206,7 @@ public class VisitLocationActivity extends AppCompatActivity {
                         startActivity(intent);
                     }else if (pref.getSecurityCode().equals("1157")){
 
-                        Intent intent = new Intent(VisitLocationActivity.this, GeoFenceDailyLogManageActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                        getValueForGeoFenceForIntas();
                     }
                     else {
                         pd.setMessage("Loading....");
@@ -232,9 +233,7 @@ public class VisitLocationActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else if (pref.getSecurityCode().equals("1157")){
 
-                    Intent intent = new Intent(VisitLocationActivity.this, GeoFenceDailyLogManageActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    getValueForGeoFenceForIntas();
                 }
                 else {
                     pd.setMessage("Loading....");
@@ -333,5 +332,86 @@ public class VisitLocationActivity extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(VisitLocationActivity.this);
         requestQueue.add(stringRequest);
+    }
+
+    private void getValueForGeoFenceForIntas() {
+
+        String surl =  pref.getIpAddress()+"GHRMSApi/api/get_EmployeeGeofenceConfigure?EmployeeId=" + pref.getEmpId() + "&GeoFenceId=0&Operation=5&SecurityCode=" + pref.getSecurityCode();
+        Log.d("valuefetechurl", surl);
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        pd.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("responseconfig", response);
+
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("responseconfig", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+
+                                JSONArray responseData = job1.optJSONArray("responseData");
+                                for (int i = 0; i < responseData.length(); i++) {
+                                    JSONObject obj = responseData.getJSONObject(i);
+                                     SLatitude = Double.parseDouble(obj.optString("Latitude"));
+                                     SLongitude = Double.parseDouble(obj.optString("Longitude"));
+                                    double EndPoint = Double.parseDouble(obj.optString("Radius"));
+                                     s=EndPoint/100;
+
+
+
+                                }
+
+                                pd.dismiss();
+
+                                Intent intent=new Intent(VisitLocationActivity.this,GeoFenceDailyLogManageActivity.class);
+                                intent.putExtra("SLongitude",SLongitude);
+                                intent.putExtra("SLatitude",SLatitude);
+                                intent.putExtra("radius",s);
+                                startActivity(intent);
+
+
+                            } else {
+
+                                pd.dismiss();
+                                Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG).show();
+
+
+                            }
+
+
+
+
+                            // boolean _status = job1.getBoolean("status");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            //  Toast.makeText(EmployeeDashBoardActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Toast.makeText(EmployeeDashBoardActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
+
+                Log.e("ert", error.toString());
+
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(VisitLocationActivity.this);
+        requestQueue.add(stringRequest);
+
+
     }
 }

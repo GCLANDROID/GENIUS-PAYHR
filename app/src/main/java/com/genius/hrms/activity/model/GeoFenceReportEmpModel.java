@@ -2,6 +2,7 @@ package com.genius.hrms.activity.model;
 
 public class GeoFenceReportEmpModel {
     String laat,loong,address;
+    String status;
 
     public String getLaat() {
         return laat;
@@ -25,5 +26,13 @@ public class GeoFenceReportEmpModel {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

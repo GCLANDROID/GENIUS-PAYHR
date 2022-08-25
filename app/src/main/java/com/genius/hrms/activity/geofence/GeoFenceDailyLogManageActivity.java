@@ -173,6 +173,7 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
     Button btnMarkDailyLogSubmit;
     boolean flagt=false;
     LatLng p;
+    double SLongitude,SLatitude,radius;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,6 +190,9 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
     private void initialize() {
         btnMarkDailyLogSubmit=findViewById(R.id.btnMarkDailyLogSubmit);
         pref = new Pref(getApplicationContext());
+        radius=getIntent().getDoubleExtra("radius",0.00);
+        SLongitude=getIntent().getDoubleExtra("SLongitude",0.00);
+        SLatitude=getIntent().getDoubleExtra("SLatitude",0.00);
         SERVER_PATH = pref.getIpAddress()+"GHRMSApi/api/";
         DATA_SAVED_BROADCAST = pref.getIpAddress()+"GHRMSApi/api/post_OfflineDailyLogActivity";
         mLocationRequest = LocationRequest.create()
@@ -226,22 +230,7 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
        // etRemarks = (EditText) findViewById(R.id.etRemarks);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
 
-        gps = new GPSTracker(GeoFenceDailyLogManageActivity.this);
-        if (gps.canGetLocation()) {
-            currentLatitude = gps.getLatitude();
-            currlat = String.valueOf(latitude);
-            Log.d("saikatdas", String.valueOf(latitude));
-            currentLongitude = gps.getLongitude();
-            currlong = String.valueOf(longitude);
-        } else {
-// can't get location
-// GPS or Network is not enabled
-// Ask user to enable GPS/network in settings
-            gps.showSettingsAlert();
-        }
 
-        cuuaddress = getCompleteAddressString(currentLatitude, currentLongitude);
-        Log.d("cuuaddress", cuuaddress);
         db = new DatabaseHelper(this);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -277,7 +266,13 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
         tvName=(TextView)findViewById(R.id.tvName);
         tvName.setText("Hi! "+pref.getEmpName());
 
-        getValueForGeoFence();
+        if (pref.getSecurityCode().equals("1157")){
+
+        }else {
+            getValueForGeoFence();
+        }
+
+
 
         //tvAddress.setText("YOU ARE AT: "+cuuaddress);
 
@@ -344,9 +339,22 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
 
         currentLatitude = location.getLatitude();
         lat = String.valueOf(currentLatitude);
+        Log.d("laat",lat);
         currentLongitude = location.getLongitude();
         longt = String.valueOf(currentLongitude);
         latLng = new LatLng(currentLatitude, currentLongitude);
+
+         p = new LatLng(SLatitude, SLongitude);
+         LatLng q=new LatLng(currentLatitude,currentLongitude);
+         Double distance=CalculationByDistance(p,q);
+         Log.d("distancecal", String.valueOf(distance));
+         if (distance<radius || distance==radius){
+         flagt=true;
+          Log.d("desus","1");
+          }else {
+           Log.d("desus","0");
+            flagt=false;
+            }
 
         address = getCompleteAddressString(currentLatitude, currentLongitude);
         address1 = address.replaceAll("\\s+", "%20");
@@ -1160,6 +1168,8 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
 
 
     }
+
+
 
     public double CalculationByDistance(LatLng StartP, LatLng EndP) {
         int Radius = 6371;// radius of earth in Km

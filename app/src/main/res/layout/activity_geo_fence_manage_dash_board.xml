@@ -396,20 +396,81 @@
 
                 ></TextView>
         </LinearLayout>
-
-
-
         <LinearLayout
+            android:id="@+id/llLogBook"
+            android:layout_width="160dp"
+            android:layout_height="130dp"
+            android:layout_weight="1"
+            android:background="@drawable/layoutstrokebottom"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            android:id="@+id/llConfig"
+            <ImageView
+
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="10dp"
+                android:src="@drawable/logbookicon_payhr"></ImageView>
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Log Book"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+
+                ></TextView>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        >
+        <LinearLayout
+            android:id="@+id/llBackLog"
             android:layout_width="160dp"
             android:layout_height="130dp"
             android:layout_weight="1"
             android:background="@drawable/layoutstroke"
             android:gravity="center"
-            android:orientation="vertical"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/backlogimg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/backlogattendanceiconagain_payhr"></ImageView>
+
+            <TextView
+                android:id="@+id/tvBackLog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="Backlog Attendance"
+                android:textColor="@color/black"
+                android:textSize="10sp"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
             android:visibility="gone"
-            >
+            android:id="@+id/llConfig"
+            android:layout_width="160dp"
+            android:layout_height="130dp"
+            android:layout_weight="1"
+            android:background="@drawable/layoutstrokebottom"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
 
@@ -427,20 +488,12 @@
                 android:textColor="@color/black"
                 android:textSize="10sp"></TextView>
         </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
         <LinearLayout
             android:id="@+id/llFenceApproval"
             android:layout_width="160dp"
             android:layout_height="130dp"
             android:layout_weight="1"
-            android:background="@drawable/layoutstroke"
+            android:background="@drawable/layoutstrokebottom"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="gone">
@@ -462,10 +515,10 @@
                 android:textSize="10sp"></TextView>
         </LinearLayout>
 
-
         <LinearLayout
 
-            android:layout_width="160dp"
+
+            android:layout_width="0dp"
             android:layout_height="130dp"
             android:layout_weight="1"
             android:background="@drawable/layoutstroke"
@@ -476,6 +529,11 @@
 
 
         </LinearLayout>
+
+
+
+
+
     </LinearLayout>
 
 </LinearLayout>

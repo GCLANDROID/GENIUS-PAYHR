@@ -49,6 +49,8 @@ import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.attendance.AttendanceActivity;
 import com.genius.hrms.activity.attendance.AttendanceManageActivity;
+import com.genius.hrms.activity.attendance.AttendanceReportActivity;
+import com.genius.hrms.activity.attendance.BacklogActivity;
 import com.genius.hrms.activity.dailylog.NumberTourActivity;
 import com.genius.hrms.activity.dailylog.OfflineDailyLogManageActivity;
 import com.genius.hrms.activity.dailylog.OfflineDailyLogReportActivity;
@@ -87,7 +89,7 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
     Uri imageUri;
     private static final int CAMERA_REQUEST = 1;
     File file,imageZipperFile;
-    LinearLayout llConfig;
+    LinearLayout llConfig,llLogBook,llBackLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +105,8 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
         llManage = (LinearLayout) findViewById(R.id.llManage);
         llReport = (LinearLayout) findViewById(R.id.llReport);
         llFenceApproval=(LinearLayout)findViewById(R.id.llFenceApproval);
+        llLogBook=(LinearLayout)findViewById(R.id.llLogBook);
+        llBackLog=(LinearLayout)findViewById(R.id.llBackLog);
         llConfig=(LinearLayout)findViewById(R.id.llConfig);
         imgBack = (ImageView) findViewById(R.id.imgBack);
         imgHome = (ImageView) findViewById(R.id.imgHome);
@@ -153,16 +157,46 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
                 }else {
                     Intent intent = new Intent(GeoFenceManageDashBoardActivity.this, GeoFenceDailyLogManageActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("SLongitude",0.00);
+                    intent.putExtra("SLatitude",0.00);
+                    intent.putExtra("radius",0);
                     startActivity(intent);
                 }
 
             }
         });
 
+        llBackLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GeoFenceManageDashBoardActivity.this, BacklogActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
         llReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AttendanceReportActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
+        llLogBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), NumberTourActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
+        llFenceApproval.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), GeoFenceApprovalActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
