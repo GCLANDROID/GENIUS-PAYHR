@@ -1,9 +1,12 @@
 package com.genius.hrms.activity.dailylog;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,6 +14,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
@@ -23,6 +32,15 @@ import com.genius.hrms.activity.attendance.SuperVisiorActivity;
 import com.genius.hrms.activity.utility.NetworkConnectionCheck;
 import com.genius.hrms.activity.utility.Pref;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 
 public class OfflineDailyDashBoardActivity extends AppCompatActivity {
     LinearLayout llManage, llReport, llLog,llSubordinate,llBackLog,llMonthlyAttenReport;
@@ -32,6 +50,7 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     TextView tvManage,tvLogBook,tvReport,tvToolBar,tvsubordinate,tvBackLog;
     Pref pref;
+    String currentDate;
 
 
     @Override
@@ -87,6 +106,14 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
             tvsubordinate.setText("Team Report");
             tvBackLog.setText("Attendance Regularization");
         }
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH) + 1;
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        currentDate=currentYear+"-"+currentMonth+"-"+currentDay;
     }
 
     private void onClick() {
@@ -110,11 +137,15 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         llManage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog.show();
+                   if (pref.getSecurityCode().equals("1153")){
+                        holidayCheckForSmartJoules();
+                   }else {
+                       Intent intent = new Intent(OfflineDailyDashBoardActivity.this, VisitLocationActivity.class);
+                       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                       startActivity(intent);
 
-                    Intent intent = new Intent(OfflineDailyDashBoardActivity.this, VisitLocationActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                   }
+
 
             }
         });
@@ -193,5 +224,95 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         progressDialog.dismiss();
+    }
+
+    private void holidayCheckForSmartJoules() {
+        Log.d("Arpan", "arpan");
+        final ProgressDialog progressDialog = new ProgressDialog(OfflineDailyDashBoardActivity.this);
+        progressDialog.setMessage("Loadingg..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        String surl = pref.getIpAddress() + "GHRMSApi/api/getHolidayCheck/Get_HolidayListCheck?EmployeeID="+pref.getEmpId()+"&HolidayDate="+currentDate+"&SecurityCode=1153";
+        Log.d("holidaycheck", surl);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("responseAttendance", response);
+                        progressDialog.dismiss();
+
+                        // attendabceInfiList.clear();
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+
+
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+
+                                showAlert();
+
+
+                            } else {
+
+                                Intent intent = new Intent(OfflineDailyDashBoardActivity.this, VisitLocationActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+
+
+                            }
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Toast.makeText(AttendanceReportActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                // Toast.makeText(AttendanceReportActivity.this, "volly 2"+error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(OfflineDailyDashBoardActivity.this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void showAlert() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("It's a public holiday. Do you still want to continue");
+        alertDialogBuilder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        arg0.dismiss();
+                        Intent intent = new Intent(OfflineDailyDashBoardActivity.this, VisitLocationActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        arg0.dismiss();
+
+                    }
+                });
+        alertDialogBuilder.show();
+
+
     }
 }

@@ -58,6 +58,7 @@ import com.genius.hrms.activity.dailylog.VisitLocationActivity;
 import com.genius.hrms.activity.utility.GPSTracker;
 import com.genius.hrms.activity.utility.LocationUpdaterService;
 import com.genius.hrms.activity.utility.Pref;
+import com.google.android.gms.maps.model.LatLng;
 import com.wajahatkarim3.longimagecamera.LongBackImageCameraActivity;
 import com.wajahatkarim3.longimagecamera.LongImageCameraActivity;
 
@@ -90,6 +91,8 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1;
     File file,imageZipperFile;
     LinearLayout llConfig,llLogBook,llBackLog;
+    double s;
+    String jsonData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,12 +158,7 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }else {
-                    Intent intent = new Intent(GeoFenceManageDashBoardActivity.this, GeoFenceDailyLogManageActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("SLongitude",0.00);
-                    intent.putExtra("SLatitude",0.00);
-                    intent.putExtra("radius",0);
-                    startActivity(intent);
+                    getValueForGeoFence();
                 }
 
             }
@@ -673,6 +671,90 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
         alerDialog2.show();
+    }
+
+    private void getValueForGeoFence() {
+
+        String surl =  pref.getIpAddress()+"GHRMSApi/api/get_EmployeeGeofenceConfigure?EmployeeId=" + pref.getEmpId() + "&GeoFenceId=000&Operation=1&SecurityCode=" + pref.getSecurityCode();
+        Log.d("valuefetechurl", surl);
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        pd.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("responseconfig", response);
+
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("responseconfig", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+
+                                JSONArray responseData = job1.optJSONArray("responseData");
+                                jsonData=responseData.toString();
+                                for (int i = 0; i < responseData.length(); i++) {
+                                    JSONObject obj = responseData.getJSONObject(i);
+                                    double EndPoint = Double.parseDouble(obj.optString("Radius"));
+                                    s=EndPoint/100;
+
+
+
+                                }
+                                Intent intent=new Intent(GeoFenceManageDashBoardActivity.this,GeoFenceDailyLogManageActivity.class);
+                                intent.putExtra("radius",s);
+                                intent.putExtra("jsonData",jsonData);
+                                startActivity(intent);
+
+
+
+
+
+
+                                //LatLng q=new LatLng(currentLatitude,currentLongitude);
+                                // double distance=CalculationByDistance(p,q);
+
+
+                                pd.dismiss();
+
+
+                            } else {
+
+                                pd.dismiss();
+                                Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG).show();
+
+                            }
+
+
+                            // boolean _status = job1.getBoolean("status");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            //  Toast.makeText(EmployeeDashBoardActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Toast.makeText(EmployeeDashBoardActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
+
+                Log.e("ert", error.toString());
+
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(GeoFenceManageDashBoardActivity.this);
+        requestQueue.add(stringRequest);
+
+
     }
 
 }

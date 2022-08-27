@@ -274,11 +274,6 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
         tvName=(TextView)findViewById(R.id.tvName);
         tvName.setText("Hi! "+pref.getEmpName());
 
-        if (pref.getSecurityCode().equals("1157")){
-
-        }else {
-            getValueForGeoFence();
-        }
 
 
 
@@ -1106,95 +1101,7 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
     }
 
 
-    private void getValueForGeoFence() {
 
-        String surl =  pref.getIpAddress()+"GHRMSApi/api/get_EmployeeGeofenceConfigure?EmployeeId=" + pref.getEmpId() + "&GeoFenceId=000&Operation=1&SecurityCode=" + pref.getSecurityCode();
-        Log.d("valuefetechurl", surl);
-        final ProgressDialog pd = new ProgressDialog(this);
-        pd.setMessage("Loading..");
-        pd.setCancelable(false);
-        pd.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
-                new com.android.volley.Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("responseconfig", response);
-
-
-                        try {
-                            JSONObject job1 = new JSONObject(response);
-                            Log.e("responseconfig", "@@@@@@" + job1);
-                            String responseText = job1.optString("responseText");
-                            boolean responseStatus = job1.optBoolean("responseStatus");
-                            if (responseStatus) {
-
-                                JSONArray responseData = job1.optJSONArray("responseData");
-                                for (int i = 0; i < responseData.length(); i++) {
-                                    JSONObject obj = responseData.getJSONObject(i);
-                                    double SLongitude = Double.parseDouble(obj.optString("SLongitude"));
-                                    double SLatitude = Double.parseDouble(obj.optString("SLatitude"));
-                                    double EndPoint = Double.parseDouble(obj.optString("EndPoint"));
-                                    double s=EndPoint/100;
-
-                                    p = new LatLng(SLatitude, SLongitude);
-                                    LatLng q=new LatLng(currentLatitude,currentLongitude);
-                                    Double distance=CalculationByDistance(p,q);
-                                    Log.d("distancecal", String.valueOf(distance));
-                                    if (distance<s || distance==s){
-                                        flagt=true;
-                                        Log.d("desus","1");
-                                    }else {
-                                        Log.d("desus","0");
-                                    }
-
-                                }
-
-
-
-
-
-
-                                //LatLng q=new LatLng(currentLatitude,currentLongitude);
-                                // double distance=CalculationByDistance(p,q);
-
-
-                                pd.dismiss();
-
-
-                            } else {
-                                flagt=false;
-                                pd.dismiss();
-                                Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG).show();
-
-                            }
-
-
-                            // boolean _status = job1.getBoolean("status");
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            //  Toast.makeText(EmployeeDashBoardActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                }, new com.android.volley.Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                // Toast.makeText(EmployeeDashBoardActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
-
-                Log.e("ert", error.toString());
-
-            }
-        }) {
-
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(GeoFenceDailyLogManageActivity.this);
-        requestQueue.add(stringRequest);
-
-
-    }
 
 
 
