@@ -151,7 +151,7 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (pref.getSecurityCode().equals("1157")){
-                    Intent intent = new Intent(GeoFenceManageDashBoardActivity.this, VisitLocationActivity.class);
+                    Intent intent = new Intent(GeoFenceManageDashBoardActivity.this, GeoFenceVisitLocationActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }else {

@@ -15,6 +15,7 @@ import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.attendance.AttendanceActivity;
+import com.genius.hrms.activity.attendance.AttendanceMonthlyReport;
 import com.genius.hrms.activity.attendance.AttendanceReportActivity;
 import com.genius.hrms.activity.attendance.AttendanceReportForPPSActivity;
 import com.genius.hrms.activity.attendance.BacklogActivity;
@@ -24,7 +25,7 @@ import com.genius.hrms.activity.utility.Pref;
 
 
 public class OfflineDailyDashBoardActivity extends AppCompatActivity {
-    LinearLayout llManage, llReport, llLog,llSubordinate,llBackLog;
+    LinearLayout llManage, llReport, llLog,llSubordinate,llBackLog,llMonthlyAttenReport;
 
     ImageView imgBack, imgHome;
     NetworkConnectionCheck connectionCheck;
@@ -47,6 +48,13 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         llManage = (LinearLayout) findViewById(R.id.llManage);
         llReport = (LinearLayout) findViewById(R.id.llReport);
         llSubordinate = (LinearLayout) findViewById(R.id.llSubordinate);
+        llMonthlyAttenReport=(LinearLayout)findViewById(R.id.llMonthlyAttenReport);
+
+        if (pref.getSecurityCode().equals("1155")){
+            llMonthlyAttenReport.setVisibility(View.VISIBLE);
+        }else {
+            llMonthlyAttenReport.setVisibility(View.GONE);
+        }
 
 
         llLog = (LinearLayout) findViewById(R.id.llLog);
@@ -86,6 +94,15 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OfflineDailyDashBoardActivity.this, BacklogActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
+        llMonthlyAttenReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OfflineDailyDashBoardActivity.this, AttendanceMonthlyReport.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }

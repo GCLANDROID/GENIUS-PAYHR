@@ -1,10 +1,8 @@
-package com.genius.hrms.activity.dailylog;
+package com.genius.hrms.activity.geofence;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,14 +22,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
-import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.adapter.VisitingLocationAdapter;
-import com.genius.hrms.activity.attendance.AttendanceActivity;
-import com.genius.hrms.activity.geofence.GeoFenceDailyLogManageActivity;
+import com.genius.hrms.activity.dailylog.OfflineDailyLogManageActivity;
+import com.genius.hrms.activity.dailylog.SmartJuleDailyLogActivity;
 import com.genius.hrms.activity.model.VisitingLocationModel;
 import com.genius.hrms.activity.utility.Pref;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -43,7 +39,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class VisitLocationActivity extends AppCompatActivity {
+public class GeoFenceVisitLocationActivity extends AppCompatActivity {
     RecyclerView rvItem;
     ArrayList<VisitingLocationModel>itemList=new ArrayList<>();
     Button btnAdd;
@@ -75,7 +71,7 @@ public class VisitLocationActivity extends AppCompatActivity {
         pref=new Pref(getApplicationContext());
         rvItem=(RecyclerView)findViewById(R.id.rvItem);
         LinearLayoutManager layoutManager
-                = new LinearLayoutManager(VisitLocationActivity.this, LinearLayoutManager.VERTICAL, false);
+                = new LinearLayoutManager(GeoFenceVisitLocationActivity.this, LinearLayoutManager.VERTICAL, false);
         rvItem.setLayoutManager(layoutManager);
 
         btnAdd=(Button)findViewById(R.id.btnAdd);
@@ -186,7 +182,7 @@ public class VisitLocationActivity extends AppCompatActivity {
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(VisitLocationActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(GeoFenceVisitLocationActivity.this);
         requestQueue.add(stringRequest);
     }
     private void setAdapter(){
@@ -201,20 +197,18 @@ public class VisitLocationActivity extends AppCompatActivity {
                     if (pref.getSecurityCode().equals("1153")){
 
                        //getAttendanceInformationForSmart();
-                        Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                        Intent intent = new Intent(GeoFenceVisitLocationActivity.this, OfflineDailyLogManageActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }else if (pref.getSecurityCode().equals("1157")){
 
-                        Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                        getValueForGeoFenceForIntas();
                     }
                     else {
                         pd.setMessage("Loading....");
                         pd.setCancelable(false);
                         pd.show();
-                        Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                        Intent intent = new Intent(GeoFenceVisitLocationActivity.this, OfflineDailyLogManageActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
@@ -230,20 +224,18 @@ public class VisitLocationActivity extends AppCompatActivity {
                 if (pref.getSecurityCode().equals("1153")){
 
                     //getAttendanceInformationForSmart();
-                    Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                    Intent intent = new Intent(GeoFenceVisitLocationActivity.this, OfflineDailyLogManageActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }else if (pref.getSecurityCode().equals("1157")){
 
-                    Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    getValueForGeoFenceForIntas();
                 }
                 else {
                     pd.setMessage("Loading....");
                     pd.setCancelable(false);
                     pd.show();
-                    Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                    Intent intent = new Intent(GeoFenceVisitLocationActivity.this, OfflineDailyLogManageActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
@@ -260,7 +252,7 @@ public class VisitLocationActivity extends AppCompatActivity {
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(VisitLocationActivity.this, UserDashBoardActivity.class);
+                Intent intent=new Intent(GeoFenceVisitLocationActivity.this, UserDashBoardActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -277,7 +269,7 @@ public class VisitLocationActivity extends AppCompatActivity {
 
     private void getAttendanceInformationForSmart() {
         Log.d("Arpan", "arpan");
-        final ProgressDialog progressDialog = new ProgressDialog(VisitLocationActivity.this);
+        final ProgressDialog progressDialog = new ProgressDialog(GeoFenceVisitLocationActivity.this);
         progressDialog.setMessage("Loadingg..");
         progressDialog.setCancelable(false);
         progressDialog.show();
@@ -310,7 +302,7 @@ public class VisitLocationActivity extends AppCompatActivity {
                                 attCode = "0";
                             }
 
-                            Intent intent = new Intent(VisitLocationActivity.this, SmartJuleDailyLogActivity.class);
+                            Intent intent = new Intent(GeoFenceVisitLocationActivity.this, SmartJuleDailyLogActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("attCode", attCode);
                             intent.putExtra("frstPunch",frstPunch);
@@ -334,7 +326,7 @@ public class VisitLocationActivity extends AppCompatActivity {
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(VisitLocationActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(GeoFenceVisitLocationActivity.this);
         requestQueue.add(stringRequest);
     }
 
@@ -347,7 +339,7 @@ public class VisitLocationActivity extends AppCompatActivity {
         pd.setCancelable(false);
         pd.show();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
-                new com.android.volley.Response.Listener<String>() {
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d("responseconfig", response);
@@ -375,7 +367,7 @@ public class VisitLocationActivity extends AppCompatActivity {
 
                                 pd.dismiss();
 
-                                Intent intent=new Intent(VisitLocationActivity.this,GeoFenceDailyLogManageActivity.class);
+                                Intent intent=new Intent(GeoFenceVisitLocationActivity.this,GeoFenceDailyLogManageActivity.class);
                                 intent.putExtra("radius",s);
                                 intent.putExtra("jsonData",jsonData);
                                 startActivity(intent);
@@ -401,7 +393,7 @@ public class VisitLocationActivity extends AppCompatActivity {
                         }
 
                     }
-                }, new com.android.volley.Response.ErrorListener() {
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
@@ -413,7 +405,7 @@ public class VisitLocationActivity extends AppCompatActivity {
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(VisitLocationActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(GeoFenceVisitLocationActivity.this);
         requestQueue.add(stringRequest);
 
 

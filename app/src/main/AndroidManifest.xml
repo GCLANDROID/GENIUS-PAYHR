@@ -25,6 +25,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:node="merge">
+        <activity android:name=".activity.attendance.AttendanceMonthlyReport"
+            android:screenOrientation="userPortrait"></activity>
+        <activity android:name=".activity.geofence.GeoFenceVisitLocationActivity"
+            android:screenOrientation="userPortrait"></activity>
         <activity
             android:name=".activity.geofence.GeoFenceApprovalActivity"
             android:exported="false" />

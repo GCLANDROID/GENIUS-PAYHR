@@ -88,6 +88,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -174,6 +175,9 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
     boolean flagt=false;
     LatLng p;
     double SLongitude,SLatitude,radius;
+    String jsonData;
+    JSONArray sourceArray;
+    ArrayList<Boolean>flagList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,8 +195,12 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
         btnMarkDailyLogSubmit=findViewById(R.id.btnMarkDailyLogSubmit);
         pref = new Pref(getApplicationContext());
         radius=getIntent().getDoubleExtra("radius",0.00);
-        SLongitude=getIntent().getDoubleExtra("SLongitude",0.00);
-        SLatitude=getIntent().getDoubleExtra("SLatitude",0.00);
+        jsonData=getIntent().getStringExtra("jsonData");
+        try {
+            sourceArray=new JSONArray(jsonData);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         SERVER_PATH = pref.getIpAddress()+"GHRMSApi/api/";
         DATA_SAVED_BROADCAST = pref.getIpAddress()+"GHRMSApi/api/post_OfflineDailyLogActivity";
         mLocationRequest = LocationRequest.create()
@@ -343,18 +351,37 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
         currentLongitude = location.getLongitude();
         longt = String.valueOf(currentLongitude);
         latLng = new LatLng(currentLatitude, currentLongitude);
+        try {
 
-         p = new LatLng(SLatitude, SLongitude);
-         LatLng q=new LatLng(currentLatitude,currentLongitude);
-         Double distance=CalculationByDistance(p,q);
-         Log.d("distancecal", String.valueOf(distance));
-         if (distance<radius || distance==radius){
-         flagt=true;
-          Log.d("desus","1");
-          }else {
-           Log.d("desus","0");
-            flagt=false;
+            for (int i = 0; i < sourceArray.length(); i++) {
+                JSONObject obj = sourceArray.getJSONObject(i);
+                SLatitude = Double.parseDouble(obj.optString("Latitude"));
+                SLongitude = Double.parseDouble(obj.optString("Longitude"));
+
+                p = new LatLng(SLatitude, SLongitude);
+                LatLng q=new LatLng(currentLatitude,currentLongitude);
+                Double distance=CalculationByDistance(p,q);
+                Log.d("distancecal", String.valueOf(distance));
+                if (distance<radius || distance==radius){
+                    flagt=true;
+                    Log.d("desus","1");
+                }else {
+                    Log.d("desus","0");
+                    flagt=false;
+                }
+
+                flagList.add(flagt);
+
+
+
             }
+            Log.d("flagList",flagList.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
 
         address = getCompleteAddressString(currentLatitude, currentLongitude);
         address1 = address.replaceAll("\\s+", "%20");
@@ -619,7 +646,7 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
                             String formattedDate = df.format(dof);
 
                             String date = formattedDate + "  " + currentDateTimeString;
-                             if (flagt){
+                             if (flagList.contains(true)){
                                  if (connectionCheck.isNetworkAvailable()) {
                                      dailyActivity(date);
                                  } else {
@@ -788,8 +815,8 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
                 alerDialog4.dismiss();
                 if (connectionCheck.isNetworkAvailable()) {
                     Intent intent = new Intent(GeoFenceDailyLogManageActivity.this, NumberTourActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                    finish();
 
                 } else {
                     Intent intent = new Intent(GeoFenceDailyLogManageActivity.this, OfflineDailyDashBoardActivity.class);
