@@ -4,7 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.activity.WebViewActivity">
+    tools:context=".activity.activity.WebViewActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/lnDownload"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:gravity="right"
+        android:background="@color/maincolor">
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/filedownload"></ImageView>
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/tvDownload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Download Payslip in PDF"
+            android:textStyle="bold"
+            android:textSize="18sp"></TextView>
+    </LinearLayout>
     <im.delight.android.webview.AdvancedWebView
         android:id="@+id/wbUrl"
         android:layout_width="match_parent"

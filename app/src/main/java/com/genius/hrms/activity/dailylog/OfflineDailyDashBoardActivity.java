@@ -25,6 +25,7 @@ import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.attendance.AttendanceActivity;
 import com.genius.hrms.activity.attendance.AttendanceMonthlyReport;
+import com.genius.hrms.activity.attendance.AttendanceRegulizationActivity;
 import com.genius.hrms.activity.attendance.AttendanceReportActivity;
 import com.genius.hrms.activity.attendance.AttendanceReportForPPSActivity;
 import com.genius.hrms.activity.attendance.BacklogActivity;
@@ -114,15 +115,23 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
         currentDate=currentYear+"-"+currentMonth+"-"+currentDay;
+        //currentDate="2022-08-15";
     }
 
     private void onClick() {
         llBackLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OfflineDailyDashBoardActivity.this, BacklogActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                if (pref.getSecurityCode().equals("1153")){
+                    Intent intent = new Intent(OfflineDailyDashBoardActivity.this, AttendanceRegulizationActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(OfflineDailyDashBoardActivity.this, BacklogActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+
             }
         });
 

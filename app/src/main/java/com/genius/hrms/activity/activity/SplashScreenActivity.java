@@ -181,7 +181,8 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
             if (connectionCheck.isNetworkAvailable()) {
                 showSplash();
             } else {
-                connectionCheck.getNetworkActiveAlert().show();
+                startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
+                finish();
             }
 
         } else {

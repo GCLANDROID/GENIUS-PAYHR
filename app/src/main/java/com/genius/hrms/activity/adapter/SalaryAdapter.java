@@ -32,6 +32,7 @@ public class SalaryAdapter extends RecyclerView.Adapter<SalaryAdapter.MyViewHold
     ArrayList<SalaryModule>salryinfoList=new ArrayList<>();
     Pref pref;
     Context context;
+    String year;
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -93,6 +94,8 @@ public class SalaryAdapter extends RecyclerView.Adapter<SalaryAdapter.MyViewHold
             public void onClick(View view) {
                 Intent intent=new Intent(context, WebViewActivity.class);
                 intent.putExtra("imageurl",salryinfoList.get(i).getSurl());
+                intent.putExtra("month",salryinfoList.get(i).getMonth());
+                intent.putExtra("year",salryinfoList.get(i).getYear());
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
@@ -119,5 +122,6 @@ public class SalaryAdapter extends RecyclerView.Adapter<SalaryAdapter.MyViewHold
     public SalaryAdapter(ArrayList<SalaryModule> salryinfoList, Context context) {
         this.salryinfoList = salryinfoList;
         this.context = context;
+
     }
 }

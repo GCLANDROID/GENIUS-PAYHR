@@ -3,11 +3,14 @@ package com.genius.hrms.activity.profile;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -56,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView tvToolbar, tvPersonal, tvContact, tvToolBar;
     TextView tvUAN, tvAadhar, tvAc, tvBank, tvEsi, tvPf, tvEmailID, tvPhone, tvPreAdd, tvPerAdd, tvBlood, tvStatus, tvQuali, tvRelation, tvGName, tvDateoOB, tvGen, tvLoc, tvDes, tvDept, tvDateoJ, tvName, tvCode, tvId;
     String surl;
+    ImageView imgUser;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
@@ -72,6 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void initialize() {
         pref = new Pref(ProfileActivity.this);
+        imgUser=(ImageView)findViewById(R.id.imgUser) ;
         connectionCheck = new NetworkConnectionCheck(this);
 
         llDocuments = (LinearLayout) findViewById(R.id.llDocuments);
@@ -1165,6 +1170,12 @@ public class ProfileActivity extends AppCompatActivity {
                                         tvPanNumber.setText("N/A");
                                     }
                                 }
+
+                                if (pref.getSecurityCode().equals("1155")){
+                                    profileImage();
+                                }else {
+
+                                }
                             } else {
 
 
@@ -1184,6 +1195,64 @@ public class ProfileActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 progressBar.dismiss();
                 Toast.makeText(ProfileActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(ProfileActivity.this);
+        requestQueue.add(stringRequest);
+
+    }
+
+    public void profileImage() {
+
+
+
+        String surl =  "https://cloud.geniusconsultant.com/GHRMSApi/api/GCLKYC_New/GetProfilePic?EmployeeID="+pref.getEmpId()+"&SecurityCode=1155";
+
+        Log.d("kyc", surl);
+        final ProgressDialog progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);//you can cancel it by pressing back button
+        progressBar.setMessage("Loading...");
+        progressBar.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("responseLogin", response);
+                        progressBar.dismiss();
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+                                //   Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+                                String responseData = job1.optString("responseData");
+                                byte[] decodedString = Base64.decode(responseData, Base64.DEFAULT);
+                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                imgUser.setImageBitmap(decodedByte);
+
+                            } else {
+
+
+                            }
+
+                            // boolean _status = job1.getBoolean("status");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(ProfileActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressBar.dismiss();
+                //Toast.makeText(ProfileActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
                 Log.e("ert", error.toString());
             }
         }) {

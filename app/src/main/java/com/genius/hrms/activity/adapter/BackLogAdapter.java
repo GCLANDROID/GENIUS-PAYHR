@@ -33,9 +33,9 @@ public class BackLogAdapter extends RecyclerView.Adapter<BackLogAdapter.MyViewHo
     Context mContex;
     ArrayList<String> item = new ArrayList<>();
 
-    public BackLogAdapter(ArrayList<BackLogModel> blockLogList, BacklogActivity backlogActivity) {
+    public BackLogAdapter(ArrayList<BackLogModel> blockLogList, Context mContex) {
         this.itemList = blockLogList;
-        this.mContex = backlogActivity;
+        this.mContex = mContex;
     }
 
     @NonNull

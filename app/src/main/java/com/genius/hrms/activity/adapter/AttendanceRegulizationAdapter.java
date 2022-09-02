@@ -1,6 +1,7 @@
 package com.genius.hrms.activity.adapter;
 
 
+import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.text.Editable;
@@ -9,9 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -23,17 +27,20 @@ import com.genius.hrms.activity.attendance.AttendanceRegulizationActivity;
 import com.genius.hrms.activity.attendance.BacklogActivity;
 import com.genius.hrms.activity.model.AttendanceRegulizationModel;
 import com.genius.hrms.activity.model.BackLogModel;
+import com.genius.hrms.activity.payroll.SalaryActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 
 public class AttendanceRegulizationAdapter extends RecyclerView.Adapter<AttendanceRegulizationAdapter.MyViewHolder> {
-    ArrayList<AttendanceRegulizationModel> itemList = new ArrayList<>();
+    ArrayList<BackLogModel> itemList = new ArrayList<>();
     Context mContex;
     ArrayList<String> item = new ArrayList<>();
+    ArrayList<String>issueList=new ArrayList();
 
-    public AttendanceRegulizationAdapter(ArrayList<AttendanceRegulizationModel> blockLogList, Context mContex) {
+
+    public AttendanceRegulizationAdapter(ArrayList<BackLogModel> blockLogList, Context mContex) {
         this.itemList = blockLogList;
         this.mContex = mContex;
     }
@@ -47,15 +54,16 @@ public class AttendanceRegulizationAdapter extends RecyclerView.Adapter<Attendan
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
-
-
+    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, @SuppressLint("RecyclerView") final int i) {
+        issueList.clear();
+        issueList.add("Please Select");
+        issueList.add("MissedSwipe");
+        issueList.add("Outdoor");
+        issueList.add("Other");
 
         myViewHolder.tvDate.setText(itemList.get(i).getDate());
-        myViewHolder.tvSysInTime.setText(itemList.get(i).getSysInTime());
-        myViewHolder.tvSysOutTime.setText(itemList.get(i).getSysOutTime());
-        myViewHolder.tvAppInTime.setText(itemList.get(i).getAppinTime());
-        myViewHolder.tvAppOutTime.setText(itemList.get(i).getAppOutTime());
+        myViewHolder.tvAppInTime.setText(itemList.get(i).getInTime());
+        myViewHolder.tvAppOutTime.setText(itemList.get(i).getOutTime());
 
         myViewHolder.myCustomEditTextListener.updatePosition(myViewHolder.getAdapterPosition());
         myViewHolder.cutomfocus.updatePosition(myViewHolder.getAdapterPosition());
@@ -78,8 +86,8 @@ public class AttendanceRegulizationAdapter extends RecyclerView.Adapter<Attendan
 
                                 //txtTime.setText(hourOfDay + ":" + minute);
                                 String intime = hourOfDay + ":" + minute;
-                                itemList.get(i).setAppinTime(intime);
-                                myViewHolder.tvAppInTime.setText(itemList.get(i).getAppinTime());
+                                itemList.get(i).setInTime(intime);
+                                myViewHolder.tvAppInTime.setText(itemList.get(i).getInTime());
 
 
                             }
@@ -105,8 +113,8 @@ public class AttendanceRegulizationAdapter extends RecyclerView.Adapter<Attendan
 
                                 //txtTime.setText(hourOfDay + ":" + minute);
                                 String intime = hourOfDay + ":" + minute;
-                                itemList.get(i).setAppOutTime(intime);
-                                myViewHolder.tvAppOutTime.setText(itemList.get(i).getAppOutTime());
+                                itemList.get(i).setOutTime(intime);
+                                myViewHolder.tvAppOutTime.setText(itemList.get(i).getOutTime());
 
 
                             }
@@ -114,6 +122,37 @@ public class AttendanceRegulizationAdapter extends RecyclerView.Adapter<Attendan
                 timePickerDialog.show();
             }
         });
+
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
+                (mContex, android.R.layout.simple_spinner_item,
+                        issueList); //selected item will look like a spinner set from XML
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        myViewHolder.spIssue.setAdapter(spinnerArrayAdapter);
+
+        myViewHolder.spIssue.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+                if (pos==1 || pos==2){
+                    String issue=issueList.get(pos);
+                    itemList.get(i).setRemarks(issue);
+                    ((AttendanceRegulizationActivity) mContex).updateItemStatus(i);
+                    myViewHolder.llIssue.setVisibility(View.VISIBLE);
+                    myViewHolder.etRemarks.setVisibility(View.GONE);
+                }else if (pos==3){
+                    myViewHolder.llIssue.setVisibility(View.GONE);
+                    myViewHolder.etRemarks.setVisibility(View.VISIBLE);
+                }else {
+                    myViewHolder.llIssue.setVisibility(View.VISIBLE);
+                    myViewHolder.etRemarks.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
 
        /* myViewHolder.llLike.setOnClickListener(new View.OnClickListener() {
@@ -146,18 +185,19 @@ public class AttendanceRegulizationAdapter extends RecyclerView.Adapter<Attendan
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvDate, tvSysInTime, tvSysOutTime,tvAppInTime,tvAppOutTime;
+        TextView tvDate,tvAppInTime,tvAppOutTime;
         EditText etRemarks;
         MyCustomEditTextListener myCustomEditTextListener;
         MycustomFocus cutomfocus;
         ImageView imgInTime, imgOutTime, imgLike;
+        Spinner spIssue;
+        LinearLayout llIssue;
 
 
         public MyViewHolder(@NonNull View itemView, MyCustomEditTextListener myCustomEditTextListener, MycustomFocus mycustomFocus) {
             super(itemView);
             tvDate = (TextView) itemView.findViewById(R.id.tvDate);
-            tvSysInTime = (TextView) itemView.findViewById(R.id.tvSysInTime);
-            tvSysOutTime = (TextView) itemView.findViewById(R.id.tvSysOutTime);
+
             tvAppInTime = (TextView) itemView.findViewById(R.id.tvAppInTime);
             tvAppOutTime = (TextView) itemView.findViewById(R.id.tvAppOutTime);
             etRemarks = (EditText) itemView.findViewById(R.id.etRemarks);
@@ -167,6 +207,9 @@ public class AttendanceRegulizationAdapter extends RecyclerView.Adapter<Attendan
             etRemarks.setOnFocusChangeListener(cutomfocus);
             imgInTime = (ImageView) itemView.findViewById(R.id.imgInTime);
             imgOutTime = (ImageView) itemView.findViewById(R.id.imgOutTime);
+            spIssue=(Spinner) itemView.findViewById(R.id.spIssue);
+            llIssue=(LinearLayout) itemView.findViewById(R.id.llIssue);
+
 
 
 
@@ -189,8 +232,8 @@ public class AttendanceRegulizationAdapter extends RecyclerView.Adapter<Attendan
                 itemList.get(position).setRemarks("");
 
             } else {
-                ((AttendanceRegulizationActivity) mContex).updateItemStatus(position);
 
+                ((AttendanceRegulizationActivity) mContex).updateItemStatus(position);
 
             }
 

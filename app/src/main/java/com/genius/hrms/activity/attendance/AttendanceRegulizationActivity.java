@@ -53,7 +53,7 @@ public class AttendanceRegulizationActivity extends AppCompatActivity {
     TextView tvToolBar;
     LinearLayout llLoader,llMain,llNodata;
     Pref pref;
-    ArrayList<AttendanceRegulizationModel> itemList = new ArrayList<>();
+    ArrayList<BackLogModel> itemList = new ArrayList<>();
     ArrayList<String> regulizationItem = new ArrayList<>();
     AttendanceRegulizationAdapter regulizationAdapter;
     LinearLayout btnSubmit;
@@ -133,7 +133,7 @@ public class AttendanceRegulizationActivity extends AppCompatActivity {
 
 
     private void getRegulizationData() {
-        String surl =  pref.getIpAddress()+"GHRMSApi/api/Attendance/AttendanceRegularise?CompanyID=" + pref.getEmpClintId() + "&EmployeeID=" + pref.getEmpId() + "&SecurityCode=" + pref.getSecurityCode();
+        String surl =  pref.getIpAddress()+"GHRMSApi/api/Attendance/AttendanceBakLog?CompanyID=" + pref.getEmpClintId() + "&EmployeeID=" + pref.getEmpId() + "&SecurityCode=" + pref.getSecurityCode();
         llLoader.setVisibility(View.VISIBLE);
         llMain.setVisibility(View.GONE);
         llNodata.setVisibility(View.GONE);
@@ -156,14 +156,12 @@ public class AttendanceRegulizationActivity extends AppCompatActivity {
                                 JSONArray responseData = job1.optJSONArray("responseData");
                                 for (int i = 0; i < responseData.length(); i++) {
                                     JSONObject obj = responseData.getJSONObject(i);
-                                    String AttDate = obj.optString("AttendanceDate");
-                                    String SysInTime = obj.optString("SysInTime");
-                                    String SysOutTime = obj.optString("SysOutTime");
-                                    String AppInTime = obj.optString("AppInTime");
-                                    String AppOutTime = obj.optString("AppOutTime");
+                                    String AttDate = obj.optString("AttDate");
+                                    String InTime = obj.optString("InTime");
+                                    String OutTime = obj.optString("OutTime");
 
 
-                                    AttendanceRegulizationModel blockModule = new AttendanceRegulizationModel(AttDate,SysInTime,SysOutTime,AppInTime,AppOutTime);
+                                    BackLogModel blockModule = new BackLogModel(AttDate, InTime, OutTime);
                                     itemList.add(blockModule);
 
 
@@ -205,17 +203,14 @@ public class AttendanceRegulizationActivity extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(AttendanceRegulizationActivity.this);
         requestQueue.add(stringRequest);
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                100000000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
 
     }
 
 
     public void updateItemStatus(int position) {
         if (!itemList.get(position).getRemarks().equals("")){
-            regulizationItem.add(itemList.get(position).getDate() + "_" + itemList.get(position).getAppinTime() + "_" + itemList.get(position).getAppOutTime() + "_" + itemList.get(position).getRemarks());
+            regulizationItem.add(itemList.get(position).getDate() + "_" + itemList.get(position).getInTime() + "_" + itemList.get(position).getOutTime() + "_" + itemList.get(position).getRemarks());
         }
         String itemcomp = regulizationItem.toString();
         regulizationDetails=itemcomp.replace("[","").replace("]","");
@@ -227,11 +222,12 @@ public class AttendanceRegulizationActivity extends AppCompatActivity {
 
     public void regulizationSave() {
         etFocus.clearFocus();
+        Log.d("regulizationDetails",regulizationDetails);
 
         final ProgressDialog pg=new ProgressDialog(AttendanceRegulizationActivity.this);
         pg.setMessage("Loading..");
         pg.setCancelable(false);
-        AndroidNetworking.upload( pref.getIpAddress()+"ghrmsapi/api/Attendance/AttendanceRegulariseSave")
+        AndroidNetworking.upload( pref.getIpAddress() + "GHRMSApi/api/Attendance/AttendanceBakLogSave")
                 .addMultipartParameter("CompanyID", pref.getEmpClintId())
                 .addMultipartParameter("StrAttData", regulizationDetails)
                 .addMultipartParameter("EmployeeID", pref.getEmpId())

@@ -154,29 +154,12 @@
                         android:layout_gravity="center"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"/>
-                    <TextView
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="App In time"
-                        android:layout_weight="0.5"
-                        android:layout_gravity="center"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"/>
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="App Out time"
-                        android:layout_weight="0.5"
-                        android:layout_gravity="center"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Remarks"
-                        android:layout_weight="1"
+                        android:layout_weight="1.2"
                         android:layout_gravity="center"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"/>

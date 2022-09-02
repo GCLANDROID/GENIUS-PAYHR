@@ -3,21 +3,30 @@ package com.genius.hrms.activity.activity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintJob;
+import android.print.PrintManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.genius.hrms.R;
@@ -29,7 +38,14 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
     AdvancedWebView wbUrl;
     private static final int CLICK_ON_WEBVIEW = 1;
     private static final int CLICK_ON_URL = 2;
+    WebView printWeb;
+    PrintJob printJob;
 
+    // a boolean to check the status of printing
+    boolean printBtnPressed = false;
+    TextView tvDownload;
+    String month,year;
+    LinearLayout lnDownload;
     
 
     @Override
@@ -39,6 +55,10 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         initView();
     }
     private void initView(){
+        tvDownload=(TextView) findViewById(R.id.tvDownload);
+        lnDownload=(LinearLayout)findViewById(R.id.lnDownload);
+        month=getIntent().getStringExtra("month");
+        year=getIntent().getStringExtra("year");
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Data...");
         progressDialog.setCancelable(false);
@@ -54,6 +74,7 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
             public void onPageFinished(WebView view, String url) {
 
                 progressDialog.dismiss();
+                printWeb=wbUrl;
             }
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error){
@@ -63,12 +84,58 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
             }
         });
 
+        lnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (printWeb != null) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        // Calling createWebPrintJob()
+                        PrintTheWebPage(printWeb);
+                    } else {
+                        // Showing Toast message to user
+                        Toast.makeText(WebViewActivity.this, "Not available for device below Android LOLLIPOP", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    // Showing Toast message to user
+                    Toast.makeText(WebViewActivity.this, "WebPage not fully loaded", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
     @SuppressLint("NewApi")
     @Override
     protected void onResume() {
         super.onResume();
         wbUrl.onResume();
+        if (printJob != null && printBtnPressed) {
+            if (printJob.isCompleted()) {
+                // Showing Toast Message
+                Toast.makeText(this, "Payslip has been downloaded", Toast.LENGTH_SHORT).show();
+            } else if (printJob.isStarted()) {
+                // Showing Toast Message
+                Toast.makeText(this, "isStarted", Toast.LENGTH_SHORT).show();
+
+            } else if (printJob.isBlocked()) {
+                // Showing Toast Message
+                Toast.makeText(this, "isBlocked", Toast.LENGTH_SHORT).show();
+
+            } else if (printJob.isCancelled()) {
+                // Showing Toast Message
+                Toast.makeText(this, "isCancelled", Toast.LENGTH_SHORT).show();
+
+            } else if (printJob.isFailed()) {
+                // Showing Toast Message
+                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+
+            } else if (printJob.isQueued()) {
+                // Showing Toast Message
+                Toast.makeText(this, "isQueued", Toast.LENGTH_SHORT).show();
+
+            }
+            // set printBtnPressed false
+            printBtnPressed = false;
+        }
         // ...
     }
 
@@ -115,6 +182,28 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
 
     @Override
     public void onExternalPageRequest(String url) { }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void PrintTheWebPage(WebView webView) {
+
+        // set printBtnPressed true
+        printBtnPressed = true;
+
+        // Creating  PrintManager instance
+        PrintManager printManager = (PrintManager) this
+                .getSystemService(Context.PRINT_SERVICE);
+
+        // setting the name of job
+        String jobName = "Payslip-"+month+"-"+year;
+
+        // Creating  PrintDocumentAdapter instance
+        PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(jobName);
+
+        // Create a print job with name and adapter instance
+        assert printManager != null;
+        printJob = printManager.print(jobName, printAdapter,
+                new PrintAttributes.Builder().build());
+    }
 
 
 
