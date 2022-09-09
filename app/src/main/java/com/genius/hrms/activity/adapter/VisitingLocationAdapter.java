@@ -85,7 +85,7 @@ public class VisitingLocationAdapter extends RecyclerView.Adapter<VisitingLocati
             myViewHolder.tvLocation.setText(itemList.get(i).getLocation());
         }
 
-        myViewHolder.tvTime.setText(itemList.get(i).getTime()+"-"+"Check-In");
+        myViewHolder.tvTime.setText(itemList.get(i).getTime());
 
 
     }

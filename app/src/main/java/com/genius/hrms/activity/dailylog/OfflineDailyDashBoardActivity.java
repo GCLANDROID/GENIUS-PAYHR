@@ -77,6 +77,7 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         }
 
 
+
         llLog = (LinearLayout) findViewById(R.id.llLog);
         llBackLog=(LinearLayout)findViewById(R.id.llBackLog);
 
@@ -115,6 +116,12 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
         currentDate=currentYear+"-"+currentMonth+"-"+currentDay;
+        if (pref.getSecurityCode().equals("1158")){
+            llBackLog.setVisibility(View.GONE);
+        }else {
+            llBackLog.setVisibility(View.VISIBLE);
+        }
+
         //currentDate="2022-08-15";
     }
 
@@ -180,8 +187,6 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         llSubordinate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
 
                 Intent intent = new Intent(OfflineDailyDashBoardActivity.this, SuperVisiorActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -300,7 +305,7 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
 
     private void showAlert() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("It's a public holiday. Do you still want to continue");
+        alertDialogBuilder.setMessage("It's a public holiday. Do you still want to continue?");
         alertDialogBuilder.setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -324,4 +329,6 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
 
 
     }
+
+
 }

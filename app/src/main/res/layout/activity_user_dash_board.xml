@@ -46,11 +46,12 @@
                         android:src="@drawable/logouticon_payhr"
                         ></ImageView>
                 </LinearLayout>
-                <ImageView
-                    android:id="@+id/imgMenu"
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgUser"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:src="@drawable/avatar"></ImageView>
+                    android:src="@drawable/avatar" />
                 <TextView
                     android:textStyle="italic"
                     android:fontFamily="serif"

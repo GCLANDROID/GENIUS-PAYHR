@@ -19,6 +19,8 @@ import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.activity.WebViewActivity;
 import com.genius.hrms.activity.utility.Pref;
 
+import java.util.Calendar;
+
 
 public class PayrollActivity extends AppCompatActivity {
     LinearLayout llSalary,llCTC,llRem;
@@ -30,6 +32,11 @@ public class PayrollActivity extends AppCompatActivity {
     TextView tvRem;
     TextView tvToolBar,tvSalary,tvCtc,tvReim;
     LinearLayout llIT;
+    int y;
+    String year;
+    String cuurentFinancialYear;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,10 @@ public class PayrollActivity extends AppCompatActivity {
 
     private  void initialize(){
         pref=new Pref(this);
+        y = Calendar.getInstance().get(Calendar.YEAR);
+        year = String.valueOf(y);
+        int futureYear = y + 1;
+        cuurentFinancialYear = year + "-" + futureYear;
         llSalary=(LinearLayout)findViewById(R.id.llSalary);
         llRem=(LinearLayout)findViewById(R.id.llRem);
         llCTC=(LinearLayout)findViewById(R.id.llCTC);
@@ -199,6 +210,9 @@ public class PayrollActivity extends AppCompatActivity {
 
                 Intent intent=new Intent(PayrollActivity.this, WebViewActivity.class);
                 intent.putExtra("imageurl",pref.getCTCURL());
+                intent.putExtra("month",".");
+                intent.putExtra("flag","CTC");
+                intent.putExtra("year",cuurentFinancialYear);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }

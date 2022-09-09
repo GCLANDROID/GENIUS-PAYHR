@@ -25,6 +25,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:node="merge">
+        <activity android:name=".activity.dailylog.DailyLogMarkActivity"
+            android:screenOrientation="userPortrait"></activity>
         <activity android:name=".activity.attendance.AttendanceMonthlyReport"
             android:screenOrientation="userPortrait"></activity>
         <activity android:name=".activity.geofence.GeoFenceVisitLocationActivity"
@@ -438,7 +440,7 @@
         <service
             android:name=".activity.FCM.MyFirebaseMessagingService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

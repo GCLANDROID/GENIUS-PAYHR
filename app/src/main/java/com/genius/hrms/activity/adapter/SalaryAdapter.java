@@ -96,6 +96,7 @@ public class SalaryAdapter extends RecyclerView.Adapter<SalaryAdapter.MyViewHold
                 intent.putExtra("imageurl",salryinfoList.get(i).getSurl());
                 intent.putExtra("month",salryinfoList.get(i).getMonth());
                 intent.putExtra("year",salryinfoList.get(i).getYear());
+                intent.putExtra("flag","PaySlip");
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

@@ -261,7 +261,7 @@ public class ChatActivity extends AppCompatActivity {
                 mMessageEditText.setText("");
 
 //                String to = getArguments().getString(Constants.ARG_GROUPID);
-                String sender = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                //String sender = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
                 //mChatInteractor.sendMessageToFirebaseUser(context, chat);
 
 

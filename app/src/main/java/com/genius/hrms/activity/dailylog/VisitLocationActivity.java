@@ -67,7 +67,7 @@ public class VisitLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit_location);
         initView();
-        getItem();
+
         onClick();
     }
 
@@ -124,6 +124,7 @@ public class VisitLocationActivity extends AppCompatActivity {
                         Log.d("responseAttendance", response);
 
                         // attendabceInfiList.clear();
+                        itemList.clear();
 
                         try {
                             JSONObject job1 = new JSONObject(response);
@@ -200,21 +201,18 @@ public class VisitLocationActivity extends AppCompatActivity {
 
                     if (pref.getSecurityCode().equals("1153")){
 
-                       //getAttendanceInformationForSmart();
-                        Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                       getAttendanceInformationForSmart();
+                        /*Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                        startActivity(intent);*/
                     }else if (pref.getSecurityCode().equals("1157")){
 
-                        Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                        Intent intent = new Intent(VisitLocationActivity.this, DailyLogMarkActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
                     else {
-                        pd.setMessage("Loading....");
-                        pd.setCancelable(false);
-                        pd.show();
-                        Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                        Intent intent = new Intent(VisitLocationActivity.this, DailyLogMarkActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
@@ -229,21 +227,18 @@ public class VisitLocationActivity extends AppCompatActivity {
 
                 if (pref.getSecurityCode().equals("1153")){
 
-                    //getAttendanceInformationForSmart();
-                    Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                    getAttendanceInformationForSmart();
+                   /* Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    startActivity(intent);*/
                 }else if (pref.getSecurityCode().equals("1157")){
 
-                    Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                    Intent intent = new Intent(VisitLocationActivity.this, DailyLogMarkActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
                 else {
-                    pd.setMessage("Loading....");
-                    pd.setCancelable(false);
-                    pd.show();
-                    Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
+                    Intent intent = new Intent(VisitLocationActivity.this, DailyLogMarkActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
@@ -417,5 +412,11 @@ public class VisitLocationActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getItem();
     }
 }

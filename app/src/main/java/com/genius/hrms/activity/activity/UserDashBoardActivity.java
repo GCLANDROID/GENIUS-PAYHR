@@ -11,12 +11,15 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -88,6 +91,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
     DatabaseReference reference;
     private FirebaseDatabase mFirebaseInstance;
     String formattedDate,deviceName,menuName;
+    ImageView imgUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +104,8 @@ public class UserDashBoardActivity extends AppCompatActivity {
         pref=new Pref(UserDashBoardActivity.this);
         mFirebaseInstance = FirebaseDatabase.getInstance();
         pref.setFirstTimeLaunch(true);
+
+        imgUser=(ImageView)findViewById(R.id.imgUser);
 
         llLoader=(LinearLayout)findViewById(R.id.llLoader);
         llMain=(LinearLayout)findViewById(R.id.llMain);
@@ -225,6 +231,14 @@ public class UserDashBoardActivity extends AppCompatActivity {
                                 llMain.setVisibility(View.VISIBLE);
                                 llNoConnection.setVisibility(View.GONE);
                                 setAdapter();
+
+                                if (pref.getSecurityCode().equals("1155")){
+                                    profileImage();
+                                }else {
+
+                                }
+
+
 
                             } else {
                                 llLoader.setVisibility(View.VISIBLE);
@@ -688,6 +702,64 @@ public class UserDashBoardActivity extends AppCompatActivity {
         final DatabaseReference refUnread = mFirebaseInstance.getReference("HRMS_COMMON");
         refUnread.child("Active_User").child(pref.getSecurityCode()).child(formattedDate).child(pref.getMasterId()).setValue(model);
 
+
+    }
+
+    public void profileImage() {
+
+
+
+        String surl =  "https://cloud.geniusconsultant.com/GHRMSApi/api/GCLKYC_New/GetProfilePic?EmployeeID="+pref.getEmpId()+"&SecurityCode=1155";
+
+        Log.d("kyc", surl);
+        final ProgressDialog progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);//you can cancel it by pressing back button
+        progressBar.setMessage("Loading...");
+        progressBar.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("responseLogin", response);
+                        progressBar.dismiss();
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+                                //   Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+                                String responseData = job1.optString("responseData");
+                                byte[] decodedString = Base64.decode(responseData, Base64.DEFAULT);
+                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                imgUser.setImageBitmap(decodedByte);
+
+                            } else {
+
+
+                            }
+
+                            // boolean _status = job1.getBoolean("status");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(UserDashBoardActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressBar.dismiss();
+                //Toast.makeText(ProfileActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(UserDashBoardActivity.this);
+        requestQueue.add(stringRequest);
 
     }
 

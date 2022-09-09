@@ -9,10 +9,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -41,6 +44,7 @@ import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
 
 import com.genius.hrms.activity.model.ActiveUserModel;
+import com.genius.hrms.activity.profile.ProfileActivity;
 import com.genius.hrms.activity.utility.NetworkConnectionCheck;
 import com.genius.hrms.activity.utility.Pref;
 import com.google.cloud.translate.Translate;
@@ -425,6 +429,9 @@ public class DashBoardActivity extends AppCompatActivity {
         System.out.printf("Text: %s%n", text);
         Log.d("Translation: %s%n", translation.getTranslatedText());
     }
+
+
+
 
 
 

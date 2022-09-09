@@ -46,6 +46,7 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
     TextView tvDownload;
     String month,year;
     LinearLayout lnDownload;
+    String flag;
     
 
     @Override
@@ -55,7 +56,10 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         initView();
     }
     private void initView(){
+        flag=getIntent().getStringExtra("flag");
         tvDownload=(TextView) findViewById(R.id.tvDownload);
+        String text="Download " +flag+" in PDF";
+        tvDownload.setText(text);
         lnDownload=(LinearLayout)findViewById(R.id.lnDownload);
         month=getIntent().getStringExtra("month");
         year=getIntent().getStringExtra("year");
@@ -111,7 +115,7 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         if (printJob != null && printBtnPressed) {
             if (printJob.isCompleted()) {
                 // Showing Toast Message
-                Toast.makeText(this, "Payslip has been downloaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, flag+" has been downloaded", Toast.LENGTH_SHORT).show();
             } else if (printJob.isStarted()) {
                 // Showing Toast Message
                 Toast.makeText(this, "isStarted", Toast.LENGTH_SHORT).show();
@@ -194,7 +198,7 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                 .getSystemService(Context.PRINT_SERVICE);
 
         // setting the name of job
-        String jobName = "Payslip-"+month+"-"+year;
+        String jobName = flag+"-"+month+"-"+year;
 
         // Creating  PrintDocumentAdapter instance
         PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(jobName);

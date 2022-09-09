@@ -60,6 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView tvUAN, tvAadhar, tvAc, tvBank, tvEsi, tvPf, tvEmailID, tvPhone, tvPreAdd, tvPerAdd, tvBlood, tvStatus, tvQuali, tvRelation, tvGName, tvDateoOB, tvGen, tvLoc, tvDes, tvDept, tvDateoJ, tvName, tvCode, tvId;
     String surl;
     ImageView imgUser;
+    TextView tvPersonalEmail,tvReportingManager,tvGMob,tvGurdianMob;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
@@ -76,6 +77,10 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void initialize() {
         pref = new Pref(ProfileActivity.this);
+        tvPersonalEmail=(TextView)findViewById(R.id.tvPersonalEmail);
+        tvGMob=(TextView)findViewById(R.id.tvGMob);
+        tvGurdianMob=(TextView)findViewById(R.id.tvGurdianMob);
+        tvReportingManager=(TextView)findViewById(R.id.tvReportingManager);
         imgUser=(ImageView)findViewById(R.id.imgUser) ;
         connectionCheck = new NetworkConnectionCheck(this);
 
@@ -253,7 +258,12 @@ public class ProfileActivity extends AppCompatActivity {
             tvLoc.setText("Location");
             tvGen.setText("Gender");
             tvDateoOB.setText("Date Of Birth");
-            tvGName.setText("Guardian Name");
+            if (pref.getSecurityCode().equals("1155")){
+                tvGName.setText("Emergency Person Name");
+            }else {
+                tvGName.setText("Guardian Name");
+            }
+
             tvRelation.setText("Relationship");
             tvQuali.setText("Qualification");
             tvStatus.setText("Marital Status");
@@ -269,6 +279,12 @@ public class ProfileActivity extends AppCompatActivity {
             tvAadhar.setText("Aadhar Number");
             tvPan.setText("Pan Number");
             tvUAN.setText("UAN number");
+        }
+
+        if (pref.getSecurityCode().equals("1155")){
+            tvGMob.setText("Emergency Person Contact Number");
+        }else {
+            tvGName.setText("Guardian Contact Number");
         }
 
 
@@ -1169,6 +1185,13 @@ public class ProfileActivity extends AppCompatActivity {
                                     }else{
                                         tvPanNumber.setText("N/A");
                                     }
+
+                                    String ReportingManager=obj.optString("ReportingManager");
+                                    tvReportingManager.setText(ReportingManager);
+                                    String PersonalEmail=obj.optString("PersonalEmail");
+                                    tvPersonalEmail.setText(PersonalEmail);
+                                    String GuardContMobile=obj.optString("GuardContMobile");
+                                    tvGurdianMob.setText(GuardContMobile);
                                 }
 
                                 if (pref.getSecurityCode().equals("1155")){

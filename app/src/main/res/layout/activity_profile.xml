@@ -96,7 +96,6 @@
                 android:textSize="14sp"
                 android:textColor="@android:color/white"
                 android:fontFamily="sans-serif"
-                android:text="Kunal Mukherjee"
                 android:textStyle="bold"
                 android:id="@+id/tvEName"></TextView>
         </LinearLayout>
@@ -134,7 +133,7 @@
                                 android:id="@+id/llOffical"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
-                                android:background="@color/grey"
+                                android:background="@color/purple"
                                 android:orientation="horizontal">
 
                                 <FrameLayout
@@ -148,7 +147,8 @@
                                         android:layout_width="20dp"
                                         android:layout_height="20dp"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/official" />
+                                        android:src="@drawable/official"
+                                        app:tint="@color/white" />
 
                                     <ImageView
                                         android:id="@+id/imgOffFor1"
@@ -167,7 +167,7 @@
                                     android:layout_marginLeft="10dp"
                                     android:text="Official"
                                     android:textAppearance="?android:textAppearanceSmall"
-                                    android:textColor="@color/text_color" />
+                                    android:textColor="@color/white" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -176,17 +176,18 @@
                                     android:gravity="right">
 
                                     <FrameLayout
+                                        android:visibility="gone"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center">
 
                                         <ImageView
-                                            android:tint="@color/grey"
                                             android:id="@+id/imgOffiPlus"
                                             android:layout_width="15dp"
                                             android:layout_height="15dp"
                                             android:layout_gravity="center"
-                                            android:src="@drawable/forward" />
+                                            android:src="@drawable/forward"
+                                            app:tint="@color/white" />
 
                                         <ImageView
                                             android:id="@+id/imgOffiMius"
@@ -205,7 +206,7 @@
                                 android:id="@+id/llOffiDetail"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/grey"
+                                android:background="@color/purple"
                                 android:orientation="vertical"
                                 android:visibility="gone">
 
@@ -230,7 +231,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Employee Id"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -271,7 +272,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Employee Code"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -286,7 +287,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -315,7 +316,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Employee Name"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -330,7 +331,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -359,7 +360,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Date Of Joining"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -374,7 +375,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -403,7 +404,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Department"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -418,7 +419,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -446,7 +447,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Branch"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -461,7 +462,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -490,7 +491,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Designation"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -505,7 +506,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -534,7 +535,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Location"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -549,7 +550,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -578,7 +579,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Reporting Manager"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -593,7 +594,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -818,6 +819,49 @@
                                     android:layout_height="1dp"
                                     android:layout_marginTop="10dp"
                                     android:background="@color/barcolor"></LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="horizontal"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp">
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.5">
+
+                                        <TextView
+                                            android:id="@+id/tvGMob"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Guardian Contact Number"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/text_color" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                        <TextView
+                                            android:id="@+id/tvGurdianMob"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="10dp"
+                                            android:text="--"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/text_color" />
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/barcolor"></LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -1003,7 +1047,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@color/grey"
+                                android:background="@color/purple"
                                 android:orientation="horizontal">
 
                                 <FrameLayout
@@ -1017,7 +1061,8 @@
                                         android:layout_width="20dp"
                                         android:layout_height="20dp"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/contact" />
+                                        android:src="@drawable/contact"
+                                        app:tint="@color/white" />
 
                                     <ImageView
                                         android:id="@+id/imgConFor1"
@@ -1036,7 +1081,7 @@
                                     android:layout_marginLeft="10dp"
                                     android:text="Contact"
                                     android:textAppearance="?android:textAppearanceSmall"
-                                    android:textColor="@color/text_color" />
+                                    android:textColor="@color/white" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -1070,10 +1115,11 @@
                             </LinearLayout>
 
                             <LinearLayout
+
                                 android:id="@+id/llContactDetail"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/grey"
+                                android:background="@color/purple"
                                 android:orientation="vertical"
                                 android:visibility="gone">
 
@@ -1096,7 +1142,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Permanent Address"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -1111,7 +1157,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
 
@@ -1142,7 +1188,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Present Address"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -1157,7 +1203,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -1186,7 +1232,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Phone Number"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -1201,7 +1247,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -1230,7 +1276,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Email Id"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -1245,7 +1291,49 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/text_color" />
+                                            android:textColor="@color/white" />
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/barcolor"></LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="horizontal"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp">
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.5">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Email Id  (personal)"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/white" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                        <TextView
+                                            android:id="@+id/tvPersonalEmail"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="10dp"
+                                            android:text="--"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
 

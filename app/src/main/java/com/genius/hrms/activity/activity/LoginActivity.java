@@ -58,7 +58,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.google.firebase.iid.FirebaseInstanceId;
 
 
 import org.json.JSONArray;
@@ -182,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
 
         imgForward = (ImageView) findViewById(R.id.imgForward);
         pgBar = (ProgressBar) findViewById(R.id.pgBar);
-        refreshedToken = "1234";
+        refreshedToken = FirebaseInstanceId.getInstance().getToken();
         pref.saveRefreshToken(refreshedToken);
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -206,7 +206,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         Log.d("androidid", android_id);
-        Log.d("refreshedtoken", refreshedToken);
+
         tvLogin = (TextView) findViewById(R.id.tvLogin);
         tvWelcome = (TextView) findViewById(R.id.tvWelcome);
         tvForgot = (TextView) findViewById(R.id.tvForgot);
@@ -274,7 +274,7 @@ public class LoginActivity extends AppCompatActivity {
                                     {
                                         loginFunctionForPPS();
                                     }else {
-                                        getBlockingStatus();
+                                        loginFunction();
                                     }
 
                             } else {
@@ -904,7 +904,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     // }
                 }
-                loginFunction();
+
             }
 
             @Override
