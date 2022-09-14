@@ -28,4 +28,13 @@ public class ValidUtils {
         Matcher matcher=pattern.matcher(phone);
         return  matcher.matches();
     }
+
+    public static String getFreshValue(String value) {
+        return (value.equals("") || value.equals("null") || value.isEmpty() || value == null) ? "" : value;
+    }
+
+
+    public static String getFreshValue(String value, String defaultValue) {
+        return ( value == null  || value.equals("null")) ? defaultValue : value;
+    }
 }

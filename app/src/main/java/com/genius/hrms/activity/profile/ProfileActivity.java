@@ -32,6 +32,7 @@ import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.utility.NetworkConnectionCheck;
 import com.genius.hrms.activity.utility.Pref;
+import com.genius.hrms.activity.utility.ValidUtils;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
@@ -564,7 +565,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     } else {
                                         tvDepartment.setText(Department);
                                     }
-                                    final String Branch = obj.optString("Branch");
+                                    final String Branch = ValidUtils.getFreshValue(obj.optString("Branch"),"-");
                                     if (pref.getLanguage().equals("hi")) {
                                         final Handler textViewHandler4 = new Handler();
                                         new AsyncTask<Void, Void, Void>() {
