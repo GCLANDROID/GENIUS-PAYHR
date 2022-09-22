@@ -2,6 +2,8 @@ package com.genius.hrms.activity.model;
 
 public class HoliDayModel {
     String purpose,holidayDate,holidayDay;
+    String IsRestricted;
+
 
     public HoliDayModel(String purpose, String holidayDate, String holidayDay) {
         this.purpose = purpose;
@@ -31,5 +33,13 @@ public class HoliDayModel {
 
     public void setHolidayDay(String holidayDay) {
         this.holidayDay = holidayDay;
+    }
+
+    public String getIsRestricted() {
+        return IsRestricted;
+    }
+
+    public void setIsRestricted(String isRestricted) {
+        IsRestricted = isRestricted;
     }
 }

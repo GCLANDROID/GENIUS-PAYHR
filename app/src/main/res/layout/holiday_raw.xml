@@ -46,11 +46,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <LinearLayout
+                        android:visibility="gone"
                         android:orientation="vertical"
-                        android:id="@+id/llFut"
-                        android:background="@mipmap/bluebg"
+                        android:id="@+id/llRestricted"
+                        android:background="@drawable/lldesign"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"></LinearLayout>
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/orange"></LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/llFixed"
+                        android:background="@drawable/lldesign"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/darkblue"></LinearLayout>
 
                     <LinearLayout
                         android:gravity="center"

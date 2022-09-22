@@ -219,6 +219,8 @@ public class UserDashBoardActivity extends AppCompatActivity {
                                     MenuItemModel obj2 = new MenuItemModel(menuName,MenuItemId);
                                     itemList.add(obj2);
                                 }
+
+                              //  itemList.add(new MenuItemModel("Leave Application",10));
                                  /*if (pref.getSecurityCode().equalsIgnoreCase("1000")||pref.getSecurityCode().equals("2000")) {
                                      itemList.add(new MenuItemModel("Resignation", 212));
                                  }else {

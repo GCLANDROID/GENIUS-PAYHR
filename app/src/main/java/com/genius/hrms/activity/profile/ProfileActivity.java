@@ -62,16 +62,14 @@ public class ProfileActivity extends AppCompatActivity {
     String surl;
     ImageView imgUser;
     TextView tvPersonalEmail,tvReportingManager,tvGMob,tvGurdianMob;
+    LinearLayout llRegion;
+    TextView tvRegion;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         initialize();
 
-        if (connectionCheck.isNetworkAvailable()) {
-            profileFunction();
-        } else {
-            connectionCheck.getNetworkActiveAlert().show();
-        }
+
 
         onclick();
     }
@@ -79,11 +77,13 @@ public class ProfileActivity extends AppCompatActivity {
     private void initialize() {
         pref = new Pref(ProfileActivity.this);
         tvPersonalEmail=(TextView)findViewById(R.id.tvPersonalEmail);
+        tvRegion=(TextView)findViewById(R.id.tvRegion);
         tvGMob=(TextView)findViewById(R.id.tvGMob);
         tvGurdianMob=(TextView)findViewById(R.id.tvGurdianMob);
         tvReportingManager=(TextView)findViewById(R.id.tvReportingManager);
         imgUser=(ImageView)findViewById(R.id.imgUser) ;
         connectionCheck = new NetworkConnectionCheck(this);
+        llRegion=(LinearLayout)findViewById(R.id.llRegion);
 
         llDocuments = (LinearLayout) findViewById(R.id.llDocuments);
 
@@ -206,6 +206,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvDocuments = (TextView) findViewById(R.id.tvDocuments);
 
 
+
         if (pref.getLanguage().equals("hi")) {
             tvOff.setText("आधिकारिक विवरण");
             tvPer.setText("व्यक्तिगत जानकारी");
@@ -285,7 +286,15 @@ public class ProfileActivity extends AppCompatActivity {
         if (pref.getSecurityCode().equals("1155")){
             tvGMob.setText("Emergency Person Contact Number");
         }else {
-            tvGName.setText("Guardian Contact Number");
+            tvGMob.setText("Guardian Contact Number");
+        }
+
+        if (pref.getSecurityCode().equals("1156")){
+            llRegion.setVisibility(View.VISIBLE);
+            profileFunctionForWestern();
+        }else {
+            llRegion.setVisibility(View.GONE);
+            profileFunction();
         }
 
 
@@ -1100,6 +1109,852 @@ public class ProfileActivity extends AppCompatActivity {
                                     final String EmailID = obj.optString("EmailID");
 
                                     tvEmail.setText(EmailID);
+
+
+                                    String PFNumber = obj.optString("PFNumber");
+                                    if (!PFNumber.equals("")) {
+                                        tvPfNumber.setText(PFNumber);
+                                    } else {
+                                        tvPfNumber.setText("N/A");
+                                    }
+
+                                    String ESINumber = obj.optString("ESINumber");
+                                    if (!ESINumber.equals("")) {
+                                        tvEsiNumber.setText(ESINumber);
+                                    }
+
+                                    final String BankName = obj.optString("BanKName");
+                                    if (pref.getLanguage().equals("hi")) {
+
+                                        final Handler textViewHandler17 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(BankName,
+                                                                Translate.TranslateOption.sourceLanguage("en"),  Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler17.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        tvBankName.setText(h);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.dismiss();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        tvBankName.setText(BankName);
+                                    }
+
+
+                                    String AccountNumber = obj.optString("AccountNumber");
+                                    if (!AccountNumber.equals("")) {
+                                        tvAcNumber.setText(AccountNumber);
+                                    } else {
+                                        tvAcNumber.setText("N/A");
+                                    }
+
+                                    String AadharCard = obj.optString("AadharCard");
+                                    if (!AadharCard.equals("")) {
+                                        tvAddharNumber.setText(AadharCard);
+                                    } else {
+                                        tvAddharNumber.setText("N/A");
+                                    }
+
+                                    String UanNo = obj.optString("UanNo");
+                                    if (!UanNo.equals("")) {
+                                        tvUanNumber.setText(UanNo);
+                                    } else {
+                                        tvUanNumber.setText("N/A");
+                                    }
+                                    String panNo=obj.optString("PanNo");
+                                    if (!panNo.equals("")){
+                                        tvPanNumber.setText(panNo);
+                                    }else{
+                                        tvPanNumber.setText("N/A");
+                                    }
+
+                                    String ReportingManager=obj.optString("ReportingManager");
+                                    tvReportingManager.setText(ReportingManager);
+                                    String PersonalEmail=obj.optString("PersonalEmail");
+                                    tvPersonalEmail.setText(PersonalEmail);
+                                    String GuardContMobile=obj.optString("GuardContMobile");
+                                    tvGurdianMob.setText(GuardContMobile);
+                                }
+
+                                if (pref.getSecurityCode().equals("1155")){
+                                    profileImage();
+                                }else {
+
+                                }
+                            } else {
+
+
+                            }
+
+                            // boolean _status = job1.getBoolean("status");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(ProfileActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressBar.dismiss();
+                Toast.makeText(ProfileActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(ProfileActivity.this);
+        requestQueue.add(stringRequest);
+
+    }
+
+    public void profileFunctionForWestern() {
+
+
+        surl = pref.getIpAddress() + "GHRMSApi/api/KycWestern_New?AEMConsultantID=" + pref.getEmpConId() + "&AEMClientID=" + pref.getEmpClintId() + "&AEMClientOfficeID=" + pref.getEmpClintOffId() + "&AEMEmployeeID=" + pref.getEmpId() + "&WorkingStatus=1&CurrentPage=1&SecurityCode=" + pref.getSecurityCode();
+
+        Log.d("kyc", surl);
+        final ProgressDialog progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);//you can cancel it by pressing back button
+        progressBar.setMessage("Loading...");
+        progressBar.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("responseLogin", response);
+                        progressBar.dismiss();
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+                                //   Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+                                JSONArray responseData = job1.optJSONArray("responseData");
+                                for (int i = 0; i < responseData.length(); i++) {
+                                    JSONObject obj = responseData.getJSONObject(i);
+                                    //AEEMPID
+                                    final String AEMEmployeeID = obj.optString("AEMEmployeeID");
+                                    // tvEmplId.setText(AEMEmployeeID);
+                                    final String ID = AEMEmployeeID;
+                                    tvEmplId.setText(ID);
+
+
+                                    //code feild
+                                    final String Code = obj.optString("Code");
+                                    pref.saveempCode(Code);
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler1 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                @SuppressLint("StaticFieldLeak") TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(Code,
+                                                                Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler1.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String hCode = translation.getTranslatedText();
+                                                        tvEmpCode.setText(hCode);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        tvEmpCode.setText(Code);
+                                    }
+
+
+                                    //Name field
+                                    final String Name = obj.optString("Name");
+                                    pref.saveempName(Name);
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler1 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(Name,
+                                                                Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler1.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String hName = translation.getTranslatedText();
+                                                        tvEName.setText(hName);
+                                                        tvEmpName.setText(hName);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    }else{
+                                        tvEName.setText(Name);
+                                        tvEmpName.setText(Name);
+                                    }
+
+
+
+                                    //DOJ
+
+                                    final String DateOfJoining = obj.optString("DateOfJoining");
+                                    tvDOJ.setText(DateOfJoining);
+
+
+                                    final String Department = obj.optString("Department");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler4 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(Department,
+                                                                Translate.TranslateOption.sourceLanguage("en"),   Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler4.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        tvDepartment.setText(h);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        tvDepartment.setText(Department);
+                                    }
+                                    final String Branch = ValidUtils.getFreshValue(obj.optString("Branch"),"-");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler4 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(Branch,
+                                                                Translate.TranslateOption.sourceLanguage("en"),   Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler4.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        tvBranchName.setText(h);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        tvBranchName.setText(Branch);
+                                    }
+
+
+                                    final String Designation = obj.optString("Designation");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler5 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(Designation,
+                                                                Translate.TranslateOption.sourceLanguage("en"),  Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler5.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        tvDesignation.setText(h);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+
+                                    } else {
+                                        tvDesignation.setText(Designation);
+                                    }
+
+                                    final String Location = obj.optString("Location");
+
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler6 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(Location,
+                                                                Translate.TranslateOption.sourceLanguage("en"),   Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler6.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        tvLocation.setText(h);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        tvLocation.setText(Location);
+                                    }
+
+                                    final String Sex = obj.optString("Sex");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler7 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(Sex,
+                                                                Translate.TranslateOption.sourceLanguage("en"),   Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler7.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        tvGender.setText(h);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        tvGender.setText(Sex);
+                                    }
+
+                                    final String DateOfBirth = obj.optString("DateOfBirth");
+                                    tvEmpDOB.setText(DateOfBirth);
+
+
+                                    final String GuardianName = obj.optString("GuardianName");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler9 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(GuardianName,
+                                                                Translate.TranslateOption.sourceLanguage("en"),   Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler9.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        tvGurdianName.setText(h);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        tvGurdianName.setText(GuardianName);
+                                    }
+
+                                    final String RelationShip = obj.optString("RelationShip");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler10 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(RelationShip,
+                                                                Translate.TranslateOption.sourceLanguage("en"),  Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler10.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        tvRealtionShip.setText(h);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        tvRealtionShip.setText(RelationShip);
+                                    }
+
+
+                                    final String Qualification = obj.optString("Qualification");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler11 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(Qualification,
+                                                                Translate.TranslateOption.sourceLanguage("en"),   Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler11.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        tvQualification.setText(h);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+                                        }.execute();
+                                    } else {
+                                        tvQualification.setText(Qualification);
+                                    }
+
+
+                                    final String MaritalStatus = obj.optString("MaritalStatus");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler12 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(MaritalStatus,
+                                                                Translate.TranslateOption.sourceLanguage("en"),  Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler12.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        tvMarital.setText(h);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        tvMarital.setText(MaritalStatus);
+                                    }
+
+                                    final String BloodGroup = obj.optString("BloodGroup");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler13 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(BloodGroup,
+                                                                Translate.TranslateOption.sourceLanguage("en"),   Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler13.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        tvBloodGroup.setText(h);
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        tvBloodGroup.setText(BloodGroup);
+                                    }
+
+                                    final String permanentpincode=obj.optString("PermanentPinCode");
+
+                                    final String PermanentAddress = obj.optString("PermanentAddress");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler14 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(PermanentAddress,
+                                                                Translate.TranslateOption.sourceLanguage("en"),  Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler14.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        if (permanentpincode.equals("null")){
+                                                            Log.d("null",permanentpincode);
+                                                            tvParAddr.setText(h);
+                                                        }else {
+                                                            Log.d("value",permanentpincode);
+                                                            tvParAddr.setText(h + "," + permanentpincode);
+                                                        }
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        if (permanentpincode.equals("null")){
+                                            Log.d("null",permanentpincode);
+                                            tvParAddr.setText(PermanentAddress);
+                                        }else {
+                                            Log.d("value",permanentpincode);
+                                            tvParAddr.setText(PermanentAddress + "," + permanentpincode);
+                                        }
+                                        // tvParAddr.setText(PermanentAddress+","+permanentpincode);
+                                    }
+
+
+                                    final  String presentpincode=obj.optString("PresentPincode");
+
+
+                                    final String PresentAddress = obj.optString("PresentAddress");
+                                    if (pref.getLanguage().equals("hi")) {
+                                        final Handler textViewHandler15 = new Handler();
+                                        new AsyncTask<Void, Void, Void>() {
+                                            @Override
+                                            protected Void doInBackground(Void... params) {
+                                                TranslateOptions options = TranslateOptions.newBuilder()
+                                                        .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
+                                                        .build();
+                                                Translate translate = options.getService();
+                                                final Translation translation =
+                                                        translate.translate(PresentAddress,
+                                                                Translate.TranslateOption.sourceLanguage("en"),   Translate.TranslateOption.targetLanguage(pref.getLanguage()));
+                                                textViewHandler15.post(new Runnable() {
+                                                    @SuppressLint("StaticFieldLeak")
+                                                    @Override
+                                                    public void run() {
+
+                                                        Log.d("sssh", translation.getTranslatedText());
+                                                        String h = translation.getTranslatedText();
+                                                        if (presentpincode.equals("null")){
+                                                            Log.d("null",presentpincode);
+                                                            tvPreAddr.setText(h);
+                                                        }else{
+                                                            Log.d("value",presentpincode);
+                                                            tvPreAddr.setText(h+","+presentpincode);
+                                                        }
+
+
+                                                    }
+                                                });
+                                                return null;
+                                            }
+
+                                            @Override
+                                            protected void onPreExecute() {
+                                                super.onPreExecute();
+                                                progressBar.show();
+                                            }
+
+                                            @Override
+                                            protected void onPostExecute(Void aVoid) {
+                                                super.onPostExecute(aVoid);
+                                                progressBar.show();
+                                            }
+
+
+                                        }.execute();
+                                    } else {
+                                        if (presentpincode.equals("null")){
+                                            Log.d("null",presentpincode);
+                                            tvPreAddr.setText(PresentAddress);
+                                        }else{
+                                            Log.d("value",presentpincode);
+                                            tvPreAddr.setText(PresentAddress+","+presentpincode);
+                                        }
+                                        //tvPreAddr.setText(PresentAddress+","+presentpincode);
+                                    }
+
+                                    String Mobile = obj.optString("Mobile");
+                                    if (!Mobile.equals("")) {
+                                        tvPhnNumber.setText(Mobile);
+                                    } else {
+                                        tvPhnNumber.setText("N/A");
+                                    }
+
+                                    final String EmailID = obj.optString("EmailID");
+
+                                    tvEmail.setText(EmailID);
+
+                                    String Region=obj.optString("Region");
+                                    tvRegion.setText(Region);
 
 
                                     String PFNumber = obj.optString("PFNumber");

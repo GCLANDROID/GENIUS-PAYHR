@@ -23,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
 import com.genius.hrms.activity.adapter.HolidayAdapter;
+import com.genius.hrms.activity.adapter.HolidayAdapterForSamrtJoules;
 import com.genius.hrms.activity.model.HoliDayModel;
 import com.genius.hrms.activity.utility.NetworkConnectionCheck;
 import com.genius.hrms.activity.utility.Pref;
@@ -47,6 +48,7 @@ public class HolidayActivity extends AppCompatActivity {
     LinearLayout llAgain,llMain,llNodata;
     ImageView imgAgain;
     TextView tvToolBar;
+    LinearLayout lnHoliday;
 
 
     @Override
@@ -54,12 +56,13 @@ public class HolidayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_holiday);
         initialize();
-        getHolidayList();
+
         onClick();
     }
 
     private void initialize(){
         pref=new Pref(HolidayActivity.this);
+        lnHoliday=(LinearLayout)findViewById(R.id.lnHoliday);
         connectionCheck=new NetworkConnectionCheck(HolidayActivity.this);
         rvHoliday=(RecyclerView)findViewById(R.id.rvHoliday);
         LinearLayoutManager layoutManager
@@ -79,6 +82,14 @@ public class HolidayActivity extends AppCompatActivity {
             tvToolBar.setText("छुट्टी की सूची");
         }else {
             tvToolBar.setText("Holiday List");
+        }
+
+        if (pref.getSecurityCode().equals("1153")){
+            getHolidayListForSamrtJoule();
+            lnHoliday.setVisibility(View.VISIBLE);
+        }else {
+            getHolidayList();
+            lnHoliday.setVisibility(View.GONE);
         }
 
 
@@ -180,6 +191,90 @@ public class HolidayActivity extends AppCompatActivity {
                 llAgain.setVisibility(View.VISIBLE);
 
                  Toast.makeText(HolidayActivity.this, "volly 2"+error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert",error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(HolidayActivity.this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void getHolidayListForSamrtJoule(){
+        Log.d("Arpan","arpan");
+        llLoder.setVisibility(View.VISIBLE);
+        llMain.setVisibility(View.GONE);
+        llNodata.setVisibility(View.GONE);
+        llAgain.setVisibility(View.GONE);
+        String surl =pref.getIpAddress()+"GHRMSApi/api/GCLHolidayList_SmartJoule?AEMEmployeeID="+pref.getEmpId()+"&Year="+year+"&SecurityCode="+pref.getSecurityCode();
+        Log.d("inputholiday",surl);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("responseAttendance", response);
+
+                        // attendabceInfiList.clear();
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText=job1.optString("responseText");
+
+                            boolean responseStatus=job1.optBoolean("responseStatus");
+                            if (responseStatus){
+                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+                                JSONArray responseData=job1.optJSONArray("responseData");
+                                for (int i = 0; i < responseData.length(); i++){
+                                    JSONObject obj=responseData.getJSONObject(i);
+                                    String HolidayName=obj.optString("HolidayName");
+                                    String HolidayDate=obj.optString("HolidayDate");
+                                    String HDay=obj.optString("HDay");
+                                    String IsRestricted=obj.optString("IsRestricted");
+
+                                    HoliDayModel obj2 = new HoliDayModel(HolidayName,HolidayDate,HDay);
+                                    obj2.setIsRestricted(IsRestricted);
+                                    holidayList.add(obj2);
+
+
+                                }
+                                llLoder.setVisibility(View.GONE);
+                                llMain.setVisibility(View.VISIBLE);
+                                llNodata.setVisibility(View.GONE);
+                                llAgain.setVisibility(View.GONE);
+                                HolidayAdapterForSamrtJoules hAdapter =new HolidayAdapterForSamrtJoules(holidayList,HolidayActivity.this);
+                                rvHoliday.setAdapter(hAdapter);
+
+                            }
+
+                            else {
+
+                                llLoder.setVisibility(View.GONE);
+                                llMain.setVisibility(View.VISIBLE);
+                                llNodata.setVisibility(View.VISIBLE);
+                                llAgain.setVisibility(View.GONE);
+                                Toast.makeText(getApplicationContext(),"No data found",Toast.LENGTH_LONG).show();
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Toast.makeText(AttendanceReportActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                llLoder.setVisibility(View.GONE);
+                llMain.setVisibility(View.GONE);
+                llNodata.setVisibility(View.GONE);
+                llAgain.setVisibility(View.VISIBLE);
+
+                Toast.makeText(HolidayActivity.this, "volly 2"+error.toString(), Toast.LENGTH_LONG).show();
                 Log.e("ert",error.toString());
             }
         }) {
