@@ -20,6 +20,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 
 import android.util.Base64;
@@ -47,9 +48,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.UploadProgressListener;
 import com.developers.imagezipper.ImageZipper;
 
 import com.genius.hrms.R;
+import com.genius.hrms.activity.activity.SplashScreenActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.attendance.AttendanceManageActivity;
 import com.genius.hrms.activity.utility.AttendanceService;
@@ -139,6 +146,7 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
     ImageView imgUser;
     private static String SERVER_PATH = "https://cloud.geniusconsultant.com/GHRMSApi/api/";
     private AttendanceService uploadService;
+    LinearLayout lnMain,lnLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +160,18 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
     @SuppressLint("RestrictedApi")
     private void initview() {
         pref = new Pref(DailyLogMarkActivity.this);
+        lnMain=(LinearLayout) findViewById(R.id.lnMain);
+        lnLoader=(LinearLayout) findViewById(R.id.lnLoader);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                lnLoader.setVisibility(View.GONE);
+                lnMain.setVisibility(View.VISIBLE);
+
+
+            }
+        }, 3000);
         imgUser = (ImageView) findViewById(R.id.imgUser);
         tvAddress = (TextView) findViewById(R.id.tvAddress);
         tvTime = (TextView) findViewById(R.id.tvTime);
@@ -180,18 +200,7 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
         imgImage = (ImageView) findViewById(R.id.imgImage);
 
         gps = new GPSTracker(DailyLogMarkActivity.this);
-        if (gps.canGetLocation()) {
 
-            latitude = gps.getLatitude();
-            Log.d("saikatdas", String.valueOf(latitude));
-            longitude = gps.getLongitude();
-            Log.d("saikatdas", String.valueOf(longitude));
-
-
-        } else {
-
-
-        }
 
 
 
@@ -264,7 +273,11 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
                         Toast.makeText(getApplicationContext(), "Sorry! Your address not found.Please click on Refresh button", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "please attach Image", Toast.LENGTH_LONG).show();
+                    if (pref.getSecurityCode().equals("1156")){
+                         dailyLogWithoutImage();
+                    }else {
+                        Toast.makeText(getApplicationContext(), "please attach Image", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
 
@@ -582,6 +595,9 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
                                             if (types.get(j).equals("sublocality") || types.get(j).equals("route")|| types.get(j).equals("establishment")) {
                                                 address = formatted_address.replaceAll("Unnamed Road,","");
                                                 tvAddress.setText("You are at:- " + address);
+                                            }else {
+                                                address = getCompleteAddressString(latitude, longitude);
+                                                tvAddress.setText(address);
                                             }
                                         }
                                     }
@@ -917,6 +933,62 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+
+    private void dailyLogWithoutImage() {
+        final ProgressDialog pd=new ProgressDialog(DailyLogMarkActivity.this);
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        pd.show();
+        AndroidNetworking.upload(pref.getIpAddress() + "ghrmsapi/api/post_Dailylog_Withoutimage")
+                .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
+                .addMultipartParameter("Remarks", etRemarks.getText().toString())
+                .addMultipartParameter("Longitude", currentlong)
+                .addMultipartParameter("Latitude", currentlat)
+                .addMultipartParameter("Address", address)
+                .addMultipartParameter("ApprovalStatus", "1")
+                .addMultipartParameter("Year", "0")
+                .addMultipartParameter("Month", "0")
+                .addMultipartParameter("SecurityCode", pref.getSecurityCode())
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
+                .setUploadProgressListener(new UploadProgressListener() {
+                    @Override
+                    public void onProgress(long bytesUploaded, long totalBytes) {
+
+
+                    }
+                })
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        pd.dismiss();
+                        JSONObject job = response;
+                        boolean responseStatus = job.optBoolean("responseStatus");
+                        if (responseStatus) {
+                            successAlert();
+                        } else {
+
+                        }
+
+
+                        // boolean _status = job1.getBoolean("status");
+
+
+                        // do anything with response
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                        pd.dismiss();
+                        Toast.makeText(DailyLogMarkActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+
+                    }
+                });
     }
 
 

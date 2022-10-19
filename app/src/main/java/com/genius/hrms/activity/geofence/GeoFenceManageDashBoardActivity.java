@@ -601,7 +601,6 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
                 .addMultipartParameter("Address", address)
                 .addMultipartFile("Fname", imageZipperFile)
                 .addMultipartParameter("SecurityCode", pref.getSecurityCode())
-
                 .setTag("uploadTest")
                 .setPriority(Priority.HIGH)
                 .build()

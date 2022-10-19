@@ -260,7 +260,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvLoc.setText("Location");
             tvGen.setText("Gender");
             tvDateoOB.setText("Date Of Birth");
-            if (pref.getSecurityCode().equals("1155")){
+            if (pref.getSecurityCode().equals("1155") || pref.getSecurityCode().equals("1156")){
                 tvGName.setText("Emergency Person Name");
             }else {
                 tvGName.setText("Guardian Name");
@@ -283,7 +283,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvUAN.setText("UAN number");
         }
 
-        if (pref.getSecurityCode().equals("1155")){
+        if (pref.getSecurityCode().equals("1155")|| pref.getSecurityCode().equals("1156")){
             tvGMob.setText("Emergency Person Contact Number");
         }else {
             tvGMob.setText("Guardian Contact Number");
