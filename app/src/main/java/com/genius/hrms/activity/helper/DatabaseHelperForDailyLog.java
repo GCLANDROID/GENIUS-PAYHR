@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelperForDailyLog extends SQLiteOpenHelper {
     public static final String DB_NAME = "NamesDB";
     public static final String TABLE_NAME = "names";
     public static final String COLUMN_ID = "id";
@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
 
     //Constructor
-    public DatabaseHelper(Context context) {
+    public DatabaseHelperForDailyLog(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
@@ -51,10 +51,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * 0 means the name is synced with the server
      * 1 means the name is not synced with the server
      * */
-    public boolean addName( String date,int status) {
+    public boolean addName( String lattitude,String longitude,String address,String remarks,String date,int status) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-
+        contentValues.put(COLUMN_LONG, longitude);
+        contentValues.put(COLUMN_LAT, lattitude);
+        contentValues.put(COLUMN_ADDRESS, address);
+        contentValues.put(COLUMN_REMARKS, remarks);
         contentValues.put(COLUMN_DATE, date);
         contentValues.put(COLUMN_STATUS, status);
         db.insert(TABLE_NAME, null, contentValues);

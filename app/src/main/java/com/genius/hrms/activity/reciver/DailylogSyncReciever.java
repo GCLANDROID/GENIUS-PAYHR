@@ -1,7 +1,6 @@
 package com.genius.hrms.activity.reciver;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,33 +9,21 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.common.Priority;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.androidnetworking.interfaces.UploadProgressListener;
-import com.genius.hrms.activity.activity.UserDashBoardActivity;
-import com.genius.hrms.activity.dailylog.OfflineDailyLogManageActivity;
+import com.genius.hrms.activity.dailylog.DailyLogMarkActivity;
 import com.genius.hrms.activity.dailylog.QRCodeScannerActivity;
 import com.genius.hrms.activity.helper.DatabaseHelper;
+import com.genius.hrms.activity.helper.DatabaseHelperForDailyLog;
 import com.genius.hrms.activity.utility.ApiClient;
 import com.genius.hrms.activity.utility.Pref;
 import com.genius.hrms.activity.utility.UploadObject;
-
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
 
-public class NetworkStateChecker extends BroadcastReceiver {
+public class DailylogSyncReciever extends BroadcastReceiver {
     private Context context;
-    private DatabaseHelper db;
+    private DatabaseHelperForDailyLog db;
     Pref pref;
 
 
@@ -44,7 +31,7 @@ public class NetworkStateChecker extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context = context;
-        db = new DatabaseHelper(context);
+        db = new DatabaseHelperForDailyLog(context);
         pref=new Pref(context);
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -64,9 +51,11 @@ public class NetworkStateChecker extends BroadcastReceiver {
 
                                 saveName(
                                         cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID)),
-                                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE))
-
-
+                                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE)),
+                                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_LAT)),
+                                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_LONG)),
+                                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_ADDRESS)),
+                                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_REMARKS))
 
 
                                 );
@@ -82,12 +71,12 @@ public class NetworkStateChecker extends BroadcastReceiver {
 
 
 
-    private void saveName(final int id, String date) {
+    private void saveName(final int id, String date,String currentlat,String currentlong,String address,String remarks) {
 
         String empId = pref.getEmpId();
         final String cdate = date;
 
-        Call<UploadObject> datumCall = ApiClient.getService().offlineDailyLof( empId,"0","QR","","","","0","0",pref.getSecurityCode(),"0",cdate);
+        Call<UploadObject> datumCall = ApiClient.getService().offlineDailyLof( empId,"0",remarks,currentlong,currentlat,address,"0","0",pref.getSecurityCode(),"0",cdate);
         datumCall.enqueue(new Callback<UploadObject>() {
             @Override
             public void onResponse(Call<UploadObject> call, retrofit2.Response<UploadObject> response) {
@@ -95,11 +84,11 @@ public class NetworkStateChecker extends BroadcastReceiver {
                 UploadObject extraWorkingDayModel=response.body();
                 if (extraWorkingDayModel.isResponseStatus()) {
 
-                    db.updateNameStatus(id, QRCodeScannerActivity.NAME_SYNCED_WITH_SERVER);
+                    db.updateNameStatus(id, DailyLogMarkActivity.NAME_SYNCED_WITH_SERVER);
                    // Toast.makeText(context,extraWorkingDayModel.responseText,Toast.LENGTH_LONG).show();
 
                     //sending the broadcast to refresh the list
-                    context.sendBroadcast(new Intent(QRCodeScannerActivity.DATA_SAVED_BROADCAST));
+                    context.sendBroadcast(new Intent(DailyLogMarkActivity.DATA_SAVED_BROADCAST));
                     Log.d("saikat","1");
                 }
                 else {

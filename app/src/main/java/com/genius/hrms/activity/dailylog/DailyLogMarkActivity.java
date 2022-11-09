@@ -5,10 +5,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -59,6 +61,8 @@ import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.SplashScreenActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.attendance.AttendanceManageActivity;
+import com.genius.hrms.activity.helper.DatabaseHelper;
+import com.genius.hrms.activity.helper.DatabaseHelperForDailyLog;
 import com.genius.hrms.activity.utility.AttendanceService;
 import com.genius.hrms.activity.utility.GPSTracker;
 import com.genius.hrms.activity.utility.Pref;
@@ -88,6 +92,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -148,6 +153,12 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
     private AttendanceService uploadService;
     LinearLayout lnMain,lnLoader;
 
+    private DatabaseHelperForDailyLog db;
+    public static final int NAME_SYNCED_WITH_SERVER = 1;
+    public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
+    public static String DATA_SAVED_BROADCAST = "https://cloud.geniusconsultant.com/GHRMSApi/api/post_OfflineDailyLogActivity";
+    private BroadcastReceiver broadcastReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,6 +170,7 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
 
     @SuppressLint("RestrictedApi")
     private void initview() {
+        db = new DatabaseHelperForDailyLog(this);
         pref = new Pref(DailyLogMarkActivity.this);
         lnMain=(LinearLayout) findViewById(R.id.lnMain);
         lnLoader=(LinearLayout) findViewById(R.id.lnLoader);
@@ -487,6 +499,7 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
     }
 
 
+
     private void galleryIntent() {
         Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
         openGalleryIntent.setType("image/*");
@@ -674,7 +687,7 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
         progressDialog.setCancelable(false);
         String aemid = pref.getEmpId();
         String security = pref.getSecurityCode();
-        String remarks = etRemarks.getText().toString();
+        final String remarks = etRemarks.getText().toString();
         progressDialog.show();
         progressDialog.show();
         RequestBody mFile = RequestBody.create(MediaType.parse(".png"), compressedImageFile);
@@ -701,6 +714,19 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
             public void onFailure(Call<UploadObject> call, Throwable t) {
                 progressDialog.dismiss();
                 btnSubmit.setVisibility(View.VISIBLE);
+                Date d = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                String currentDateTimeString = sdf.format(d);
+
+                Date dof = Calendar.getInstance().getTime();
+
+
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                String formattedDate = df.format(dof);
+
+                String date = formattedDate + "  " + currentDateTimeString;
+                saveNameToLocalStorage(currentlat,currentlong,address,remarks, date, NAME_NOT_SYNCED_WITH_SERVER);
+
 
 
                 //   Toast.makeText(AttendanceManageActivity.this,"attendance saved without image",Toast.LENGTH_LONG).show();
@@ -985,10 +1011,34 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
                     public void onError(ANError error) {
                         // handle error
                         pd.dismiss();
-                        Toast.makeText(DailyLogMarkActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
 
                     }
                 });
+    }
+
+    private void saveNameToLocalStorage( String currentlat,String currentlong,String address,String remarks, String date ,int status) {
+        db.addName( currentlat,currentlong,address,remarks,date,  status);
+        showAlert();
+
+
+    }
+
+    private void showAlert() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Unable to Upload Image Due to Network Issue.Your Attendace has been saved successfully without Image.");
+        alertDialogBuilder.setPositiveButton("ok",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        arg0.dismiss();
+                        Intent intent=new Intent(DailyLogMarkActivity.this,UserDashBoardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+        alertDialogBuilder.show();
+
+
     }
 
 

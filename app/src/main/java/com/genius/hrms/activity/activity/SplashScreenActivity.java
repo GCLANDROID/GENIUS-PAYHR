@@ -53,6 +53,12 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.OnCompleteListener;
+import com.google.android.play.core.tasks.OnFailureListener;
+import com.google.android.play.core.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,6 +89,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
     private FirebaseDatabase mFirebaseInstance;
     private static boolean s_persistenceInitialized = false;
     String loginFlag="1";
+    private ReviewManager reviewManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +148,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
 
     private void initialize() {
         pref = new Pref(getApplicationContext());
+        reviewManager = ReviewManagerFactory.create(this);
         mFirebaseInstance = FirebaseDatabase.getInstance();
         getBlockingStatus();
         connectionCheck = new NetworkConnectionCheck(this);
@@ -175,6 +183,8 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+
+        RateApp(SplashScreenActivity.this);
     }
 
     private void setup() {
@@ -608,6 +618,39 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
 
             }
         });
+    }
+
+    public void RateApp(final Context mContext) {
+        try {
+            final ReviewManager manager = ReviewManagerFactory.create(mContext);
+            manager.requestReviewFlow().addOnCompleteListener(new OnCompleteListener<ReviewInfo>() {
+                @Override
+                public void onComplete(@NonNull Task<ReviewInfo> task) {
+                    if(task.isSuccessful()){
+                        ReviewInfo reviewInfo = task.getResult();
+                        manager.launchReviewFlow((Activity) mContext, reviewInfo).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(Exception e) {
+                                Toast.makeText(mContext, "Rating Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(mContext, "Review Completed, Thank You!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(Exception e) {
+                    Toast.makeText(mContext, "In-App Request Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 

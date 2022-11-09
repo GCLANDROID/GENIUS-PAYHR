@@ -5,13 +5,17 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -30,9 +34,23 @@ import com.genius.hrms.activity.attendance.AttendanceReportActivity;
 import com.genius.hrms.activity.attendance.AttendanceReportForPPSActivity;
 import com.genius.hrms.activity.attendance.BacklogActivity;
 import com.genius.hrms.activity.attendance.SuperVisiorActivity;
+import com.genius.hrms.activity.leaveapplication.LeaveApplicationActivity;
+import com.genius.hrms.activity.model.SpinnerModel;
+import com.genius.hrms.activity.reciver.DailylogSyncReciever;
+import com.genius.hrms.activity.reciver.NetworkStateChecker;
 import com.genius.hrms.activity.utility.NetworkConnectionCheck;
 import com.genius.hrms.activity.utility.Pref;
+import com.google.android.gms.tasks.OnCompleteListener;
 
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.Task;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,15 +62,18 @@ import java.util.TimeZone;
 
 
 public class OfflineDailyDashBoardActivity extends AppCompatActivity {
-    LinearLayout llManage, llReport, llLog,llSubordinate,llBackLog,llMonthlyAttenReport;
+    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog, llMonthlyAttenReport, llQRCode;
 
     ImageView imgBack, imgHome;
     NetworkConnectionCheck connectionCheck;
     ProgressDialog progressDialog;
-    TextView tvManage,tvLogBook,tvReport,tvToolBar,tvsubordinate,tvBackLog;
+    TextView tvManage, tvLogBook, tvReport, tvToolBar, tvsubordinate, tvBackLog;
     Pref pref;
     String currentDate;
-
+    boolean approver;
+    NetworkStateChecker airplaneModeChangeReceiver = new NetworkStateChecker();
+    DailylogSyncReciever dailyLogReciever = new DailylogSyncReciever();
+    private ReviewManager reviewManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,44 +84,45 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-        pref=new Pref(getApplicationContext());
+        pref = new Pref(getApplicationContext());
+        reviewManager = ReviewManagerFactory.create(this);
         connectionCheck = new NetworkConnectionCheck(OfflineDailyDashBoardActivity.this);
         llManage = (LinearLayout) findViewById(R.id.llManage);
         llReport = (LinearLayout) findViewById(R.id.llReport);
         llSubordinate = (LinearLayout) findViewById(R.id.llSubordinate);
-        llMonthlyAttenReport=(LinearLayout)findViewById(R.id.llMonthlyAttenReport);
+        llMonthlyAttenReport = (LinearLayout) findViewById(R.id.llMonthlyAttenReport);
+        llQRCode = (LinearLayout) findViewById(R.id.llQRCode);
 
-        if (pref.getSecurityCode().equals("1155")){
+        if (pref.getSecurityCode().equals("1155")) {
             llMonthlyAttenReport.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             llMonthlyAttenReport.setVisibility(View.GONE);
         }
 
 
-
         llLog = (LinearLayout) findViewById(R.id.llLog);
-        llBackLog=(LinearLayout)findViewById(R.id.llBackLog);
+        llBackLog = (LinearLayout) findViewById(R.id.llBackLog);
 
         imgBack = (ImageView) findViewById(R.id.imgBack);
         imgHome = (ImageView) findViewById(R.id.imgHome);
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
 
-        tvLogBook=(TextView)findViewById(R.id.tvLogBook);
-        tvManage=(TextView)findViewById(R.id.tvManage);
-        tvReport=(TextView)findViewById(R.id.tvReport);
-        tvToolBar=(TextView)findViewById(R.id.tvToolBar);
-        tvsubordinate=(TextView)findViewById(R.id.tvsubordinate);
-        tvBackLog=findViewById(R.id.tvBackLog);
-        if (pref.getLanguage().equals("hi")){
+        tvLogBook = (TextView) findViewById(R.id.tvLogBook);
+        tvManage = (TextView) findViewById(R.id.tvManage);
+        tvReport = (TextView) findViewById(R.id.tvReport);
+        tvToolBar = (TextView) findViewById(R.id.tvToolBar);
+        tvsubordinate = (TextView) findViewById(R.id.tvsubordinate);
+        tvBackLog = findViewById(R.id.tvBackLog);
+        if (pref.getLanguage().equals("hi")) {
             tvManage.setText("प्रबंधन");
             tvLogBook.setText("कार्यपंजी");
             tvReport.setText("रिपोर्ट");
             tvToolBar.setText("दैनिक लॉग");
             tvsubordinate.setText("टीम रिपोर्ट");
             tvBackLog.setText("बैकलॉग उपस्थिति");
-        }else {
+        } else {
             tvManage.setText("Manage");
             tvLogBook.setText("Log Book");
             tvReport.setText("Attendance Report");
@@ -115,12 +137,22 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         int currentMonth = calendar.get(Calendar.MONTH) + 1;
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-        currentDate=currentYear+"-"+currentMonth+"-"+currentDay;
-        if (pref.getSecurityCode().equals("1158")){
+        currentDate = currentYear + "-" + currentMonth + "-" + currentDay;
+        if (pref.getSecurityCode().equals("1158")) {
             llBackLog.setVisibility(View.GONE);
-        }else {
+        } else {
             llBackLog.setVisibility(View.VISIBLE);
         }
+
+        if (pref.getSecurityCode().equals("1000") || pref.getSecurityCode().equals("2000")) {
+            llQRCode.setVisibility(View.VISIBLE);
+
+        } else {
+            llQRCode.setVisibility(View.GONE);
+
+        }
+
+        getApproverOrNot();
 
         //currentDate="2022-08-15";
     }
@@ -129,11 +161,11 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         llBackLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pref.getSecurityCode().equals("1153")){
+                if (pref.getSecurityCode().equals("1153")) {
                     Intent intent = new Intent(OfflineDailyDashBoardActivity.this, AttendanceRegulizationActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                }else {
+                } else {
                     Intent intent = new Intent(OfflineDailyDashBoardActivity.this, BacklogActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -150,17 +182,33 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        llQRCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (approver) {
+                    Intent intent = new Intent(OfflineDailyDashBoardActivity.this, QRAttendanceDashboardActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(OfflineDailyDashBoardActivity.this, QRCodeScannerActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
         llManage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                   if (pref.getSecurityCode().equals("1153")){
-                        holidayCheckForSmartJoules();
-                   }else {
-                       Intent intent = new Intent(OfflineDailyDashBoardActivity.this, VisitLocationActivity.class);
-                       intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                       startActivity(intent);
+                if (pref.getSecurityCode().equals("1153")) {
+                    holidayCheckForSmartJoules();
+                } else {
+                    Intent intent = new Intent(OfflineDailyDashBoardActivity.this, VisitLocationActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
 
-                   }
+                }
 
 
             }
@@ -196,17 +244,16 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         });
 
 
-
         llReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                if (pref.getSecurityCode().equals("123")){
+                if (pref.getSecurityCode().equals("123")) {
                     Intent intent = new Intent(OfflineDailyDashBoardActivity.this, AttendanceReportForPPSActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                }else {
+                } else {
                     Intent intent = new Intent(OfflineDailyDashBoardActivity.this, AttendanceReportActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -246,7 +293,7 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         progressDialog.setMessage("Loadingg..");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        String surl = pref.getIpAddress() + "GHRMSApi/api/getHolidayCheck/Get_HolidayListCheck?EmployeeID="+pref.getEmpId()+"&HolidayDate="+currentDate+"&SecurityCode=1153";
+        String surl = pref.getIpAddress() + "GHRMSApi/api/getHolidayCheck/Get_HolidayListCheck?EmployeeID=" + pref.getEmpId() + "&HolidayDate=" + currentDate + "&SecurityCode=1153";
         Log.d("holidaycheck", surl);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
                 new Response.Listener<String>() {
@@ -279,7 +326,6 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
 
 
                             }
-
 
 
                         } catch (JSONException e) {
@@ -330,5 +376,79 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
 
     }
 
+    private void getApproverOrNot() {
+        final ProgressDialog pd = new ProgressDialog(OfflineDailyDashBoardActivity.this);
+        pd.setMessage("Loading...");
+        pd.setCancelable(true);
+        pd.show();
 
+        String surl = pref.getIpAddress() + "ghrmsapi/api/Leave/LeaveApplicationApprover?CompanyID=" + pref.getEmpClintId() + "&EmployeeID=" + pref.getEmpId() + "&SecurityCode=" + pref.getSecurityCode();
+        Log.d("printurlbalance", surl);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("responseAttendance", response);
+//                        llLoader.setVisibility(View.GONE);
+
+                        pd.dismiss();
+
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+
+                                approver = true;
+                            } else {
+                                approver = false;
+                                // llShow.setVisibility(View.GONE);
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Toast.makeText(AttendanceReportActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                pd.dismiss();
+
+                // Toast.makeText(AttendanceReportActivity.this, "volly 2"+error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(OfflineDailyDashBoardActivity.this);
+        requestQueue.add(stringRequest);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+        registerReceiver(airplaneModeChangeReceiver, filter);
+        registerReceiver(dailyLogReciever, filter);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(airplaneModeChangeReceiver);
+        unregisterReceiver(dailyLogReciever);
+    }
 }
+
+

@@ -744,7 +744,7 @@ public class DailyLogManageForMaxActivity extends AppCompatActivity implements O
 
 
     private void saveNameToLocalStorage(String address, String date, String lat, String longt, String remarks, int status) {
-        db.addName(address, date, lat, longt, remarks, status);
+       // db.addName(address, date, lat, longt, remarks, status);
         successAlert();
 
 

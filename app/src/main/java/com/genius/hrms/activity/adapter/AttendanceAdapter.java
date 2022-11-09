@@ -54,13 +54,21 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
         holder.binding.tvDate.setText(jsonObject.optString("EmpAttendanceDate"));
         holder.binding.tvInTime.setText(jsonObject.optString("EmpInTime"));
         holder.binding.tvOutTime.setText(jsonObject.optString("EmpOutTime"));
-        holder.binding.tvType.setText(jsonObject.optString("PunchFrom"));
+        if (jsonObject.optString("EmpInRemarks").equalsIgnoreCase("QR")){
+            holder.binding.tvType.setText("QR Attendance");
+        }else {
+            holder.binding.tvType.setText("Geo Attendance");
+        }
+
         holder.binding.tvReason.setText(jsonObject.optString("PunchFromReason"));
         holder.binding.tvStatus.setText(jsonObject.optString("EmpApprovalStatus"));
         if (!jsonObject.optString("EmpInAddress").equalsIgnoreCase("")){
             holder.binding.tvLocation.setText(jsonObject.optString("EmpInAddress"));
+
+            holder.binding.lnLocation.setVisibility(View.VISIBLE);
         }else {
             holder.binding.tvLocation.setText(jsonObject.optString("EmpOutAddress"));
+            holder.binding.lnLocation.setVisibility(View.GONE);
         }
 
         holder.binding.tvOutLocation.setText(jsonObject.optString("EmpOutAddress"));

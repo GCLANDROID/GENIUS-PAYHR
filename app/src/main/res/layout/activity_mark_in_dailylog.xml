@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,306 +8,313 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="@mipmap/headerribbon"
-        android:orientation="horizontal">
-
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5">
-
-            <ImageView
-                android:id="@+id/imgBack"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/backimg" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Manage"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:paddingRight="5dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:gravity="right|center"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@mipmap/headerribbon"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imgHome"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:background="@drawable/homeimg" />
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/lnLoader"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
-        <ProgressBar
-            android:layout_width="50dp"
-            android:layout_height="50dp"></ProgressBar>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/textcolor"
-            android:textSize="16sp"
-            android:text="Loading..."></TextView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lnMain"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:orientation="vertical"
-        android:gravity="center">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:background="@drawable/lldesign7"
-                    android:layout_gravity="right"
-                    android:layout_width="120dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="5dp"
-                    android:id="@+id/llLocation"
-                    android:padding="5dp">
-                    <fragment
-                        android:id="@+id/map"
-                        android:name="com.google.android.gms.maps.SupportMapFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_gravity="center"
-
-                        />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:layout_marginTop="20dp"
-                        ></LinearLayout>
-
-
-                </LinearLayout>
-
-            </FrameLayout>
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/imgUser"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/man"></ImageView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvName"
-            android:layout_marginTop="5dp"
-            android:textSize="14sp"
-            android:textColor="@color/colorAccent"
-            android:text="Arpan Saha"></TextView>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="5dp">
-
-            <TextView
-                android:textAlignment="center"
-                android:id="@+id/tvAddress"
-                android:fontFamily="sans-serif-condensed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:textSize="14sp"
-                android:textColor="@color/maincolor"
-                ></TextView>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/llRefresh"
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-            <TextView
-                android:id="@+id/tvClick"
-                android:textSize="12sp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color2"
-                android:text="Get wrong location?Refresh here"></TextView>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center">
-            <TextView
-                android:id="@+id/tvTime"
-                android:fontFamily="sans-serif-condensed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:textSize="14sp"
-                android:textColor="@color/maincolor"
-                ></TextView>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <TextView
-                android:id="@+id/tvCapture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/colorAccent"
-                android:layout_marginLeft="10dp"
-                android:text="Capture Image"></TextView>
-            <ImageView
-                android:id="@+id/imgCamera"
-                android:layout_marginLeft="10dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/cameraimg"></ImageView>
             <LinearLayout
-                android:id="@+id/llImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5">
+
                 <ImageView
-                    android:id="@+id/imgImage"
+                    android:id="@+id/imgBack"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    ></ImageView>
+                    android:background="@drawable/backimg" />
+
+
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Manage"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingRight="5dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="right|center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgHome"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/homeimg" />
+            </LinearLayout>
         </LinearLayout>
-        <TextView
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:background="@color/red"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/tvCustom"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:text="Are you facing Problem with Default Camera? Click here for Custom Camera"></TextView>
+        <LinearLayout
+            android:id="@+id/lnLoader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"></ProgressBar>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textcolor"
+                android:textSize="16sp"
+                android:text="Loading..."></TextView>
+        </LinearLayout>
+
         <LinearLayout
             android:visibility="gone"
-            android:id="@+id/llNote"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tvNote"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="11sp"
-                android:fontFamily="serif"
-                android:text="Note:Face Recognition is mandatory"></TextView>
-            <TextView
-                android:textAlignment="center"
-                android:id="@+id/tvClickHere"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:textSize="12sp"
-                android:fontFamily="serif"
-                android:text="Please add your face image for face recognition"></TextView>
-        </LinearLayout>
-        <LinearLayout
+            android:id="@+id/lnMain"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="5dp">
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:background="@drawable/lldesign7"
+                        android:layout_gravity="right"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="5dp"
+                        android:id="@+id/llLocation"
+                        android:padding="5dp">
+                        <fragment
+                            android:id="@+id/map"
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center"
+
+                            />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginTop="20dp"
+                            ></LinearLayout>
+
+
+                    </LinearLayout>
+
+                </FrameLayout>
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/imgUser"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/man"></ImageView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvName"
+                android:layout_marginTop="5dp"
                 android:textSize="14sp"
                 android:textColor="@color/colorAccent"
-                android:text="Please enter remarks:"></TextView>
-            <EditText
-                android:paddingLeft="5dp"
-                android:id="@+id/etRemarks"
+                android:text="Arpan Saha"></TextView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:textAlignment="center"
+                    android:id="@+id/tvAddress"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/maincolor"
+                    ></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llRefresh"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvClick"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color2"
+                    android:text="Get wrong location?Refresh here"></TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/maincolor"
+                    ></TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvCapture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginLeft="10dp"
+                    android:text="Capture Image"></TextView>
+                <ImageView
+                    android:id="@+id/imgCamera"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/cameraimg"></ImageView>
+                <LinearLayout
+                    android:id="@+id/llImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/imgImage"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        ></ImageView>
+                </LinearLayout>
+
+            </LinearLayout>
+            <TextView
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:background="@color/red"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/tvCustom"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:text="Are you facing Problem with Default Camera? Click here for Custom Camera"></TextView>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llNote"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvNote"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="11sp"
+                    android:fontFamily="serif"
+                    android:text="Note:Face Recognition is mandatory"></TextView>
+                <TextView
+                    android:textAlignment="center"
+                    android:id="@+id/tvClickHere"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12sp"
+                    android:fontFamily="serif"
+                    android:text="Please add your face image for face recognition"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorAccent"
+                    android:text="Please enter remarks:"></TextView>
+                <EditText
+                    android:paddingLeft="5dp"
+                    android:id="@+id/etRemarks"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/lldesign7"></EditText>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/maincolor"
+                android:background="@drawable/lldesign7"
                 android:textSize="14sp"
-                android:textColor="@color/colorAccent"
-                android:layout_marginLeft="5dp"
-                android:layout_width="150dp"
-                android:layout_height="60dp"
-                android:background="@drawable/lldesign7"></EditText>
+                android:text="SUBMIT"
+                android:textColor="@android:color/white"></Button>
+
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/maincolor"
-            android:background="@drawable/lldesign7"
-            android:textSize="14sp"
-            android:text="SUBMIT"
-            android:textColor="@android:color/white"></Button>
-
     </LinearLayout>
 
 
 
-</LinearLayout>
+
+</ScrollView>

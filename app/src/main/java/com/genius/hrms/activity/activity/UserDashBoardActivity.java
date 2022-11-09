@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -49,10 +50,16 @@ import com.genius.hrms.activity.model.ActiveUserModel;
 import com.genius.hrms.activity.model.AttendanceModule;
 import com.genius.hrms.activity.model.MenuItemModel;
 import com.genius.hrms.activity.profile.ProfileActivity;
+import com.genius.hrms.activity.reciver.DailylogSyncReciever;
+import com.genius.hrms.activity.reciver.NetworkStateChecker;
+import com.genius.hrms.activity.utility.NetworkReceiver;
 import com.genius.hrms.activity.utility.Pref;
 import com.google.android.gms.common.data.DataHolder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
@@ -61,6 +68,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -92,6 +102,13 @@ public class UserDashBoardActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseInstance;
     String formattedDate,deviceName,menuName;
     ImageView imgUser;
+    NetworkStateChecker airplaneModeChangeReceiver = new NetworkStateChecker();
+    DailylogSyncReciever dailyLogReciever = new DailylogSyncReciever();
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +119,9 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
     private void initView(){
         pref=new Pref(UserDashBoardActivity.this);
+
+        // Referencing the button
+
         mFirebaseInstance = FirebaseDatabase.getInstance();
         pref.setFirstTimeLaunch(true);
 
@@ -764,6 +784,25 @@ public class UserDashBoardActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+        registerReceiver(airplaneModeChangeReceiver, filter);
+        registerReceiver(dailyLogReciever, filter);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(airplaneModeChangeReceiver);
+        unregisterReceiver(dailyLogReciever);
+    }
+
+
+
 
 
 }

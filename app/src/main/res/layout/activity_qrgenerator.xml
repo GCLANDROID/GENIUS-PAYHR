@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.dailylog.QRGeneratorActivity"
+    android:gravity="center"
+    android:orientation="vertical">
+    <TextView
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        android:textSize="16sp"
+        android:textColor="@color/text_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This is a Location's Coordinates Based QR Code"></TextView>
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:id="@+id/imgQR"></ImageView>
+
+    <Button
+        android:id="@+id/btnDwnload"
+        android:backgroundTint="@color/maincolor"
+        android:textColor="@color/white"
+        android:text="Download QR"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/lldesign7"></Button>
+
+</LinearLayout>
