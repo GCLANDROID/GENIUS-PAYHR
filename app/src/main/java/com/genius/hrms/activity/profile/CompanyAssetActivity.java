@@ -5,9 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -16,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
+import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.adapter.AttendanceAdapter;
 import com.genius.hrms.activity.adapter.CompanyAssetAdapter;
 import com.genius.hrms.activity.attendance.AttendanceReportActivity;
@@ -28,10 +32,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class CompanyAssetActivity extends AppCompatActivity {
+public class CompanyAssetActivity extends AppCompatActivity implements View.OnClickListener {
     RecyclerView rvItem;
     ArrayList<CompanyAssetModel>itemList=new ArrayList<>();
     Pref pref;
+    LinearLayout lnMain,lnNodata;
+    ImageView imgBack,imgHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +48,17 @@ public class CompanyAssetActivity extends AppCompatActivity {
 
     private void initView(){
         pref=new Pref(CompanyAssetActivity.this);
+        imgBack=(ImageView)findViewById(R.id.imgBack);
+        imgHome=(ImageView)findViewById(R.id.imgHome);
+        lnNodata=(LinearLayout)findViewById(R.id.lnNodata);
+        lnMain=(LinearLayout)findViewById(R.id.lnMain);
         rvItem=(RecyclerView) findViewById(R.id.rvItem);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(CompanyAssetActivity.this, LinearLayoutManager.VERTICAL, false);
         rvItem.setLayoutManager(layoutManager);
         getAssetList();
+        imgHome.setOnClickListener(this);
+        imgBack.setOnClickListener(this);
     }
 
     private void getAssetList() {
@@ -54,6 +66,8 @@ public class CompanyAssetActivity extends AppCompatActivity {
         pd.setMessage("Loading..");
         pd.setCancelable(false);
         pd.show();
+        lnMain.setVisibility(View.VISIBLE);
+        lnNodata.setVisibility(View.GONE);
         String surl = pref.getIpAddress()+"GHRMSApi/API/get_EmployeeAsset?&AEMEmployeeId="+pref.getEmpId()+"&SecurityCode="+pref.getSecurityCode();
         Log.d("input", surl);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
@@ -87,10 +101,14 @@ public class CompanyAssetActivity extends AppCompatActivity {
                                     assetModel.setRelaseDate(realesedDate);
                                     itemList.add(assetModel);
                                 }
+                                lnMain.setVisibility(View.VISIBLE);
+                                lnNodata.setVisibility(View.GONE);
                                 setAdapter();
 
 
                             } else {
+                                lnMain.setVisibility(View.GONE);
+                                lnNodata.setVisibility(View.VISIBLE);
 
 
                                 //Toast.makeText(getApplicationContext(), "No data found", Toast.LENGTH_LONG).show();
@@ -109,7 +127,8 @@ public class CompanyAssetActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                pd.dismiss();
-
+                lnMain.setVisibility(View.GONE);
+                lnNodata.setVisibility(View.VISIBLE);
                 // Toast.makeText(AttendanceReportActivity.this, "volly 2"+error.toString(), Toast.LENGTH_LONG).show();
                 Log.e("ert", error.toString());
             }
@@ -125,4 +144,15 @@ public class CompanyAssetActivity extends AppCompatActivity {
         rvItem.setAdapter(assetAdapter);
     }
 
+    @Override
+    public void onClick(View view) {
+        if (view==imgBack){
+            onBackPressed();
+        }else if (view==imgHome){
+            Intent intent=new Intent(CompanyAssetActivity.this, UserDashBoardActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+    }
 }

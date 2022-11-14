@@ -63,52 +63,80 @@
         android:orientation="vertical"
         android:padding="10dp">
         <LinearLayout
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/purple"
-            android:layout_marginTop="20dp">
-            <TextView
-                android:layout_weight="0.5"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:text="Company Asset"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"></TextView>
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"></View>
-            <TextView
-                android:layout_weight="0.5"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:text="Assigned Date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"></TextView>
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"></View>
-            <TextView
-                android:layout_weight="0.5"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:text="Released Date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"></TextView>
-        </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/rvItem"></androidx.recyclerview.widget.RecyclerView>
+            android:orientation="vertical"
+            android:id="@+id/lnMain">
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/purple"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:layout_weight="0.5"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    android:text="Company Asset"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"></TextView>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"></View>
+                <TextView
+                    android:layout_weight="0.5"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    android:text="Assigned Date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"></TextView>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"></View>
+                <TextView
+                    android:layout_weight="0.5"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    android:text="Released Date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"></TextView>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rvItem"></androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/lnNodata"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/searchicon"
+                app:tint="@color/black"></ImageView>
+            <TextView
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="No Data Found"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"></TextView>
+        </LinearLayout>
+
     </LinearLayout>
 
 
