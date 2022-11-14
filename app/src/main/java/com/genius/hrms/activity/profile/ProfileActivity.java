@@ -62,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
     String surl;
     ImageView imgUser;
     TextView tvPersonalEmail,tvReportingManager,tvGMob,tvGurdianMob;
-    LinearLayout llRegion;
+    LinearLayout llRegion,llAsset;
     TextView tvRegion;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,6 +203,13 @@ public class ProfileActivity extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.tvName);
         tvCode = (TextView) findViewById(R.id.tvCode);
         tvId = (TextView) findViewById(R.id.tvId);
+
+        llAsset=(LinearLayout)findViewById(R.id.llAsset);
+        if (pref.getSecurityCode().equals("1156")){
+            llAsset.setVisibility(View.VISIBLE);
+        }else {
+            llAsset.setVisibility(View.GONE);
+        }
         tvDocuments = (TextView) findViewById(R.id.tvDocuments);
 
 
@@ -366,6 +373,16 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, DocumentActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+
+            }
+        });
+
+        llAsset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, CompanyAssetActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
 

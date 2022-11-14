@@ -707,41 +707,6 @@
                 android:background="@drawable/layoutstrokebottom"
                 android:gravity="center"
                 android:layout_weight="1">
-                <!--                <androidx.cardview.widget.CardView-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:layout_margin="10dp"-->
-                <!--                    app:cardCornerRadius="8dp">-->
-                <!--                    <RelativeLayout-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        >-->
-                <!--                        <ImageView-->
-                <!--                            android:layout_width="70dp"-->
-                <!--                            android:layout_height="70dp"-->
-                <!--                            android:padding="10dp"-->
-                <!--                            android:layout_alignParentRight="true"-->
-                <!--                            android:layout_alignParentBottom="true"-->
-                <!--                            android:id="@+id/dailylogsubordinateimg"-->
-                <!--                            android:src="@drawable/report_payhr"-->
-                <!--                            ></ImageView>-->
-                <!--                        <TextView-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_above="@+id/dailylogsubordinateimg"-->
-                <!--                            android:id="@+id/tvsubordinate"-->
-                <!--                            android:padding="10dp"-->
-                <!--                            android:textColor="#2196F3"-->
-                <!--                            android:text="Team Report"-->
-                <!--                            android:layout_alignParentLeft="true"-->
-
-
-                <!--                            ></TextView>-->
-
-                <!--                    </RelativeLayout>-->
-
-
-                <!--                </androidx.cardview.widget.CardView>-->
 
                 <ImageView
                     android:layout_width="60dp"

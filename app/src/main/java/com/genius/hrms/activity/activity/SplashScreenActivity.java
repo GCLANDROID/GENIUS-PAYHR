@@ -184,7 +184,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
             e.printStackTrace();
         }
 
-        RateApp(SplashScreenActivity.this);
+      //  RateApp(SplashScreenActivity.this);
     }
 
     private void setup() {

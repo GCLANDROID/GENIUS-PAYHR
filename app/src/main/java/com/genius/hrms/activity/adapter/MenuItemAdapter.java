@@ -3,6 +3,7 @@ package com.genius.hrms.activity.adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.genius.hrms.activity.activity.VoiceAssistantActivity;
 import com.genius.hrms.activity.attendance.AttendanceActivity;
 import com.genius.hrms.activity.chat.ChatHomePage;
 import com.genius.hrms.activity.dailyactivity.DailyTaskDashBoardActivity;
+import com.genius.hrms.activity.dailylog.DailyLogCalenderDashboardActivity;
 import com.genius.hrms.activity.dailylog.OfflineDailyDashBoardActivity;
 import com.genius.hrms.activity.geofence.ConfigNumberActivity;
 import com.genius.hrms.activity.geofence.EmpMappingActivity;
@@ -223,9 +225,15 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 }
                 else if (itemList.get(i).getMenuId()==7){
                     //dailylog
-                    Intent intent=new Intent(mContex, OfflineDailyDashBoardActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContex.startActivity(intent);
+                    if (pref.getSecurityCode().equals("1156")){
+                        Intent intent = new Intent(mContex, DailyLogCalenderDashboardActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContex.startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(mContex, OfflineDailyDashBoardActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContex.startActivity(intent);
+                    }
                 }
                 else if (itemList.get(i).getMenuId()==8){
                     //dailyactivity
@@ -272,9 +280,15 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 }
                 else if (itemList.get(i).getMenuId()==12){
                     //holiday
-                    Intent intent=new Intent(mContex, HolidayActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContex.startActivity(intent);
+                    if (pref.getSecurityCode().equals("1156")){
+                        Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://payhr.geniusconsultant.com/WesternEnterprises/ess/Holiday/HolidayCal.aspx"));
+                        urlIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContex.startActivity(urlIntent);
+                    }else {
+                        Intent intent = new Intent(mContex, HolidayActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContex.startActivity(intent);
+                    }
                 }
 
                 else if (itemList.get(i).getMenuId()==13){

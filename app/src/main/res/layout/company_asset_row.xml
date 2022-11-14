@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="10dp">
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        >
+        <TextView
+            android:id="@+id/tvAssetName"
+            android:layout_weight="0.5"
+            android:textColor="@color/purple"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:text="Company Asset"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"></TextView>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/purple"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"></View>
+        <TextView
+            android:id="@+id/tvAssignedDate"
+            android:layout_weight="0.5"
+            android:textColor="@color/purple"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:text="Assigned Date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"></TextView>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/purple"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"></View>
+        <TextView
+            android:id="@+id/tvReleasedDate"
+            android:layout_weight="0.5"
+            android:textColor="@color/purple"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:text="Released Date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"></TextView>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/purple"></View>
+
+</LinearLayout>
