@@ -20,7 +20,7 @@
             android:id="@+id/llMain"
             android:background="@color/menutextcolor"
             android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_height="140dp"
             android:orientation="vertical">
             <View
                 android:layout_width="120dp"
@@ -38,7 +38,7 @@
                         android:id="@+id/tvDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="10sp"
                         android:textColor="@color/white"
                         android:text="Fri"
                         android:layout_marginRight="5dp"></TextView>
@@ -52,7 +52,7 @@
                         android:id="@+id/tvDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textColor="@color/white"
                         android:text="01 Aug 2022"
                         ></TextView>

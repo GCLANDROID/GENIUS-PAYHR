@@ -279,16 +279,18 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                     mContex.startActivity(intent);
                 }
                 else if (itemList.get(i).getMenuId()==12){
-                    //holiday
                     if (pref.getSecurityCode().equals("1156")){
-                        Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://payhr.geniusconsultant.com/WesternEnterprises/ess/Holiday/HolidayCal.aspx"));
+                        Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://payhr.geniusconsultant.com/WesternEnterprises/ESS/Holiday/HolidayCalMobile.aspx?CalenderYear=2022&EmployeeID=2070000002"));
                         urlIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContex.startActivity(urlIntent);
                     }else {
+                        //holiday
+
                         Intent intent = new Intent(mContex, HolidayActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContex.startActivity(intent);
                     }
+
                 }
 
                 else if (itemList.get(i).getMenuId()==13){
