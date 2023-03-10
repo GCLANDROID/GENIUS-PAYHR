@@ -426,7 +426,7 @@ public class LoginActivity extends AppCompatActivity {
                                     String AEMClientOfficeID = obj.optString("AEMClientOfficeID");
                                     pref.saveEmpClintOffId(AEMClientOfficeID);
                                     String MasterID = obj.optString("MasterID");
-                                    pref.saveMasterId(MasterID);
+                                    pref.saveMasterId(etUserId.getText().toString());
                                     Log.d("Master", MasterID);
                                     UserType = obj.optString("UserType");
                                     pref.saveUserType(UserType);

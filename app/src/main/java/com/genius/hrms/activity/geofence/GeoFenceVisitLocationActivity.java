@@ -200,9 +200,14 @@ public class GeoFenceVisitLocationActivity extends AppCompatActivity {
                         Intent intent = new Intent(GeoFenceVisitLocationActivity.this, OfflineDailyLogManageActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-                    }else if (pref.getSecurityCode().equals("1157")){
+                    }else if (pref.getSecurityCode().equals("1157")||pref.getSecurityCode().equals("1163")){
 
-                        getValueForGeoFenceForIntas();
+                                getValueForGeoFenceForIntas();
+
+
+
+
+
                     }
                     else {
                         pd.setMessage("Loading....");
@@ -227,9 +232,13 @@ public class GeoFenceVisitLocationActivity extends AppCompatActivity {
                     Intent intent = new Intent(GeoFenceVisitLocationActivity.this, OfflineDailyLogManageActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                }else if (pref.getSecurityCode().equals("1157")){
+                }else if (pref.getSecurityCode().equals("1157")||pref.getSecurityCode().equals("1163")){
 
-                    getValueForGeoFenceForIntas();
+
+                            getValueForGeoFenceForIntas();
+
+
+
                 }
                 else {
                     pd.setMessage("Loading....");

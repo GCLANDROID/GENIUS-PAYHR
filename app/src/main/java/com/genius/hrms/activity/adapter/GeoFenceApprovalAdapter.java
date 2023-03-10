@@ -2,10 +2,13 @@ package com.genius.hrms.activity.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,6 +48,21 @@ public class GeoFenceApprovalAdapter extends RecyclerView.Adapter<GeoFenceApprov
 
         myViewHolder.tvAddress.setText(itemList.get(i).getAddress()+" ( latt:- "+itemList.get(i).getLaat()+" , Long:- "+itemList.get(i).getLoong());
         myViewHolder.tvEmpName.setText(itemList.get(i).getEmpName());
+        if (itemList.get(i).getApproverStatus()==-1){
+            myViewHolder.lnTick.setVisibility(View.VISIBLE);
+            myViewHolder.tvApprovalStatus.setVisibility(View.GONE);
+        }else {
+            myViewHolder.lnTick.setVisibility(View.GONE);
+            myViewHolder.tvApprovalStatus.setVisibility(View.VISIBLE);
+            if (itemList.get(i).getApproverStatus()==1){
+                myViewHolder.tvApprovalStatus.setText("Approved");
+                myViewHolder.tvApprovalStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#f20dc24d")));
+            }else if (itemList.get(i).getApproverStatus()==0){
+                myViewHolder.tvApprovalStatus.setText("Rejected");
+                myViewHolder.tvApprovalStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc0512")));
+            }
+        }
+
         try {
             Picasso.with(context)
                     .load(itemList.get(i).getImageFile())
@@ -58,7 +76,7 @@ public class GeoFenceApprovalAdapter extends RecyclerView.Adapter<GeoFenceApprov
 
 
 
-        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.lnTick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -99,15 +117,20 @@ public class GeoFenceApprovalAdapter extends RecyclerView.Adapter<GeoFenceApprov
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvEmpName,tvAddress;
         ImageView imgLocation,imgTick;
+        LinearLayout lnTick;
+        TextView tvApprovalStatus;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvAddress=(TextView)itemView.findViewById(R.id.tvAddress);
             tvEmpName=(TextView)itemView.findViewById(R.id.tvEmpName);
+            tvApprovalStatus=(TextView)itemView.findViewById(R.id.tvApprovalStatus);
 
             imgLocation=(ImageView) itemView.findViewById(R.id.imgLocation);
             imgTick=(ImageView) itemView.findViewById(R.id.imgTick);
+
+            lnTick=(LinearLayout) itemView.findViewById(R.id.lnTick);
 
 
         }

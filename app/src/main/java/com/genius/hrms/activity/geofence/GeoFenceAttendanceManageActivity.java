@@ -282,6 +282,7 @@ public class GeoFenceAttendanceManageActivity extends AppCompatActivity implemen
 
                 dialog = new BottomSheetDialog(GeoFenceAttendanceManageActivity.this);
                 dialog.setContentView(v);
+
                 dialog.findViewById(R.id.imgCamera).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

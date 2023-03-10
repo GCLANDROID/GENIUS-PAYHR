@@ -38,7 +38,7 @@ import retrofit2.http.Part;
 
     @Multipart
     @POST("ChangePassword")
-    Call<UploadObject> changePassword(@Part("EmployeeId") String EmployeeId, @Part("NewPassword") String NewPassword, @Part("SecurityCode") String SecurityCode);
+    Call<UploadObject> changePassword(@Part("EmployeeId") String EmployeeId, @Part("NewPassword") String NewPassword,@Part("ExistingPassword") String ExistingPassword, @Part("SecurityCode") String SecurityCode);
 
 
     @Multipart

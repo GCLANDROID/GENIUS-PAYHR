@@ -45,6 +45,7 @@ import com.genius.hrms.activity.model.ApprovalModel;
 import com.genius.hrms.activity.model.MenuItemModel;
 import com.genius.hrms.activity.model.MenuModule;
 import com.genius.hrms.activity.payroll.PayrollActivity;
+import com.genius.hrms.activity.payroll.SalaryActivity;
 import com.genius.hrms.activity.profile.ProfileActivity;
 import com.genius.hrms.activity.profile.ProfileDashboardActivity;
 import com.genius.hrms.activity.profile.ProfileUpdateActivity;
@@ -177,11 +178,19 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //payroll
                 if (itemList.get(i).getMenuId()==6){
-                    //payroll
-                    Intent intent=new Intent(mContex, PayrollActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContex.startActivity(intent);
+                    if (pref.getSecurityCode().equals("1163")){
+                        Intent intent=new Intent(mContex, SalaryActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContex.startActivity(intent);
+                    }else {
+                        Intent intent=new Intent(mContex, PayrollActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContex.startActivity(intent);
+                    }
+
+
                 }else if (itemList.get(i).getMenuId()==1){
                     //profile
                     if (pref.getSecurityCode().equals("1080")) {
@@ -225,7 +234,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 }
                 else if (itemList.get(i).getMenuId()==7){
                     //dailylog
-                    if (pref.getSecurityCode().equals("1156")){
+                    if (pref.getSecurityCode().equals("1156") ||pref.getSecurityCode().equals("1000")){
                         Intent intent = new Intent(mContex, DailyLogCalenderDashboardActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContex.startActivity(intent);
@@ -243,11 +252,15 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 }
                 else if (itemList.get(i).getMenuId()==9){
                     //geofence
-                    if (pref.getSecurityCode().equals("1157")){
-                        Intent intent=new Intent(mContex, GeoFenceManageDashBoardActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("point", "sin");
-                        mContex.startActivity(intent);
+                    if (pref.getSecurityCode().equals("1157") || pref.getSecurityCode().equals("1163")){
+
+
+                            Intent intent=new Intent(mContex, GeoFenceManageDashBoardActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("point", "sin");
+                            mContex.startActivity(intent);
+
+
                     }else {
                         Intent intent=new Intent(mContex, ConfigNumberActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -280,7 +293,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 }
                 else if (itemList.get(i).getMenuId()==12){
                     if (pref.getSecurityCode().equals("1156")){
-                        Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://payhr.geniusconsultant.com/WesternEnterprises/ESS/Holiday/HolidayCalMobile.aspx?CalenderYear=2022&EmployeeID=2070000002"));
+                        Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://payhr.geniusconsultant.com/WesternEnterprises/ESS/Holiday/HolidayCalMobile.aspx?CalenderYear=2023&EmployeeID=2070000002"));
                         urlIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContex.startActivity(urlIntent);
                     }else {

@@ -26,6 +26,9 @@
         android:usesCleartextTraffic="true"
         tools:node="merge">
         <activity
+            android:name=".activity.geofence.GeoFenceSupervisiorActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.profile.CompanyAssetActivity"
             android:exported="false" />
         <activity

@@ -611,6 +611,13 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
 
                 dialog = new BottomSheetDialog(GeoFenceDailyLogManageActivity.this);
                 dialog.setContentView(v);
+                LinearLayout llCamera=(LinearLayout) dialog.findViewById(R.id.llCamera);
+
+                if (pref.getSecurityCode().equals("1163")){
+                    llCamera.setVisibility(View.GONE);
+                }else {
+                    llCamera.setVisibility(View.VISIBLE);
+                }
                 dialog.findViewById(R.id.imgCamera).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -641,21 +648,58 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
                             String formattedDate = df.format(dof);
 
                             String date = formattedDate + "  " + currentDateTimeString;
-                             if (flagList.contains(true)){
-                                 if (connectionCheck.isNetworkAvailable()) {
-                                     dailyActivity(date);
-                                 } else {
-                                     attendanceGivenfunction(date);
-                                 }
-                             }else {
-                                 Toast.makeText(GeoFenceDailyLogManageActivity.this,"The system detects that you are not inside your fencing zone.",Toast.LENGTH_LONG).show();
+                            if (pref.getSecurityCode().equals("1163")){
+                                if (pref.getMasterId().equals("ALPL412") || pref.getMasterId().equals("ALPL007")){
+                                    if (connectionCheck.isNetworkAvailable()) {
+                                        dailyActivity(date);
+                                    } else {
+                                        attendanceGivenfunction(date);
+                                    }
+                                }else {
+                                    if (flagList.contains(true)){
+                                        if (connectionCheck.isNetworkAvailable()) {
+                                            dailyActivity(date);
+                                        } else {
+                                            attendanceGivenfunction(date);
+                                        }
+                                    }else {
+                                        Toast.makeText(GeoFenceDailyLogManageActivity.this,"The system detects that you are not inside your fencing zone.",Toast.LENGTH_LONG).show();
 
-                             }
+                                    }
+                                }
+                            }else {
+                                if (flagList.contains(true)){
+                                    if (connectionCheck.isNetworkAvailable()) {
+                                        dailyActivity(date);
+                                    } else {
+                                        attendanceGivenfunction(date);
+                                    }
+                                }else {
+                                    Toast.makeText(GeoFenceDailyLogManageActivity.this,"The system detects that you are not inside your fencing zone.",Toast.LENGTH_LONG).show();
+
+                                }
+                            }
+
 
 
 
                         } else {
-                            showAlert();
+                            if (pref.getSecurityCode().equals("1163")){
+                                Date d = new Date();
+                                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                                String currentDateTimeString = sdf.format(d);
+
+                                Date dof = Calendar.getInstance().getTime();
+
+
+                                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                String formattedDate = df.format(dof);
+
+                                String date = formattedDate + "  " + currentDateTimeString;
+                                attendanceGivenfunction(date);
+                            }else {
+                                showAlert();
+                            }
 
                         }
                     }

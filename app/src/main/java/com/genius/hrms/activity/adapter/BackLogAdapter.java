@@ -23,6 +23,7 @@ import com.genius.hrms.activity.attendance.BacklogActivity;
 import com.genius.hrms.activity.leaveapplication.ApproverFragment;
 import com.genius.hrms.activity.model.ApprovalModel;
 import com.genius.hrms.activity.model.BackLogModel;
+import com.genius.hrms.activity.utility.Util;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,7 +56,7 @@ public class BackLogAdapter extends RecyclerView.Adapter<BackLogAdapter.MyViewHo
            myViewHolder.imgLike.setVisibility(View.GONE);
        }
 
-        myViewHolder.tvDate.setText(itemList.get(i).getDate());
+        myViewHolder.tvDate.setText(Util.changeAnyDateFormat(itemList.get(i).getDate(),"MM/dd/yyyy","dd MMM,yy"));
         myViewHolder.tvInTime.setText(itemList.get(i).getInTime());
         myViewHolder.tvOutTime.setText(itemList.get(i).getOutTime());
 

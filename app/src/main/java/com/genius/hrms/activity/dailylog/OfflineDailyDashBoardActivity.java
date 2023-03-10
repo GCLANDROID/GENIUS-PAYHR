@@ -144,7 +144,7 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
             llBackLog.setVisibility(View.VISIBLE);
         }
 
-        if (pref.getSecurityCode().equals("1000") || pref.getSecurityCode().equals("2000")) {
+        if (pref.getSecurityCode().equals("1000") || pref.getSecurityCode().equals("2000")|| pref.getSecurityCode().equals("1160")) {
             llQRCode.setVisibility(View.VISIBLE);
 
         } else {
@@ -185,15 +185,29 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         llQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (approver) {
-                    Intent intent = new Intent(OfflineDailyDashBoardActivity.this, QRAttendanceDashboardActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(OfflineDailyDashBoardActivity.this, QRCodeScannerActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                if (pref.getSecurityCode().equals("1160")){
+                    if (pref.getLoginID().equals("FSS0120") ||pref.getLoginID().equals("FSS0243") ||pref.getLoginID().equals("FSS0047")||pref.getLoginID().equals("FSS0163")||pref.getLoginID().equals("FSS0101") ){
+                        Intent intent = new Intent(OfflineDailyDashBoardActivity.this, QRAttendanceDashboardActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(OfflineDailyDashBoardActivity.this, QRCodeScannerActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+
+                }else {
+                    if (approver) {
+                        Intent intent = new Intent(OfflineDailyDashBoardActivity.this, QRAttendanceDashboardActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(OfflineDailyDashBoardActivity.this, QRCodeScannerActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
                 }
+
             }
         });
 

@@ -15,11 +15,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.UploadProgressListener;
 import com.genius.hrms.R;
 import com.genius.hrms.activity.utility.AttendanceService;
 import com.genius.hrms.activity.utility.Pref;
 import com.genius.hrms.activity.utility.UploadObject;
 
+
+import org.json.JSONObject;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,8 +40,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
-    TextView tvNewPassword, tvConfirmPassword;
-    EditText etNewPassword, etConfirmPassword;
+    TextView tvNewPassword, tvConfirmPassword,tvOLDPassword;
+    EditText etNewPassword, etConfirmPassword,etOLDPassword;
     Button btnUpdate,btnCancel;
     String isModiFied, empId, securityCode;
     private static String SERVER_PATH = "";
@@ -59,6 +66,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         pref=new Pref(getApplicationContext());
         tvNewPassword = (TextView) findViewById(R.id.tvNewPassword);
         tvConfirmPassword = (TextView) findViewById(R.id.tvConfirmPassword);
+        tvOLDPassword = (TextView) findViewById(R.id.tvOLDPassword);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
 
 
@@ -81,17 +89,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         etNewPassword = (EditText) findViewById(R.id.etNewPassword);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
+        etOLDPassword = (EditText) findViewById(R.id.etOLDPassword);
 
-
+        tvOLDPassword.setText(Html.fromHtml("Old Password" + color));
         empId =pref.getEmpId() ;
         securityCode=pref.getSecurityCode();
         btnCancel=(Button)findViewById(R.id.btnCancel);
-        if (pref.getSecurityCode().equals("1080")){
-            ipAddress="https://adityabirla.geniusconsultant.com/";
-        }else {
-            ipAddress="https://cloud.geniusconsultant.com/";
-        }
-         SERVER_PATH = ipAddress+"GHRMSApi/api/Authentication/";
+        ipAddress="https://cloud.geniusconsultant.com/";
+        SERVER_PATH = ipAddress+"GHRMSApi/api/Authentication/";
 
 
 
@@ -131,9 +136,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 if (etNewPassword.getText().toString().length() > 0) {
                     if (etConfirmPassword.getText().toString().length() > 0) {
                         if (etNewPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
+                            if (etOLDPassword.getText().toString().length()>0) {
 
 
-                            changePassword();
+                                changePassword();
+                            }else {
+                                etOLDPassword.setError("Please Enter Old Password");
+                                etOLDPassword.requestFocus();
+                            }
 
                         } else {
                             etConfirmPassword.setError("Confirm password should be same with new password");
@@ -180,10 +190,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
 
-    private void changePassword() {
+    /*private void changePassword() {
         progressDialog.show();
 
-        Call<UploadObject> fileUpload = uploadService.changePassword(empId, etNewPassword.getText().toString(), securityCode);
+        Call<UploadObject> fileUpload = uploadService.changePassword(empId, etNewPassword.getText().toString(),etOLDPassword.getText().toString(), securityCode);
         fileUpload.enqueue(new Callback<UploadObject>() {
             @Override
             public void onResponse(Call<UploadObject> call, Response<UploadObject> response) {
@@ -213,7 +223,60 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         });
 
-    }
+    }*/
+    private void changePassword() {
 
+        final ProgressDialog pd = new ProgressDialog(ChangePasswordActivity.this);
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        pd.show();
+
+        AndroidNetworking.upload(SERVER_PATH+"ChangePassword")
+                .addMultipartParameter("EmployeeId", pref.getEmpId())
+                .addMultipartParameter("NewPassword", etNewPassword.getText().toString())
+                .addMultipartParameter("ExistingPassword", pref.getPassword())
+                .addMultipartParameter("SecurityCode",pref.getSecurityCode())
+
+                .setPriority(Priority.HIGH)
+                .build()
+                .setUploadProgressListener(new UploadProgressListener() {
+                    @Override
+                    public void onProgress(long bytesUploaded, long totalBytes) {
+                        pd.show();
+
+                    }
+                })
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        pd.dismiss();
+                        JSONObject job = response;
+                        boolean responseStatus = job.optBoolean("responseStatus");
+                        String responseText = job.optString("responseText");
+                        if (responseStatus) {
+                            Intent intent=new Intent(ChangePasswordActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), responseText, Toast.LENGTH_LONG).show();
+                        }
+
+
+                        // boolean _status = job1.getBoolean("status");
+
+
+                        // do anything with response
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                        pd.dismiss();
+                        Toast.makeText(ChangePasswordActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+    }
 
 }

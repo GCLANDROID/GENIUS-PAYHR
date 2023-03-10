@@ -52,6 +52,7 @@ import com.genius.hrms.activity.attendance.AttendanceManageActivity;
 import com.genius.hrms.activity.attendance.AttendanceReportActivity;
 import com.genius.hrms.activity.attendance.BacklogActivity;
 import com.genius.hrms.activity.dailylog.NumberTourActivity;
+import com.genius.hrms.activity.dailylog.OfflineDailyDashBoardActivity;
 import com.genius.hrms.activity.dailylog.OfflineDailyLogManageActivity;
 import com.genius.hrms.activity.dailylog.OfflineDailyLogReportActivity;
 import com.genius.hrms.activity.dailylog.VisitLocationActivity;
@@ -75,7 +76,7 @@ import java.util.Locale;
 
 public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
     ImageView imgBack, imgHome;
-    LinearLayout llManage, llReport,llFenceApproval;
+    LinearLayout llManage, llReport,llSupervisior;
     Pref pref;
     String surl,surl1;
     String point;
@@ -107,7 +108,7 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
         pref = new Pref(getApplicationContext());
         llManage = (LinearLayout) findViewById(R.id.llManage);
         llReport = (LinearLayout) findViewById(R.id.llReport);
-        llFenceApproval=(LinearLayout)findViewById(R.id.llFenceApproval);
+        llSupervisior=(LinearLayout)findViewById(R.id.llSupervisior);
         llLogBook=(LinearLayout)findViewById(R.id.llLogBook);
         llBackLog=(LinearLayout)findViewById(R.id.llBackLog);
         llConfig=(LinearLayout)findViewById(R.id.llConfig);
@@ -141,11 +142,13 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
             tvReport.setText("Report");
         }
 
-        if (pref.getSecurityCode().equals("1157")){
+        if (pref.getSecurityCode().equals("1157")||pref.getSecurityCode().equals("1163")) {
+
             getApproverOrNot();
-        }else {
 
         }
+
+
     }
     //GeoFenceDailyLogManageActivity
 
@@ -153,10 +156,24 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
         llManage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pref.getSecurityCode().equals("1157")){
-                    Intent intent = new Intent(GeoFenceManageDashBoardActivity.this, GeoFenceVisitLocationActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                if (pref.getSecurityCode().equals("1157") || pref.getSecurityCode().equals("1163")){
+                    if (pref.getSecurityCode().equals("1163")) {
+                        if (pref.getEmpId().equals("2070000354") || pref.getEmpId().equals("2070000372")) {
+                            Intent intent = new Intent(GeoFenceManageDashBoardActivity.this, VisitLocationActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(GeoFenceManageDashBoardActivity.this, GeoFenceVisitLocationActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    }else {
+                        Intent intent = new Intent(GeoFenceManageDashBoardActivity.this, GeoFenceVisitLocationActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+
+
                 }else {
                     getValueForGeoFence();
                 }
@@ -191,10 +208,10 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
             }
         });
 
-        llFenceApproval.setOnClickListener(new View.OnClickListener() {
+        llSupervisior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), GeoFenceApprovalActivity.class);
+                Intent intent = new Intent(getApplicationContext(), GeoFenceSupervisiorActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -257,18 +274,31 @@ public class GeoFenceManageDashBoardActivity extends AppCompatActivity {
 
 
 
-                                llFenceApproval.setVisibility(View.VISIBLE);
+                                llSupervisior.setVisibility(View.VISIBLE);
 
 
                                 //llShow.setVisibility(View.VISIBLE);
 
 
                             } else {
-                                llFenceApproval.setVisibility(View.GONE);
+                                llSupervisior.setVisibility(View.GONE);
                                 // llShow.setVisibility(View.GONE);
                             }
 
-                            checkGeoFenceConfiguredOrNot();
+                            if (pref.getSecurityCode().equals("1163")) {
+                                if (pref.getEmpId().equals("2070000354") || pref.getEmpId().equals("2070000372")) {
+
+                                } else {
+                                    checkGeoFenceConfiguredOrNot();
+                                }
+                            }else {
+                                checkGeoFenceConfiguredOrNot();
+                            }
+
+
+
+
+
 
 
                         } catch (JSONException e) {

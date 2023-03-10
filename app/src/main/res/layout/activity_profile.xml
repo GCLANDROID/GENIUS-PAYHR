@@ -510,6 +510,49 @@
                                     android:layout_marginTop="10dp"
                                     android:background="@color/barcolor"></LinearLayout>
                                 <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="horizontal"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp">
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.5">
+
+                                        <TextView
+
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Grade"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/white" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                        <TextView
+                                            android:id="@+id/tvGrade"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="10dp"
+                                            android:text="--"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/white" />
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/barcolor"></LinearLayout>
+                                <LinearLayout
                                     android:visibility="gone"
                                     android:id="@+id/llRegion"
                                     android:layout_width="match_parent"
@@ -1454,73 +1497,6 @@
                                 </LinearLayout>
                             </LinearLayout>
                             <LinearLayout
-                                android:id="@+id/llAsset"
-                                android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:background="@color/purple"
-                                android:orientation="horizontal">
-
-                                <FrameLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="10dp">
-
-                                    <ImageView
-                                        android:layout_width="20dp"
-                                        android:layout_height="20dp"
-                                        android:layout_gravity="center"
-                                        android:src="@drawable/asset"
-                                        app:tint="@color/white" />
-
-                                    <ImageView
-                                        android:layout_width="20dp"
-                                        android:layout_height="20dp"
-                                        android:layout_gravity="center"
-                                        android:visibility="gone" />
-                                </FrameLayout>
-
-
-                                <TextView
-
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="10dp"
-                                    android:text="Company Asset"
-                                    android:textAppearance="?android:textAppearanceSmall"
-                                    android:textColor="@color/white" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginRight="20dp"
-                                    android:gravity="right">
-
-                                    <FrameLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center">
-
-                                        <ImageView
-                                            android:layout_width="15dp"
-                                            android:layout_height="15dp"
-                                            android:layout_gravity="center"
-                                            />
-
-                                        <ImageView
-                                            android:layout_width="15dp"
-                                            android:layout_height="15dp"
-                                            android:layout_gravity="center"
-                                            android:src="@drawable/minusimg"
-                                            android:visibility="gone" />
-                                    </FrameLayout>
-
-
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <LinearLayout
                                 android:id="@+id/llMisDetail"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1837,21 +1813,90 @@
                                     android:background="@color/barcolor"></LinearLayout>
 
 
-<!--                                <LinearLayout-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="1dp"-->
-<!--                                    android:layout_marginTop="10dp"-->
-<!--                                    android:background="@color/barcolor"></LinearLayout>-->
+                                <!--                                <LinearLayout-->
+                                <!--                                    android:layout_width="match_parent"-->
+                                <!--                                    android:layout_height="1dp"-->
+                                <!--                                    android:layout_marginTop="10dp"-->
+                                <!--                                    android:background="@color/barcolor"></LinearLayout>-->
 
 
                             </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/llAsset"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@color/purple"
+                                android:orientation="horizontal">
+
+                                <FrameLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="10dp">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/asset"
+                                        app:tint="@color/white" />
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:visibility="gone" />
+                                </FrameLayout>
+
+
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="Company Asset"
+                                    android:textAppearance="?android:textAppearanceSmall"
+                                    android:textColor="@color/white" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginRight="20dp"
+                                    android:gravity="right">
+
+                                    <FrameLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center">
+
+                                        <ImageView
+                                            android:layout_width="15dp"
+                                            android:layout_height="15dp"
+                                            android:layout_gravity="center"
+                                            />
+
+                                        <ImageView
+                                            android:layout_width="15dp"
+                                            android:layout_height="15dp"
+                                            android:layout_gravity="center"
+                                            android:src="@drawable/minusimg"
+                                            android:visibility="gone" />
+                                    </FrameLayout>
+
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+
 
                             <LinearLayout
+                                android:layout_marginTop="5dp"
                                 android:visibility="gone"
                                 android:id="@+id/llDocuments"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
-                                android:background="@color/grey"
+                                android:background="@color/white"
                                 android:orientation="horizontal">
 
                                 <FrameLayout

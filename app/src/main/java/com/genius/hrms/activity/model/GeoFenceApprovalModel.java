@@ -3,7 +3,7 @@ package com.genius.hrms.activity.model;
 public class GeoFenceApprovalModel {
     String laat,loong,address,empName,imageFile;
     boolean isSelected;
-    int gID;
+    int gID,ApproverStatus;
 
     public String getLaat() {
         return laat;
@@ -59,5 +59,13 @@ public class GeoFenceApprovalModel {
 
     public void setgID(int gID) {
         this.gID = gID;
+    }
+
+    public int getApproverStatus() {
+        return ApproverStatus;
+    }
+
+    public void setApproverStatus(int approverStatus) {
+        ApproverStatus = approverStatus;
     }
 }

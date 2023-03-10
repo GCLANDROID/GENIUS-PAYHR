@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textColor="@android:color/white"
-                android:text="Team Report"></TextView>
+                android:text="Leave Approval"></TextView>
         </LinearLayout>
 
     </LinearLayout>

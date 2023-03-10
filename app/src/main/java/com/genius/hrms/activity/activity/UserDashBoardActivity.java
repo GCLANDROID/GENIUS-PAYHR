@@ -7,11 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -60,6 +63,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.OnFailureListener;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
@@ -199,6 +203,21 @@ public class UserDashBoardActivity extends AppCompatActivity {
         formattedDate = df.format(cd);
         deviceName=android.os.Build.MODEL;
         activeUsers();
+
+        SharedPreferences prefs = getSharedPreferences("com.genius.hrms", MODE_PRIVATE);
+
+        int launch_count = prefs.getInt("launch_count", 0);
+
+        if(launch_count>=3){
+            // third time launch
+            // Toast.makeText(DashBoardActivity.this,"3 time",Toast.LENGTH_LONG).show();
+            RateApp(UserDashBoardActivity.this);
+
+        } else {
+            prefs.edit()
+                    .putInt("launch_count", launch_count+1)
+                    .apply();
+        }
 
    }
     private void getMenuList() {
@@ -799,6 +818,39 @@ public class UserDashBoardActivity extends AppCompatActivity {
         super.onStop();
         unregisterReceiver(airplaneModeChangeReceiver);
         unregisterReceiver(dailyLogReciever);
+    }
+
+    public void RateApp(final Context mContext) {
+        try {
+            final ReviewManager manager = ReviewManagerFactory.create(mContext);
+            manager.requestReviewFlow().addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<ReviewInfo>() {
+                @Override
+                public void onComplete(@NonNull com.google.android.play.core.tasks.Task<ReviewInfo> task) {
+                    if(task.isSuccessful()){
+                        ReviewInfo reviewInfo = task.getResult();
+                        manager.launchReviewFlow((Activity) mContext, reviewInfo).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(Exception e) {
+                                //Toast.makeText(mContext, "Rating Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull com.google.android.play.core.tasks.Task<Void> task) {
+                               // Toast.makeText(mContext, "Review Completed, Thank You!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(Exception e) {
+                   // Toast.makeText(mContext, "In-App Request Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -56,7 +56,7 @@ public class LeaveApplicationActivity extends AppCompatActivity {
         }else {
             tvApllication.setText("Leave Application");
             tvDetails.setText("Report");
-            tvApproval.setText("Team Report");
+            tvApproval.setText("Leave Approval");
             tvToolBar.setText("Leave Application");
         }
     }

@@ -436,7 +436,7 @@
         >
         <LinearLayout
             android:id="@+id/llBackLog"
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="130dp"
             android:layout_weight="1"
             android:background="@drawable/layoutstroke"
@@ -465,7 +465,7 @@
         <LinearLayout
             android:visibility="gone"
             android:id="@+id/llConfig"
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="130dp"
             android:layout_weight="1"
             android:background="@drawable/layoutstrokebottom"
@@ -489,14 +489,14 @@
                 android:textSize="10sp"></TextView>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/llFenceApproval"
-            android:layout_width="160dp"
+            android:id="@+id/llSupervisior"
+            android:layout_width="0dp"
             android:layout_height="130dp"
             android:layout_weight="1"
             android:background="@drawable/layoutstrokebottom"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/empmappingimg"
@@ -510,25 +510,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="Geofence Approval"
+                android:text="Supervisior"
                 android:textColor="@color/black"
                 android:textSize="10sp"></TextView>
         </LinearLayout>
 
-        <LinearLayout
 
-
-            android:layout_width="0dp"
-            android:layout_height="130dp"
-            android:layout_weight="1"
-            android:background="@drawable/layoutstroke"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="visible"
-            >
-
-
-        </LinearLayout>
 
 
 

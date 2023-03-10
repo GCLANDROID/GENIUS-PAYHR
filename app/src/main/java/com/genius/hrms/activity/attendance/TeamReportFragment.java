@@ -8,16 +8,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -37,6 +41,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +58,8 @@ public class TeamReportFragment extends Fragment {
     LinearLayout llNoData,llLoader,llMain;
     Pref pref;
     String securityCode;
+    EditText etSearch;
+    TeamReportAdapter detailsAdpater;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,6 +73,7 @@ public class TeamReportFragment extends Fragment {
 
     private void initView(){
         pref=new Pref(getContext());
+        etSearch=(EditText)v.findViewById(R.id.etSearch);
         securityCode=pref.getSecurityCode();
         rvItem=(RecyclerView)v.findViewById(R.id.rvItem);
         LinearLayoutManager layoutManager
@@ -108,6 +116,28 @@ public class TeamReportFragment extends Fragment {
                 }else {
                     Toast.makeText(getContext(),"please select Start Date",Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                // filter your list from your input
+                filter(s.toString());
+                //you can use runnable postDelayed like 500 ms to delay search text
             }
         });
 
@@ -190,10 +220,15 @@ public class TeamReportFragment extends Fragment {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
 
     }
     private void setAdapter(){
-        TeamReportAdapter detailsAdpater=new TeamReportAdapter(itemList);
+         detailsAdpater=new TeamReportAdapter(itemList);
         rvItem.setAdapter(detailsAdpater);
     }
     private void showStrtDatePicker() {
@@ -247,6 +282,18 @@ public class TeamReportFragment extends Fragment {
 
         datePickerDialog.show();
 
+    }
+
+    void filter(String text){
+        ArrayList<TeamReportModel> temp = new ArrayList();
+        for(TeamReportModel d: itemList){
+
+            if(d.getEmpName().toLowerCase().contains(text) || d.getEmpName().toUpperCase().contains(text)){
+                temp.add(d);
+            }
+        }
+
+        detailsAdpater.updateList(temp);
     }
 
 }

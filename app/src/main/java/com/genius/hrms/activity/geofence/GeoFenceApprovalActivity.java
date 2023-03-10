@@ -96,7 +96,7 @@ public class GeoFenceApprovalActivity extends AppCompatActivity implements View.
         llLoader.setVisibility(View.VISIBLE);
         llMain.setVisibility(View.GONE);
         llNoData.setVisibility(View.GONE);
-        String surl =  "https://cloud.geniusconsultant.com/GHRMSApi/api/EmpGeoFence/Get_GeoFenceApprovalPending?ApproverID="+pref.getEmpId()+"&SecurityCode="+pref.getSecurityCode();
+        String surl =  "https://cloud.geniusconsultant.com/GHRMSApi/api/EmpGeoFence/Get_GeoFenceAlldata?ApproverID="+pref.getEmpId()+"&SecurityCode="+pref.getSecurityCode();
         Log.d("teamUrl", surl);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
                 new Response.Listener<String>() {
@@ -124,6 +124,7 @@ public class GeoFenceApprovalActivity extends AppCompatActivity implements View.
                                     String Address = obj.optString("Address");
                                     String Latitude = obj.optString("Latitude");
                                     String Longitude = obj.optString("Longitude");
+                                    int ApproverStatus=obj.optInt("ApproverStatus");
                                     int GID = obj.optInt("GID");
 
                                     GeoFenceApprovalModel approvalModel = new GeoFenceApprovalModel();
@@ -132,6 +133,7 @@ public class GeoFenceApprovalActivity extends AppCompatActivity implements View.
                                     approvalModel.setLaat(Latitude);
                                     approvalModel.setLoong(Longitude);
                                     approvalModel.setgID(GID);
+                                    approvalModel.setApproverStatus(ApproverStatus);
                                     approvalModel.setImageFile("https://cloud.geniusconsultant.com/GHRMSApi/MobileAttImage/"+FName);
 
                                     itemList.add(approvalModel);
@@ -204,13 +206,13 @@ public class GeoFenceApprovalActivity extends AppCompatActivity implements View.
         apprvalAdapter.notifyDataSetChanged();
     }
 
-    private void approveFunction() {
+    private void approveFunction(String radius) {
         final ProgressDialog pd = new ProgressDialog(GeoFenceApprovalActivity.this);
         pd.setMessage("Loading..");
         pd.setCancelable(false);
         pd.show();
         AndroidNetworking.upload(pref.getIpAddress() + "GHRMSApi/API/EmpGeoFence/GeoFenceApproval")
-                .addMultipartParameter("Radius", "100")
+                .addMultipartParameter("Radius", radius)
                 .addMultipartParameter("StrAttData", aid)
                 .addMultipartParameter("Approvedby", pref.getEmpId())
                 .addMultipartParameter("ApproverStatus", "1")
@@ -243,7 +245,7 @@ public class GeoFenceApprovalActivity extends AppCompatActivity implements View.
 
                     @Override
                     public void onError(ANError error) {
-                        // handle error
+                        // handle 2070
                         pd.dismiss();
                         Toast.makeText(GeoFenceApprovalActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
 
@@ -252,14 +254,14 @@ public class GeoFenceApprovalActivity extends AppCompatActivity implements View.
 
     }
 
-    private void rejectFunction() {
+    private void rejectFunction(String radius) {
         final ProgressDialog pd = new ProgressDialog(GeoFenceApprovalActivity.this);
         pd.setMessage("Loading..");
         pd.setCancelable(false);
         pd.show();
 
         AndroidNetworking.upload(pref.getIpAddress() + "GHRMSApi/API/EmpGeoFence/GeoFenceApproval")
-                .addMultipartParameter("Radius", "100")
+                .addMultipartParameter("Radius", radius)
                 .addMultipartParameter("StrAttData", aid)
                 .addMultipartParameter("Approvedby", pref.getEmpId())
                 .addMultipartParameter("ApproverStatus", "0")
@@ -366,9 +368,17 @@ public class GeoFenceApprovalActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View view) {
         if (view==btnApprove){
-            approveFunction();
+            if (pref.getSecurityCode().equals("1157")) {
+                approveFunction("100");
+            }else if (pref.getSecurityCode().equals("1163")){
+                approveFunction("50");
+            }
         }else if (view==btnReject){
-            rejectFunction();
+            if (pref.getSecurityCode().equals("1157")) {
+                rejectFunction("100");
+            }else if (pref.getSecurityCode().equals("1163")){
+                rejectFunction("50");
+            }
         }
 
     }

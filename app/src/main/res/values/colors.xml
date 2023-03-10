@@ -11,7 +11,7 @@
     <color name="designcolor1">#075994</color>
     <color name="maincolor">#075994</color>
     <color name="bar1">#dadbdc</color>
-    <color name="green">#f20dc24d</color>
+    <color name="green">#F205E955</color>
     <color name="orange">#a97806</color>
     <color name="darkblue">#023254</color>
     <color name="green1">#06a49f</color>
@@ -30,9 +30,11 @@
     <color name="light_purple">#673AB7</color>
     <color name="btnColor">#015b7b</color>
     <color name="yellow">#D1D803</color>
-    <color name="purple">#a14bfa</color>
+    <color name="purple">#C09A72</color>
     <color name="t">#04A170</color>
-
+    <color name="misscolor">#F2FA0209</color>
+    <color name="nessecarycolor">#FFED45</color>
+    <color name="contactcolor">#F2DD7C03</color>
 
 
 

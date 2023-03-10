@@ -63,7 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView imgUser;
     TextView tvPersonalEmail,tvReportingManager,tvGMob,tvGurdianMob;
     LinearLayout llRegion,llAsset;
-    TextView tvRegion;
+    TextView tvRegion,tvGrade;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
@@ -203,9 +203,10 @@ public class ProfileActivity extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.tvName);
         tvCode = (TextView) findViewById(R.id.tvCode);
         tvId = (TextView) findViewById(R.id.tvId);
+        tvGrade=(TextView)findViewById(R.id.tvGrade);
 
         llAsset=(LinearLayout)findViewById(R.id.llAsset);
-        if (pref.getSecurityCode().equals("1156")){
+        if (pref.getSecurityCode().equals("1156") || pref.getSecurityCode().equals("1000")){
             llAsset.setVisibility(View.VISIBLE);
         }else {
             llAsset.setVisibility(View.GONE);
@@ -1389,6 +1390,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                                     final String DateOfJoining = obj.optString("DateOfJoining");
                                     tvDOJ.setText(DateOfJoining);
+                                    final String Level = obj.optString("Level");
+                                    tvGrade.setText(Level);
 
 
                                     final String Department = obj.optString("Department");

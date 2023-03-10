@@ -101,9 +101,14 @@ public class CompanyAssetActivity extends AppCompatActivity implements View.OnCl
                                     assetModel.setRelaseDate(realesedDate);
                                     itemList.add(assetModel);
                                 }
-                                lnMain.setVisibility(View.VISIBLE);
-                                lnNodata.setVisibility(View.GONE);
-                                setAdapter();
+                                if (responseData.length()>0) {
+                                    lnMain.setVisibility(View.VISIBLE);
+                                    lnNodata.setVisibility(View.GONE);
+                                    setAdapter();
+                                }else {
+                                    lnMain.setVisibility(View.GONE);
+                                    lnNodata.setVisibility(View.VISIBLE);
+                                }
 
 
                             } else {

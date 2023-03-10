@@ -69,4 +69,9 @@ public class TeamReportAdapter extends RecyclerView.Adapter<TeamReportAdapter.My
     public TeamReportAdapter(ArrayList<TeamReportModel> itemList) {
         this.itemList = itemList;
     }
+
+    public void updateList(ArrayList<TeamReportModel> list){
+        itemList = list;
+        notifyDataSetChanged();
+    }
 }
