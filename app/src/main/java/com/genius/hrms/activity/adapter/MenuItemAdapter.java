@@ -28,6 +28,7 @@ import com.genius.hrms.activity.activity.QueryActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.activity.VoiceAssistantActivity;
 import com.genius.hrms.activity.attendance.AttendanceActivity;
+import com.genius.hrms.activity.attendance.AttendanceCalenderDashboardActivity;
 import com.genius.hrms.activity.chat.ChatHomePage;
 import com.genius.hrms.activity.dailyactivity.DailyTaskDashBoardActivity;
 import com.genius.hrms.activity.dailylog.DailyLogCalenderDashboardActivity;
@@ -228,9 +229,16 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 }
                 else if (itemList.get(i).getMenuId()==5){
                     //attendance
-                    Intent intent=new Intent(mContex, AttendanceActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContex.startActivity(intent);
+                    if (pref.getSecurityCode().equals("1139")){
+                        Intent intent=new Intent(mContex, AttendanceCalenderDashboardActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContex.startActivity(intent);
+                    }else {
+                        Intent intent=new Intent(mContex, AttendanceActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContex.startActivity(intent);
+                    }
+
                 }
                 else if (itemList.get(i).getMenuId()==7){
                     //dailylog

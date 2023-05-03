@@ -109,7 +109,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         progressDialog.show();
 
 
-        String surl = pref.getIpAddress()+"GHRMSApi/api/GCl_ForgotPassword?MasterID=" + etUserId.getText().toString() + "&SecurityCode=" + etSecuritycode.getText().toString();
+        String surl = "https://cloud.geniusconsultant.com/GHRMSApi/api/GCl_ForgotPassword?MasterID=" + etUserId.getText().toString() + "&SecurityCode=" + etSecuritycode.getText().toString();
         Log.d("inputforgot", surl);
 
 

@@ -11,7 +11,7 @@
     <color name="designcolor1">#075994</color>
     <color name="maincolor">#075994</color>
     <color name="bar1">#dadbdc</color>
-    <color name="green">#F205E955</color>
+    <color name="green">#F20BCA03</color>
     <color name="orange">#a97806</color>
     <color name="darkblue">#023254</color>
     <color name="green1">#06a49f</color>
@@ -35,7 +35,11 @@
     <color name="misscolor">#F2FA0209</color>
     <color name="nessecarycolor">#FFED45</color>
     <color name="contactcolor">#F2DD7C03</color>
-
+    <color name="green2">#F200CD52</color>
+    <color name="halfday">#FFCA61</color>
+    <color name="missedpunch">#AC4782</color>
+    <color name="ul">#DE2852</color>
+    <color name="current">#010360</color>
 
 
 

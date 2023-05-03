@@ -1,10 +1,4 @@
-package com.genius.hrms.activity.dailylog;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.genius.hrms.activity.attendance;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,6 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,15 +30,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
-import com.genius.hrms.activity.activity.LoginActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.adapter.AttendanceCalenderAdapter;
-import com.genius.hrms.activity.attendance.AttendanceReportActivity;
-import com.genius.hrms.activity.attendance.BacklogActivity;
-import com.genius.hrms.activity.attendance.SuperVisiorActivity;
+import com.genius.hrms.activity.dailylog.NumberTourActivity;
+import com.genius.hrms.activity.dailylog.QRAttendanceDashboardActivity;
+import com.genius.hrms.activity.dailylog.QRCodeScannerActivity;
+import com.genius.hrms.activity.dailylog.VisitLocationActivity;
 import com.genius.hrms.activity.model.AttendanceCalenderModel;
 import com.genius.hrms.activity.model.SpinnerModel;
-import com.genius.hrms.activity.payroll.SalaryActivity;
 import com.genius.hrms.activity.reciver.DailylogSyncReciever;
 import com.genius.hrms.activity.reciver.NetworkStateChecker;
 import com.genius.hrms.activity.utility.Pref;
@@ -52,7 +51,6 @@ import org.naishadhparmar.zcustomcalendar.OnDateSelectedListener;
 import org.naishadhparmar.zcustomcalendar.OnNavigationButtonClickedListener;
 import org.naishadhparmar.zcustomcalendar.Property;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,7 +58,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DailyLogCalenderDashboardActivity extends AppCompatActivity implements View.OnClickListener , OnNavigationButtonClickedListener {
+public class AttendanceCalenderDashboardActivity extends AppCompatActivity implements View.OnClickListener , OnNavigationButtonClickedListener {
     Spinner spMonth;
     ArrayList<String>monthList=new ArrayList<>();
     ArrayList<SpinnerModel>mmonthList=new ArrayList<>();
@@ -83,11 +81,13 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
     Button btnLeave;
     ArrayList<String>presentDays=new ArrayList<>();
     ArrayList<String>dateList=new ArrayList<>();
-    ArrayList<String>halfday=new ArrayList<>();
-    ArrayList<String>halfdayleave=new ArrayList<>();
+
     TextView tvPresent;
     LinearLayout lnStatus;
     TextView tvDetails,tvOK;
+    String attCode,formattedDate;
+    ArrayList<String>halfday=new ArrayList<>();
+    ArrayList<String>halfdayleave=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +99,11 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
     }
 
     private void initView(){
-        pref=new Pref(DailyLogCalenderDashboardActivity.this);
+        pref=new Pref(AttendanceCalenderDashboardActivity.this);
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        formattedDate = df.format(c);
+
         getApproverOrNot();
         imgHome=(ImageView)findViewById(R.id.imgHome);
         imgHome.setOnClickListener(this);
@@ -115,6 +119,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
 
 
         llLog = (LinearLayout) findViewById(R.id.llLog);
+        llLog.setVisibility(View.GONE);
         llBackLog = (LinearLayout) findViewById(R.id.llBackLog);
         rvItem = (RecyclerView) findViewById(R.id.rvItem);
         rvItem.setLayoutManager(new GridLayoutManager(this, 3));
@@ -202,7 +207,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
 
         spMonth=(Spinner) findViewById(R.id.spMonth);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
-                (DailyLogCalenderDashboardActivity.this, android.R.layout.simple_spinner_item,
+                (AttendanceCalenderDashboardActivity.this, android.R.layout.simple_spinner_item,
                         monthList); //selected item will look like a spinner set from XML
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spMonth.setAdapter(spinnerArrayAdapter);
@@ -277,7 +282,6 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         wcProperty.dateTextViewResource = R.id.text_view;
         descHashMap.put("WC", wcProperty);
 
-
         Property unapprovedleaveProperty = new Property();
         unapprovedleaveProperty.layoutResource = R.layout.ul_view;
         unapprovedleaveProperty.dateTextViewResource = R.id.text_view;
@@ -298,8 +302,6 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         current.layoutResource = R.layout.current_view;
         current.dateTextViewResource = R.id.text_view;
         descHashMap.put("C", current);
-
-
 
 
 
@@ -429,36 +431,32 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         if (view == imgMenu) {
             dlMain.openDrawer(Gravity.LEFT);
         }else if (view==llManage){
-            Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, VisitLocationActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+           attenDanceIntent();
         }else if (view==llLog){
-            Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, NumberTourActivity.class);
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, NumberTourActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else if (view==llSubordinate){
-            Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, SuperVisiorActivity.class);
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, SuperVisiorActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else if (view==llBackLog){
-            Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, BacklogActivity.class);
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, BacklogActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else if (view==llReport){
-            Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, AttendanceReportActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            attenDanceReportIntent();
         }else if (view==imgHome){
-            Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, UserDashBoardActivity.class);
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, UserDashBoardActivity.class);
             startActivity(intent);
             finish();
         }else if (view==llQRCode){
             if (approver) {
-                Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, QRAttendanceDashboardActivity.class);
+                Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, QRAttendanceDashboardActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, QRCodeScannerActivity.class);
+                Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, QRCodeScannerActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -483,7 +481,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
     }
 
     private void getAttendanceList(String month) {
-        final ProgressDialog pd = new ProgressDialog(DailyLogCalenderDashboardActivity.this);
+        final ProgressDialog pd = new ProgressDialog(AttendanceCalenderDashboardActivity.this);
         pd.setMessage("Loading...");
         pd.show();
         pd.setCancelable(false);
@@ -553,7 +551,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(DailyLogCalenderDashboardActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceCalenderDashboardActivity.this);
         requestQueue.add(stringRequest);
     }
 
@@ -563,7 +561,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
     }
 
     private void getApproverOrNot() {
-        final ProgressDialog pd = new ProgressDialog(DailyLogCalenderDashboardActivity.this);
+        final ProgressDialog pd = new ProgressDialog(AttendanceCalenderDashboardActivity.this);
         pd.setMessage("Loading...");
         pd.setCancelable(true);
         pd.show();
@@ -617,7 +615,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(DailyLogCalenderDashboardActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceCalenderDashboardActivity.this);
         requestQueue.add(stringRequest);
 
     }
@@ -655,7 +653,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         final Calendar calendar = Calendar.getInstance();
 
 
-        final ProgressDialog pd = new ProgressDialog(DailyLogCalenderDashboardActivity.this);
+        final ProgressDialog pd = new ProgressDialog(AttendanceCalenderDashboardActivity.this);
         pd.setMessage("Loading...");
         pd.show();
         pd.setCancelable(false);
@@ -704,6 +702,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
                                         presentDays.add(Day);
                                     }
 
+
                                     if (Status.equalsIgnoreCase("HD")){
                                         halfday.add(Day);
                                     }
@@ -757,7 +756,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(DailyLogCalenderDashboardActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceCalenderDashboardActivity.this);
         requestQueue.add(stringRequest);
     }
 
@@ -771,7 +770,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
 
 
 
-        final ProgressDialog pd = new ProgressDialog(DailyLogCalenderDashboardActivity.this);
+        final ProgressDialog pd = new ProgressDialog(AttendanceCalenderDashboardActivity.this);
         pd.setMessage("Loading...");
         pd.show();
         pd.setCancelable(false);
@@ -818,6 +817,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
                                         presentDays.add(Day);
                                     }
 
+
                                     if (Status.equalsIgnoreCase("HD")){
                                         halfday.add(Day);
                                     }
@@ -831,6 +831,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
                                 }
 
                                 customCalendar.setDate(calendar, dateHashmap);
+
                                 float halfdaycount=halfday.size();
                                 float hdlcount=halfdayleave.size();
 
@@ -869,7 +870,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(DailyLogCalenderDashboardActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceCalenderDashboardActivity.this);
         requestQueue.add(stringRequest);
     }
 
@@ -960,4 +961,165 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
 
         return arr;
     }
+
+
+    private void attenDanceIntent() {
+        if (pref.getSecurityCode().equals("11") || pref.getSecurityCode().equals("123")) {
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceManageForPPSActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else if (pref.getSecurityCode().equals("1135")) {
+            getAttendanceInformation();
+        }else if (pref.getSecurityCode().equals("1153")) {
+            getAttendanceInformationForSmart();
+        } else {
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceManageActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+
+
+    }
+
+    private void getAttendanceInformation() {
+        Log.d("Arpan", "arpan");
+        final ProgressDialog progressDialog = new ProgressDialog(AttendanceCalenderDashboardActivity.this);
+        progressDialog.setMessage("Loadingg..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
+        Log.d("input", surl);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("responseAttendance", response);
+                        progressDialog.dismiss();
+
+                        // attendabceInfiList.clear();
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+
+
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+
+                                attCode = "1";
+
+
+                            } else {
+                                attCode = "0";
+                            }
+
+                            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, Em3AttendnaceActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("attCode", attCode);
+                            startActivity(intent);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Toast.makeText(AttendanceReportActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                // Toast.makeText(AttendanceReportActivity.this, "volly 2"+error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceCalenderDashboardActivity.this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void getAttendanceInformationForSmart() {
+        Log.d("Arpan", "arpan");
+        final ProgressDialog progressDialog = new ProgressDialog(AttendanceCalenderDashboardActivity.this);
+        progressDialog.setMessage("Loadingg..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
+        Log.d("input", surl);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("responseAttendance", response);
+                        progressDialog.dismiss();
+
+                        // attendabceInfiList.clear();
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+
+
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+
+                                attCode = "1";
+
+
+                            } else {
+                                attCode = "0";
+                            }
+
+                           /* Intent intent = new Intent(AttendanceActivity.this, SmartJuleDailyLogActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("attCode", attCode);
+                            startActivity(intent);
+*/
+                            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceManageActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Toast.makeText(AttendanceReportActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                // Toast.makeText(AttendanceReportActivity.this, "volly 2"+error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceCalenderDashboardActivity.this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void attenDanceReportIntent() {
+        if (pref.getSecurityCode().equals("11") || pref.getSecurityCode().equals("123")) {
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceReportForPPSActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceReportActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+
+
+    }
+
 }

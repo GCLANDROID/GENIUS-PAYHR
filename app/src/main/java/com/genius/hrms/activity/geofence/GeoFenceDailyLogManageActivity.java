@@ -649,13 +649,15 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
 
                             String date = formattedDate + "  " + currentDateTimeString;
                             if (pref.getSecurityCode().equals("1163")){
-                                if (pref.getMasterId().equals("ALPL412") || pref.getMasterId().equals("ALPL007")){
+                                if ( pref.getMasterId().equals("ALPL007") || pref.getMasterId().equals("ALPL412")){
                                     if (connectionCheck.isNetworkAvailable()) {
                                         dailyActivity(date);
                                     } else {
                                         attendanceGivenfunction(date);
                                     }
+                                    Log.d("riku","1");
                                 }else {
+                                    Log.d("riku","2");
                                     if (flagList.contains(true)){
                                         if (connectionCheck.isNetworkAvailable()) {
                                             dailyActivity(date);
@@ -668,6 +670,7 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
                                     }
                                 }
                             }else {
+                                Log.d("riku","3");
                                 if (flagList.contains(true)){
                                     if (connectionCheck.isNetworkAvailable()) {
                                         dailyActivity(date);
@@ -696,7 +699,18 @@ public class GeoFenceDailyLogManageActivity extends AppCompatActivity implements
                                 String formattedDate = df.format(dof);
 
                                 String date = formattedDate + "  " + currentDateTimeString;
-                                attendanceGivenfunction(date);
+                                if ( pref.getMasterId().equals("ALPL007") || pref.getMasterId().equals("ALPL412")) {
+                                    attendanceGivenfunction(date);
+                                }else {
+                                    if (flagList.contains(true)){
+
+                                        attendanceGivenfunction(date);
+
+                                    }else {
+                                        Toast.makeText(GeoFenceDailyLogManageActivity.this,"The system detects that you are not inside your fencing zone.",Toast.LENGTH_LONG).show();
+
+                                    }
+                                }
                             }else {
                                 showAlert();
                             }

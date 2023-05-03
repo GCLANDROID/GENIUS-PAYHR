@@ -103,6 +103,8 @@ public class ApproverFragment extends Fragment {
     }
 
     private void getItem() {
+        mId="";
+        mIdList.clear();
         llLoader.setVisibility(View.VISIBLE);
         llMain.setVisibility(View.GONE);
         llNoData.setVisibility(View.GONE);
@@ -378,7 +380,7 @@ public class ApproverFragment extends Fragment {
         dialogBuilder.setView(dialogView);
         TextView tvInvalidDate = (TextView) dialogView.findViewById(R.id.tvSuccess);
 
-            tvInvalidDate.setText("Leave approved successfully");
+            tvInvalidDate.setText("Leave has been approved successfully");
 
 
 
@@ -407,7 +409,7 @@ public class ApproverFragment extends Fragment {
         dialogBuilder.setView(dialogView);
         TextView tvInvalidDate = (TextView) dialogView.findViewById(R.id.tvSuccess);
 
-        tvInvalidDate.setText("Leave deleted successfully");
+        tvInvalidDate.setText("Leave has been deleted successfully");
 
 
 
@@ -439,7 +441,7 @@ public class ApproverFragment extends Fragment {
         if (pref.getLanguage().equals("hi")) {
             tvInvalidDate.setText("");
         } else {
-            tvInvalidDate.setText("Leave rejected successfully");
+            tvInvalidDate.setText("Leave has been rejected successfully");
         }
 
 

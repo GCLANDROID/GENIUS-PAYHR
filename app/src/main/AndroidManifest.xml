@@ -26,6 +26,12 @@
         android:usesCleartextTraffic="true"
         tools:node="merge">
         <activity
+            android:name=".activity.dailylog.TabularTeamAttendaceReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.attendance.TeamAttendanceReportActivity"
+            android:screenOrientation="userPortrait" />
+        <activity
             android:name=".activity.geofence.GeoFenceSupervisiorActivity"
             android:exported="false" />
         <activity
@@ -43,6 +49,9 @@
         <activity
             android:name=".activity.dailylog.QRGeneratorActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity.attendance.AttendanceCalenderDashboardActivity"
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.dailylog.DailyLogMarkActivity"
             android:screenOrientation="userPortrait" />

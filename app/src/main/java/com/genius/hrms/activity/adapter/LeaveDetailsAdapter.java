@@ -203,6 +203,12 @@ public class LeaveDetailsAdapter extends RecyclerView.Adapter<LeaveDetailsAdapte
             myViewHolder.tvStatus.setText(itemList.get(i).getStatus());
         }
 
+        if (itemList.get(i).getStatus().contains("Cancel Request")){
+            myViewHolder.imgDelete.setVisibility(View.GONE);
+        }else {
+            myViewHolder.imgDelete.setVisibility(View.VISIBLE);
+        }
+
         //approver
 
         if (pref.getLanguage().equals("hi")) {

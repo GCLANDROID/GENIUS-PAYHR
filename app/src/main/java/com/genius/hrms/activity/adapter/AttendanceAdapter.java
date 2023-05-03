@@ -34,10 +34,12 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
     Context context;
     JSONArray itemList;
     Date date1,date2;
+    int flag;
 
-    public AttendanceAdapter(Context context, JSONArray itemList) {
+    public AttendanceAdapter(Context context, JSONArray itemList,int flag) {
         this.context=context;
         this.itemList=itemList;
+        this.flag=flag;
     }
 
 
@@ -292,6 +294,13 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
 
         }else {
             holder.binding.tvTotalHrs.setText("");
+        }
+
+        if (flag==1){
+            holder.binding.lnPunchingStatus.setVisibility(View.GONE);
+        }else {
+            holder.binding.lnPunchingStatus.setVisibility(View.VISIBLE);
+            holder.binding.tvPunchingStatus.setText(jsonObject.optString("PunchFromStatus"));
         }
     }
 

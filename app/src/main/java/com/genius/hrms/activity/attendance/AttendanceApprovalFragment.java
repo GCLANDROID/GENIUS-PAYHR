@@ -221,9 +221,11 @@ public class AttendanceApprovalFragment extends Fragment {
                                     String InTime = obj.optString("InTime");
                                     String OutTime = obj.optString("OutTime");
                                     String WorkSource = obj.optString("WorkSource");
+                                    String Code=obj.optString("Code");
                                     String AID = obj.optString("AID");
                                     String AttendanceNature = obj.optString("AttendanceNature");
                                     AttendanceApprovalModel obj2 = new AttendanceApprovalModel(AID, EmpName, AttendanceDate, InTime, OutTime,WorkSource,AttendanceNature);
+                                    obj2.setCode(Code);
                                     itemList.add(obj2);
 
 

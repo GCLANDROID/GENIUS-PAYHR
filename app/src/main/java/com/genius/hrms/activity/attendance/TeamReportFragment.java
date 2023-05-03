@@ -2,12 +2,15 @@ package com.genius.hrms.activity.attendance;
 
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -31,9 +34,16 @@ import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
 import com.genius.hrms.activity.adapter.LeaveDetailsAdapter;
 import com.genius.hrms.activity.adapter.TeamReportAdapter;
+import com.genius.hrms.activity.adapter.TeampEmpAdapter;
+import com.genius.hrms.activity.leaveapplication.LeaveApplicationActivity;
 import com.genius.hrms.activity.model.LeaveDetailsModel;
+import com.genius.hrms.activity.model.SpinnerModel;
+import com.genius.hrms.activity.model.TeamEmpModel;
 import com.genius.hrms.activity.model.TeamReportModel;
 import com.genius.hrms.activity.utility.Pref;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,6 +70,8 @@ public class TeamReportFragment extends Fragment {
     String securityCode;
     EditText etSearch;
     TeamReportAdapter detailsAdpater;
+    TeampEmpAdapter teamAdapter;
+    ArrayList<TeamEmpModel>teamList=new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,35 +101,12 @@ public class TeamReportFragment extends Fragment {
         tvEndDate=(TextView)v.findViewById(R.id.tvEndDate);
         btnShow=(Button)v.findViewById(R.id.btnShow);
 
+        getTeampList();
+
     }
 
     private void onClick(){
-        llStrtDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showStrtDatePicker();
-            }
-        });
-        llEndDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showEndDatePicker();
-            }
-        });
-        btnShow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!startDate.equals("")) {
-                    if (!endDate.equals("")) {
-                        getItem();
-                    }else {
-                        Toast.makeText(getContext(),"Please select End Date",Toast.LENGTH_LONG).show();
-                    }
-                }else {
-                    Toast.makeText(getContext(),"please select Start Date",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -184,7 +173,7 @@ public class TeamReportFragment extends Fragment {
 
 
                                 }
-                                setAdapter();
+
                                 llLoader.setVisibility(View.GONE);
                                 llMain.setVisibility(View.VISIBLE);
                                 llNoData.setVisibility(View.GONE);
@@ -228,8 +217,7 @@ public class TeamReportFragment extends Fragment {
 
     }
     private void setAdapter(){
-         detailsAdpater=new TeamReportAdapter(itemList);
-        rvItem.setAdapter(detailsAdpater);
+
     }
     private void showStrtDatePicker() {
         final Calendar c = Calendar.getInstance();
@@ -285,15 +273,99 @@ public class TeamReportFragment extends Fragment {
     }
 
     void filter(String text){
-        ArrayList<TeamReportModel> temp = new ArrayList();
-        for(TeamReportModel d: itemList){
+        ArrayList<TeamEmpModel> temp = new ArrayList();
+        for(TeamEmpModel d: teamList){
 
             if(d.getEmpName().toLowerCase().contains(text) || d.getEmpName().toUpperCase().contains(text)){
                 temp.add(d);
             }
         }
 
-        detailsAdpater.updateList(temp);
+        teamAdapter.updateList(temp);
+    }
+
+
+    private void getTeampList() {
+        llLoader.setVisibility(View.VISIBLE);
+        llMain.setVisibility(View.GONE);
+        llNoData.setVisibility(View.GONE);
+
+        String surl = pref.getIpAddress() + "ghrmsapi/api/Leave/LeaveApplicationApprover?CompanyID=" + pref.getEmpClintId() + "&EmployeeID=" + pref.getEmpId() + "&SecurityCode=" + pref.getSecurityCode();
+        Log.d("printurlbalance", surl);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("responseAttendance", response);
+//                        llLoader.setVisibility(View.GONE);
+
+
+                        teamList.clear();
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+
+                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+                                JSONArray responseData = job1.optJSONArray("responseData");
+                                for (int i = 0; i < responseData.length(); i++) {
+                                    JSONObject obj = responseData.getJSONObject(i);
+                                    final String Name = obj.optString("Name");
+                                    String ApplicantID = obj.optString("ApplicantID");
+                                    TeamEmpModel teamEmpModel=new TeamEmpModel();
+                                    teamEmpModel.setEmpName(Name);
+                                    teamEmpModel.setEmpID(ApplicantID);
+                                    teamList.add(teamEmpModel);
+
+                                }
+                                llLoader.setVisibility(View.GONE);
+                                llMain.setVisibility(View.VISIBLE);
+                                llNoData.setVisibility(View.GONE);
+
+                                teamAdapter=new TeampEmpAdapter(teamList,getContext());
+                                rvItem.setAdapter(teamAdapter);
+
+
+
+                                //llShow.setVisibility(View.VISIBLE);
+
+
+                            } else {
+                                llLoader.setVisibility(View.GONE);
+                                llMain.setVisibility(View.GONE);
+                                llNoData.setVisibility(View.VISIBLE);
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Toast.makeText(AttendanceReportActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                llLoader.setVisibility(View.GONE);
+                llMain.setVisibility(View.GONE);
+                llNoData.setVisibility(View.VISIBLE);
+
+
+                // Toast.makeText(AttendanceReportActivity.this, "volly 2"+error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+
     }
 
 }

@@ -368,7 +368,7 @@ public class GeoFenceVisitLocationActivity extends AppCompatActivity {
                                      SLatitude = Double.parseDouble(obj.optString("Latitude"));
                                      SLongitude = Double.parseDouble(obj.optString("Longitude"));
                                      double EndPoint = Double.parseDouble(obj.optString("Radius"));
-                                     s=EndPoint/100;
+                                     s=EndPoint/10;
 
 
 

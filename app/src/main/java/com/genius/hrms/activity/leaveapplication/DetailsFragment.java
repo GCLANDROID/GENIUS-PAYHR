@@ -96,8 +96,8 @@ public class DetailsFragment extends Fragment {
             tvEndDate.setText("अपनी छुट्टी की समाप्ति तिथि चुनें");
             btnShow.setText("प्रदर्शन");
         }else {
-            tvStrtDate.setText("Select your leave start date");
-            tvEndDate.setText("Select your leave end date");
+            tvStrtDate.setText("Select start date");
+            tvEndDate.setText("Select end date");
             btnShow.setText("Show");
         }
     }
@@ -300,9 +300,9 @@ public class DetailsFragment extends Fragment {
                         JSONObject job = response;
                         boolean responseStatus = job.optBoolean("responseStatus");
                         if (responseStatus) {
-                            successAlert();
+                            successAlert("Leave has been deleted successfully");
                         } else {
-
+                            successAlert("Leave cancel request has been sent to approver");
                         }
 
 
@@ -323,7 +323,7 @@ public class DetailsFragment extends Fragment {
     }
 
 
-    private void successAlert() {
+    private void successAlert(String text) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext(), R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_success, null);
@@ -333,7 +333,7 @@ public class DetailsFragment extends Fragment {
             tvInvalidDate.setText("सफलतापूर्वक हटा दिया गया");
         } else {
 
-            tvInvalidDate.setText("Leave delete successfully");
+            tvInvalidDate.setText(text);
         }
 
 

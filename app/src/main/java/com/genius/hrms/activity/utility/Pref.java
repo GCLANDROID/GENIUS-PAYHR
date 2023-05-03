@@ -739,6 +739,16 @@ public class Pref {
     }
 
 
+    public void savePunchFromID(String PunchFromID){
+        _editorPref.putString("PunchFromID", PunchFromID);
+        _editorPref.commit();
+    }
+
+    public String getPunchFromID(){
+        return _pref.getString("PunchFromID","");
+    }
+
+
 
 
 

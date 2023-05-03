@@ -35,6 +35,7 @@ public class DayBreakUpAdapter extends RecyclerView.Adapter<DayBreakUpAdapter.My
     ArrayList<DayBreakUpModel> itemList = new ArrayList<>();
     Fragment context;
     Context context1;
+    String leaveModeId;
 
     @NonNull
     @Override
@@ -215,6 +216,11 @@ public class DayBreakUpAdapter extends RecyclerView.Adapter<DayBreakUpAdapter.My
 
             }
         });
+        if (leaveModeId.equals("0")){
+            myViewHolder.llFullDay.setVisibility(View.GONE);
+        }else {
+            myViewHolder.llFullDay.setVisibility(View.VISIBLE);
+        }
 
 
     }
@@ -251,9 +257,10 @@ public class DayBreakUpAdapter extends RecyclerView.Adapter<DayBreakUpAdapter.My
         }
     }
 
-    public DayBreakUpAdapter(ArrayList<DayBreakUpModel> itemList, Fragment context,Context context1) {
+    public DayBreakUpAdapter(ArrayList<DayBreakUpModel> itemList, Fragment context,Context context1,String leaveModeId) {
         this.itemList = itemList;
         this.context = context;
         this.context1=context1;
+        this.leaveModeId=leaveModeId;
     }
 }

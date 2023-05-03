@@ -142,6 +142,7 @@ public class ApplicationFragment extends Fragment {
     String typeAvailable, preViewResponse;
     DayBreakUpAdapter dayAdapter;
     ArrayList<String> dayBreakupListDetails = new ArrayList<>();
+    ArrayList<String> halfdetails = new ArrayList<>();
     ArrayList<String> compOffListDetails = new ArrayList<>();
     String dayBreakUpDetails;
     String compOffDetails="";
@@ -1270,12 +1271,21 @@ public class ApplicationFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alert2.dismiss();
-                if (category.equals("1") || category.equals("3")) {
+
+                if (leaveModeId.equals("2")){
+                    if (halfdetails.contains("0.5") && halfdetails.contains("1")){
+                        alert2.dismiss();
+                    }else {
+                        Toast.makeText(getContext(),"You have to select one half day and one full day",Toast.LENGTH_LONG).show();
+                    }
+                }else {
+                    alert2.dismiss();
+                }
+               /* if (category.equals("1") || category.equals("3")) {
                     showCompOffDialog();
                 } else {
 
-                }
+                }*/
             }
         });
         Button btnCancel = (Button) dialogView.findViewById(R.id.btnCancel);
@@ -1449,7 +1459,7 @@ public class ApplicationFragment extends Fragment {
 
                                 }
 
-                                dayAdapter = new DayBreakUpAdapter(dayBreakupList, ApplicationFragment.this, getContext());
+                                dayAdapter = new DayBreakUpAdapter(dayBreakupList, ApplicationFragment.this, getContext(),leaveModeId);
                                 rvBrkupItem.setAdapter(dayAdapter);
 
 
@@ -1490,11 +1500,13 @@ public class ApplicationFragment extends Fragment {
     public void updateStatus(int position, boolean status) {
         dayBreakupList.get(position).setSelected(status);
         if (dayBreakupList.get(position).isSelected() == true) {
+            halfdetails.add(dayBreakupList.get(position).getBalance());
             dayBreakupListDetails.add(dayBreakupList.get(position).getBrkupDate() + "_" + dayBreakupList.get(position).getDayModeValue() + "_" + dayBreakupList.get(position).getBalance());
 
 
         } else {
             dayBreakupListDetails.remove(position);
+            halfdetails.remove(position);
         }
 
 
@@ -1957,7 +1969,7 @@ public class ApplicationFragment extends Fragment {
             tvInvalidDate.setText("सफलतापूर्वक लागू किया गया");
         } else {
 
-            tvInvalidDate.setText("Successfully applied");
+            tvInvalidDate.setText("Leave has been successfully applied");
         }
 
 

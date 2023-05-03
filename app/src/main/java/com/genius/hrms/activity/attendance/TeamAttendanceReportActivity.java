@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,23 +28,20 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
-import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.adapter.AttendanceAdapter;
 import com.genius.hrms.activity.model.AttendanceModule;
 import com.genius.hrms.activity.utility.NetworkConnectionCheck;
 import com.genius.hrms.activity.utility.Pref;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class AttendanceReportActivity extends AppCompatActivity {
+public class TeamAttendanceReportActivity extends AppCompatActivity {
     RecyclerView rvAttendanceReport;
     JSONArray attendabceInfiList;
     AttendanceModule attendanceModule;
@@ -76,7 +72,8 @@ public class AttendanceReportActivity extends AppCompatActivity {
     String imgUrl = "";
     int flag;
     ImageView imgSearch;
-    TextView tvToolBar;
+    TextView tvToolBar,tvEmpName;
+    String empID,empName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +95,14 @@ public class AttendanceReportActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-        pref = new Pref(AttendanceReportActivity.this);
-        connectionCheck = new NetworkConnectionCheck(AttendanceReportActivity.this);
+        pref = new Pref(TeamAttendanceReportActivity.this);
+
+        empID=getIntent().getStringExtra("empID");
+        empName=getIntent().getStringExtra("empName");
+        connectionCheck = new NetworkConnectionCheck(TeamAttendanceReportActivity.this);
         rvAttendanceReport = (RecyclerView) findViewById(R.id.rvAttendanceReport);
         layoutManager
-                = new LinearLayoutManager(AttendanceReportActivity.this, LinearLayoutManager.VERTICAL, false);
+                = new LinearLayoutManager(TeamAttendanceReportActivity.this, LinearLayoutManager.VERTICAL, false);
         rvAttendanceReport.setLayoutManager(layoutManager);
         imgBack = (ImageView) findViewById(R.id.imgBack);
         imgHome = (ImageView) findViewById(R.id.imgHome);
@@ -175,10 +175,12 @@ public class AttendanceReportActivity extends AppCompatActivity {
         });
         imgSearch=(ImageView)findViewById(R.id.imgSearch);
         tvToolBar=(TextView)findViewById(R.id.tvToolBar);
+        tvEmpName=(TextView) findViewById(R.id.tvEmpName);
+        tvEmpName.setText(empName);
         if (pref.getLanguage().equals("hi")){
             tvToolBar.setText("उपस्थिति विवरण");
         }else {
-            tvToolBar.setText("Attendance Report");
+            tvToolBar.setText("Team Attendance Report");
         }
 
     }
@@ -189,7 +191,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
         llMain.setVisibility(View.GONE);
         llNodata.setVisibility(View.GONE);
         llAgain.setVisibility(View.GONE);
-        String surl = pref.getIpAddress()+"GHRMSApi/api/get_EmployeeAttendanceReport?AEMConsultantID=" + pref.getEmpConId() + "&AEMClientID=" + pref.getEmpClintId() + "&AEMClientOfficeID=" + pref.getEmpClintOffId() + "&AEMEmployeeID=" + pref.getEmpId() + "&CurrentPage=0&AID=1&ApproverStatus=4&YearVal=" + year + "&MonthName=" + month + "&WorkingStatus=1&DbOperation=1&SecurityCode="+pref.getSecurityCode();
+        String surl = pref.getIpAddress()+"GHRMSApi/api/get_EmployeeAttendanceReport?AEMConsultantID=" + pref.getEmpConId() + "&AEMClientID=" + pref.getEmpClintId() + "&AEMClientOfficeID=" + pref.getEmpClintOffId() + "&AEMEmployeeID=" + empID + "&CurrentPage=0&AID=1&ApproverStatus=4&YearVal=" + year + "&MonthName=" + month + "&WorkingStatus=1&DbOperation=1&SecurityCode="+pref.getSecurityCode();
         Log.d("input", surl);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
                 new Response.Listener<String>() {
@@ -213,7 +215,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                                 JSONArray responseData = job1.optJSONArray("responseData");
                                 attendabceInfiList=responseData;
 
-                                attendanceAdapter = new AttendanceAdapter(AttendanceReportActivity.this,attendabceInfiList,1);
+                                attendanceAdapter = new AttendanceAdapter(TeamAttendanceReportActivity.this,attendabceInfiList,1);
                                 rvAttendanceReport.setAdapter(attendanceAdapter);
                                 llLoder.setVisibility(View.GONE);
                                 llMain.setVisibility(View.VISIBLE);
@@ -252,7 +254,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceReportActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(TeamAttendanceReportActivity.this);
         requestQueue.add(stringRequest);
     }
 
@@ -286,7 +288,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                                 JSONArray responseData = job1.optJSONArray("responseData");
                                 attendabceInfiList=responseData;
 
-                                attendanceAdapter = new AttendanceAdapter(AttendanceReportActivity.this,attendabceInfiList,2);
+                                attendanceAdapter = new AttendanceAdapter(TeamAttendanceReportActivity.this,attendabceInfiList,2);
                                 rvAttendanceReport.setAdapter(attendanceAdapter);
                                 llLoder.setVisibility(View.GONE);
                                 llMain.setVisibility(View.VISIBLE);
@@ -325,7 +327,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceReportActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(TeamAttendanceReportActivity.this);
         requestQueue.add(stringRequest);
     }
 
@@ -344,7 +346,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AttendanceReportActivity.this, UserDashBoardActivity.class);
+                Intent intent = new Intent(TeamAttendanceReportActivity.this, UserDashBoardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 //  finish();
@@ -361,7 +363,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
         imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceReportActivity.this, R.style.CustomDialogNew);
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(TeamAttendanceReportActivity.this, R.style.CustomDialogNew);
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View dialogView = inflater.inflate(R.layout.attendancereportsearch, null);
                 dialogBuilder.setView(dialogView);
@@ -438,7 +440,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
 
 
     private void showYearDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceReportActivity.this, R.style.CustomDialogNew);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(TeamAttendanceReportActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_year, null);
         dialogBuilder.setView(dialogView);
@@ -511,7 +513,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
     }
 
     private void showMonthDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceReportActivity.this, R.style.CustomDialogNew);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(TeamAttendanceReportActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_month, null);
         dialogBuilder.setView(dialogView);

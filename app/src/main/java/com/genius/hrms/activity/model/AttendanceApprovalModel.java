@@ -3,6 +3,7 @@ package com.genius.hrms.activity.model;
 public class AttendanceApprovalModel {
     String aId,name,attenDate,inTime,outTime,type,nature;
     private boolean isSelected = false;
+    String Code;
 
 
     public AttendanceApprovalModel(String aId, String name, String attenDate, String inTime, String outTime, String type, String nature) {
@@ -77,5 +78,13 @@ public class AttendanceApprovalModel {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public String getCode() {
+        return Code;
+    }
+
+    public void setCode(String code) {
+        Code = code;
     }
 }

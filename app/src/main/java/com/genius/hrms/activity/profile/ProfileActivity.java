@@ -58,11 +58,11 @@ public class ProfileActivity extends AppCompatActivity {
     TextView tvOff, tvPer, tvCon, tvMis,tvDocuments;
     LinearLayout llEmpId;
     TextView tvToolbar, tvPersonal, tvContact, tvToolBar;
-    TextView tvUAN, tvAadhar, tvAc, tvBank, tvEsi, tvPf, tvEmailID, tvPhone, tvPreAdd, tvPerAdd, tvBlood, tvStatus, tvQuali, tvRelation, tvGName, tvDateoOB, tvGen, tvLoc, tvDes, tvDept, tvDateoJ, tvName, tvCode, tvId;
+    TextView tvUAN, tvAadhar, tvAc, tvBank, tvEsi, tvPf, tvEmailID, tvPhone, tvPreAdd, tvPerAdd, tvBlood, tvStatus, tvQuali, tvRelation, tvGName,tvEmergencyName, tvDateoOB, tvGen, tvLoc, tvDes, tvDept, tvDateoJ, tvName, tvCode, tvId;
     String surl;
     ImageView imgUser;
     TextView tvPersonalEmail,tvReportingManager,tvGMob,tvGurdianMob;
-    LinearLayout llRegion,llAsset;
+    LinearLayout llRegion,llAsset,lnEmergency;
     TextView tvRegion,tvGrade;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -194,6 +194,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvQuali = (TextView) findViewById(R.id.tvQuali);
         tvRelation = (TextView) findViewById(R.id.tvRelation);
         tvGName = (TextView) findViewById(R.id.tvGName);
+        tvEmergencyName = (TextView) findViewById(R.id.tvEmergencyName);
         tvDateoOB = (TextView) findViewById(R.id.tvDateoOB);
         tvGen = (TextView) findViewById(R.id.tvGen);
         tvLoc = (TextView) findViewById(R.id.tvLoc);
@@ -206,6 +207,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvGrade=(TextView)findViewById(R.id.tvGrade);
 
         llAsset=(LinearLayout)findViewById(R.id.llAsset);
+        lnEmergency=(LinearLayout)findViewById(R.id.lnEmergency);
         if (pref.getSecurityCode().equals("1156") || pref.getSecurityCode().equals("1000")){
             llAsset.setVisibility(View.VISIBLE);
         }else {
@@ -268,11 +270,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvLoc.setText("Location");
             tvGen.setText("Gender");
             tvDateoOB.setText("Date Of Birth");
-            if (pref.getSecurityCode().equals("1155") || pref.getSecurityCode().equals("1156")){
-                tvGName.setText("Emergency Person Name");
-            }else {
-                tvGName.setText("Guardian Name");
-            }
+
 
             tvRelation.setText("Relationship");
             tvQuali.setText("Qualification");
@@ -292,9 +290,9 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         if (pref.getSecurityCode().equals("1155")|| pref.getSecurityCode().equals("1156")){
-            tvGMob.setText("Emergency Person Contact Number");
+            lnEmergency.setVisibility(View.VISIBLE);
         }else {
-            tvGMob.setText("Guardian Contact Number");
+            lnEmergency.setVisibility(View.GONE);
         }
 
         if (pref.getSecurityCode().equals("1156")){
@@ -863,7 +861,8 @@ public class ProfileActivity extends AppCompatActivity {
                                         tvRealtionShip.setText(RelationShip);
                                     }
 
-
+                                    final String GuardName = obj.optString("GuardName");
+                                    tvEmergencyName.setText(GuardName);
                                     final String Qualification = obj.optString("Qualification");
                                     if (pref.getLanguage().equals("hi")) {
                                         final Handler textViewHandler11 = new Handler();
@@ -1901,7 +1900,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                                     final  String presentpincode=obj.optString("PresentPincode");
-
+                                    final String GuardName = obj.optString("GuardName");
+                                    tvEmergencyName.setText(GuardName);
 
                                     final String PresentAddress = obj.optString("PresentAddress");
                                     if (pref.getLanguage().equals("hi")) {

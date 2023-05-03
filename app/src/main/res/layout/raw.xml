@@ -147,6 +147,39 @@
                         </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
+                        android:visibility="gone"
+                        android:layout_marginBottom="10dp"
+                        android:id="@+id/lnPunchingStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="2dp"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Punching Status:"
+                                android:textColor="@color/darkblue"
+                                android:textSize="11sp"
+                                android:textStyle="bold"></TextView>
+
+                            <TextView
+                                android:layout_marginLeft="5dp"
+                                android:id="@+id/tvPunchingStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="5 Units"
+                                android:textColor="@color/text_color"
+                                android:textSize="12sp"></TextView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
                         android:id="@+id/lnLocation"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -167,6 +200,7 @@
                                 android:textStyle="bold"></TextView>
 
                             <TextView
+                                android:layout_marginLeft="5dp"
                                 android:id="@+id/tvLocation"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"

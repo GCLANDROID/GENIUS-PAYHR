@@ -50,7 +50,7 @@ public class ApproverAdapter  extends RecyclerView.Adapter<ApproverAdapter.MyVie
         myViewHolder.tvEndDate.setText(itemList.get(i).getEndDate());
         myViewHolder.tvValue.setText(itemList.get(i).getValue());
 
-        if (itemList.get(i).getApprovalStatus().equals("Pending")){
+        if (itemList.get(i).getApprovalStatus().equals("Pending") ||itemList.get(i).getApprovalStatus().contains("Cancel") ){
             myViewHolder.llTick.setVisibility(View.VISIBLE);
             myViewHolder.llGreen.setVisibility(View.GONE);
             myViewHolder.llYellow.setVisibility(View.GONE);
@@ -261,7 +261,13 @@ public class ApproverAdapter  extends RecyclerView.Adapter<ApproverAdapter.MyVie
         } else {
             myViewHolder.tvReason.setText(itemList.get(i).getReason());
         }
-        myViewHolder.tvStatus.setText(itemList.get(i).getApprovalStatus());
+
+        if (itemList.get(i).getApprovalStatus().contains("Cancel")){
+            myViewHolder.tvStatus.setText("Cancel request from applicant");
+        }else {
+            myViewHolder.tvStatus.setText(itemList.get(i).getApprovalStatus());
+        }
+
 
 
 

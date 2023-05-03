@@ -371,7 +371,7 @@ public class GeoFenceApprovalActivity extends AppCompatActivity implements View.
             if (pref.getSecurityCode().equals("1157")) {
                 approveFunction("100");
             }else if (pref.getSecurityCode().equals("1163")){
-                approveFunction("50");
+                approveFunction("100");
             }
         }else if (view==btnReject){
             if (pref.getSecurityCode().equals("1157")) {

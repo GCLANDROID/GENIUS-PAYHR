@@ -4,184 +4,213 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.attendance.AttendanceReportActivity"
+    android:background="@drawable/llbackdesign"
     android:orientation="vertical"
-    android:background="@drawable/llbackdesign">
+    tools:context=".activity.attendance.AttendanceReportActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:orientation="horizontal"
-        android:background="@mipmap/headerribbon">
+        android:background="@mipmap/headerribbon"
+        android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            >
+            android:layout_weight="0.5">
+
             <ImageView
+                android:id="@+id/imgBack"
                 android:layout_width="@dimen/toobarimgsize"
                 android:layout_height="@dimen/toobarimgsize"
-                android:src="@drawable/backimg"
-                android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
-                android:id="@+id/imgBack"/>
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/backimg" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tvToolBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textAppearance="?android:textAppearanceSmall"
                 android:text="Attendance Report"
-                android:textAllCaps="true"/>
+                android:textAllCaps="true"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tvEmpName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:gravity="right">
+
             <ImageView
                 android:id="@+id/imgSearch"
-                android:layout_marginRight="10dp"
                 android:layout_width="@dimen/toobarhomeimgsize"
                 android:layout_height="@dimen/toobarhomeimgsize"
-                android:src="@drawable/searchicon"
                 android:layout_gravity="center"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/searchicon" />
+
             <ImageView
+                android:id="@+id/imgHome"
                 android:layout_width="@dimen/toobarhomeimgsize"
                 android:layout_height="@dimen/toobarhomeimgsize"
-                android:src="@drawable/homeimg"
                 android:layout_gravity="center"
                 android:layout_marginRight="15dp"
-                android:id="@+id/imgHome"/>
+                android:src="@drawable/homeimg" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/llSearch"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
         android:background="#f21a7cc2"
         android:orientation="horizontal"
-        android:id="@+id/llSearch"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:visibility="gone">
+
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/searchicon"
             android:layout_gravity="center"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/searchicon" />
+
         <TextView
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:textAppearanceSmall"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
-            android:textColor="@android:color/white"
-            android:text="Search"/>
+            android:text="Search"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 
     <LinearLayout
+        android:id="@+id/llWLLoader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
-        android:id="@+id/llWLLoader"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
+
         <ProgressBar
 
-            android:layout_width="40dp"
-            android:layout_height="40dp"
             android:id="@+id/ProgressbarWL"
-            />
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
         <TextView
-            android:layout_marginTop="5dp"
-            android:textAlignment="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="italic"
-            android:textSize="13sp"
+            android:layout_marginTop="5dp"
+            android:text="“In most cases, being a good boss means hiring talented people and then getting out of their way.”-Tina Fey"
+            android:textAlignment="center"
             android:textColor="@android:color/darker_gray"
-            android:text="“In most cases, being a good boss means hiring talented people and then getting out of their way.”-Tina Fey"/>
+            android:textSize="13sp"
+            android:textStyle="italic" />
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/llMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
         android:orientation="vertical"
-        android:id="@+id/llMain"
         android:visibility="gone">
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAttendanceReport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rvAttendanceReport"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
+            android:layout_marginBottom="10dp"></androidx.recyclerview.widget.RecyclerView>
+
         <ProgressBar
+            android:id="@+id/WLpagination_loader"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:visibility="gone"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
-            android:id="@+id/WLpagination_loader"
+            android:visibility="gone"
 
             />
 
 
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/llNodata"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="top|center"
         android:layout_marginTop="10dp"
+        android:gravity="top|center"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:id="@+id/llNodata">
+        android:visibility="gone">
+
         <ImageView
-            android:layout_marginTop="20dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/problemicon"/>
+            android:layout_marginTop="20dp"
+            android:src="@drawable/problemicon" />
+
         <TextView
-            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="No data found"
-            android:textStyle="bold"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/llAgain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:id="@+id/llAgain">
+        android:visibility="gone">
+
         <ImageView
+            android:id="@+id/imgAgain"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/againicon"
-            android:id="@+id/imgAgain"/>
+            android:src="@drawable/againicon" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="Try Again"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="10dp"/>
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
 </LinearLayout>
