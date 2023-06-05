@@ -492,7 +492,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                                     //Name field
-                                    final String Name = obj.optString("Name");
+                                    final String Name = obj.optString("Name").toUpperCase();
                                     pref.saveempName(Name);
                                     if (pref.getLanguage().equals("hi")) {
                                         final Handler textViewHandler1 = new Handler();
@@ -1219,6 +1219,9 @@ public class ProfileActivity extends AppCompatActivity {
                                     tvPersonalEmail.setText(PersonalEmail);
                                     String GuardContMobile=obj.optString("GuardContMobile");
                                     tvGurdianMob.setText(GuardContMobile);
+
+                                    final String Level = obj.optString("Level");
+                                    tvGrade.setText(Level);
                                 }
 
                                 if (pref.getSecurityCode().equals("1155")){
