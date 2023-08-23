@@ -60,291 +60,318 @@
           android:src="@drawable/homeimg" />
     </LinearLayout>
   </LinearLayout>
-
-
-
   <LinearLayout
+      android:visibility="gone"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:id="@+id/lnNonAccess"
       android:orientation="vertical"
-      android:paddingTop="10dp"
-      android:paddingLeft="20dp"
-      android:visibility="gone"
-      android:paddingRight="20dp">
-    <LinearLayout
-        android:id="@+id/llRem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-      <LinearLayout
-          android:layout_width="50dp"
-          android:layout_height="50dp"
-          android:background="@drawable/llshadowshape"
-          android:gravity="center">
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/reimburseicon"></ImageView>
-
-      </LinearLayout>
-      <TextView
-          android:id="@+id/tvReim"
-          android:layout_marginLeft="5dp"
-          android:layout_gravity="center"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textSize="15sp"
-          android:text="Reimbursement"></TextView>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/bar1"></LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
+      android:gravity="center">
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/sorry"></ImageView>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/llshadowshape"
-            android:gravity="center">
-          <ImageView
-              android:layout_width="25dp"
-              android:layout_height="25dp"
-              ></ImageView>
-
-        </LinearLayout>
-        <TextView
-            android:layout_marginLeft="5dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="CTC"></TextView>
-      </LinearLayout>
-      <LinearLayout
-          android:layout_marginTop="10dp"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:background="@color/bar1"></LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          >
-        <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/llshadowshape"
-            android:gravity="center">
-          <ImageView
-              android:layout_width="25dp"
-              android:layout_height="25dp"
-              android:src="@drawable/salaryimg"></ImageView>
-
-        </LinearLayout>
-        <TextView
-            android:layout_marginLeft="5dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Salary"></TextView>
-      </LinearLayout>
-      <LinearLayout
-          android:layout_marginTop="10dp"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:background="@color/bar1"></LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:id="@+id/llIT"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/llshadowshape"
-            android:gravity="center">
-          <ImageView
-              android:layout_width="25dp"
-              android:layout_height="25dp"
-              android:src="@drawable/itviewicon"></ImageView>
-
-        </LinearLayout>
-        <TextView
-            android:id="@+id/tvHoliDayMap"
-            android:layout_marginLeft="5dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Holiday Map"></TextView>
-      </LinearLayout>
-      <LinearLayout
-          android:layout_marginTop="10dp"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:background="@color/bar1"></LinearLayout>
-
-    </LinearLayout>
-
-
+        android:textSize="14sp"
+        android:textColor="@color/maincolor"
+        android:text="Currently this menu is not accessible"></TextView>
 
   </LinearLayout>
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="5dp"
-      android:orientation="horizontal">
-    <LinearLayout
-        android:layout_width="160dp"
-        android:layout_height="130dp"
-        android:id="@+id/llCTC"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/layoutstroke"
-        android:layout_weight="1">
-<!--      <androidx.cardview.widget.CardView-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="match_parent"-->
-<!--          android:layout_margin="10dp"-->
-<!--        app:cardCornerRadius="8dp">-->
-<!--        <RelativeLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            >-->
-<!--          <ImageView-->
-<!--              android:layout_width="70dp"-->
-<!--              android:layout_height="70dp"-->
-<!--              android:padding="10dp"-->
-<!--              android:layout_alignParentRight="true"-->
-<!--              android:layout_alignParentBottom="true"-->
-<!--              android:id="@+id/ctcimg"-->
-<!--              android:src="@drawable/ctc_icon_payhr"-->
-<!--              ></ImageView>-->
-<!--          <TextView-->
-<!--              android:layout_width="wrap_content"-->
-<!--              android:layout_height="wrap_content"-->
-<!--              android:layout_above="@+id/ctcimg"-->
-<!--              android:id="@+id/tvCtc"-->
-<!--              android:padding="10dp"-->
-<!--              android:textColor="#2196F3"-->
-<!--              android:text="CTC"-->
-<!--              android:layout_alignParentLeft="true"-->
+
+ <LinearLayout
+     android:id="@+id/lnAccess"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       android:paddingTop="10dp"
+       android:paddingLeft="20dp"
+       android:visibility="gone"
+       android:paddingRight="20dp">
+     <LinearLayout
+         android:id="@+id/llRem"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+       <LinearLayout
+           android:layout_width="50dp"
+           android:layout_height="50dp"
+           android:background="@drawable/llshadowshape"
+           android:gravity="center">
+         <ImageView
+             android:layout_width="25dp"
+             android:layout_height="25dp"
+             android:src="@drawable/reimburseicon"></ImageView>
+
+       </LinearLayout>
+       <TextView
+           android:id="@+id/tvReim"
+           android:layout_marginLeft="5dp"
+           android:layout_gravity="center"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="15sp"
+           android:text="Reimbursement"></TextView>
+     </LinearLayout>
+     <LinearLayout
+         android:layout_marginTop="10dp"
+         android:layout_width="match_parent"
+         android:layout_height="1dp"
+         android:background="@color/bar1"></LinearLayout>
+     <LinearLayout
+         android:layout_marginTop="10dp"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+         <LinearLayout
+             android:layout_width="50dp"
+             android:layout_height="50dp"
+             android:background="@drawable/llshadowshape"
+             android:gravity="center">
+           <ImageView
+               android:layout_width="25dp"
+               android:layout_height="25dp"
+               ></ImageView>
+
+         </LinearLayout>
+         <TextView
+             android:layout_marginLeft="5dp"
+             android:layout_gravity="center"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textSize="15sp"
+             android:text="CTC"></TextView>
+       </LinearLayout>
+       <LinearLayout
+           android:layout_marginTop="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@color/bar1"></LinearLayout>
+
+     </LinearLayout>
+
+     <LinearLayout
+         android:layout_marginTop="10dp"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           >
+         <LinearLayout
+             android:layout_width="50dp"
+             android:layout_height="50dp"
+             android:background="@drawable/llshadowshape"
+             android:gravity="center">
+           <ImageView
+               android:layout_width="25dp"
+               android:layout_height="25dp"
+               android:src="@drawable/salaryimg"></ImageView>
+
+         </LinearLayout>
+         <TextView
+             android:layout_marginLeft="5dp"
+             android:layout_gravity="center"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textSize="15sp"
+             android:text="Salary"></TextView>
+       </LinearLayout>
+       <LinearLayout
+           android:layout_marginTop="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@color/bar1"></LinearLayout>
+
+     </LinearLayout>
+
+     <LinearLayout
+         android:layout_marginTop="10dp"
+         android:id="@+id/llIT"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+         <LinearLayout
+             android:layout_width="50dp"
+             android:layout_height="50dp"
+             android:background="@drawable/llshadowshape"
+             android:gravity="center">
+           <ImageView
+               android:layout_width="25dp"
+               android:layout_height="25dp"
+               android:src="@drawable/itviewicon"></ImageView>
+
+         </LinearLayout>
+         <TextView
+             android:id="@+id/tvHoliDayMap"
+             android:layout_marginLeft="5dp"
+             android:layout_gravity="center"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textSize="15sp"
+             android:text="Holiday Map"></TextView>
+       </LinearLayout>
+       <LinearLayout
+           android:layout_marginTop="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@color/bar1"></LinearLayout>
+
+     </LinearLayout>
 
 
-<!--              ></TextView>-->
 
-<!--        </RelativeLayout>-->
-
-
-<!--      </androidx.cardview.widget.CardView>-->
-               <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:padding="10dp"
-                    android:id="@+id/ctcimg"
-                    android:src="@drawable/ctciconagain_payhr"
-                    ></ImageView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvCtc"
-                    android:padding="10dp"
-                    android:textSize="10sp"
-                    android:textColor="@color/black"
-                    android:text="CTC"
-
-
-                    ></TextView>
-
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="160dp"
-        android:layout_height="130dp"
-        android:id="@+id/llSalary"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:background="@drawable/layoutstrokebottom"
-        android:layout_weight="1">
-<!--      <androidx.cardview.widget.CardView-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="match_parent"-->
-<!--          android:layout_margin="10dp"-->
-<!--          app:cardCornerRadius="8dp">-->
-<!--        <RelativeLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            >-->
-<!--          <ImageView-->
-<!--              android:layout_width="70dp"-->
-<!--              android:layout_height="70dp"-->
-<!--              android:padding="10dp"-->
-<!--              android:layout_alignParentRight="true"-->
-<!--              android:layout_alignParentBottom="true"-->
-<!--              android:id="@+id/imgsalary"-->
-<!--              android:src="@drawable/salary_icon_payhr"-->
-<!--              ></ImageView>-->
-<!--          <TextView-->
-<!--              android:layout_width="wrap_content"-->
-<!--              android:layout_height="wrap_content"-->
-<!--              android:layout_above="@+id/imgsalary"-->
-<!--              android:padding="10dp"-->
-<!--              android:id="@+id/tvSalary"-->
-<!--              android:textColor="#2196F3"-->
-<!--              android:text="Salary"-->
-<!--              android:layout_alignParentLeft="true"-->
+   </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_margin="5dp"
+       android:orientation="horizontal">
+     <LinearLayout
+         android:layout_width="160dp"
+         android:layout_height="130dp"
+         android:id="@+id/llCTC"
+         android:orientation="vertical"
+         android:gravity="center"
+         android:background="@drawable/layoutstroke"
+         android:layout_weight="1">
+       <!--      <androidx.cardview.widget.CardView-->
+       <!--          android:layout_width="match_parent"-->
+       <!--          android:layout_height="match_parent"-->
+       <!--          android:layout_margin="10dp"-->
+       <!--        app:cardCornerRadius="8dp">-->
+       <!--        <RelativeLayout-->
+       <!--            android:layout_width="wrap_content"-->
+       <!--            android:layout_height="wrap_content"-->
+       <!--            >-->
+       <!--          <ImageView-->
+       <!--              android:layout_width="70dp"-->
+       <!--              android:layout_height="70dp"-->
+       <!--              android:padding="10dp"-->
+       <!--              android:layout_alignParentRight="true"-->
+       <!--              android:layout_alignParentBottom="true"-->
+       <!--              android:id="@+id/ctcimg"-->
+       <!--              android:src="@drawable/ctc_icon_payhr"-->
+       <!--              ></ImageView>-->
+       <!--          <TextView-->
+       <!--              android:layout_width="wrap_content"-->
+       <!--              android:layout_height="wrap_content"-->
+       <!--              android:layout_above="@+id/ctcimg"-->
+       <!--              android:id="@+id/tvCtc"-->
+       <!--              android:padding="10dp"-->
+       <!--              android:textColor="#2196F3"-->
+       <!--              android:text="CTC"-->
+       <!--              android:layout_alignParentLeft="true"-->
 
 
-<!--              ></TextView>-->
+       <!--              ></TextView>-->
 
-<!--        </RelativeLayout>-->
-
-
-<!--      </androidx.cardview.widget.CardView>-->
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:padding="10dp"
-                    android:id="@+id/imgsalary"
-                    android:src="@drawable/salaryagain_payhr"
-                    ></ImageView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:textSize="10sp"
-                    android:id="@+id/tvSalary"
-                    android:textColor="@color/black"
-                    android:text="Salary"
+       <!--        </RelativeLayout>-->
 
 
-                    ></TextView>
+       <!--      </androidx.cardview.widget.CardView>-->
+       <ImageView
+           android:layout_width="60dp"
+           android:layout_height="60dp"
+           android:padding="10dp"
+           android:id="@+id/ctcimg"
+           android:src="@drawable/ctciconagain_payhr"
+           ></ImageView>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/tvCtc"
+           android:padding="10dp"
+           android:textSize="10sp"
+           android:textColor="@color/black"
+           android:text="CTC"
 
-    </LinearLayout>
-  </LinearLayout>
+
+           ></TextView>
+
+
+
+     </LinearLayout>
+     <LinearLayout
+         android:layout_width="160dp"
+         android:layout_height="130dp"
+         android:id="@+id/llSalary"
+         android:gravity="center"
+         android:orientation="vertical"
+         android:background="@drawable/layoutstrokebottom"
+         android:layout_weight="1">
+       <!--      <androidx.cardview.widget.CardView-->
+       <!--          android:layout_width="match_parent"-->
+       <!--          android:layout_height="match_parent"-->
+       <!--          android:layout_margin="10dp"-->
+       <!--          app:cardCornerRadius="8dp">-->
+       <!--        <RelativeLayout-->
+       <!--            android:layout_width="wrap_content"-->
+       <!--            android:layout_height="wrap_content"-->
+       <!--            >-->
+       <!--          <ImageView-->
+       <!--              android:layout_width="70dp"-->
+       <!--              android:layout_height="70dp"-->
+       <!--              android:padding="10dp"-->
+       <!--              android:layout_alignParentRight="true"-->
+       <!--              android:layout_alignParentBottom="true"-->
+       <!--              android:id="@+id/imgsalary"-->
+       <!--              android:src="@drawable/salary_icon_payhr"-->
+       <!--              ></ImageView>-->
+       <!--          <TextView-->
+       <!--              android:layout_width="wrap_content"-->
+       <!--              android:layout_height="wrap_content"-->
+       <!--              android:layout_above="@+id/imgsalary"-->
+       <!--              android:padding="10dp"-->
+       <!--              android:id="@+id/tvSalary"-->
+       <!--              android:textColor="#2196F3"-->
+       <!--              android:text="Salary"-->
+       <!--              android:layout_alignParentLeft="true"-->
+
+
+       <!--              ></TextView>-->
+
+       <!--        </RelativeLayout>-->
+
+
+       <!--      </androidx.cardview.widget.CardView>-->
+       <ImageView
+           android:layout_width="60dp"
+           android:layout_height="60dp"
+           android:padding="10dp"
+           android:id="@+id/imgsalary"
+           android:src="@drawable/salaryagain_payhr"
+           ></ImageView>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:padding="10dp"
+           android:textSize="10sp"
+           android:id="@+id/tvSalary"
+           android:textColor="@color/black"
+           android:text="Salary"
+
+
+           ></TextView>
+
+     </LinearLayout>
+   </LinearLayout>
+ </LinearLayout>
+
+
 
 </LinearLayout>

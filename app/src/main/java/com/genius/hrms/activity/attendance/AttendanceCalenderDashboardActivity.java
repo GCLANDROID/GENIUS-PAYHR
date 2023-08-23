@@ -1,14 +1,25 @@
 package com.genius.hrms.activity.attendance;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,8 +27,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -29,6 +42,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.UploadProgressListener;
+
 import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.adapter.AttendanceCalenderAdapter;
@@ -43,6 +62,7 @@ import com.genius.hrms.activity.reciver.NetworkStateChecker;
 import com.genius.hrms.activity.utility.Pref;
 import com.genius.hrms.activity.utility.Util;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,11 +71,17 @@ import org.naishadhparmar.zcustomcalendar.OnDateSelectedListener;
 import org.naishadhparmar.zcustomcalendar.OnNavigationButtonClickedListener;
 import org.naishadhparmar.zcustomcalendar.Property;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AttendanceCalenderDashboardActivity extends AppCompatActivity implements View.OnClickListener , OnNavigationButtonClickedListener {
@@ -88,6 +114,9 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     String attCode,formattedDate;
     ArrayList<String>halfday=new ArrayList<>();
     ArrayList<String>halfdayleave=new ArrayList<>();
+    LinearLayout llFace;
+    AlertDialog alerDialog1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +128,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     }
 
     private void initView(){
+        llFace=(LinearLayout)findViewById(R.id.llFace);
         pref=new Pref(AttendanceCalenderDashboardActivity.this);
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -423,6 +453,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         });
 
         tvOK.setOnClickListener(this);
+        llFace.setOnClickListener(this);
 
     }
 
@@ -462,6 +493,9 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             }
         }else if (view==tvOK){
             lnStatus.setVisibility(View.GONE);
+        }else if (view==llFace){
+            faceAlert();
+
         }
     }
 
@@ -973,7 +1007,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         }else if (pref.getSecurityCode().equals("1153")) {
             getAttendanceInformationForSmart();
         } else {
-            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceManageActivity.class);
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceMarkActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
@@ -984,7 +1018,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     private void getAttendanceInformation() {
         Log.d("Arpan", "arpan");
         final ProgressDialog progressDialog = new ProgressDialog(AttendanceCalenderDashboardActivity.this);
-        progressDialog.setMessage("Loadingg..");
+        progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
@@ -1046,7 +1080,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     private void getAttendanceInformationForSmart() {
         Log.d("Arpan", "arpan");
         final ProgressDialog progressDialog = new ProgressDialog(AttendanceCalenderDashboardActivity.this);
-        progressDialog.setMessage("Loadingg..");
+        progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
@@ -1121,5 +1155,86 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
 
 
     }
+
+    private void faceAlert() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceCalenderDashboardActivity.this, R.style.CustomDialogNew);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.dialog_face, null);
+        dialogBuilder.setView(dialogView);
+
+
+        Button btnOk = (Button) dialogView.findViewById(R.id.btnOk);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alerDialog1.dismiss();
+
+
+            }
+        });
+
+        alerDialog1 = dialogBuilder.create();
+        alerDialog1.setCancelable(true);
+        Window window = alerDialog1.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+        alerDialog1.show();
+    }
+
+
+
+
+
+
+
+    private void faceRegistration(String image) {
+        final ProgressDialog pd=new ProgressDialog(AttendanceCalenderDashboardActivity.this);
+        pd.show();
+        pd.setMessage("Loading");
+        pd.setCancelable(false);
+        AndroidNetworking.upload(pref.getIpAddress() + "ghrmsapi/api/Attendance/EmployeeImagePost")
+                .addMultipartParameter("EmployeeID", pref.getEmpId())
+                .addMultipartParameter("EmployeeImage", image)
+                .addMultipartParameter("SecurityCode", pref.getSecurityCode())
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
+                .setUploadProgressListener(new UploadProgressListener() {
+                    @Override
+                    public void onProgress(long bytesUploaded, long totalBytes) {
+
+
+                    }
+                })
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        pd.dismiss();
+                        JSONObject job = response;
+                        boolean responseStatus = job.optBoolean("responseStatus");
+                        if (responseStatus) {
+                            Toast.makeText(AttendanceCalenderDashboardActivity.this,"Face has been registered successfully",Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(AttendanceCalenderDashboardActivity.this, "Something went wrong 1", Toast.LENGTH_LONG).show();
+                        }
+
+
+                        // boolean _status = job1.getBoolean("status");
+
+
+                        // do anything with response
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                        pd.dismiss();
+                        Toast.makeText(AttendanceCalenderDashboardActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+    }
+
 
 }

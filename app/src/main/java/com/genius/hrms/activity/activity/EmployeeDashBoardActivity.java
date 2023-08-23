@@ -820,9 +820,7 @@ public class EmployeeDashBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dlMain.closeDrawer(Gravity.LEFT);
-                Intent intent=new Intent(getApplicationContext(), ChatActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+
             }
         });
     }

@@ -55,7 +55,7 @@ public class AttendanceApprovalAdapter extends RecyclerView.Adapter<AttendanceAp
         myViewHolder.tvAttnDate.setText(itemList.get(i).getAttenDate());
         myViewHolder.tvInTime.setText(itemList.get(i).getInTime());
         myViewHolder.tvOutTime.setText(itemList.get(i).getOutTime());
-        myViewHolder.tvType.setText(itemList.get(i).getType()+" - "+itemList.get(i).getNature());
+        myViewHolder.tvType.setText(itemList.get(i).getNature());
 
         if (!itemList.get(i).getType().equals("")||itemList.get(i).getType()!=null){
             myViewHolder.llType.setVisibility(View.VISIBLE);

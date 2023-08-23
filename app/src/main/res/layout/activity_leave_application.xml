@@ -59,68 +59,97 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <FrameLayout
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/frameLayout"
-            ></FrameLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:orientation="horizontal">
-        <LinearLayout
-        android:id="@+id/llApplication"
-        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@mipmap/headerribbon"
+        android:id="@+id/lnNonAccess"
+        android:orientation="vertical"
         android:gravity="center">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/sorry"></ImageView>
         <TextView
-            android:id="@+id/tvApllication"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="@android:color/white"
-            android:text="Leave Application"></TextView>
-    </LinearLayout>
-        <LinearLayout
-            android:id="@+id/llDetails"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@mipmap/headerribbon"
-            android:gravity="center">
-            <TextView
-                android:id="@+id/tvDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@android:color/white"
-                android:text="Leave Details"></TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llApproval"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@mipmap/headerribbon"
-            android:gravity="center">
-            <TextView
-                android:id="@+id/tvApproval"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@android:color/white"
-                android:text="Leave Approval"></TextView>
-        </LinearLayout>
+            android:textColor="@color/maincolor"
+            android:text="Currently this menu is not accessible"></TextView>
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lnAccess"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <FrameLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/frameLayout"
+                ></FrameLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/llApplication"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@mipmap/headerribbon"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvApllication"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/white"
+                    android:text="Leave Application"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llDetails"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@mipmap/headerribbon"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/white"
+                    android:text="Leave Details"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llApproval"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@mipmap/headerribbon"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvApproval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/white"
+                    android:text="Leave Approval"></TextView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
 
 </LinearLayout>

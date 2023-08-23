@@ -97,6 +97,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/lldesigngreen"></Button>
             <Button
+                android:backgroundTint="@color/red"
                 android:id="@+id/btnReject"
                 android:textSize="12sp"
                 android:text="Reject"

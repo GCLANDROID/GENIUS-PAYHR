@@ -42,7 +42,7 @@ public class ApproverAdapter  extends RecyclerView.Adapter<ApproverAdapter.MyVie
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
         final Pref pref=new Pref(mContex);
         final ProgressDialog pd=new ProgressDialog(mContex);
-        pd.setMessage("Loadingg");
+        pd.setMessage("Loading");
         pd.setCancelable(false);
         final ApprovalModel approvalModel = itemList.get(i);
 
@@ -269,6 +269,18 @@ public class ApproverAdapter  extends RecyclerView.Adapter<ApproverAdapter.MyVie
         }
 
 
+        if (itemList.get(i).getIsLink()==1){
+            myViewHolder.tvDocument.setVisibility(View.VISIBLE);
+        }else {
+            myViewHolder.tvDocument.setVisibility(View.GONE);
+        }
+
+        myViewHolder.tvDocument.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ApproverFragment)context).imageAlert(itemList.get(i).getDocumentlink());
+            }
+        });
 
 
 
@@ -280,7 +292,7 @@ public class ApproverAdapter  extends RecyclerView.Adapter<ApproverAdapter.MyVie
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvEmpName,tvLeaveType,tvStrtDate,tvEndDate,tvValue,tvReason,tvStatus;
+        TextView tvEmpName,tvLeaveType,tvStrtDate,tvEndDate,tvValue,tvReason,tvStatus,tvDocument;
         LinearLayout llTick,llGreen,llYellow;
         ImageView imgTick;
         TextView tvLeaveReason,tvLeaveValue,tvLeaveEndDate,tvleaveStrtDate,tvType,tvName;
@@ -294,6 +306,7 @@ public class ApproverAdapter  extends RecyclerView.Adapter<ApproverAdapter.MyVie
             tvValue=(TextView)itemView.findViewById(R.id.tvValue);
             tvEndDate=(TextView)itemView.findViewById(R.id.tvEndDate);
             tvReason=(TextView)itemView.findViewById(R.id.tvReason);
+            tvDocument=(TextView)itemView.findViewById(R.id.tvDocument);
             imgTick=(ImageView)itemView.findViewById(R.id.imgTick);
             llTick=(LinearLayout)itemView.findViewById(R.id.llTick);
             llGreen=(LinearLayout)itemView.findViewById(R.id.llGreen);

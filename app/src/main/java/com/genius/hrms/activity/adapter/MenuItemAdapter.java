@@ -15,12 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.ChangePasswordActivity;
-import com.genius.hrms.activity.activity.ChatActivity;
 import com.genius.hrms.activity.activity.ELearningActivity;
 import com.genius.hrms.activity.activity.HolidayActivity;
 import com.genius.hrms.activity.activity.LoginActivity;
@@ -29,27 +27,20 @@ import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.activity.VoiceAssistantActivity;
 import com.genius.hrms.activity.attendance.AttendanceActivity;
 import com.genius.hrms.activity.attendance.AttendanceCalenderDashboardActivity;
-import com.genius.hrms.activity.chat.ChatHomePage;
+
 import com.genius.hrms.activity.dailyactivity.DailyTaskDashBoardActivity;
 import com.genius.hrms.activity.dailylog.DailyLogCalenderDashboardActivity;
 import com.genius.hrms.activity.dailylog.OfflineDailyDashBoardActivity;
 import com.genius.hrms.activity.geofence.ConfigNumberActivity;
-import com.genius.hrms.activity.geofence.EmpMappingActivity;
 import com.genius.hrms.activity.geofence.GeoFenceManageDashBoardActivity;
 import com.genius.hrms.activity.geofence.NotificationActivity;
-import com.genius.hrms.activity.leaveapplication.ApproverFragment;
-import com.genius.hrms.activity.leaveapplication.LeaveApplicationActivity;
-import com.genius.hrms.activity.leaveapplication.LeaveApplicationDashboardActivity;
 import com.genius.hrms.activity.leaveapplication.LeaveDashboardActivity;
 import com.genius.hrms.activity.leaveapplication.LeaveWebViewActivity;
-import com.genius.hrms.activity.model.ApprovalModel;
 import com.genius.hrms.activity.model.MenuItemModel;
-import com.genius.hrms.activity.model.MenuModule;
 import com.genius.hrms.activity.payroll.PayrollActivity;
 import com.genius.hrms.activity.payroll.SalaryActivity;
 import com.genius.hrms.activity.profile.ProfileActivity;
 import com.genius.hrms.activity.profile.ProfileDashboardActivity;
-import com.genius.hrms.activity.profile.ProfileUpdateActivity;
 import com.genius.hrms.activity.utility.Pref;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
@@ -223,9 +214,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 }
                 else if (itemList.get(i).getMenuId()==4){
                     //chat
-                    Intent intent=new Intent(mContex, ChatHomePage.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContex.startActivity(intent);
+
                 }
                 else if (itemList.get(i).getMenuId()==5){
                     //attendance
@@ -242,7 +231,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 }
                 else if (itemList.get(i).getMenuId()==7){
                     //dailylog
-                    if (pref.getSecurityCode().equals("1156") ||pref.getSecurityCode().equals("1000")){
+                    if (pref.getSecurityCode().equals("1156") ||pref.getSecurityCode().equals("1000")||pref.getSecurityCode().equals("1160")){
                         Intent intent = new Intent(mContex, DailyLogCalenderDashboardActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContex.startActivity(intent);

@@ -60,6 +60,7 @@ public class VisitLocationActivity extends AppCompatActivity {
     String attCode;
     String frstPunch;
     double SLongitude,SLatitude,s;
+    String punchFrom;
 
 
     @Override
@@ -149,8 +150,10 @@ public class VisitLocationActivity extends AppCompatActivity {
 
                                 }
 
+
                                 JSONObject frstPunchObj=responseData.optJSONObject(0);
                                 frstPunch=frstPunchObj.optString("PunchInTime");
+                                punchFrom=frstPunchObj.optString("PunchFrom");
                                 setAdapter();
                                 llLoader.setVisibility(View.GONE);
                                 llMain.setVisibility(View.VISIBLE);
@@ -273,7 +276,7 @@ public class VisitLocationActivity extends AppCompatActivity {
     private void getAttendanceInformationForSmart() {
         Log.d("Arpan", "arpan");
         final ProgressDialog progressDialog = new ProgressDialog(VisitLocationActivity.this);
-        progressDialog.setMessage("Loadingg..");
+        progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
@@ -309,6 +312,7 @@ public class VisitLocationActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("attCode", attCode);
                             intent.putExtra("frstPunch",frstPunch);
+                            intent.putExtra("punchFrom",punchFrom);
                             startActivity(intent);
 
 

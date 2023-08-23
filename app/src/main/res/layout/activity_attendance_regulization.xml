@@ -36,7 +36,7 @@
                 android:id="@+id/tvToolBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Attendance Regulization"
+                android:text="Attendance Regularization"
                 android:textAllCaps="true"
                 android:textSize="13sp"
                 android:textColor="@android:color/white"
@@ -100,6 +100,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/tvNote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"

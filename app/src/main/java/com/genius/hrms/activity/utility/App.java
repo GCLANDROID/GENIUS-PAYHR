@@ -8,7 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.google.firebase.FirebaseApp;
+
 
 public class App extends Application {
     public static final String TAG = App.class
@@ -22,7 +22,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        FirebaseApp.initializeApp(getApplicationContext());
+
         mInstance = this;
 
     }

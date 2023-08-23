@@ -5,12 +5,15 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -142,7 +146,12 @@ public class ApproverFragment extends Fragment {
                                     String LeaveValue = obj.optString("LeaveValue");
                                     String Reason = obj.optString("Reason");
                                     String ApprovalStatus = obj.optString("ApprovalStatus");
+                                    String Documentlink=obj.optString("Documentlink");
+                                    int IsLink= obj.getInt("IsLink");
+
                                     ApprovalModel aModel = new ApprovalModel(ApplicationMID, Name, LeaveName, LeaveSDate, LeaveEDate, LeaveValue, Reason, ApprovalStatus);
+                                    aModel.setIsLink(IsLink);
+                                    aModel.setDocumentlink(Documentlink);
                                     itemList.add(aModel);
                                 }
 
@@ -530,5 +539,35 @@ public class ApproverFragment extends Fragment {
                 alert.show();
             }
         });
+    }
+    public void imageAlert(String doc) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext(), R.style.CustomDialogNew);
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.dialog_image, null);
+        dialogBuilder.setView(dialogView);
+        ImageView imgDoc=(ImageView)dialogView.findViewById(R.id.imgDoc);
+        String[] parts = doc.split(",");
+        String part1 = parts[1];
+        String[] partsB = part1.split("\\$");
+        String doclink=partsB[0];
+
+        byte[] decodedString = Base64.decode(doclink, Base64.DEFAULT);
+        Bitmap selfieImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        imgDoc.setImageBitmap(selfieImage);
+
+        ImageView imgCancel=(ImageView)dialogView.findViewById(R.id.imgCancel);
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alerDialog1.dismiss();
+            }
+        });
+
+        alerDialog1 = dialogBuilder.create();
+        alerDialog1.setCancelable(true);
+        Window window = alerDialog1.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+        alerDialog1.show();
     }
 }

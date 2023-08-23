@@ -25,6 +25,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:node="merge">
+        <activity android:name=".activity.attendance.AttendanceMarkActivity"></activity>
         <activity
             android:name=".activity.dailylog.TabularTeamAttendaceReportActivity"
             android:exported="false" />
@@ -111,12 +112,7 @@
         <activity
             android:name=".activity.attendance.PreviewActivity"
             android:exported="true" />
-        <activity
-            android:name=".activity.chat.MessageActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.chat.ChatHomePage"
-            android:exported="true" />
+
         <activity
             android:name=".activity.attendance.AttendanceRegulizationActivity"
             android:exported="true" />
@@ -166,10 +162,6 @@
             android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.attendance.WeeklyoffActivity"
-            android:exported="true"
-            android:screenOrientation="userPortrait" />
-        <activity
-            android:name=".activity.activity.ChatActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -477,19 +469,7 @@
         <service
             android:name=".activity.utility.LocationAlertIntentService"
             android:allowBackup="true" />
-        <service android:name="com.google.firebase.components.ComponentDiscoveryService">
-            <meta-data
-                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
-                android:value="com.google.firebase.components.ComponentRegistrar" />
-        </service>
-        <service
-            android:name=".activity.FCM.MyFirebaseMessagingService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+
         <service
             android:name=".activity.utility.LocationUpdatingService"
             android:enabled="true"

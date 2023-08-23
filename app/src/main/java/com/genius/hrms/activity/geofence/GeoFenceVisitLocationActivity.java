@@ -279,7 +279,7 @@ public class GeoFenceVisitLocationActivity extends AppCompatActivity {
     private void getAttendanceInformationForSmart() {
         Log.d("Arpan", "arpan");
         final ProgressDialog progressDialog = new ProgressDialog(GeoFenceVisitLocationActivity.this);
-        progressDialog.setMessage("Loadingg..");
+        progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();

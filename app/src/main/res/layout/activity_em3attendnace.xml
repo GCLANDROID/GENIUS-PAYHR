@@ -114,17 +114,18 @@
 
                     </LinearLayout>
                     <androidx.appcompat.widget.AppCompatButton
-
+                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:id="@+id/subbtn"
                         android:textSize="9dp"
                         android:padding="5dp"
-                        android:textColor="@color/textcolor"
+                        android:textColor="@color/white"
                         android:layout_marginBottom="5dp"
                         android:background="@drawable/lldesign9"
                         android:layout_weight="0.5"
+                        android:backgroundTint="@color/maincolor"
                         android:text="Mark your attendance"></androidx.appcompat.widget.AppCompatButton>
 
                 </LinearLayout>

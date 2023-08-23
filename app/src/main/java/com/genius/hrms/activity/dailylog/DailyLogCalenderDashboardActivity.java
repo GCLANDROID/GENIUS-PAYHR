@@ -88,6 +88,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
     TextView tvPresent;
     LinearLayout lnStatus;
     TextView tvDetails,tvOK;
+    LinearLayout llFace;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +101,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
 
     private void initView(){
         pref=new Pref(DailyLogCalenderDashboardActivity.this);
+        llFace=(LinearLayout)findViewById(R.id.llFace);
         getApproverOrNot();
         imgHome=(ImageView)findViewById(R.id.imgHome);
         imgHome.setOnClickListener(this);
@@ -107,7 +109,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         llReport = (LinearLayout) findViewById(R.id.llReport);
         llSubordinate = (LinearLayout) findViewById(R.id.llSubordinate);
         llQRCode = (LinearLayout) findViewById(R.id.llQRCode);
-        if (pref.getSecurityCode().equals("1000")){
+        if (pref.getSecurityCode().equals("1000")||pref.getSecurityCode().equals("1160")){
             llQRCode.setVisibility(View.VISIBLE);
         }else {
             llQRCode.setVisibility(View.GONE);
@@ -453,15 +455,28 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
             startActivity(intent);
             finish();
         }else if (view==llQRCode){
-            if (approver) {
-                Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, QRAttendanceDashboardActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, QRCodeScannerActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+            if (pref.getSecurityCode().equals("1160")){
+                if (pref.getLoginID().equals("FSS0120") ||pref.getLoginID().equals("FSS0243") ||pref.getLoginID().equals("FSS0047")||pref.getLoginID().equals("FSS0163")||pref.getLoginID().equals("FSS0101") ){
+                    Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, QRAttendanceDashboardActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, QRCodeScannerActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }else {
+                if (approver) {
+                    Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, QRAttendanceDashboardActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, QRCodeScannerActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
             }
+
         }else if (view==tvOK){
             lnStatus.setVisibility(View.GONE);
         }
@@ -590,8 +605,10 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
                             if (responseStatus) {
 
                                 llSubordinate.setVisibility(View.VISIBLE);
+                                approver=true;
                             } else {
                                 llSubordinate.setVisibility(View.GONE);
+                                approver=false;
                                 // llShow.setVisibility(View.GONE);
                             }
 
@@ -960,4 +977,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
 
         return arr;
     }
+
+
+
 }

@@ -53,12 +53,8 @@ import com.genius.hrms.R;
 import com.genius.hrms.activity.utility.GPSTracker;
 import com.genius.hrms.activity.utility.NetworkConnectionCheck;
 import com.genius.hrms.activity.utility.Pref;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
+
+
 
 
 import org.json.JSONArray;
@@ -110,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
     String address;
     TextView tvQuery;
     String loginFlag="1";
-    private FirebaseDatabase mFirebaseInstance;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
     private void initialize() {
         gps = new GPSTracker(LoginActivity.this);
         pref = new Pref(LoginActivity.this);
-        mFirebaseInstance = FirebaseDatabase.getInstance();
+
         if (gps.canGetLocation()) {
             latitude = gps.getLatitude();
             Log.d("saikatdas", String.valueOf(latitude));
@@ -182,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
 
         imgForward = (ImageView) findViewById(R.id.imgForward);
         pgBar = (ProgressBar) findViewById(R.id.pgBar);
-        refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        refreshedToken = "12233";
         pref.saveRefreshToken(refreshedToken);
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -881,38 +877,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-    private void getBlockingStatus() {
 
-        DatabaseReference active_users = mFirebaseInstance.getReference("Blocking");
-        active_users.child(etSecurityCode.getText().toString()).child("Code").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null){
-                    //for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    String code = (String) dataSnapshot.getValue();
-
-                    Log.d("blobkcode",code);
-
-                    if (!code.equals("") && code!=null){
-
-                        loginFlag=code;
-
-
-                    }else {
-                        loginFlag="1";
-                    }
-
-                    // }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
 
 }

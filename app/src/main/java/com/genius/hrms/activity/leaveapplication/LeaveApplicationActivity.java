@@ -1,9 +1,11 @@
 package com.genius.hrms.activity.leaveapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,10 +16,19 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.EmployeeDashBoardActivity;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.utility.Pref;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class LeaveApplicationActivity extends AppCompatActivity {
@@ -25,7 +36,7 @@ public class LeaveApplicationActivity extends AppCompatActivity {
     ImageView imgBack,imgHome;
     TextView tvApproval,tvDetails,tvApllication,tvToolBar;
     Pref pref;
-
+    LinearLayout lnNonAccess,lnAccess;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +49,8 @@ public class LeaveApplicationActivity extends AppCompatActivity {
 
     private void initView(){
         pref=new Pref(getApplicationContext());
+        lnNonAccess=(LinearLayout)findViewById(R.id.lnNonAccess);
+        lnAccess=(LinearLayout)findViewById(R.id.lnAccess);
         llApplication=(LinearLayout)findViewById(R.id.llApplication);
         llApproval=(LinearLayout)findViewById(R.id.llApproval);
         llDetails=(LinearLayout)findViewById(R.id.llDetails);
@@ -131,4 +144,7 @@ public class LeaveApplicationActivity extends AppCompatActivity {
     public void  approverHidden(){
         llApproval.setVisibility(View.GONE);
     }
+
+
+
 }

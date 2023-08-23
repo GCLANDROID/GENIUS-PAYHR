@@ -1,9 +1,9 @@
 package com.genius.hrms.activity.model;
 
 public class ApprovalModel {
-    String mId,empName,leave,startDate,endDate,value,reason,approvalStatus;
+    String mId,empName,leave,startDate,endDate,value,reason,approvalStatus,Documentlink;
     private boolean isSelected = false;
-
+    int IsLink;
     public ApprovalModel(String mId, String empName, String leave, String startDate, String endDate, String value, String reason,String approvalStatus) {
         this.mId = mId;
         this.empName = empName;
@@ -85,5 +85,21 @@ public class ApprovalModel {
 
     public void setApprovalStatus(String approvalStatus) {
         this.approvalStatus = approvalStatus;
+    }
+
+    public String getDocumentlink() {
+        return Documentlink;
+    }
+
+    public void setDocumentlink(String documentlink) {
+        Documentlink = documentlink;
+    }
+
+    public int getIsLink() {
+        return IsLink;
+    }
+
+    public void setIsLink(int isLink) {
+        IsLink = isLink;
     }
 }

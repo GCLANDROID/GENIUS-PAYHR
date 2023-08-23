@@ -304,7 +304,7 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
     private void holidayCheckForSmartJoules() {
         Log.d("Arpan", "arpan");
         final ProgressDialog progressDialog = new ProgressDialog(OfflineDailyDashBoardActivity.this);
-        progressDialog.setMessage("Loadingg..");
+        progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String surl = pref.getIpAddress() + "GHRMSApi/api/getHolidayCheck/Get_HolidayListCheck?EmployeeID=" + pref.getEmpId() + "&HolidayDate=" + currentDate + "&SecurityCode=1153";

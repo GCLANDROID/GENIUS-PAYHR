@@ -61,6 +61,7 @@ public class AttendanceRegulizationActivity extends AppCompatActivity {
     RecyclerView rvItem;
     AlertDialog alerDialog1;
     EditText etFocus;
+    TextView tvNote;
 
 
 
@@ -75,6 +76,12 @@ public class AttendanceRegulizationActivity extends AppCompatActivity {
 
     private void initView(){
         pref=new Pref(AttendanceRegulizationActivity.this);
+        tvNote=(TextView)findViewById(R.id.tvNote);
+        if (pref.getSecurityCode().equals("1153")){
+            tvNote.setVisibility(View.GONE);
+        }else {
+            tvNote.setVisibility(View.VISIBLE);
+        }
         rvItem=(RecyclerView)findViewById(R.id.rvItem);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(AttendanceRegulizationActivity.this, LinearLayoutManager.VERTICAL, false);

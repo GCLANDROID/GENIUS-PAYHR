@@ -102,7 +102,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
     Bitmap photo;
     String loat, ling;
     Uri tempUri;
-    AlertDialog alerDialog1, alertDialog,punchDialog;
+    AlertDialog alerDialog1, alertDialog, punchDialog;
     Pref pref;
     ImageView imgBack, imgHome;
     File file, compressedImageFile;
@@ -120,10 +120,11 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
     private GoogleMap mMap;
     //  private MapView mapView;
     private LocationRequest mLocationRequest;
-    String address1,frstPunch;
-    Date date1,date2;
-    int days,hours,min;
+    String address1, frstPunch;
+    Date date1, date2;
+    int days, hours, min;
     String punchStatus;
+    String punchFrom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,9 +133,9 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         pref = new Pref(SmartJuleDailyLogActivity.this);
         securityCode = "1153";
-        frstPunch=getIntent().getStringExtra("frstPunch");
-        Log.d("frstPunch",frstPunch);
-
+        frstPunch = getIntent().getStringExtra("frstPunch");
+        Log.d("frstPunch", frstPunch);
+        punchFrom=getIntent().getStringExtra("punchFrom");
         connectionCheck = new NetworkConnectionCheck(SmartJuleDailyLogActivity.this);
         mLocationRequest = new LocationRequest();
         mLocationRequest = LocationRequest.create()
@@ -151,10 +152,10 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         imgBack = (ImageView) findViewById(R.id.imgBack);
         imgHome = (ImageView) findViewById(R.id.imgHome);
         attCode = getIntent().getStringExtra("attCode");
-        Date d=new Date();
-        SimpleDateFormat sdf=new SimpleDateFormat("hh:mm a");
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
         String currentDateTimeString = sdf.format(d);
-        if (!frstPunch.equals("0")){
+        if (!frstPunch.equals("0")) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
             try {
                 date1 = simpleDateFormat.parse(frstPunch);
@@ -165,14 +166,14 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
 
 
             long difference = date2.getTime() - date1.getTime();
-            days = (int) (difference / (1000*60*60*24));
-            hours = (int) ((difference - (1000*60*60*24*days)) / (1000*60*60));
-            min = (int) (difference - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
+            days = (int) (difference / (1000 * 60 * 60 * 24));
+            hours = (int) ((difference - (1000 * 60 * 60 * 24 * days)) / (1000 * 60 * 60));
+            min = (int) (difference - (1000 * 60 * 60 * 24 * days) - (1000 * 60 * 60 * hours)) / (1000 * 60);
             hours = (hours < 0 ? -hours : hours);
-            Log.i("Hours"," :: "+hours);
-            if (hours<9){
+            Log.i("Hours", " :: " + hours);
+            if (hours < 9) {
                 showAlert();
-            }else {
+            } else {
 
             }
         }
@@ -398,7 +399,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
 
         latLng = new LatLng(lat, lng);
         address = getCompleteAddressString(lat, lng);
-        address1= address.replaceAll("#","abc").replaceAll("\\s+", "_");
+        address1 = address.replaceAll("#", "abc").replaceAll("\\s+", "_");
         Log.d("attenaddrsees", address);
 
 
@@ -507,17 +508,17 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                     attendancefunction();
                 }*/
 
-                if (attCode.equals("1"))
-                {
-                        if (pref.getPunchFromID().equals("1")){
-                            punchAlert("ok");
-                        }else {
-                            attenDancePunchTest("OK", "1");
-                        }
+                if (attCode.equals("1")) {
+                    if (punchFrom.equalsIgnoreCase("Work From Office")) {
+
+                        attenDancePunchTest("OK", "1");
+                    } else {
+                        punchAlert("ok");
+                        // punchAlert("ok");
+                    }
 
 
-
-                }else {
+                } else {
                     attendanceAlert();
                 }
 
@@ -607,18 +608,15 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
             @Override
             public void onClick(View view) {
                 if (attenID.equals("1")) {
-                    if (etReason.getText().toString().length() > 0) {
 
-                            //attenDancePunchTest(etReason.getText().toString(), attenID);
-                        punchAlert(etReason.getText().toString());
 
-                    } else {
-                        Toast.makeText(SmartJuleDailyLogActivity.this, "Please Enter Your Reason", Toast.LENGTH_LONG).show();
-                    }
+                    //attenDancePunchTest(etReason.getText().toString(), attenID);
+                    punchAlert(etReason.getText().toString());
+
 
                 } else {
 
-                        attenDancePunchTest("OK", attenID);
+                    attenDancePunchTest("OK", attenID);
 
                 }
             }
@@ -637,10 +635,10 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         View dialogView = inflater.inflate(R.layout.dialog_punchstatus, null);
         dialogBuilder.setView(dialogView);
         final Spinner spOption = (Spinner) dialogView.findViewById(R.id.spOption);
-        if (attCode.equals("1")){
+        if (attCode.equals("1")) {
             punchOptionList.add("Mid Punch");
             punchOptionList.add("Logout Punch");
-        }else {
+        } else {
             punchOptionList.add("Login Punch");
         }
 
@@ -656,10 +654,8 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         spOption.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               punchStatus=punchOptionList.get(i);
-               if (punchStatus.equals("Logout Punch")){
-                   pref.savePunchFromID("0");
-               }
+                punchStatus = punchOptionList.get(i);
+
 
             }
 
@@ -674,13 +670,11 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
             @Override
             public void onClick(View view) {
 
-                    if (flag==1){
-                        wfhPunch(reason, punchStatus);
-                    }else {
-                        wfhWithOutImage(reason,punchStatus);
-                    }
-
-
+                if (flag == 1) {
+                    wfhPunch(reason, punchStatus);
+                } else {
+                    wfhWithOutImage(reason, punchStatus);
+                }
 
 
             }
@@ -694,10 +688,6 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
     }
 
 
-
-
-
-
     private void attenDancePunchTest(final String reason, final String attenID) {
         final ProgressDialog progressDialog = new ProgressDialog(SmartJuleDailyLogActivity.this);
         progressDialog.setMessage("Loading..");
@@ -706,10 +696,10 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         AndroidNetworking.upload(pref.getIpAddress() + "GHRMSApi/api/post_DailyLogSmartJoules")
                 .addMultipartFile("ImageFile", compressedImageFile)
                 .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
-                .addMultipartParameter("ProjectAID","0")
-                .addMultipartParameter("SubProjectAID","0")
-                .addMultipartParameter("ApprovalStatus","0")
-                .addMultipartParameter("Remarks",reason)
+                .addMultipartParameter("ProjectAID", "0")
+                .addMultipartParameter("SubProjectAID", "0")
+                .addMultipartParameter("ApprovalStatus", "0")
+                .addMultipartParameter("Remarks", reason)
                 .addMultipartParameter("Longitude", ling)
                 .addMultipartParameter("Latitude", laat)
                 .addMultipartParameter("Address", address)
@@ -717,62 +707,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                 .addMultipartParameter("Month", "0")
                 .addMultipartParameter("ApprovalStatus", "0")
                 .addMultipartParameter("SecurityCode", pref.getSecurityCode())
-                .addMultipartParameter("PunchFrom",attenID)
-                .setTag("Uploadfirst")
-                .setPriority(Priority.HIGH)
-                .build()
-                .setUploadProgressListener(new UploadProgressListener() {
-                    @Override
-                    public void onProgress(long bytesUploaded, long totalBytes) {
-
-                    }
-                }).getAsJSONObject(new JSONObjectRequestListener() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.i("response", String.valueOf(response));
-                progressDialog.dismiss();
-                JSONObject ob = response;
-                String s1 = ob.optString("responseCode");
-                if (s1.equals("1")) {
-                    successAlert();
-
-                }else {
-                    attenDancePunchWithOutImage(reason,attenID);
-
-                }
-                // /data/user/0/com.genius.hrms/cache/images/1658470402880.png
-
-            }
-
-            @Override
-            public void onError(ANError anError) {
-                progressDialog.dismiss();
-                Log.i("onError", String.valueOf(anError));
-            }
-        });
-    }
-
-    private void wfhPunch(final String reason,String status) {
-        final ProgressDialog progressDialog = new ProgressDialog(SmartJuleDailyLogActivity.this);
-        progressDialog.setMessage("Loading..");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-        AndroidNetworking.upload(pref.getIpAddress() + "GHRMSApi/api/post_DailyLogSmartJoulesV1")
-                .addMultipartFile("ImageFile", compressedImageFile)
-                .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
-                .addMultipartParameter("ProjectAID","0")
-                .addMultipartParameter("SubProjectAID","0")
-                .addMultipartParameter("ApprovalStatus","0")
-                .addMultipartParameter("Remarks",reason)
-                .addMultipartParameter("Longitude", ling)
-                .addMultipartParameter("Latitude", laat)
-                .addMultipartParameter("Address", address)
-                .addMultipartParameter("Year", "0")
-                .addMultipartParameter("Month", "0")
-                .addMultipartParameter("ApprovalStatus", "0")
-                .addMultipartParameter("SecurityCode", pref.getSecurityCode())
-                .addMultipartParameter("PunchFrom","1")
-                .addMultipartParameter("PunchFromStatus",status)
+                .addMultipartParameter("PunchFrom", attenID)
                 .setTag("Uploadfirst")
                 .setPriority(Priority.HIGH)
                 .build()
@@ -791,8 +726,63 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                         if (s1.equals("1")) {
                             successAlert();
 
-                        }else {
-                            attenDancePunchWithOutImage(reason,attenID);
+                        } else {
+                            attenDancePunchWithOutImage(reason, attenID);
+
+                        }
+                        // /data/user/0/com.genius.hrms/cache/images/1658470402880.png
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        progressDialog.dismiss();
+                        Log.i("onError", String.valueOf(anError));
+                    }
+                });
+    }
+
+    private void wfhPunch(final String reason, String status) {
+        final ProgressDialog progressDialog = new ProgressDialog(SmartJuleDailyLogActivity.this);
+        progressDialog.setMessage("Loading..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        AndroidNetworking.upload(pref.getIpAddress() + "GHRMSApi/api/post_DailyLogSmartJoulesV1")
+                .addMultipartFile("ImageFile", compressedImageFile)
+                .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
+                .addMultipartParameter("ProjectAID", "0")
+                .addMultipartParameter("SubProjectAID", "0")
+                .addMultipartParameter("ApprovalStatus", "0")
+                .addMultipartParameter("Remarks", reason)
+                .addMultipartParameter("Longitude", ling)
+                .addMultipartParameter("Latitude", laat)
+                .addMultipartParameter("Address", address)
+                .addMultipartParameter("Year", "0")
+                .addMultipartParameter("Month", "0")
+                .addMultipartParameter("ApprovalStatus", "0")
+                .addMultipartParameter("SecurityCode", pref.getSecurityCode())
+                .addMultipartParameter("PunchFrom", "1")
+                .addMultipartParameter("PunchFromStatus", status)
+                .setTag("Uploadfirst")
+                .setPriority(Priority.HIGH)
+                .build()
+                .setUploadProgressListener(new UploadProgressListener() {
+                    @Override
+                    public void onProgress(long bytesUploaded, long totalBytes) {
+
+                    }
+                }).getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i("response", String.valueOf(response));
+                        progressDialog.dismiss();
+                        JSONObject ob = response;
+                        String s1 = ob.optString("responseCode");
+                        if (s1.equals("1")) {
+                            successAlert();
+
+                        } else {
+                            attenDancePunchWithOutImage(reason, attenID);
 
                         }
                         // /data/user/0/com.genius.hrms/cache/images/1658470402880.png
@@ -808,9 +798,6 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
     }
 
 
-
-
-
     private void attenDancePunchWithOutImage(String reason, String attenID) {
         final ProgressDialog progressDialog = new ProgressDialog(SmartJuleDailyLogActivity.this);
         progressDialog.setMessage("Loading..");
@@ -818,10 +805,10 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         progressDialog.show();
         AndroidNetworking.upload(pref.getIpAddress() + "GHRMSApi/api/post_DailyLogSmartJoulesWithoutImage")
                 .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
-                .addMultipartParameter("ProjectAID","0")
-                .addMultipartParameter("SubProjectAID","0")
-                .addMultipartParameter("ApprovalStatus","0")
-                .addMultipartParameter("Remarks",reason)
+                .addMultipartParameter("ProjectAID", "0")
+                .addMultipartParameter("SubProjectAID", "0")
+                .addMultipartParameter("ApprovalStatus", "0")
+                .addMultipartParameter("Remarks", reason)
                 .addMultipartParameter("Longitude", ling)
                 .addMultipartParameter("Latitude", laat)
                 .addMultipartParameter("Address", address)
@@ -829,8 +816,8 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                 .addMultipartParameter("Month", "0")
                 .addMultipartParameter("ApprovalStatus", "0")
                 .addMultipartParameter("SecurityCode", pref.getSecurityCode())
-                .addMultipartParameter("PunchFrom",attenID)
-                .addMultipartParameter("PunchFromStatus","")
+                .addMultipartParameter("PunchFrom", attenID)
+                .addMultipartParameter("PunchFromStatus", "")
                 .setTag("Uploadfirst")
                 .setPriority(Priority.HIGH)
                 .build()
@@ -849,7 +836,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                         if (s1.equals("1")) {
                             successAlert();
 
-                        }else {
+                        } else {
 
                         }
                         // /data/user/0/com.genius.hrms/cache/images/1658470402880.png
@@ -872,10 +859,10 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         progressDialog.show();
         AndroidNetworking.upload(pref.getIpAddress() + "GHRMSApi/api/post_DailyLogSmartJoulesWithoutImage")
                 .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
-                .addMultipartParameter("ProjectAID","0")
-                .addMultipartParameter("SubProjectAID","0")
-                .addMultipartParameter("ApprovalStatus","0")
-                .addMultipartParameter("Remarks",reason)
+                .addMultipartParameter("ProjectAID", "0")
+                .addMultipartParameter("SubProjectAID", "0")
+                .addMultipartParameter("ApprovalStatus", "0")
+                .addMultipartParameter("Remarks", reason)
                 .addMultipartParameter("Longitude", ling)
                 .addMultipartParameter("Latitude", laat)
                 .addMultipartParameter("Address", address)
@@ -883,8 +870,8 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                 .addMultipartParameter("Month", "0")
                 .addMultipartParameter("ApprovalStatus", "0")
                 .addMultipartParameter("SecurityCode", pref.getSecurityCode())
-                .addMultipartParameter("PunchFrom","1")
-                .addMultipartParameter("PunchFromStatus",status)
+                .addMultipartParameter("PunchFrom", "1")
+                .addMultipartParameter("PunchFromStatus", status)
                 .setTag("Uploadfirst")
                 .setPriority(Priority.HIGH)
                 .build()
@@ -903,7 +890,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
                         if (s1.equals("1")) {
                             successAlert();
 
-                        }else {
+                        } else {
 
                         }
                         // /data/user/0/com.genius.hrms/cache/images/1658470402880.png

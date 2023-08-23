@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="02/02/2020"
-            android:layout_weight="0.5"
+            android:layout_weight="0.4"
             android:layout_gravity="center"
             android:textColor="@android:color/black"
             android:textSize="10sp"/>
@@ -39,7 +39,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.5">
+            android:layout_weight="0.3">
             <TextView
                 android:id="@+id/tvAppInTime"
                 android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.5">
+            android:layout_weight="0.3">
             <TextView
                 android:id="@+id/tvAppOutTime"
                 android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
             android:background="@drawable/lldesign7"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_weight="1.2">
+            android:layout_weight="1.5">
             <Spinner
                 android:id="@+id/spIssue"
                 android:layout_width="match_parent"

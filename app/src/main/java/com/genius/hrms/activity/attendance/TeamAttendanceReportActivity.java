@@ -264,7 +264,7 @@ public class TeamAttendanceReportActivity extends AppCompatActivity {
         llMain.setVisibility(View.GONE);
         llNodata.setVisibility(View.GONE);
         llAgain.setVisibility(View.GONE);
-        String surl = pref.getIpAddress()+"GHRMSApi/api/get_EmployeeAttendanceReportSmartJoules?AEMConsultantID=" + pref.getEmpConId() + "&AEMClientID=" + pref.getEmpClintId() + "&AEMClientOfficeID=" + pref.getEmpClintOffId() + "&AEMEmployeeID=" + pref.getEmpId() + "&CurrentPage=0&AID=1&ApproverStatus=4&YearVal=" + year + "&MonthName=" + month + "&WorkingStatus=1&DbOperation=1&SecurityCode="+pref.getSecurityCode();
+        String surl = pref.getIpAddress()+"GHRMSApi/api/get_EmployeeAttendanceReportSmartJoules?AEMConsultantID=" + pref.getEmpConId() + "&AEMClientID=" + pref.getEmpClintId() + "&AEMClientOfficeID=" + pref.getEmpClintOffId() + "&AEMEmployeeID=" + empID+ "&CurrentPage=0&AID=1&ApproverStatus=4&YearVal=" + year + "&MonthName=" + month + "&WorkingStatus=1&DbOperation=1&SecurityCode="+pref.getSecurityCode();
         Log.d("input", surl);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
                 new Response.Listener<String>() {

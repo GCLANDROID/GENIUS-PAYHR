@@ -59,12 +59,8 @@ import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.android.play.core.tasks.OnCompleteListener;
 import com.google.android.play.core.tasks.OnFailureListener;
 import com.google.android.play.core.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
+
+
 
 
 import org.json.JSONArray;
@@ -86,7 +82,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
     String IsModified;
     String AEMEmployeeID;
     String SecurityCode;
-    private FirebaseDatabase mFirebaseInstance;
+
     private static boolean s_persistenceInitialized = false;
     String loginFlag="1";
     private ReviewManager reviewManager;
@@ -149,11 +145,11 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
     private void initialize() {
         pref = new Pref(getApplicationContext());
         reviewManager = ReviewManagerFactory.create(this);
-        mFirebaseInstance = FirebaseDatabase.getInstance();
-        getBlockingStatus();
+
+
         connectionCheck = new NetworkConnectionCheck(this);
         myPermission = new CreativePermission(this, PERMISSION_ALL);
-        refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        refreshedToken = "12344";
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         if (android_id.equals("")) {
@@ -589,36 +585,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
         alertDialog.show();
     }
 
-    private void getBlockingStatus() {
-        DatabaseReference active_users = mFirebaseInstance.getReference("Blocking");
-        active_users.child(pref.getSecurityCode()).child("Code").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null){
-                    //for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    String code = (String) dataSnapshot.getValue();
 
-                    Log.d("blobkcode",code);
-
-                    if (!code.equals("") && code!=null){
-
-                        loginFlag=code;
-
-
-                    }else {
-                        loginFlag="1";
-                    }
-
-                    // }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
 
 

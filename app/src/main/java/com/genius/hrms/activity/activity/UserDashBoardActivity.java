@@ -21,6 +21,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -37,12 +38,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import com.genius.hrms.R;
 import com.genius.hrms.activity.adapter.AttendanceAdapter;
 import com.genius.hrms.activity.adapter.MenuItemAdapter;
@@ -67,11 +70,7 @@ import com.google.android.play.core.tasks.OnFailureListener;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
@@ -80,6 +79,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -102,15 +102,12 @@ public class UserDashBoardActivity extends AppCompatActivity {
     AlertDialog alerDialog1,alert1;
     LinearLayout llUser;
     ImageView imgLogout;
-    DatabaseReference reference;
-    private FirebaseDatabase mFirebaseInstance;
+
+
     String formattedDate,deviceName,menuName;
     ImageView imgUser;
     NetworkStateChecker airplaneModeChangeReceiver = new NetworkStateChecker();
     DailylogSyncReciever dailyLogReciever = new DailylogSyncReciever();
-
-
-
 
 
     @Override
@@ -126,7 +123,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
         // Referencing the button
 
-        mFirebaseInstance = FirebaseDatabase.getInstance();
+
         pref.setFirstTimeLaunch(true);
 
         imgUser=(ImageView)findViewById(R.id.imgUser);
@@ -202,7 +199,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         formattedDate = df.format(cd);
         deviceName=android.os.Build.MODEL;
-        activeUsers();
+        //activeUsers();
 
         SharedPreferences prefs = getSharedPreferences("com.genius.hrms", MODE_PRIVATE);
 
@@ -671,35 +668,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
                                     }
                                     Log.d("id",pref.getempcode());
                                     Log.d("name",pref.getempname());
-                                    reference= FirebaseDatabase.getInstance().getReference("Users-"+pref.getSecurityCode()).child(pref.getempcode());
-                                    ValueEventListener valueEventListener=new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            if (!dataSnapshot.exists()){
-                                                HashMap<String,String> map=new HashMap<>();
-                                                map.put("id",pref.getempcode());
-                                                map.put("username",pref.getempname());
-                                                map.put("imageUrl","default");
-                                                map.put("status","offline");
-                                                map.put("search",pref.getempname().toLowerCase());
-                                                reference.setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()){
-                                                            Log.d("status","successfull");
 
-                                                        }
-                                                    }
-                                                });
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                        }
-                                    };
-                                    reference.addListenerForSingleValueEvent(valueEventListener);
 
 
 
@@ -738,11 +707,6 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
 
     public void activeUsers(){
-
-        ActiveUserModel model=new ActiveUserModel(formattedDate,deviceName,"");
-        final DatabaseReference refUnread = mFirebaseInstance.getReference("HRMS_COMMON");
-        refUnread.child("Active_User").child(pref.getSecurityCode()).child(formattedDate).child(pref.getMasterId()).setValue(model);
-
 
     }
 

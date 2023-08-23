@@ -467,7 +467,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
     private void getAttendanceInformation() {
         Log.d("Arpan", "arpan");
         final ProgressDialog progressDialog = new ProgressDialog(AttendanceActivity.this);
-        progressDialog.setMessage("Loadingg..");
+        progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
@@ -529,7 +529,7 @@ public class AttendanceActivity extends AppCompatActivity implements GoogleApiCl
     private void getAttendanceInformationForSmart() {
         Log.d("Arpan", "arpan");
         final ProgressDialog progressDialog = new ProgressDialog(AttendanceActivity.this);
-        progressDialog.setMessage("Loadingg..");
+        progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
         String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
