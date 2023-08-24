@@ -168,7 +168,6 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_log_attendane_archisman);
 
-        Toast.makeText(getApplicationContext(),"HIIIII ",Toast.LENGTH_SHORT).show();
 
         initview();
         spinnerChoose();
