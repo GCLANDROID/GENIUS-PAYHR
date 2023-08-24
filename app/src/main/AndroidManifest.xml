@@ -517,7 +517,9 @@
         <activity
             android:name=".activity.dailylog.SmartJuleDailyLogActivity"
             android:exported="true"
-            android:screenOrientation="userPortrait" />
+            android:screenOrientation="userPortrait"></activity>
+        <activity android:name=".activity.dailylog.Dayco.DailyLogAttendaneDayco"
+            android:screenOrientation="userPortrait"></activity>
     </application>
 
 </manifest>

@@ -1,8 +1,4 @@
-package com.genius.hrms.activity.dailylog.archisman;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+package com.genius.hrms.activity.dailylog.Dayco;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -36,7 +32,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,6 +39,10 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -59,7 +58,6 @@ import com.androidnetworking.interfaces.UploadProgressListener;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
-import com.genius.hrms.activity.dailylog.DailyLogMarkActivity;
 import com.genius.hrms.activity.helper.DatabaseHelperForDailyLog;
 import com.genius.hrms.activity.utility.AttendanceService;
 import com.genius.hrms.activity.utility.GPSTracker;
@@ -106,7 +104,7 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     TextView tvAddress, tvTime;
     LinearLayout llRefresh;
@@ -160,6 +158,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
 
     private Spinner spinner;
     double geoFencingValue=0.0;
+    LinearLayout lnClient;
 
 
 
@@ -170,7 +169,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
 
 
         initview();
-        spinnerChoose();
+
         setUpMapIfNeeded();
         onClick();
     }
@@ -178,9 +177,10 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
     @SuppressLint("RestrictedApi")
     private void initview() {
         db = new DatabaseHelperForDailyLog(this);
-        pref = new Pref(DailyLogAttendaneArchisman.this);
+        pref = new Pref(DailyLogAttendaneDayco.this);
         lnMain=(LinearLayout) findViewById(R.id.lnMain);
         lnLoader=(LinearLayout) findViewById(R.id.lnLoader);
+        lnClient=(LinearLayout) findViewById(R.id.lnClient);
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -218,7 +218,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
         imgCamera = (ImageView) findViewById(R.id.imgCamera);
         imgImage = (ImageView) findViewById(R.id.imgImage);
 
-        gps = new GPSTracker(DailyLogAttendaneArchisman.this);
+        gps = new GPSTracker(DailyLogAttendaneDayco.this);
 
         spinner = findViewById(R.id.autoCompleteTextView);
 
@@ -226,7 +226,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
         spinner = findViewById(R.id.autoCompleteTextView);
 
         // Sample data for autocomplete suggestions
-        String[] operation = {"Office","Field"};
+        String[] operation = {"Office","Client Place"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, operation);
@@ -264,25 +264,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
 
 
     private void spinnerChoose(){
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedOption = (String) parent.getItemAtPosition(position);
-                // Perform actions based on the selected option
 
-                if(selectedOption.equalsIgnoreCase("Office")){
-                    geoFencingValue = distFrom((float) 22.60052249799021, (float)88.47295839739857,(float)latitude, (float)longitude);
-                  Log.i("HSHSHSH ","HSHSHSH "+ geoFencingValue);
-                }
-
-                Log.i("GSGSGS ","DSFSFS "+ selectedOption);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Handle case where nothing is selected
-            }
-        });
 
 
     }
@@ -303,6 +285,28 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
 
 
     private void onClick() {
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedOption = (String) parent.getItemAtPosition(position);
+                // Perform actions based on the selected option
+
+                if (selectedOption.equalsIgnoreCase("Client Place")){
+                    lnClient.setVisibility(View.VISIBLE);
+                }else {
+                    lnClient.setVisibility(View.GONE);
+                }
+
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Handle case where nothing is selected
+            }
+        });
         imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -360,7 +364,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
         tvCustom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LongImageCameraActivity.launch(DailyLogAttendaneArchisman.this);
+                LongImageCameraActivity.launch(DailyLogAttendaneDayco.this);
             }
         });
 
@@ -368,7 +372,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DailyLogAttendaneArchisman.this, UserDashBoardActivity.class);
+                Intent intent = new Intent(DailyLogAttendaneDayco.this, UserDashBoardActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -415,7 +419,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
                             //messageAlert();
                             String imageurl = /*"file://" +*/ getRealPathFromURIPath(imageUri);
                             file = new File(imageurl);
-                            compressedImageFile = new ImageZipper(DailyLogAttendaneArchisman.this)
+                            compressedImageFile = new ImageZipper(DailyLogAttendaneDayco.this)
                                     .setQuality(80)
                                     .setMaxWidth(250)
                                     .setMaxHeight(250)
@@ -450,9 +454,9 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
                     try {
                         try {
                             uri = data.getData();
-                            String filePath = getRealPathFromURIPath(uri, DailyLogAttendaneArchisman.this);
+                            String filePath = getRealPathFromURIPath(uri, DailyLogAttendaneDayco.this);
                             file = new File(filePath);
-                            compressedImageFile = new ImageZipper(DailyLogAttendaneArchisman.this)
+                            compressedImageFile = new ImageZipper(DailyLogAttendaneDayco.this)
                                     .setQuality(80)
                                     .setMaxWidth(250)
                                     .setMaxHeight(250)
@@ -480,7 +484,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
                 if (resultCode == RESULT_OK && requestCode == LongImageCameraActivity.LONG_IMAGE_RESULT_CODE) {
                     file = (File) data.getExtras().get("picture");
                     try {
-                        compressedImageFile = new ImageZipper(DailyLogAttendaneArchisman.this)
+                        compressedImageFile = new ImageZipper(DailyLogAttendaneDayco.this)
                                 .setQuality(80)
                                 .setMaxWidth(250)
                                 .setMaxHeight(250)
@@ -528,7 +532,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
 
 
     private void successAlert() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(DailyLogAttendaneArchisman.this, R.style.CustomDialogNew);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(DailyLogAttendaneDayco.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.succes_alert, null);
         dialogBuilder.setView(dialogView);
@@ -576,7 +580,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
     private void getAPIKey() {
         String surl = "https://cloud.geniusconsultant.com/GeniusESS/API/Utility/GetLocationKey";
         Log.d("residancelist", surl);
-        final ProgressDialog progressDialog=new ProgressDialog(DailyLogAttendaneArchisman.this);
+        final ProgressDialog progressDialog=new ProgressDialog(DailyLogAttendaneDayco.this);
         progressDialog.setMessage("Loading..");
         progressDialog.setCancelable(false);
         progressDialog.show();
@@ -621,7 +625,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(DailyLogAttendaneArchisman.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(DailyLogAttendaneDayco.this);
         requestQueue.add(stringRequest);
 
 
@@ -631,7 +635,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
         String testUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=28.5530871,77.201581&key=" + apikey;
         String surl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&key=" + apikey;
         Log.d("residancelist", surl);
-        final ProgressDialog pd = new ProgressDialog(DailyLogAttendaneArchisman.this);
+        final ProgressDialog pd = new ProgressDialog(DailyLogAttendaneDayco.this);
         pd.setMessage("Loading");
         pd.setCancelable(false);
         pd.show();
@@ -704,7 +708,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
         }) {
 
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(DailyLogAttendaneArchisman.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(DailyLogAttendaneDayco.this);
         requestQueue.add(stringRequest);
 
 
@@ -737,7 +741,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
 
 
     private void dailyActivity() {
-        final ProgressDialog progressDialog=new ProgressDialog(DailyLogAttendaneArchisman.this);
+        final ProgressDialog progressDialog=new ProgressDialog(DailyLogAttendaneDayco.this);
         progressDialog.setMessage("Loading");
         progressDialog.setCancelable(false);
         String aemid = pref.getEmpId();
@@ -825,7 +829,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(DailyLogAttendaneArchisman.this,
+            if (ContextCompat.checkSelfPermission(DailyLogAttendaneDayco.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 //Location Permission already granted
@@ -850,7 +854,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
     @Override
     public void onConnected(Bundle bundle) {
 
-        if (ContextCompat.checkSelfPermission(DailyLogAttendaneArchisman.this,
+        if (ContextCompat.checkSelfPermission(DailyLogAttendaneDayco.this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -864,7 +868,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
 
     protected synchronized void buildGoogleApiClient() {
 
-        mGoogleApiClient = new GoogleApiClient.Builder(DailyLogAttendaneArchisman.this)
+        mGoogleApiClient = new GoogleApiClient.Builder(DailyLogAttendaneDayco.this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
@@ -882,7 +886,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
         if (connectionResult.hasResolution()) {
             try {
                 // Start an Activity that tries to resolve the error
-                connectionResult.startResolutionForResult(DailyLogAttendaneArchisman.this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                connectionResult.startResolutionForResult(DailyLogAttendaneDayco.this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
                 /*
                  * Thrown if Google Play services canceled the original
                  * PendingIntent
@@ -949,24 +953,24 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
 
 
     private void checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(DailyLogAttendaneArchisman.this, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(DailyLogAttendaneDayco.this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(DailyLogAttendaneArchisman.this,
+            if (ActivityCompat.shouldShowRequestPermissionRationale(DailyLogAttendaneDayco.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-                new AlertDialog.Builder(DailyLogAttendaneArchisman.this)
+                new AlertDialog.Builder(DailyLogAttendaneDayco.this)
                         .setTitle("Location Permission Needed")
                         .setMessage("This app needs the Location permission, please accept to use location functionality")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(DailyLogAttendaneArchisman.this,
+                                ActivityCompat.requestPermissions(DailyLogAttendaneDayco.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION);
                             }
@@ -977,7 +981,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
 
             } else {
                 // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(DailyLogAttendaneArchisman.this,
+                ActivityCompat.requestPermissions(DailyLogAttendaneDayco.this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
             }
@@ -997,7 +1001,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
 
                     // permission was granted, yay! Do the
                     // location-related task you need to do.
-                    if (ContextCompat.checkSelfPermission(DailyLogAttendaneArchisman.this,
+                    if (ContextCompat.checkSelfPermission(DailyLogAttendaneDayco.this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
 
@@ -1011,7 +1015,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
 
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(DailyLogAttendaneArchisman.this, "permission denied", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DailyLogAttendaneDayco.this, "permission denied", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -1023,7 +1027,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
 
 
     private void dailyLogWithoutImage() {
-        final ProgressDialog pd=new ProgressDialog(DailyLogAttendaneArchisman.this);
+        final ProgressDialog pd=new ProgressDialog(DailyLogAttendaneDayco.this);
         pd.setMessage("Loading..");
         pd.setCancelable(false);
         pd.show();
@@ -1091,7 +1095,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                         arg0.dismiss();
-                        Intent intent=new Intent(DailyLogAttendaneArchisman.this,UserDashBoardActivity.class);
+                        Intent intent=new Intent(DailyLogAttendaneDayco.this,UserDashBoardActivity.class);
                         startActivity(intent);
                         finish();
                     }

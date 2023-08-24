@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
 import com.genius.hrms.activity.adapter.VisitingLocationAdapter;
+import com.genius.hrms.activity.dailylog.Dayco.DailyLogAttendaneDayco;
 import com.genius.hrms.activity.dailylog.archisman.DailyLogAttendaneArchisman;
 import com.genius.hrms.activity.geofence.GeoFenceDailyLogManageActivity;
 import com.genius.hrms.activity.model.VisitingLocationModel;
@@ -215,6 +216,10 @@ public class VisitLocationActivity extends AppCompatActivity {
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneArchisman.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                }else if (pref.getSecurityCode().equals("1167")) {
+                    Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneDayco.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 } else {
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogMarkActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -242,6 +247,10 @@ public class VisitLocationActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else if (pref.getSecurityCode().equals("1168")) {
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneArchisman.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }else if (pref.getSecurityCode().equals("1167")) {
+                    Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneDayco.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else {
