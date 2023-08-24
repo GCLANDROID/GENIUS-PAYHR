@@ -224,7 +224,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
         spinner = findViewById(R.id.autoCompleteTextView);
 
         // Sample data for autocomplete suggestions
-        String[] operation = {"Field","Office"};
+        String[] operation = {"Select Mode","Work From Office", "Work From Field"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, operation);
@@ -270,7 +270,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
                 // Perform actions based on the selected option
 
                 if(selectedOption.equalsIgnoreCase("Work From Office")){
-                    geoFencingValue = distFrom((float) 22.60052249799021, (float)88.47295839739857,(float) latLng.latitude,(float) latLng.longitude);
+                    geoFencingValue = distFrom((float) 22.60052249799021, (float)88.47295839739857,(float)22.6001979, (float)88.4727269);
                   Log.i("HSHSHSH ","HSHSHSH "+ geoFencingValue);
                 }
 
