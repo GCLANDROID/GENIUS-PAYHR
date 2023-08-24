@@ -211,7 +211,7 @@ public class VisitLocationActivity extends AppCompatActivity {
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogMarkActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                } else if (pref.getSecurityCode().equals("1000")) {
+                } else if (pref.getSecurityCode().equals("1168")) {
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneArchisman.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -240,7 +240,7 @@ public class VisitLocationActivity extends AppCompatActivity {
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogMarkActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                } else if (pref.getSecurityCode().equals("1000")) {
+                } else if (pref.getSecurityCode().equals("1168")) {
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneArchisman.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
