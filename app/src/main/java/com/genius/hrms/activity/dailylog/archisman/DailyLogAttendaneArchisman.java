@@ -270,7 +270,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
                 // Perform actions based on the selected option
 
                 if(selectedOption.equalsIgnoreCase("Work From Office")){
-                    geoFencingValue = distFrom((float) 22.60052249799021, (float)88.47295839739857,(float)22.6001979, (float)88.4727269);
+                    geoFencingValue = distFrom((float) 22.60052249799021, (float)88.47295839739857,(float) latLng.latitude,(float) latLng.longitude);
                   Log.i("HSHSHSH ","HSHSHSH "+ geoFencingValue);
                 }
 
