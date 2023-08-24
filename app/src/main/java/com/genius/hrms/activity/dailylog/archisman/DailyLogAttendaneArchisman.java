@@ -224,7 +224,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
         spinner = findViewById(R.id.autoCompleteTextView);
 
         // Sample data for autocomplete suggestions
-        String[] operation = {"Select Mode","Work From Office", "Work From Field"};
+        String[] operation = {"Field","Office"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, operation);
