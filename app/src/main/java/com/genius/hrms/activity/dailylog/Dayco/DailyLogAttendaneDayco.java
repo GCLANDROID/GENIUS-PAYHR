@@ -58,6 +58,7 @@ import com.androidnetworking.interfaces.UploadProgressListener;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.hrms.R;
 import com.genius.hrms.activity.activity.UserDashBoardActivity;
+import com.genius.hrms.activity.dailylog.DailyLogCalenderDashboardActivity;
 import com.genius.hrms.activity.helper.DatabaseHelperForDailyLog;
 import com.genius.hrms.activity.utility.AttendanceService;
 import com.genius.hrms.activity.utility.GPSTracker;
@@ -88,6 +89,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -159,6 +161,10 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
     private Spinner spinner;
     double geoFencingValue=0.0;
     LinearLayout lnClient;
+    ArrayList<String>clientList=new ArrayList<>();
+    Spinner spClient;
+    String client="Office";
+    String workmode;
 
 
 
@@ -223,7 +229,8 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
         spinner = findViewById(R.id.autoCompleteTextView);
 
         // Sample data for autocomplete suggestions
-        spinner = findViewById(R.id.autoCompleteTextView);
+
+        spClient = findViewById(R.id.spClient);
 
         // Sample data for autocomplete suggestions
         String[] operation = {"Office","Client Place"};
@@ -289,14 +296,34 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedOption = (String) parent.getItemAtPosition(position);
+                workmode = (String) parent.getItemAtPosition(position);
                 // Perform actions based on the selected option
 
-                if (selectedOption.equalsIgnoreCase("Client Place")){
+                if (workmode.equalsIgnoreCase("Client Place")){
                     lnClient.setVisibility(View.VISIBLE);
+                    setClientList();
                 }else {
                     lnClient.setVisibility(View.GONE);
                 }
+
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Handle case where nothing is selected
+            }
+        });
+
+
+        spClient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               client = clientList.get(position);
+                // Perform actions based on the selected option
+
+
 
 
 
@@ -743,55 +770,60 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
     private void dailyActivity() {
         final ProgressDialog progressDialog=new ProgressDialog(DailyLogAttendaneDayco.this);
         progressDialog.setMessage("Loading");
+        progressDialog.show();
         progressDialog.setCancelable(false);
-        String aemid = pref.getEmpId();
-        String security = pref.getSecurityCode();
-        final String remarks = etRemarks.getText().toString();
-        progressDialog.show();
-        progressDialog.show();
-        RequestBody mFile = RequestBody.create(MediaType.parse(".png"), compressedImageFile);
-        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", compressedImageFile.getName(), mFile);
-        RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), compressedImageFile.getName());
-
-        Call<UploadObject> fileUpload = uploadService.dailyactivityTATAGY(fileToUpload, aemid, "0", remarks, currentlong, currentlat, address, "0", "0", security, "0");
-        fileUpload.enqueue(new Callback<UploadObject>() {
-            @Override
-            public void onResponse(Call<UploadObject> call, retrofit2.Response<UploadObject> response) {
-                progressDialog.dismiss();
-                UploadObject extraWorkingDayModel = response.body();
-                if (extraWorkingDayModel.isResponseStatus()) {
-                    successAlert();
-
-
-                } else {
-
-                    Toast.makeText(getApplicationContext(), extraWorkingDayModel.getResponseText(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UploadObject> call, Throwable t) {
-                progressDialog.dismiss();
-                btnSubmit.setVisibility(View.VISIBLE);
-                Date d = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                String currentDateTimeString = sdf.format(d);
-
-                Date dof = Calendar.getInstance().getTime();
+        AndroidNetworking.upload(pref.getIpAddress() + "ghrmsapi/api/Post_Dailylog_Dayco/postAttendance")
+                .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
+                .addMultipartParameter("ApprovalStatus", "1")
+                .addMultipartParameter("Remarks", etRemarks.getText().toString())
+                .addMultipartParameter("Longitude", currentlong)
+                .addMultipartParameter("Latitude", currentlat)
+                .addMultipartParameter("Address", address)
+                .addMultipartParameter("Year", "2023")
+                .addMultipartParameter("Month", "08")
+                .addMultipartParameter("SecurityCode", pref.getSecurityCode())
+                .addMultipartParameter("WorkMode", workmode)
+                .addMultipartParameter("Client",client)
+                .addMultipartParameter("FName", "0")
+                .addMultipartFile("Image",compressedImageFile)
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
+                .setUploadProgressListener(new UploadProgressListener() {
+                    @Override
+                    public void onProgress(long bytesUploaded, long totalBytes) {
 
 
-                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-                String formattedDate = df.format(dof);
+                    }
+                })
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
-                String date = formattedDate + "  " + currentDateTimeString;
-                saveNameToLocalStorage(currentlat,currentlong,address,remarks, date, NAME_NOT_SYNCED_WITH_SERVER);
+                        progressDialog.dismiss();
+                        JSONObject job = response;
+                        boolean responseStatus = job.optBoolean("responseStatus");
+                        if (responseStatus) {
+                            successAlert();
+                        } else {
+
+                        }
 
 
+                        // boolean _status = job1.getBoolean("status");
 
-                //   Toast.makeText(AttendanceManageActivity.this,"attendance saved without image",Toast.LENGTH_LONG).show();
-            }
 
-        });
+                        // do anything with response
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                        progressDialog.dismiss();
+                        Toast.makeText(DailyLogAttendaneDayco.this, "Something went wrong", Toast.LENGTH_LONG).show();
+
+                    }
+                });
 
     }
 
@@ -1105,5 +1137,74 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
 
     }
 
+
+    private void setClientList() {
+
+        String surl = "https://cloud.geniusconsultant.com/GHRMSAPI/api/Post_Dailylog_Dayco/getClient?SecurityCode=1167";
+        Log.d("residancelist", surl);
+        final ProgressDialog pd = new ProgressDialog(DailyLogAttendaneDayco.this);
+        pd.setMessage("Loading");
+        pd.setCancelable(false);
+        pd.show();
+        Log.d("clint", "1");
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("responseLogin", response);
+                        pd.dismiss();
+
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String status = job1.optString("status");
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus){
+                                JSONArray responseData=job1.optJSONArray("responseData");
+                                for (int i=0;i<responseData.length();i++){
+                                    JSONObject object=responseData.optJSONObject(i);
+                                    String ClientName=object.optString("ClientName");
+                                    clientList.add(ClientName);
+
+                                }
+
+                                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
+                                        (DailyLogAttendaneDayco.this, android.R.layout.simple_spinner_item,
+                                                clientList);
+
+                                spClient.setAdapter(spinnerArrayAdapter);
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            //Toast.makeText(SalaryActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                pd.dismiss();
+
+                address = getCompleteAddressString(latitude, longitude);
+                tvAddress.setText(address);
+
+
+
+                // Toast.makeText(SalaryActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(DailyLogAttendaneDayco.this);
+        requestQueue.add(stringRequest);
+
+
+    }
 
 }

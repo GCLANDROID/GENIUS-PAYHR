@@ -479,7 +479,7 @@ public class ApplicationFragment extends Fragment {
                                     for (int i = 0; i < leaveTypeArray.length(); i++) {
                                         JSONObject typeObject = leaveTypeArray.optJSONObject(i);
                                         String LeaveTypeID = typeObject.optString("LeaveTypeID");
-                                        final String Name = typeObject.optString("Name");
+                                        final String Name = typeObject.optString("LeaveTypeName");
                                         if (pref.getLanguage().equals("hi")) {
                                             final Handler textViewHandler2 = new Handler();
                                             new AsyncTask<Void, Void, Void>() {
@@ -661,6 +661,13 @@ public class ApplicationFragment extends Fragment {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                100000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+
 
 
     }

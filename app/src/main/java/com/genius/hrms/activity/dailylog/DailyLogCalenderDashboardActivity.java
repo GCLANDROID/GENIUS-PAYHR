@@ -36,6 +36,8 @@ import com.genius.hrms.activity.adapter.AttendanceCalenderAdapter;
 import com.genius.hrms.activity.attendance.AttendanceReportActivity;
 import com.genius.hrms.activity.attendance.BacklogActivity;
 import com.genius.hrms.activity.attendance.SuperVisiorActivity;
+import com.genius.hrms.activity.dailylog.Dayco.DailyLogAttendaneDayco;
+import com.genius.hrms.activity.dailylog.Dayco.DaycoAttendanceReportActivity;
 import com.genius.hrms.activity.model.AttendanceCalenderModel;
 import com.genius.hrms.activity.model.SpinnerModel;
 import com.genius.hrms.activity.payroll.SalaryActivity;
@@ -447,9 +449,16 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else if (view==llReport){
-            Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, AttendanceReportActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            if (pref.getSecurityCode().equals("1167")){
+                Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, DaycoAttendanceReportActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }else {
+                Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, AttendanceReportActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+
         }else if (view==imgHome){
             Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, UserDashBoardActivity.class);
             startActivity(intent);

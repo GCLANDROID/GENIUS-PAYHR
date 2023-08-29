@@ -155,7 +155,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@drawable/layoutstroke"
-            android:id="@+id/llFace">
+            android:id="@+id/llFace"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="30dp"

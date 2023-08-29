@@ -520,6 +520,8 @@
             android:screenOrientation="userPortrait"></activity>
         <activity android:name=".activity.dailylog.Dayco.DailyLogAttendaneDayco"
             android:screenOrientation="userPortrait"></activity>
+        <activity android:name=".activity.dailylog.Dayco.DaycoAttendanceReportActivity"
+            android:screenOrientation="userPortrait"></activity>
     </application>
 
 </manifest>
