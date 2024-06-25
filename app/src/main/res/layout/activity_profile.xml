@@ -596,48 +596,55 @@
                                     android:layout_marginTop="10dp"
                                     android:background="@color/barcolor"></LinearLayout>
                                 <LinearLayout
+                                    android:id="@+id/lnLocation"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp">
-
+                                    android:orientation="vertical">
                                     <LinearLayout
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="0.5">
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="horizontal"
+                                        android:paddingLeft="10dp"
+                                        android:paddingRight="10dp">
 
-                                        <TextView
-                                            android:id="@+id/tvLoc"
-                                            android:layout_width="wrap_content"
+                                        <LinearLayout
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
-                                            android:text="Location"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/white" />
+                                            android:layout_weight="0.5">
+
+                                            <TextView
+                                                android:id="@+id/tvLoc"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Location"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/white" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                            <TextView
+                                                android:id="@+id/tvLocation"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="10dp"
+                                                android:text="--"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/white" />
+                                        </LinearLayout>
                                     </LinearLayout>
 
                                     <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1">
-
-                                        <TextView
-                                            android:id="@+id/tvLocation"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="10dp"
-                                            android:text="--"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/white" />
-                                    </LinearLayout>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@color/barcolor"></LinearLayout>
                                 </LinearLayout>
 
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/barcolor"></LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -653,7 +660,7 @@
                                         android:layout_weight="0.5">
 
                                         <TextView
-
+                                            android:id="@+id/tvReportingManagerTitle"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="Reporting Manager"
@@ -940,140 +947,154 @@
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/barcolor"></LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp">
-
+                                    android:orientation="vertical"
+                                    android:id="@+id/lnGurdianContact">
                                     <LinearLayout
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="0.5">
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="horizontal"
+                                        android:paddingLeft="10dp"
+                                        android:paddingRight="10dp">
 
-                                        <TextView
-                                            android:id="@+id/tvGMob"
-                                            android:layout_width="wrap_content"
+                                        <LinearLayout
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
-                                            android:text="Guardian Contact Number"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
+                                            android:layout_weight="0.5">
+
+                                            <TextView
+                                                android:id="@+id/tvGMob"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Guardian Contact Number"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                            <TextView
+                                                android:id="@+id/tvGurdianMob"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="10dp"
+                                                android:text="--"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
                                     </LinearLayout>
 
                                     <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1">
-
-                                        <TextView
-                                            android:id="@+id/tvGurdianMob"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="10dp"
-                                            android:text="--"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
-                                    </LinearLayout>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@color/barcolor"></LinearLayout>
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/barcolor"></LinearLayout>
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:id="@+id/lnRelationship">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="horizontal"
+                                        android:paddingLeft="10dp"
+                                        android:paddingRight="10dp">
 
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.5">
+
+                                            <TextView
+                                                android:id="@+id/tvRelation"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Relationship"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                            <TextView
+                                                android:id="@+id/tvRealtionShip"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="10dp"
+                                                android:text="--"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@color/barcolor"></LinearLayout>
+
+                                </LinearLayout>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp">
-
+                                    android:orientation="vertical"
+                                    android:id="@+id/lnQualification">
                                     <LinearLayout
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="0.5">
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="horizontal"
+                                        android:paddingLeft="10dp"
+                                        android:paddingRight="10dp">
 
-                                        <TextView
-                                            android:id="@+id/tvRelation"
-                                            android:layout_width="wrap_content"
+                                        <LinearLayout
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
-                                            android:text="Relationship"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
+                                            android:layout_weight="0.5">
+
+                                            <TextView
+                                                android:id="@+id/tvQuali"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Qualification"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                            <TextView
+                                                android:id="@+id/tvQualification"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="10dp"
+                                                android:text="--"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
                                     </LinearLayout>
 
                                     <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1">
-
-                                        <TextView
-                                            android:id="@+id/tvRealtionShip"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="10dp"
-                                            android:text="--"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
-                                    </LinearLayout>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@color/barcolor"></LinearLayout>
                                 </LinearLayout>
 
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/barcolor"></LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp">
-
-                                    <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5">
-
-                                        <TextView
-                                            android:id="@+id/tvQuali"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Qualification"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1">
-
-                                        <TextView
-                                            android:id="@+id/tvQualification"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="10dp"
-                                            android:text="--"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
-                                    </LinearLayout>
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/barcolor"></LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -1118,50 +1139,56 @@
                                     android:layout_height="1dp"
                                     android:layout_marginTop="10dp"
                                     android:background="@color/barcolor"></LinearLayout>
-
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp">
-
+                                    android:orientation="vertical"
+                                    android:id="@+id/lnBloodGrp">
                                     <LinearLayout
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="0.5">
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="horizontal"
+                                        android:paddingLeft="10dp"
+                                        android:paddingRight="10dp">
 
-                                        <TextView
-                                            android:id="@+id/tvBlood"
-                                            android:layout_width="wrap_content"
+                                        <LinearLayout
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
-                                            android:text="Blood Group"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
+                                            android:layout_weight="0.5">
+
+                                            <TextView
+                                                android:id="@+id/tvBlood"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Blood Group"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                            <TextView
+                                                android:id="@+id/tvBloodGroup"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="10dp"
+                                                android:text="--"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
                                     </LinearLayout>
 
                                     <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1">
-
-                                        <TextView
-                                            android:id="@+id/tvBloodGroup"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="10dp"
-                                            android:text="--"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
-                                    </LinearLayout>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@color/barcolor"></LinearLayout>
                                 </LinearLayout>
 
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/barcolor"></LinearLayout>
 
 
                             </LinearLayout>
@@ -1549,52 +1576,59 @@
                                 android:background="@color/white"
                                 android:orientation="vertical"
                                 android:visibility="gone">
-
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp">
-
+                                    android:orientation="vertical"
+                                    android:id="@+id/lnPF">
                                     <LinearLayout
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="0.5">
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="horizontal"
+                                        android:paddingLeft="10dp"
+                                        android:paddingRight="10dp">
 
-                                        <TextView
-                                            android:id="@+id/tvPf"
-                                            android:layout_width="wrap_content"
+                                        <LinearLayout
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
-                                            android:text="PF Number"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
+                                            android:layout_weight="0.5">
+
+                                            <TextView
+                                                android:id="@+id/tvPf"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="PF Number"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                            <TextView
+                                                android:id="@+id/tvPfNumber"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="10dp"
+                                                android:text="--"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+
+
                                     </LinearLayout>
 
                                     <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1">
-
-                                        <TextView
-                                            android:id="@+id/tvPfNumber"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="10dp"
-                                            android:text="--"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
-                                    </LinearLayout>
-
-
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@color/barcolor"></LinearLayout>
                                 </LinearLayout>
 
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/barcolor"></LinearLayout>
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -1681,181 +1715,205 @@
                                     android:layout_height="1dp"
                                     android:layout_marginTop="10dp"
                                     android:background="@color/barcolor"></LinearLayout>
-
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp">
-
+                                    android:orientation="vertical"
+                                    android:id="@+id/lnBankName">
                                     <LinearLayout
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="0.5">
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="horizontal"
+                                        android:paddingLeft="10dp"
+                                        android:paddingRight="10dp">
 
-                                        <TextView
-                                            android:id="@+id/tvBank"
-                                            android:layout_width="wrap_content"
+                                        <LinearLayout
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
-                                            android:text="Bank Name"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
+                                            android:layout_weight="0.5">
+
+                                            <TextView
+                                                android:id="@+id/tvBank"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Bank Name"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                            <TextView
+                                                android:id="@+id/tvBankName"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="10dp"
+                                                android:text="--"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
                                     </LinearLayout>
 
                                     <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1">
-
-                                        <TextView
-                                            android:id="@+id/tvBankName"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="10dp"
-                                            android:text="--"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
-                                    </LinearLayout>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@color/barcolor"></LinearLayout>
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/barcolor"></LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp">
-
+                                    android:id="@+id/lnAcNumber"
+                                    android:orientation="vertical">
                                     <LinearLayout
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="0.5">
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="horizontal"
+                                        android:paddingLeft="10dp"
+                                        android:paddingRight="10dp">
 
-                                        <TextView
-                                            android:id="@+id/tvAc"
-                                            android:layout_width="wrap_content"
+                                        <LinearLayout
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
-                                            android:text="A/c Number"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
+                                            android:layout_weight="0.5">
+
+                                            <TextView
+                                                android:id="@+id/tvAc"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="A/c Number"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                            <TextView
+                                                android:id="@+id/tvAcNumber"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="10dp"
+                                                android:text="--"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
                                     </LinearLayout>
 
                                     <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1">
-
-                                        <TextView
-                                            android:id="@+id/tvAcNumber"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="10dp"
-                                            android:text="--"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
-                                    </LinearLayout>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@color/barcolor"></LinearLayout>
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/barcolor"></LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp">
-
+                                    android:orientation="vertical"
+                                    android:id="@+id/lnAadhar">
                                     <LinearLayout
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="0.5">
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="horizontal"
+                                        android:paddingLeft="10dp"
+                                        android:paddingRight="10dp">
 
-                                        <TextView
-                                            android:id="@+id/tvAadhar"
-                                            android:layout_width="wrap_content"
+                                        <LinearLayout
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
-                                            android:text="Aadhar Number"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
-                                    </LinearLayout>
+                                            android:layout_weight="0.5">
 
+                                            <TextView
+                                                android:id="@+id/tvAadhar"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Aadhar Number"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                            <TextView
+                                                android:id="@+id/tvAddharNumber"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="10dp"
+                                                android:text="--"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+                                    </LinearLayout>
                                     <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1">
-
-                                        <TextView
-                                            android:id="@+id/tvAddharNumber"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="10dp"
-                                            android:text="--"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
-                                    </LinearLayout>
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/barcolor"></LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp">
-
-                                    <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5">
-
-                                        <TextView
-                                            android:id="@+id/tvPan"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Pan Number"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1">
-
-                                        <TextView
-                                            android:id="@+id/tvPanNumber"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="10dp"
-                                            android:text="--"
-                                            android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
-                                    </LinearLayout>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@color/barcolor"></LinearLayout>
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/barcolor"></LinearLayout>
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:id="@+id/lnPAN">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="horizontal"
+                                        android:paddingLeft="10dp"
+                                        android:paddingRight="10dp">
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.5">
+
+                                            <TextView
+                                                android:id="@+id/tvPan"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Pan Number"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                            <TextView
+                                                android:id="@+id/tvPanNumber"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="10dp"
+                                                android:text="--"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/purple" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@color/barcolor"></LinearLayout>
+                                </LinearLayout>
+
 
 
                                 <!--                                <LinearLayout-->

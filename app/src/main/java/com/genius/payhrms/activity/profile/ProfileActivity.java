@@ -68,8 +68,8 @@ public class ProfileActivity extends AppCompatActivity {
     TextView tvUAN, tvAadhar, tvAc, tvBank, tvEsi, tvPf, tvEmailID, tvPhone, tvPreAdd, tvPerAdd, tvBlood, tvStatus, tvQuali, tvRelation, tvGName,tvEmergencyName, tvDateoOB, tvGen, tvLoc, tvDes, tvDept, tvDateoJ, tvName, tvCode, tvId;
     String surl;
     ImageView imgUser;
-    TextView tvPersonalEmail,tvReportingManager,tvGMob,tvGurdianMob;
-    LinearLayout llRegion,llAsset,lnEmergency;
+    TextView tvPersonalEmail,tvReportingManager,tvGMob,tvGurdianMob,tvReportingManagerTitle;
+    LinearLayout llRegion,llAsset,lnEmergency,lnLocation,lnGurdianContact,lnRelationship,lnQualification,lnBloodGrp,lnPF,lnBankName,lnAcNumber,lnAadhar,lnPAN;
     TextView tvRegion,tvGrade;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvRegion=(TextView)findViewById(R.id.tvRegion);
         tvGMob=(TextView)findViewById(R.id.tvGMob);
         tvGurdianMob=(TextView)findViewById(R.id.tvGurdianMob);
+        tvReportingManagerTitle=(TextView)findViewById(R.id.tvReportingManagerTitle);
         tvReportingManager=(TextView)findViewById(R.id.tvReportingManager);
         imgUser=(ImageView)findViewById(R.id.imgUser) ;
         connectionCheck = new NetworkConnectionCheck(this);
@@ -212,10 +213,36 @@ public class ProfileActivity extends AppCompatActivity {
 
         llAsset=(LinearLayout)findViewById(R.id.llAsset);
         lnEmergency=(LinearLayout)findViewById(R.id.lnEmergency);
+        lnLocation=(LinearLayout) findViewById(R.id.lnLocation);
+        lnGurdianContact=(LinearLayout) findViewById(R.id.lnGurdianContact);
+        lnRelationship=(LinearLayout) findViewById(R.id.lnRelationship);
+        lnQualification=(LinearLayout) findViewById(R.id.lnQualification);
+        lnBloodGrp=(LinearLayout) findViewById(R.id.lnBloodGrp);
+        lnPF=(LinearLayout) findViewById(R.id.lnPF);
+        lnBankName=(LinearLayout) findViewById(R.id.lnBankName);
+        lnAcNumber=(LinearLayout) findViewById(R.id.lnAcNumber);
+        lnAadhar=(LinearLayout) findViewById(R.id.lnAadhar);
+        lnPAN=(LinearLayout) findViewById(R.id.lnPAN);
         if (pref.getSecurityCode().equals("1156") || pref.getSecurityCode().equals("1000")){
             llAsset.setVisibility(View.VISIBLE);
         }else {
             llAsset.setVisibility(View.GONE);
+        }
+
+        if (pref.getSecurityCode().equals("1186")){
+            lnLocation.setVisibility(View.GONE);
+            lnGurdianContact.setVisibility(View.GONE);
+            lnRelationship.setVisibility(View.GONE);
+            lnQualification.setVisibility(View.GONE);
+            lnBloodGrp.setVisibility(View.GONE);
+            lnBankName.setVisibility(View.GONE);
+            lnPF.setVisibility(View.GONE);
+            lnAcNumber.setVisibility(View.GONE);
+            lnAadhar.setVisibility(View.GONE);
+            lnPAN.setVisibility(View.GONE);
+            tvReportingManagerTitle.setText("Leave Approver");
+        }else {
+
         }
         tvDocuments = (TextView) findViewById(R.id.tvDocuments);
 
