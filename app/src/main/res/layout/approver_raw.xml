@@ -36,7 +36,7 @@
                         android:gravity="center">
 
                         <ImageView
-                            android:tint="@color/black"
+                            app:tint="@color/black"
                             android:id="@+id/imgTick"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -374,6 +374,21 @@
                         android:textStyle="bold"
                         android:textColor="@color/text_color"
                         android:text="VIEW DOCUMENT"></TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/lnDelete"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/backcolor"
+                    android:gravity="right">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/delete"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        app:tint="@color/white"></ImageView>
                 </LinearLayout>
 
             </LinearLayout>

@@ -79,6 +79,7 @@
             android:text="Currently this menu is not accessible"></TextView>
 
     </LinearLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

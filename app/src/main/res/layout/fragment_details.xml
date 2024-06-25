@@ -50,6 +50,7 @@
           android:id="@+id/tvEndDate"></TextView>
     </LinearLayout>
   </LinearLayout>
+
   <Button
       android:layout_width="100dp"
       android:layout_height="40dp"
@@ -59,7 +60,7 @@
       android:textColor="@android:color/white"
       android:textSize="13sp"
       android:text="Show"
-      android:id="@+id/btnShow"></Button>
+      android:id="@+id/btnShow"/>
 
   <LinearLayout
       android:visibility="gone"

@@ -412,14 +412,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
                         <CheckBox
-                            android:layout_weight="1"
                             android:id="@+id/ckRemember"
                             android:layout_width="0dp"
                             android:layout_height="50dp"
+                            android:layout_weight="1"
                             android:backgroundTint="@android:color/white"
+                            android:text="Remember Me"
                             android:textColor="@android:color/black"
-                            android:textSize="12sp"
-                            android:text="Remember Me"/>
+                            android:textSize="12sp" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

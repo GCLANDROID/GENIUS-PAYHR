@@ -73,7 +73,7 @@
 
             <ProgressBar
                 android:layout_width="50dp"
-                android:layout_height="50dp"></ProgressBar>
+                android:layout_height="50dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -399,17 +399,39 @@
                     android:textSize="14sp"></EditText>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnSubmit"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
+            <LinearLayout
                 android:layout_marginTop="20dp"
-                android:background="@drawable/lldesign7"
-                android:backgroundTint="@color/maincolor"
-                android:text="SUBMIT"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"></Button>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/lldesign7"
+                    android:backgroundTint="@color/maincolor"
+                    android:text="CHECK IN"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"></Button>
+
+                <Button
+                        android:id="@+id/btnSubmitOut"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+
+                    android:background="@drawable/lldesign7"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:text="CHECK OUT"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"></Button>
+            </LinearLayout>
+
+
 
         </LinearLayout>
     </LinearLayout>

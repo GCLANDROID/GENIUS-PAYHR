@@ -7,6 +7,7 @@
     tools:context=".activity.activity.HolidayActivity"
     android:background="@drawable/llbackdesign"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -58,19 +59,20 @@
                 android:id="@+id/imgHome"/>
         </LinearLayout>
     </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
         android:id="@+id/llWLLoader"
-        android:gravity="center"
-        >
+        android:gravity="center">
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ProgressbarWL"
-            />
+            android:id="@+id/ProgressbarWL"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -90,25 +92,25 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:background="@drawable/lldesign"
-                android:backgroundTint="@color/orange"></LinearLayout>
+                android:backgroundTint="@color/orange"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:textColor="@color/text_color"
-                android:text=" -> Restricted Holiday"></TextView>
+                android:text=" -> Restricted Holiday"/>
             <LinearLayout
                 android:layout_marginLeft="10dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:background="@drawable/lldesign"
-                android:backgroundTint="@color/darkblue"></LinearLayout>
+                android:backgroundTint="@color/darkblue"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:textColor="@color/text_color"
-                android:text=" -> Fixed Holiday"></TextView>
+                android:text=" -> Fixed Holiday"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -117,10 +119,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
-
-
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

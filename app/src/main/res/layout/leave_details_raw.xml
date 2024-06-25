@@ -279,7 +279,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:paddingLeft="5dp"
-                        android:text="Approve Status:"
+                        android:text="Approval Status:"
                         android:textColor="@color/color7"
                         android:textSize="12sp"></TextView>
                 </LinearLayout>
@@ -323,7 +323,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:paddingLeft="5dp"
-                        android:text="Approve Date:"
+                        android:text="Action Taken On:"
                         android:textColor="@color/color7"
                         android:textSize="12sp"></TextView>
                 </LinearLayout>
@@ -367,7 +367,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:paddingLeft="5dp"
-                        android:text="Approve by:"
+                        android:text="Action Taken By:"
                         android:textColor="@color/color7"
                         android:textSize="12sp"></TextView>
                 </LinearLayout>

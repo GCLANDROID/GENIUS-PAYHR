@@ -140,7 +140,6 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
                                 <LinearLayout
-
                                     android:backgroundTint="@color/yellow"
                                     android:id="@+id/llRequested"
                                     android:layout_width="40dp"
@@ -153,8 +152,7 @@
                                         android:layout_height="wrap_content"
                                         android:textSize="12sp"
                                         android:textColor="@android:color/white"
-                                        android:text=""></TextView>
-
+                                        android:text=""/>
                                 </LinearLayout>
                                 <TextView
                                     android:id="@+id/tvRequestedName"
@@ -278,6 +276,8 @@
                     android:layout_height="match_parent"
                     android:background="@android:color/holo_orange_dark"></LinearLayout>
                 <LinearLayout
+
+                    android:id="@+id/lnBalance"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -476,7 +476,7 @@
                                     android:layout_marginLeft="5dp"
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
-                                    android:src="@drawable/calendericon"></ImageView>
+                                    android:src="@drawable/calendericon"/>
                                 <TextView
                                     android:layout_marginLeft="5dp"
                                     android:layout_gravity="center"
@@ -544,6 +544,7 @@
 
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/lnDocument"
                             android:layout_marginBottom="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -595,8 +596,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="20dp"
                             android:gravity="center"
-                            android:background="@drawable/lldesigngreen"
-                            >
+                            android:background="@drawable/lldesigngreen">
                             <TextView
                                 android:id="@+id/tvPreviewName"
                                 android:layout_width="wrap_content"
