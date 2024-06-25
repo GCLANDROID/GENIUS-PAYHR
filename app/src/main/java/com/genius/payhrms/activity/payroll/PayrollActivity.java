@@ -86,6 +86,9 @@ public class PayrollActivity extends AppCompatActivity {
         llSalary=(LinearLayout)findViewById(R.id.llSalary);
         llRem=(LinearLayout)findViewById(R.id.llRem);
         llCTC=(LinearLayout)findViewById(R.id.llCTC);
+        if (pref.getSecurityCode().equals("1186")){
+            llCTC.setVisibility(View.GONE);
+        }
         imgBack=(ImageView)findViewById(R.id.imgBack);
         imgHome=(ImageView)findViewById(R.id.imgHome);
 
