@@ -663,13 +663,24 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    Intent intent = new Intent(LoginActivity.this, UserDashBoardActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    intent.putExtra("ismodiFied", IsModified);
-                                    intent.putExtra("empId", AEMEmployeeID);
-                                    intent.putExtra("securityCode", SecurityCode);
-                                    startActivity(intent);
-                                    finish();
+                                    if (etSecurityCode.getText().toString().equals("6715")){
+                                        Intent intent = new Intent(LoginActivity.this, EmplyoeeCalendarDashboarActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.putExtra("ismodiFied", IsModified);
+                                        intent.putExtra("empId", AEMEmployeeID);
+                                        intent.putExtra("securityCode", SecurityCode);
+                                        startActivity(intent);
+                                        finish();
+                                    }else {
+                                        Intent intent = new Intent(LoginActivity.this, UserDashBoardActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.putExtra("ismodiFied", IsModified);
+                                        intent.putExtra("empId", AEMEmployeeID);
+                                        intent.putExtra("securityCode", SecurityCode);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+
                                 }
                             }
                         } catch (JSONException e) {

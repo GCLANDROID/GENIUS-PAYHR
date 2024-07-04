@@ -487,13 +487,24 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    Intent intent = new Intent(SplashScreenActivity.this, UserDashBoardActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    intent.putExtra("ismodiFied", IsModified);
-                                    intent.putExtra("empId", AEMEmployeeID);
-                                    intent.putExtra("securityCode", SecurityCode);
-                                    startActivity(intent);
-                                    finish();
+                                    if (pref.getSecurityCode().equals("6715")){
+                                        Intent intent = new Intent(SplashScreenActivity.this, EmplyoeeCalendarDashboarActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.putExtra("ismodiFied", IsModified);
+                                        intent.putExtra("empId", AEMEmployeeID);
+                                        intent.putExtra("securityCode", SecurityCode);
+                                        startActivity(intent);
+                                        finish();
+                                    }else {
+                                        Intent intent = new Intent(SplashScreenActivity.this, UserDashBoardActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.putExtra("ismodiFied", IsModified);
+                                        intent.putExtra("empId", AEMEmployeeID);
+                                        intent.putExtra("securityCode", SecurityCode);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+
                                 }
                             }
                         } catch (JSONException e) {
