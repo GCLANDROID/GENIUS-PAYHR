@@ -663,7 +663,7 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    if (etSecurityCode.getText().toString().equals("6715")){
+                                    if (etSecurityCode.getText().toString().equals("6715")||etSecurityCode.getText().toString().equals("6716")){
                                         Intent intent = new Intent(LoginActivity.this, EmplyoeeCalendarDashboarActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.putExtra("ismodiFied", IsModified);

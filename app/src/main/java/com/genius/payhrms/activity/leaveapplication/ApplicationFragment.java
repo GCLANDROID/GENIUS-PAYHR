@@ -57,6 +57,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.payhrms.R;
 
+import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.adapter.CompOffAdapter;
 import com.genius.payhrms.activity.adapter.DayBreakUpAdapter;
 import com.genius.payhrms.activity.adapter.LeaveBalanceDetailsAdapter;
@@ -1542,6 +1543,11 @@ public class ApplicationFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         Log.e(TAG, "PRE_VIEW_onError: "+anError);
+                        if (anError.getErrorCode()==401) {
+                            Intent intent = new Intent(getContext(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+
                         pd.dismiss();
                     }
                 });
@@ -1824,6 +1830,10 @@ public class ApplicationFragment extends Fragment {
 
 
     private void LeaveSave(JSONObject object) {
+        final ProgressDialog progressDialog=new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
         Log.e(TAG, "LeaveSave: object: "+object);
         AndroidNetworking.post(Api.sLeaveAdd)
                 .addJSONObjectBody(object)
@@ -1835,6 +1845,7 @@ public class ApplicationFragment extends Fragment {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Log.e(TAG, "LEAVE_SAVE: "+response.toString());
+                                progressDialog.dismiss();
                                 JSONObject job1 = response;
                                 int Response_Code = job1.optInt("Response_Code");
                                 String Response_Message = job1.optString("Response_Message");
@@ -1848,6 +1859,7 @@ public class ApplicationFragment extends Fragment {
 
                             @Override
                             public void onError(ANError anError) {
+                                progressDialog.dismiss();
                                 Log.e(TAG, "LEAVE_SAVE_onError: "+anError);
                             }
                         });

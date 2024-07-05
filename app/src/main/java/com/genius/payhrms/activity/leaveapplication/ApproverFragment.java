@@ -424,10 +424,9 @@ public class ApproverFragment extends Fragment {
         JSONObject jsonObject=new JSONObject();
         try {
             jsonObject.put("CompanyID",pref.getEmpClintId());
-            jsonObject.put("ApplicationMID",mId);
+            jsonObject.put("StrAppMID",mid);
             jsonObject.put("ApproverID",pref.getEmpId());
             jsonObject.put("SecurityCode",pref.getSecurityCode());
-            rejectFunction(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
