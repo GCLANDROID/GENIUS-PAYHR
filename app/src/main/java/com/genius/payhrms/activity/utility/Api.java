@@ -84,4 +84,9 @@ public class Api {
     //public static String sPostQRAttendance=baseurl+"Attendance/PostQRAttendance";
 
     public static String sversioncheckapi=baseurl+"Login/forcetoUpdate";
+    public static String sGetPunchtypeapi=baseurl+"Attendance/GetPunchtype";
+
+    public static String sPostSelfAttendanceShalimarapi=baseurl+"Attendance/PostSelfAttendanceShalimar";
+
+
 }

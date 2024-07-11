@@ -411,7 +411,8 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
                                 pref.saveWeeklyOffFlag(IsWeeklyOff);
                                 String IsHoliday = obj.optString("IsHoliday");
                                 pref.saveHolidayMapFlag(IsHoliday);
-
+                                String ShiftFlag=obj.optString("ShiftFlag");
+                                pref.saveShiftFlag(ShiftFlag);
 
                             }
                             if (pref.getSecurityCode().equals("1138")) {

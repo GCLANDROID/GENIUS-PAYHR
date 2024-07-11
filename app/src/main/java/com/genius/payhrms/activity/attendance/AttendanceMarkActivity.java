@@ -33,10 +33,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +62,7 @@ import com.developers.imagezipper.ImageZipper;
 import com.genius.payhrms.R;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.helper.DatabaseHelperForDailyLog;
+import com.genius.payhrms.activity.model.SpinnerModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.AttendanceService;
 import com.genius.payhrms.activity.utility.GPSTracker;
@@ -89,6 +93,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -157,6 +162,11 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
     public static String DATA_SAVED_BROADCAST = "";
     private BroadcastReceiver broadcastReceiver;
+    ArrayList<SpinnerModel>punchTypeList=new ArrayList<>();
+    ArrayList<String>punchtypeList=new ArrayList<>();
+    Spinner spshift;
+    String Punchtype;
+    LinearLayout llShift;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,11 +181,12 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     @SuppressLint("RestrictedApi")
     private void initview() {
         db = new DatabaseHelperForDailyLog(this);
+        spshift=(Spinner)findViewById(R.id.spshift);
         pref = new Pref(AttendanceMarkActivity.this);
         lnMain=(LinearLayout) findViewById(R.id.lnMain);
         lnLoader=(LinearLayout) findViewById(R.id.lnLoader);
         getAttendanceFromReport = getIntent().getStringExtra("address");
-
+        llShift=(LinearLayout)findViewById(R.id.llShift);
         Log.e(TAG, "initview: address: "+getAttendanceFromReport );
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -215,6 +226,11 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         imgImage = (ImageView) findViewById(R.id.imgImage);
 
         gps = new GPSTracker(AttendanceMarkActivity.this);
+        if (pref.getShiftFlag().equals("1")){
+            llShift.setVisibility(View.VISIBLE);
+        }else {
+            llShift.setVisibility(View.GONE);
+        }
 
 
 
@@ -246,11 +262,33 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         llImage = (LinearLayout) findViewById(R.id.llImage);
         tvCustom = (TextView) findViewById(R.id.tvCustom);
 
+        JSONObject jsonObject=new JSONObject();
+        try {
+            jsonObject.put("BranchID",pref.getEmpClintOffId());
+            jsonObject.put("SecurityCode",pref.getSecurityCode());
+            getpunchType(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         getAPIKey();
     }
 
 
     private void onClick() {
+
+        spshift.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Punchtype=punchTypeList.get(i).getItemId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -273,24 +311,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
             @Override
             public void onClick(View view) {
                     if (!tvAddress.getText().toString().equals("YOU ARE AT: null") || tvAddress.getText().toString().equals("YOU ARE AT: ")) {
-                           if (flag==1){
-                              // attendance();
-                               selfAttendance();
-                           }else {
-                               //attendancefunction();
-                               JSONObject object=new JSONObject();
-                               try {
-                                   object.put("AEMEmployeeID",pref.getEmpId());
-                                   object.put("Address",address);
-                                   object.put("Longitude",longitude);
-                                   object.put("Latitude",latitude);
-                                   object.put("SecurityCode",pref.getSecurityCode());
-                                   Log.e(TAG, "SELF_ATTENDANCE_WITH_OUT_IMAGE: "+object);
-                                   selfAttendance(object);
-                               } catch (JSONException e) {
-                                   e.printStackTrace();
-                               }
-                           }
+                        shiftFlagFilter();
                     } else {
                         Toast.makeText(getApplicationContext(), "Sorry! Your address not found.Please click on Refresh button", Toast.LENGTH_LONG).show();
                     }
@@ -1172,6 +1193,245 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
 
                     }
                 });
+    }
+
+
+    private void getpunchType(JSONObject jsonObject) {
+
+        final ProgressDialog pd = new ProgressDialog(AttendanceMarkActivity.this);
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        pd.show();
+        AndroidNetworking.post(Api.sGetPunchtypeapi)
+                .addJSONObjectBody(jsonObject)
+                .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
+
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+
+                        JSONObject job1 = response;
+                        Log.e("response12", "@@@@@@" + job1);
+                        pd.dismiss();
+
+                        int Response_Code = job1.optInt("Response_Code");
+                        if (Response_Code == 101) {
+
+                            String Response_Data=job1.optString("Response_Data");
+                            try {
+                                JSONArray jsonArray=new JSONArray(Response_Data);
+                                for (int i=0;i<jsonArray.length();i++){
+                                    JSONObject obj=jsonArray.optJSONObject(i);
+                                    String ID=obj.optString("ID");
+                                    String Punchtype=obj.optString("Punchtype");
+                                    punchtypeList.add(Punchtype);
+                                    SpinnerModel spModel=new SpinnerModel(Punchtype,ID);
+                                    punchTypeList.add(spModel);
+
+                                }
+
+                                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
+                                        (AttendanceMarkActivity.this, android.R.layout.simple_spinner_item,
+                                                punchtypeList); //selected item will look like a spinner set from XML
+                                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spshift.setAdapter(spinnerArrayAdapter);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        pd.dismiss();
+
+
+                    }
+                });
+    }
+
+
+    public void selfAttendanceWithPunch() {
+        final ProgressDialog pg=new ProgressDialog(AttendanceMarkActivity.this);
+        pg.setMessage("Loading..");
+        pg.setCancelable(false);
+        pg.show();
+        //Log.e(TAG, "selfAttendance: ", );
+        Log.e(TAG, "SELF_ATTENDANCE_WITH_IMAGE: \nAEMEmployeeID:"+pref.getEmpId()
+                +"\nAddress:"+address+"\nLongitude:"+longitude+"\nLatitude:"+latitude+"\nSecurityCode:"+pref.getSecurityCode()+"\nImage:");
+
+        AndroidNetworking.upload(Api.sselfattendanceimageapi)
+                .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
+                .addMultipartParameter("Address", address)
+                .addMultipartParameter("Longitude", String.valueOf(longitude))
+                .addMultipartParameter("Latitude",  String.valueOf(latitude))
+                .addMultipartParameter("Punchtype",Punchtype)
+                .addMultipartParameter("SecurityCode",pref.getSecurityCode())
+                .addMultipartFile("Image",compressedImageFile)
+                .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
+                .setUploadProgressListener(new UploadProgressListener() {
+                    @Override
+                    public void onProgress(long bytesUploaded, long totalBytes) {
+                        pg.show();
+                    }
+                })
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        pg.dismiss();
+                        JSONObject job = response;
+                        int Response_Code = job.optInt("Response_Code");
+                        String Response_Message=job.optString("Response_Message");
+                        if (Response_Code == 101) {
+                            // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+                            successAlert();
+                            // boolean _status = job1.getBoolean("status");
+                            // do anything with response
+                        }else {
+                            Toast.makeText(getApplicationContext(),Response_Message,Toast.LENGTH_LONG).show();
+                        }
+
+                        // boolean _status = job1.getBoolean("status");
+                        // do anything with response
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                        Log.e("error",error.toString());
+                        pg.dismiss();
+                        if (error.getErrorCode()==401){
+                            JSONObject obj=new JSONObject();
+                            try {
+                                obj.put("MasterID",encrypt(pref.getMasterId(),SECRET_KEY));
+                                obj.put("Password",encrypt(pref.getPassword(),SECRET_KEY));
+                                obj.put("IMEI","0");
+                                obj.put("DeviceID","0");
+                                obj.put("DeviceType","A");
+                                obj.put("SecurityCode",pref.getSecurityCode());
+                                login(obj);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                });
+    }
+
+    private void selfAttendanceWithPunch(JSONObject jsonObject) {
+
+        final ProgressDialog pd=new ProgressDialog(AttendanceMarkActivity.this);
+        pd.setMessage("Loading");
+        pd.setCancelable(false);
+        pd.show();
+        AndroidNetworking.post(Api.sPostSelfAttendanceShalimarapi)
+                .addJSONObjectBody(jsonObject)
+                .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
+
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        pd.dismiss();
+                        JSONObject job1 = response;
+                        Log.e("response12", "@@@@@@" + job1);
+
+                        int Response_Code = job1.optInt("Response_Code");
+                        String Response_Message=job1.optString("Response_Message");
+                        if (Response_Code == 101) {
+                            // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+
+                            successAlert();
+                            // boolean _status = job1.getBoolean("status");
+                            // do anything with response
+                        }else {
+
+                            Toast.makeText(getApplicationContext(),Response_Message,Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+
+                        if (error.getErrorCode()==401){
+                            JSONObject obj=new JSONObject();
+                            try {
+                                obj.put("MasterID",encrypt(pref.getMasterId(),SECRET_KEY));
+                                obj.put("Password",encrypt(pref.getPassword(),SECRET_KEY));
+                                obj.put("IMEI","0");
+                                obj.put("DeviceID","0");
+                                obj.put("DeviceType","A");
+                                obj.put("SecurityCode",pref.getSecurityCode());
+                                login(obj);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
+                    }
+                });
+    }
+
+    private void shiftFlagFilter(){
+        if (pref.getShiftFlag().equals("1")){
+            if (flag==1){
+                // attendance();
+                selfAttendanceWithPunch();
+            }else {
+                //attendancefunction();
+                JSONObject object=new JSONObject();
+                try {
+                    object.put("AEMEmployeeID",pref.getEmpId());
+                    object.put("Address",address);
+                    object.put("Longitude",longitude);
+                    object.put("Latitude",latitude);
+                    object.put("Punchtype",Punchtype);
+                    object.put("SecurityCode",pref.getSecurityCode());
+                    Log.e(TAG, "SELF_ATTENDANCE_WITH_OUT_IMAGE: "+object);
+                    selfAttendanceWithPunch(object);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }else {
+            if (flag==1){
+                // attendance();
+                selfAttendance();
+            }else {
+                //attendancefunction();
+                JSONObject object=new JSONObject();
+                try {
+                    object.put("AEMEmployeeID",pref.getEmpId());
+                    object.put("Address",address);
+                    object.put("Longitude",longitude);
+                    object.put("Latitude",latitude);
+                    object.put("SecurityCode",pref.getSecurityCode());
+                    Log.e(TAG, "SELF_ATTENDANCE_WITH_OUT_IMAGE: "+object);
+                    selfAttendance(object);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
 }

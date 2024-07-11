@@ -587,6 +587,9 @@ public class LoginActivity extends AppCompatActivity {
                                 pref.saveWeeklyOffFlag(IsWeeklyOff);
                                 String IsHoliday = obj.optString("IsHoliday");
                                 pref.saveHolidayMapFlag(IsHoliday);
+                                String ShiftFlag=obj.optString("ShiftFlag");
+                                pref.saveShiftFlag(ShiftFlag);
+
 
 
                             }
