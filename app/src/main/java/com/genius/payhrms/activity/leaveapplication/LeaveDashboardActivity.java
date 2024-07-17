@@ -38,7 +38,7 @@ import org.json.JSONObject;
 
 public class LeaveDashboardActivity extends AppCompatActivity {
     private static final String TAG = "LeaveDashboardActivity";
-    LinearLayout llLeaveApplication,llLeaveBalance;
+    LinearLayout llLeaveApplication,llLeaveBalance,llLeaveAdjustment;
     ImageView imgBack,imgHome;
     TextView tvLeave,tvLeaveBalance,tvToolBar;
     Pref pref;
@@ -53,6 +53,15 @@ public class LeaveDashboardActivity extends AppCompatActivity {
     }
 
     private void onClick() {
+
+        llLeaveAdjustment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LeaveDashboardActivity.this, OtherLeavesActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
         llLeaveApplication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +101,7 @@ public class LeaveDashboardActivity extends AppCompatActivity {
 
     private void initview() {
         lnNonAccess=(LinearLayout)findViewById(R.id.lnNonAccess);
+        llLeaveAdjustment=(LinearLayout)findViewById(R.id.llLeaveAdjustment);
         lnAccess=(LinearLayout)findViewById(R.id.lnAccess);
         llLeaveApplication=findViewById(R.id.llLeaveApplication);
         llLeaveBalance=findViewById(R.id.llLeaveBalance);

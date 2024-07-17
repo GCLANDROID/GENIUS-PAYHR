@@ -52,6 +52,7 @@ import com.genius.payhrms.activity.adapter.AttendanceCalenderAdapter;
 import com.genius.payhrms.activity.dailylog.NumberTourActivity;
 import com.genius.payhrms.activity.dailylog.QRAttendanceDashboardActivity;
 import com.genius.payhrms.activity.dailylog.QRCodeScannerActivity;
+import com.genius.payhrms.activity.leaveapplication.OtherLeavesActivity;
 import com.genius.payhrms.activity.model.AttendanceCalenderModel;
 import com.genius.payhrms.activity.model.HoliDayModel;
 import com.genius.payhrms.activity.model.SpinnerModel;
@@ -90,7 +91,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     Pref pref;
     ArrayList<AttendanceCalenderModel> itemList = new ArrayList<>();
     RecyclerView rvItem;
-    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog,llQRCode;
+    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog,llQRCode,llAdjustment;
     ImageView imgHome;
     boolean approver;
     NetworkStateChecker airplaneModeChangeReceiver = new NetworkStateChecker();
@@ -151,7 +152,12 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             llQRCode.setVisibility(View.GONE);
         }
 
-
+        llAdjustment=(LinearLayout)findViewById(R.id.llAdjustment);
+        if (pref.getSecurityCode().equals("1186")){
+            llAdjustment.setVisibility(View.VISIBLE);
+        }else {
+            llAdjustment.setVisibility(View.GONE);
+        }
         llLog = (LinearLayout) findViewById(R.id.llLog);
         llLog.setVisibility(View.GONE);
         llBackLog = (LinearLayout) findViewById(R.id.llBackLog);
@@ -255,6 +261,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         llReport.setOnClickListener(this);
         llSubordinate.setOnClickListener(this);
         llQRCode.setOnClickListener(this);
+        llAdjustment.setOnClickListener(this);
 
 
         customCalendar = findViewById(R.id.custom_calendar);
@@ -475,6 +482,10 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             attenDanceReportIntent();
         }else if (view==imgHome){
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, UserDashBoardActivity.class);
+            startActivity(intent);
+            finish();
+        }else if (view==llAdjustment){
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, OtherLeavesActivity.class);
             startActivity(intent);
             finish();
         }else if (view==llQRCode){

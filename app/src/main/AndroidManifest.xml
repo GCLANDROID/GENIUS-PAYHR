@@ -25,6 +25,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:node="merge">
+        <activity android:name=".activity.leaveapplication.OtherLeavesActivity"></activity>
         <activity
             android:name=".activity.activity.EmplyoeeCalendarDashboarActivity"
             android:exported="false">
