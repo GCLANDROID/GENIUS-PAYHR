@@ -343,6 +343,11 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         current.dateTextViewResource = R.id.text_view;
         descHashMap.put("C", current);
 
+        Property hc = new Property();
+        hc.layoutResource = R.layout.hc_view;
+        hc.dateTextViewResource = R.id.text_view;
+        descHashMap.put("HC", hc);
+
         customCalendar.setMapDescToProp(descHashMap);
         customCalendar.setOnNavigationButtonClickedListener(CustomCalendar.PREVIOUS, this);
         customCalendar.setOnNavigationButtonClickedListener(CustomCalendar.NEXT, this);
@@ -444,6 +449,12 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                 } else if (Status.equalsIgnoreCase("C")) {
                     lnStatus.setVisibility(View.VISIBLE);
                     lnStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#010360")));
+                    tvDetails.setText(date + " : "+PunchTiming );
+                    tvDetails.setTextColor(Color.parseColor("#F2FFFFFF"));
+                    tvOK.setTextColor(Color.parseColor("#F2FFFFFF"));
+                }else if (Status.equalsIgnoreCase("HC")) {
+                    lnStatus.setVisibility(View.VISIBLE);
+                    lnStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#59945C")));
                     tvDetails.setText(date + " : "+PunchTiming );
                     tvDetails.setTextColor(Color.parseColor("#F2FFFFFF"));
                     tvOK.setTextColor(Color.parseColor("#F2FFFFFF"));
