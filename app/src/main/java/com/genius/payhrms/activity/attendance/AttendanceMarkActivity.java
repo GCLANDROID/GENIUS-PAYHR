@@ -60,19 +60,29 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.LoginActivity;
+import com.genius.payhrms.activity.activity.SplashScreenActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.helper.DatabaseHelperForDailyLog;
 import com.genius.payhrms.activity.model.SpinnerModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.AttendanceService;
 import com.genius.payhrms.activity.utility.GPSTracker;
+import com.genius.payhrms.activity.utility.NetworkConnectionCheck;
 import com.genius.payhrms.activity.utility.Pref;
 import com.genius.payhrms.activity.utility.UploadObject;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -134,7 +144,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
 
     TextView tvName;
     EditText etRemarks;
-    AlertDialog alerDialog1;
+    AlertDialog alerDialog1,locationpopup;
     ImageView imgBack, imgHome;
     TextView tvClick, tvClickHere;
 
@@ -167,7 +177,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     Spinner spshift;
     String Punchtype;
     LinearLayout llShift;
-
+    private NetworkConnectionCheck connectionCheck;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,6 +191,13 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     @SuppressLint("RestrictedApi")
     private void initview() {
         db = new DatabaseHelperForDailyLog(this);
+        connectionCheck = new NetworkConnectionCheck(this);
+
+        if (connectionCheck.isGPSEnabled()) {
+
+        } else {
+            locationAlert();
+        }
         spshift=(Spinner)findViewById(R.id.spshift);
         pref = new Pref(AttendanceMarkActivity.this);
         lnMain=(LinearLayout) findViewById(R.id.lnMain);
@@ -311,7 +328,16 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
             @Override
             public void onClick(View view) {
                     if (!tvAddress.getText().toString().equals("YOU ARE AT: null") || tvAddress.getText().toString().equals("YOU ARE AT: ")) {
-                        shiftFlagFilter();
+                        if (pref.getSecurityCode().equals("1186")){
+                            if (flag==1){
+                                shiftFlagFilter();
+                            }else {
+                                Toast.makeText(AttendanceMarkActivity.this,"Please Capture Your Image",Toast.LENGTH_LONG).show();
+                            }
+                        }else {
+                            shiftFlagFilter();
+                        }
+
                     } else {
                         Toast.makeText(getApplicationContext(), "Sorry! Your address not found.Please click on Refresh button", Toast.LENGTH_LONG).show();
                     }
@@ -1433,5 +1459,34 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         }
 
     }
+
+
+    private void locationAlert() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceMarkActivity.this, R.style.CustomDialogNew);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.location_error, null);
+        dialogBuilder.setView(dialogView);
+        TextView tvError = (TextView) dialogView.findViewById(R.id.tvError);
+        tvError.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationpopup.dismiss();
+                onBackPressed();
+
+            }
+        });
+
+
+
+        locationpopup = dialogBuilder.create();
+        locationpopup.setCancelable(false);
+        Window window = locationpopup.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+        locationpopup.show();
+    }
+
+
+
 
 }

@@ -73,6 +73,7 @@ import org.naishadhparmar.zcustomcalendar.Property;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -115,6 +116,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     int presentDayCount = 0,absentDayCount = 0, onLeaveCount = 0;
 
     String address = "";
+    ArrayList<String>addrressList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +139,26 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             object.put("CompanyID",pref.getEmpClintId());
             object.put("SecurityCode",pref.getSecurityCode());
             approverCheck(object);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JSONObject object1=new JSONObject();
+        try {
+            object1.put("AEMConsultantID",pref.getEmpConId());
+            object1.put("AEMClientID",pref.getEmpClintId());
+            object1.put("AEMClientOfficeID",pref.getEmpClintOffId());
+            object1.put("AEMEmployeeID",pref.getEmpId());
+            object1.put("CurrentPage",0);
+            object1.put("AID",1);
+            object1.put("ApproverStatus",4);
+            object1.put("YearVal",y);
+            object1.put("MonthName",m);
+            object1.put("WorkingStatus",1);
+            object1.put("DbOperation",1);
+            object1.put("SecurityCode",pref.getSecurityCode());
+            attendanceReport(object1);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -572,24 +594,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                                     // llShow.setVisibility(View.GONE);
                                 }
 
-                                JSONObject object=new JSONObject();
-                                try {
-                                    object.put("AEMConsultantID",pref.getEmpConId());
-                                    object.put("AEMClientID",pref.getEmpClintId());
-                                    object.put("AEMClientOfficeID",pref.getEmpClintOffId());
-                                    object.put("AEMEmployeeID",pref.getEmpId());
-                                    object.put("CurrentPage",0);
-                                    object.put("AID",1);
-                                    object.put("ApproverStatus",4);
-                                    object.put("YearVal",y);
-                                    object.put("MonthName",m);
-                                    object.put("WorkingStatus",1);
-                                    object.put("DbOperation",1);
-                                    object.put("SecurityCode",pref.getSecurityCode());
-                                    attendanceReport(object);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
@@ -1353,6 +1358,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                             // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
 
                             String responseData = job1.optString("Response_Data");
+
                             try {
                                 JSONArray jsonArray=new JSONArray(responseData);
                                 /*attendabceInfiList=jsonArray;
@@ -1369,11 +1375,19 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
 
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                    if (!jsonObject1.getString("EmpInAddress").equals("--")){
+                                    addrressList.add(jsonObject1.getString("EmpInAddress"));
+
+                                   /* if (!jsonObject1.getString("EmpInAddress").equals("--") || !jsonObject1.getString("EmpInAddress").equals("") ||!jsonObject1.getString("EmpInAddress").equals(" ")){
                                         address = jsonObject1.getString("EmpInAddress");
-                                        break;
-                                    }
+
+                                    }else {
+
+                                    }*/
                                 }
+
+                                addrressList.removeAll(Arrays.asList("", null));
+                                addrressList.removeAll(Arrays.asList("--", null));
+                                address=addrressList.get(0);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
