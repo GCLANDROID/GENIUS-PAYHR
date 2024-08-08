@@ -92,7 +92,7 @@
                         android:id="@+id/tvApllication"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textColor="@android:color/white"
                         android:text="Application"></TextView>
                 </LinearLayout>
@@ -108,7 +108,7 @@
                         android:id="@+id/tvDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textColor="@android:color/white"
                         android:text="Application Details"></TextView>
                 </LinearLayout>
@@ -125,7 +125,7 @@
                         android:id="@+id/tvApproval"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textColor="@android:color/white"
                         android:text="Application Approval"></TextView>
                 </LinearLayout>
@@ -141,7 +141,7 @@
                         android:id="@+id/tvAttendance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textColor="@android:color/white"
                         android:text="Tour Attendance"></TextView>
                 </LinearLayout>

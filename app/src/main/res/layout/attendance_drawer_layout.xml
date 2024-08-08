@@ -96,6 +96,7 @@
                 android:src="@drawable/teamreportagain_payhr"
                 ></ImageView>
             <TextView
+                android:layout_gravity="center"
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,6 +118,7 @@
                 android:src="@drawable/backattendanceicon_payhr"
                 ></ImageView>
             <TextView
+                android:layout_gravity="center"
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -138,6 +140,7 @@
                 android:src="@drawable/tour"
                 ></ImageView>
             <TextView
+                android:layout_gravity="center"
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

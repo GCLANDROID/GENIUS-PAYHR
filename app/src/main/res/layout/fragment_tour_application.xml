@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvStartDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/colorAccent"
+                android:text="Please Select Start Date"></TextView>
+            <TextView
+                android:textSize="14sp"
+                android:id="@+id/tvStartDate"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/lldesign9"
+                android:backgroundTint="@color/bar1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"></TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvEndDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/colorAccent"
+                android:text="Please Select End Date"></TextView>
+            <TextView
+                android:textSize="14sp"
+                android:id="@+id/tvEndDate"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/lldesign9"
+                android:backgroundTint="@color/bar1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"></TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvRemarksTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/colorAccent"
+                android:text="Please Select End Date"></TextView>
+            <EditText
+                android:gravity="top"
+                android:textSize="14sp"
+                android:id="@+id/etRemarks"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/lldesign9"
+                android:backgroundTint="@color/bar1"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"></EditText>
+        </LinearLayout>
+        <Button
+            android:textColor="@color/white"
+            android:text="Submit"
+            android:id="@+id/tvSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/lldesign9"
+            android:backgroundTint="@color/green"></Button>
+    </LinearLayout>
+
+
+
+
+</layout>

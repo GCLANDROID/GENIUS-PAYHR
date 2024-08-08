@@ -49,6 +49,7 @@ import com.genius.payhrms.activity.activity.HolidayActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.adapter.AttendanceAdapter;
 import com.genius.payhrms.activity.adapter.AttendanceCalenderAdapter;
+import com.genius.payhrms.activity.attendance.tour.TourActivity;
 import com.genius.payhrms.activity.dailylog.NumberTourActivity;
 import com.genius.payhrms.activity.dailylog.QRAttendanceDashboardActivity;
 import com.genius.payhrms.activity.dailylog.QRCodeScannerActivity;
@@ -288,6 +289,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         llReport.setOnClickListener(this);
         llSubordinate.setOnClickListener(this);
         llQRCode.setOnClickListener(this);
+        llTour.setOnClickListener(this);
         llAdjustment.setOnClickListener(this);
 
 
@@ -524,6 +526,10 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             finish();
         }else if (view==llAdjustment){
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, OtherLeavesActivity.class);
+            startActivity(intent);
+            finish();
+        }else if (view==llTour){
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, TourActivity.class);
             startActivity(intent);
             finish();
         }else if (view==llQRCode){
