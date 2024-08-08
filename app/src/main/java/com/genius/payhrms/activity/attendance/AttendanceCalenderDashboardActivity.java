@@ -92,7 +92,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     Pref pref;
     ArrayList<AttendanceCalenderModel> itemList = new ArrayList<>();
     RecyclerView rvItem;
-    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog,llQRCode,llAdjustment;
+    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog,llQRCode,llAdjustment,llTour;
     ImageView imgHome;
     boolean approver;
     NetworkStateChecker airplaneModeChangeReceiver = new NetworkStateChecker();
@@ -175,10 +175,15 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         }
 
         llAdjustment=(LinearLayout)findViewById(R.id.llAdjustment);
+        llTour=(LinearLayout) findViewById(R.id.llTour);
+
         if (pref.getSecurityCode().equals("1186")){
             llAdjustment.setVisibility(View.VISIBLE);
+            llTour.setVisibility(View.VISIBLE);
+
         }else {
             llAdjustment.setVisibility(View.GONE);
+            llTour.setVisibility(View.GONE);
         }
         llLog = (LinearLayout) findViewById(R.id.llLog);
         llLog.setVisibility(View.GONE);
@@ -890,70 +895,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
 
 
 
-    /*private void getAttendanceInformationForSmart() {
-        Log.d("Arpan", "arpan");
-        final ProgressDialog progressDialog = new ProgressDialog(AttendanceCalenderDashboardActivity.this);
-        progressDialog.setMessage("Loading..");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-        String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
-        Log.d("input", surl);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
 
-                        Log.d("responseAttendance", response);
-                        progressDialog.dismiss();
-
-                        // attendabceInfiList.clear();
-
-                        try {
-                            JSONObject job1 = new JSONObject(response);
-                            Log.e("response12", "@@@@@@" + job1);
-                            String responseText = job1.optString("responseText");
-
-
-                            boolean responseStatus = job1.optBoolean("responseStatus");
-                            if (responseStatus) {
-                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
-
-                                attCode = "1";
-
-
-                            } else {
-                                attCode = "0";
-                            }
-
-                           *//* Intent intent = new Intent(AttendanceActivity.this, SmartJuleDailyLogActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("attCode", attCode);
-                            startActivity(intent);
-*//*
-                            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceManageActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            // Toast.makeText(AttendanceReportActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
-
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                // Toast.makeText(AttendanceReportActivity.this, "volly 2"+error.toString(), Toast.LENGTH_LONG).show();
-                Log.e("ert", error.toString());
-            }
-        }) {
-
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceCalenderDashboardActivity.this);
-        requestQueue.add(stringRequest);
-    }*/
 
     private void attenDanceReportIntent() {
         if (pref.getSecurityCode().equals("11") || pref.getSecurityCode().equals("123")) {

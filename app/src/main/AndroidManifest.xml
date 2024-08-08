@@ -25,7 +25,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:node="merge">
-        <activity android:name=".activity.leaveapplication.OtherLeavesActivity"></activity>
+        <activity
+            android:name=".activity.attendance.tour.TourActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity android:name=".activity.leaveapplication.OtherLeavesActivity" />
         <activity
             android:name=".activity.activity.EmplyoeeCalendarDashboarActivity"
             android:exported="false">
@@ -39,13 +46,11 @@
         <activity
             android:name="com.genius.payhrms.activity.dailylog.archisman.DailyLogAttendaneArchisman"
             android:exported="false" />
-        <activity android:name="com.genius.payhrms.activity.attendance.AttendanceMarkActivity" />
+        <activity android:name=".activity.attendance.AttendanceMarkActivity" />
         <activity
             android:name="com.genius.payhrms.activity.dailylog.TabularTeamAttendaceReportActivity"
             android:exported="false" />
-        <activity
-            android:name="com.genius.payhrms.activity.attendance.TeamAttendanceReportActivity"
-            android:screenOrientation="userPortrait" />
+
         <activity
             android:name="com.genius.payhrms.activity.geofence.GeoFenceSupervisiorActivity"
             android:exported="false" />
@@ -66,13 +71,13 @@
             android:name="com.genius.payhrms.activity.dailylog.QRGeneratorActivity"
             android:exported="false" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.AttendanceCalenderDashboardActivity"
+            android:name=".activity.attendance.AttendanceCalenderDashboardActivity"
             android:screenOrientation="userPortrait" />
         <activity
             android:name="com.genius.payhrms.activity.dailylog.DailyLogMarkActivity"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.AttendanceMonthlyReport"
+            android:name=".activity.attendance.AttendanceMonthlyReport"
             android:screenOrientation="userPortrait" />
         <activity
             android:name="com.genius.payhrms.activity.geofence.GeoFenceVisitLocationActivity"
@@ -116,22 +121,22 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.MarkInAttendance"
+            android:name=".activity.attendance.MarkInAttendance"
             android:exported="true" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.AddPerson"
+            android:name=".activity.attendance.AddPerson"
             android:exported="true" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.FRDashboard"
+            android:name=".activity.attendance.FRDashboard"
             android:exported="true" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.PreviewActivity"
+            android:name=".activity.attendance.PreviewActivity"
             android:exported="true" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.AttendanceRegulizationActivity"
+            android:name=".activity.attendance.AttendanceRegulizationActivity"
             android:exported="true" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.BacklogActivity"
+            android:name=".activity.attendance.BacklogActivity"
             android:exported="true"
             android:screenOrientation="userPortrait"
             android:windowSoftInputMode="adjustResize" />
@@ -157,7 +162,7 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.SuperVisiorActivity"
+            android:name=".activity.attendance.SuperVisiorActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -171,11 +176,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.genius.payhrms.activity.attendance.HoliDayMapActivity"
+            android:name=".activity.attendance.HoliDayMapActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.WeeklyoffActivity"
+            android:name=".activity.attendance.WeeklyoffActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -191,7 +196,7 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.FaceRecognitation"
+            android:name=".activity.attendance.FaceRecognitation"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -333,15 +338,15 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.AttendanceActivity"
+            android:name=".activity.attendance.AttendanceActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.AttendanceManageActivity"
+            android:name=".activity.attendance.AttendanceManageActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.AttendanceReportActivity"
+            android:name=".activity.attendance.AttendanceReportActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -501,15 +506,15 @@
             android:required="false" />
 
         <activity
-            android:name="com.genius.payhrms.activity.attendance.AttendanceManageForPPSActivity"
+            android:name=".activity.attendance.AttendanceManageForPPSActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.AttendanceReportForPPSActivity"
+            android:name=".activity.attendance.AttendanceReportForPPSActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.AttenApprovalActivity"
+            android:name=".activity.attendance.AttenApprovalActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -523,7 +528,7 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.Em3AttendnaceActivity"
+            android:name=".activity.attendance.Em3AttendnaceActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
