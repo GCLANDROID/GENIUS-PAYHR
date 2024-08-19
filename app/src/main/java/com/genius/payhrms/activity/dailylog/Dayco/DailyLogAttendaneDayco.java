@@ -785,7 +785,7 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
                 .addMultipartParameter("EmployeeID", pref.getEmpId())
                 .addMultipartParameter("RemarksIN", etRemarks.getText().toString())
                 .addMultipartParameter("RemarksOUT", etRemarks.getText().toString())
-                .addMultipartParameter("LongitudeIN", currentlat)
+                .addMultipartParameter("LongitudeIN", currentlong)
                 .addMultipartParameter("LongitudeOUT", "")
                 .addMultipartParameter("LatitudeIN", currentlat)
                 .addMultipartParameter("LatitudeOUT", "")

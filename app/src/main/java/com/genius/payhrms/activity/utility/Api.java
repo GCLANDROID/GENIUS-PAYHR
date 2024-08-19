@@ -95,4 +95,9 @@ public class Api {
     public static String sSaveAdjustmentApprovalRejected = baseurl + "IMFALeave/SaveAdjustmentApprovalRejected";
     public static String sGetAdjutmentApplicationForApprover = baseurl + "IMFALeave/GetAdjutmentApplicationForApprover";
     public static String sDeleteAdjutmentApplicationForApprover = baseurl + "IMFALeave/DeleteAdjutmentApplicationForApprover";
+    public static String sSaveTourApplication = baseurl + "Shalimar/SaveTourApplication";
+    public static String sGetTourApplicationView = baseurl + "Shalimar/GetTourApplicationView";
+    public static String sGetApprovalView = baseurl + "Shalimar/GetApprovalView";
+    public static String sGetIStouraplicable = baseurl + "Shalimar/GetIStouraplicable";
+    public static String sSaveTourApprove = baseurl + "Shalimar/SaveTourApprove";
 }
