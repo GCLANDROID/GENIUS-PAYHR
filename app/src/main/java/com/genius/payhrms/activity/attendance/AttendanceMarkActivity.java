@@ -974,56 +974,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     }
 
 
-    private void attendancefunction() {
-        String surl = pref.getIpAddress() + "GHRMSApi/api/post_SelfAttendance?AEMEmployeeID=" + pref.getEmpId() + "&Address=" + address.replaceAll("#","abc").replaceAll("\\s+", "") + "&Longitude=" + currentlong + "&Latitude=" + currentlat + "&SecurityCode=" + pref.getSecurityCode();
-        Log.d("attendenceinput", surl);
-        final ProgressDialog progressBar = new ProgressDialog(this);
-        progressBar.setCancelable(true);//you can cancel it by pressing back button
-        progressBar.setMessage("Loading...");
-        progressBar.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("responseLeave", response);
-                        progressBar.dismiss();
-                        try {
-                            JSONObject job1 = new JSONObject(response);
 
-                            String responseText = job1.optString("responseText");
-                            boolean responseStatus = job1.optBoolean("responseStatus");
-                            if (responseStatus) {
-                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
-                                successAlert();
-
-
-                            }
-
-
-                            // boolean _status = job1.getBoolean("status");
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(AttendanceMarkActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressBar.dismiss();
-                Toast.makeText(AttendanceMarkActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
-
-                Log.e("ert", error.toString());
-            }
-        }) {
-
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceMarkActivity.this);
-        requestQueue.add(stringRequest);
-
-    }
     private void selfAttendance(JSONObject jsonObject) {
 
         final ProgressDialog pd=new ProgressDialog(AttendanceMarkActivity.this);

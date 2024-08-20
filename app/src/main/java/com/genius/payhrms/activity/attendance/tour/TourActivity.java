@@ -6,7 +6,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.androidnetworking.AndroidNetworking;
@@ -14,10 +18,16 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.attendance.AttendanceCalenderDashboardActivity;
 import com.genius.payhrms.activity.leaveapplication.ApplicationFragment;
+import com.genius.payhrms.activity.leaveapplication.LeaveApplicationActivity;
+import com.genius.payhrms.activity.model.SpinnerModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
 import com.genius.payhrms.databinding.ActivityTourBinding;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +49,20 @@ public class TourActivity extends AppCompatActivity {
 
     private void initView() {
         pref = new Pref(TourActivity.this);
+        binding.imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        binding.imgHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(TourActivity.this, AttendanceCalenderDashboardActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         binding.llApplication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,11 +82,29 @@ public class TourActivity extends AppCompatActivity {
                 loadTourApplicationApprovalViewFragment();
             }
         });
+
+        binding.lAttendance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadTourAttendanceFragment();
+            }
+        });
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("SecurityCode", pref.getSecurityCode());
             jsonObject.put("Employeeid", pref.getEmpId());
             TourApplicable(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JSONObject object=new JSONObject();
+        try {
+            object.put("AEMEmployeeID",pref.getEmpId());
+            object.put("CompanyID",pref.getEmpClintId());
+            object.put("SecurityCode",pref.getSecurityCode());
+            getApproverOrNot(object);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -98,6 +140,16 @@ public class TourActivity extends AppCompatActivity {
     }
 
 
+    public void loadTourAttendanceFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        TourAttendanceFragment pfragment = new TourAttendanceFragment();
+        transaction.replace(R.id.frameLayout, pfragment);
+        transaction.commit();
+        binding.tvToolBar.setText("Tour Attendance");
+    }
+
+
     private void TourApplicable(JSONObject object) {
         final ProgressDialog progressDialog = new ProgressDialog(TourActivity.this);
         progressDialog.setCancelable(false);
@@ -116,6 +168,7 @@ public class TourActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         JSONObject job1 = response;
+
                         String Response_Code = job1.optString("Response_Code");
                         String Response_Message = job1.optString("Response_Message");
                         if (Response_Code.equals("101")) {
@@ -151,6 +204,69 @@ public class TourActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         progressDialog.dismiss();
+
+                    }
+                });
+    }
+
+
+    private void getApproverOrNot(JSONObject jsonObject) {
+
+        final ProgressDialog pd=new ProgressDialog(TourActivity.this);
+        pd.setMessage("Loading");
+        pd.setCancelable(false);
+        pd.show();
+        AndroidNetworking.post(Api.sapprovercheckapi)
+                .addJSONObjectBody(jsonObject)
+                .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
+
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        pd.dismiss();
+                        JSONObject job1 = response;
+                        Log.e("response12", "@@@@@@" + job1);
+
+
+                        int Response_Code = job1.optInt("Response_Code");
+                        if (Response_Code == 101) {
+                            // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+
+                            String responseData = job1.optString("Response_Data");
+                            try {
+                                JSONArray jsonArray=new JSONArray(responseData);
+                                if (jsonArray.length()>0) {
+
+                                    binding.llApproval.setVisibility(View.VISIBLE);
+                                } else {
+                                    binding.llApproval.setVisibility(View.GONE);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+
+
+
+                            // boolean _status = job1.getBoolean("status");
+
+
+                            // do anything with response
+                        }else {
+                            binding.llApproval.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+
+                        pd.dismiss();
+
 
                     }
                 });
