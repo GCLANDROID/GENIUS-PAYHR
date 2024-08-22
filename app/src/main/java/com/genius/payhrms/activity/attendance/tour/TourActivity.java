@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,6 +51,7 @@ public class TourActivity extends AppCompatActivity {
 
     private void initView() {
         pref = new Pref(TourActivity.this);
+
         binding.imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,6 +121,17 @@ public class TourActivity extends AppCompatActivity {
         transaction.replace(R.id.frameLayout, pfragment);
         transaction.commit();
         binding.tvToolBar.setText("Tour Application");
+
+
+        binding.llApplication.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#1589FF")));
+        binding.llDetails.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+        binding.llApproval.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+        binding.lAttendance.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+
+        binding.tvApllication.setTextColor(Color.parseColor("#FFFFFF"));
+        binding.tvDetails.setTextColor(Color.parseColor("#1589FF"));
+        binding.tvApproval.setTextColor(Color.parseColor("#1589FF"));
+        binding.tvAttendance.setTextColor(Color.parseColor("#1589FF"));
     }
 
 
@@ -128,6 +142,17 @@ public class TourActivity extends AppCompatActivity {
         transaction.replace(R.id.frameLayout, pfragment);
         transaction.commit();
         binding.tvToolBar.setText("Tour Application Details");
+
+
+        binding.llApplication.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+        binding.llDetails.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#1589FF")));
+        binding.llApproval.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+        binding.lAttendance.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+
+        binding.tvApllication.setTextColor(Color.parseColor("#1589FF"));
+        binding.tvDetails.setTextColor(Color.parseColor("#FFFFFF"));
+        binding.tvApproval.setTextColor(Color.parseColor("#1589FF"));
+        binding.tvAttendance.setTextColor(Color.parseColor("#1589FF"));
     }
 
     public void loadTourApplicationApprovalViewFragment() {
@@ -137,6 +162,17 @@ public class TourActivity extends AppCompatActivity {
         transaction.replace(R.id.frameLayout, pfragment);
         transaction.commit();
         binding.tvToolBar.setText("Tour Application Approval");
+
+
+        binding.llApplication.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+        binding.llDetails.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+        binding.llApproval.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#1589FF")));
+        binding.lAttendance.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+
+        binding.tvApllication.setTextColor(Color.parseColor("#1589FF"));
+        binding.tvDetails.setTextColor(Color.parseColor("#1589FF"));
+        binding.tvApproval.setTextColor(Color.parseColor("#FFFFFF"));
+        binding.tvAttendance.setTextColor(Color.parseColor("#1589FF"));
     }
 
 
@@ -147,6 +183,17 @@ public class TourActivity extends AppCompatActivity {
         transaction.replace(R.id.frameLayout, pfragment);
         transaction.commit();
         binding.tvToolBar.setText("Tour Attendance");
+
+
+        binding.llApplication.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+        binding.llDetails.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+        binding.llApproval.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+        binding.lAttendance.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#1589FF")));
+
+        binding.tvApllication.setTextColor(Color.parseColor("#1589FF"));
+        binding.tvDetails.setTextColor(Color.parseColor("#1589FF"));
+        binding.tvApproval.setTextColor(Color.parseColor("#1589FF"));
+        binding.tvAttendance.setTextColor(Color.parseColor("#FFFFFF"));
     }
 
 

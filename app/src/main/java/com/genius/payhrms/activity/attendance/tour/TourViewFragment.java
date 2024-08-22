@@ -1,6 +1,7 @@
 package com.genius.payhrms.activity.attendance.tour;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.genius.payhrms.R;
 import com.genius.payhrms.activity.activity.ELearningActivity;
+import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.adapter.TourViewAdapter;
 import com.genius.payhrms.activity.attendance.AttendanceCalenderDashboardActivity;
 import com.genius.payhrms.activity.model.SpinnerModel;
@@ -250,7 +252,8 @@ public class TourViewFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         progressDialog.dismiss();
-
+                        Intent intent=new Intent(getContext(), LoginActivity.class);
+                        startActivity(intent);
                     }
                 });
     }

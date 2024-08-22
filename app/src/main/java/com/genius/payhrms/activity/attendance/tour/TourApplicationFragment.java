@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,6 +28,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.leaveapplication.LeaveApplicationActivity;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
@@ -49,7 +52,7 @@ public class TourApplicationFragment extends Fragment {
     String endDate="";
     int strtDate,enddate;
     AlertDialog al1;
-
+    String color;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +65,10 @@ public class TourApplicationFragment extends Fragment {
 
     private void initView(){
         pref=new Pref(getContext());
+        color = "<font color='#EE0000'>*</font>";
+        binding.tvStartDateTitle.setText(Html.fromHtml("Select Start Date" + color));
+        binding.tvEndDateTitle.setText(Html.fromHtml("Select End Date" + color));
+        binding.tvRemarksTitle.setText(Html.fromHtml("Enter Purpose" + color));
         binding.tvStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +79,16 @@ public class TourApplicationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 showEndDatePicker();
+            }
+        });
+        binding.tvReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startDate="";
+                endDate="";
+                binding.tvStartDate.setText("");
+                binding.tvEndDate.setText("");
+                binding.etRemarks.setText("");
             }
         });
         binding.tvSubmit.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +117,7 @@ public class TourApplicationFragment extends Fragment {
                             }
 
                         }else {
-                            Toast.makeText(getContext(),"Please enter Purpouse of Tour",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(),"Please enter Purpose of Tour",Toast.LENGTH_LONG).show();
                         }
 
                     }else {
@@ -150,6 +167,8 @@ public class TourApplicationFragment extends Fragment {
                     @Override
                     public void onError(ANError anError) {
                         progressDialog.dismiss();
+                        Intent intent=new Intent(getContext(), LoginActivity.class);
+                        startActivity(intent);
 
                     }
                 });

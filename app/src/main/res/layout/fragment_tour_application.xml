@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textColor="@color/colorAccent"
-                android:text="Please Enter Purpouse"></TextView>
+                android:text="Please Enter Purpose"></TextView>
             <EditText
                 android:gravity="top"
                 android:textSize="14sp"
@@ -85,6 +85,15 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/lldesign9"
             android:backgroundTint="@color/green"></Button>
+        <Button
+            android:textColor="@color/white"
+            android:text="RESET"
+            android:id="@+id/tvReset"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/lldesign9"
+            android:backgroundTint="@color/text_color"></Button>
     </LinearLayout>
 
 
