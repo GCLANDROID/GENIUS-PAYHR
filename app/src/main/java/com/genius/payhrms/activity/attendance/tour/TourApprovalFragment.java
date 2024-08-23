@@ -108,7 +108,7 @@ public class TourApprovalFragment extends Fragment {
         }else if (month==12){
             Month="December";
         }
-
+        monthList.add("All");
         monthList.add("January");
         monthList.add("February");
         monthList.add("March");
@@ -121,7 +121,7 @@ public class TourApprovalFragment extends Fragment {
         monthList.add("October");
         monthList.add("November");
         monthList.add("December");
-
+        mmonthList.add(new SpinnerModel("January",""));
         mmonthList.add(new SpinnerModel("January","1"));
         mmonthList.add(new SpinnerModel("January","2"));
         mmonthList.add(new SpinnerModel("January","3"));
