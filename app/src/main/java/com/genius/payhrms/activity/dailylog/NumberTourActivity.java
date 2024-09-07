@@ -84,6 +84,7 @@ public class NumberTourActivity extends AppCompatActivity {
         setContentView(R.layout.activity_numer_tour);
         initView();
         //getItem();
+        Log.e(TAG, "onCreate: Dyceo");
         JSONObject object=new JSONObject();
         try {
             object.put("AEMEmployeeID",pref.getEmpId());
@@ -119,8 +120,6 @@ public class NumberTourActivity extends AppCompatActivity {
 
         int fYear=y+1;
         futYear= String.valueOf(fYear);
-
-
 
         int m = Calendar.getInstance().get(Calendar.MONTH) + 1;
         Log.d("month", String.valueOf(m));
@@ -189,6 +188,7 @@ public class NumberTourActivity extends AppCompatActivity {
    }
 
     private void getItem2(final JSONObject object){
+        Log.e(TAG, "getItem2: "+object);
         llLoader.setVisibility(View.VISIBLE);
         llMain.setVisibility(View.GONE);
         llNodata.setVisibility(View.GONE);
@@ -240,7 +240,6 @@ public class NumberTourActivity extends AppCompatActivity {
                                 llMain.setVisibility(View.GONE);
                                 llNodata.setVisibility(View.VISIBLE);
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                             // Toast.makeText(AttendanceReportActivity.this, "Volly Error", Toast.LENGTH_LONG).show();

@@ -1,5 +1,6 @@
 package com.genius.payhrms.activity.attendance;
 
+import static com.genius.payhrms.activity.attendance.AttendanceCalenderDashboardActivity.isAppMinimizeAttendance;
 import static com.genius.payhrms.activity.utility.Util.SECRET_KEY;
 import static com.genius.payhrms.activity.utility.Util.encrypt;
 
@@ -57,7 +58,9 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
+import com.genius.payhrms.activity.dailylog.DailyLogCalenderDashboardActivity;
 import com.genius.payhrms.activity.helper.DatabaseHelperForDailyLog;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.AttendanceService;
@@ -162,7 +165,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mark_in_dailylog);
-        Log.e(TAG, "onCreate: called");
+        Log.e(TAG, "onCreate: Iskraemeco");
         initview();
         setUpMapIfNeeded();
         onClick();
@@ -216,10 +219,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
 
         gps = new GPSTracker(AttendanceMarkActivity.this);
 
-
-
-
-
         // tvAddress.setText("YOU ARE AT: " + address);
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
@@ -254,10 +253,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 cameraIntent();
-
-
             }
         });
 
@@ -269,6 +265,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                 }
             }
         });
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -328,7 +325,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
-
             }
         });
 
@@ -347,7 +343,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         cameraIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
         cameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
-
     }
 
     @Override
@@ -355,11 +350,9 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case CAMERA_REQUEST:
-
                 if (resultCode == Activity.RESULT_OK) {
                     try {
                         try {
-
                             //messageAlert();
                             String imageurl = /*"file://" +*/ getRealPathFromURIPath(imageUri);
                             file = new File(imageurl);
@@ -369,8 +362,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                                     .setMaxHeight(250)
                                     .compressToFile(file);
                             // Log.d("imageSixw", String.valueOf(getReadableFileSize(compressedImageFile.length())));
-
-
                             BitmapFactory.Options o = new BitmapFactory.Options();
                             o.inSampleSize = 6;
                             Bitmap bo = cropToSquare(BitmapFactory.decodeFile(imageurl, o));
@@ -389,7 +380,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                     } catch (OutOfMemoryError e) {
                         e.printStackTrace();
                     }
-
                 }
                 break;
             case REQUEST_GALLERY_CODE:
@@ -423,8 +413,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                 }
                 break;
             case LongImageCameraActivity.LONG_IMAGE_RESULT_CODE:
-
-
                 if (resultCode == RESULT_OK && requestCode == LongImageCameraActivity.LONG_IMAGE_RESULT_CODE) {
                     file = (File) data.getExtras().get("picture");
                     try {
@@ -444,11 +432,8 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                     imgImage.setImageBitmap(putImage);
                     flag = 1;
                     // al2.dismiss();
-
                 }
                 break;
-
-
         }
     }
 
@@ -474,7 +459,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         return cropImg;
     }
 
-
     private void successAlert() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceMarkActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -486,13 +470,10 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
             public void onClick(View v) {
                 alerDialog1.dismiss();
                 onBackPressed();
-
             }
         });
         TextView tvSuccess = (TextView) dialogView.findViewById(R.id.tvSuccess);
         tvSuccess.setText("Your Attendance saved successfully");
-
-
         alerDialog1 = dialogBuilder.create();
         alerDialog1.setCancelable(false);
         Window window = alerDialog1.getWindow();
@@ -544,10 +525,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                             String responseText = job1.optString("responseText");
 
                             getaddressFromAPI(responseText);
-
-
-
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -646,8 +623,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         };
         RequestQueue requestQueue = Volley.newRequestQueue(AttendanceMarkActivity.this);
         requestQueue.add(stringRequest);
-
-
     }
 
 
@@ -679,11 +654,17 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     @Override
     public void onPause() {
         super.onPause();
-
+        Log.e(TAG, "onPause: Att Mark : "+isAppMinimizeAttendance);
         // mapView.onPause();
         if (mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
+        }
+
+        if (isAppMinimizeAttendance) {
+            Intent intent = new Intent(AttendanceMarkActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 
@@ -788,14 +769,10 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
 
 
     private void handleNewLocation(Location location) {
-
-
         latitude = location.getLatitude();
         currentlat = String.valueOf(latitude);
         longitude = location.getLongitude();
         currentlong = String.valueOf(longitude);
-
-
         // tvAddress.setText(address);
         // latLng = new LatLng(latitude, longitude);
 
@@ -948,14 +925,8 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                             if (responseStatus) {
                                 // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
                                 successAlert();
-
-
                             }
-
-
                             // boolean _status = job1.getBoolean("status");
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(AttendanceMarkActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
@@ -978,7 +949,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
 
     }
     private void selfAttendance(JSONObject jsonObject) {
-
         final ProgressDialog pd=new ProgressDialog(AttendanceMarkActivity.this);
         pd.setMessage("Loading");
         pd.setCancelable(false);
@@ -1026,7 +996,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                                 obj.put("DeviceType","A");
                                 obj.put("SecurityCode",pref.getSecurityCode());
                                 login(obj);
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -1109,7 +1078,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     }
 
     private void login(JSONObject jsonObject) {
-
         final ProgressDialog pd = new ProgressDialog(AttendanceMarkActivity.this);
         pd.setMessage("Loading..");
         pd.setCancelable(false);
@@ -1138,15 +1106,12 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                                 JSONObject obj = responseData.optJSONObject(i);
                                 String Genius_Access_Token=obj.optString("Genius_Access_Token");
                                 pref.saveAccessToken(Genius_Access_Token);
-
                                 // boolean _status = job1.getBoolean("status");
-
                                 if (flag==1){
                                     selfAttendance();
                                 }else {
                                     JSONObject object=new JSONObject();
                                     try {
-
                                         object.put("AEMEmployeeID",pref.getEmpId());
                                         object.put("Address",address);
                                         object.put("Longitude",longitude);
@@ -1156,10 +1121,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-
                                 }
-
-
                                 // do anything with response
                             }
                         }
@@ -1168,10 +1130,13 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                     @Override
                     public void onError(ANError error) {
                         pd.dismiss();
-
-
                     }
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        isAppMinimizeAttendance = false;
+        super.onBackPressed();
+    }
 }

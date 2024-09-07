@@ -154,7 +154,7 @@ public class DaycoDailyLogReportActivity extends AppCompatActivity {
 
 
     private void getItemList2(JSONObject object) {
-        Log.e(TAG, "getItemList2: called");
+        Log.e(TAG, "getItemList2: "+object);
         llLoder.setVisibility(View.VISIBLE);
         llMain.setVisibility(View.GONE);
         llNodata.setVisibility(View.GONE);

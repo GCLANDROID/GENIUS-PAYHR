@@ -151,6 +151,7 @@ public class DailyActivityManageActivity extends AppCompatActivity implements On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_manage);
+        Log.e(TAG, "onCreate: 1186");
         initialize();
         setUpMapIfNeeded();
         onClick();

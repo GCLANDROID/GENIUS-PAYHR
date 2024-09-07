@@ -1,5 +1,6 @@
 package com.genius.payhrms.activity.dailylog.Dayco;
 
+import static com.genius.payhrms.activity.dailylog.DailyLogCalenderDashboardActivity.isAppMinimizeDailyLog;
 import static com.genius.payhrms.activity.utility.Util.SECRET_KEY;
 import static com.genius.payhrms.activity.utility.Util.encrypt;
 
@@ -60,7 +61,9 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
+import com.genius.payhrms.activity.dailylog.DailyLogMarkActivity;
 import com.genius.payhrms.activity.helper.DatabaseHelperForDailyLog;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.AttendanceService;
@@ -963,6 +966,13 @@ public class DailyLogAttendaneMathhew extends AppCompatActivity implements OnMap
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
+
+
+        if (isAppMinimizeDailyLog){
+            Intent intent = new Intent(DailyLogAttendaneMathhew.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 
 
@@ -1335,8 +1345,6 @@ public class DailyLogAttendaneMathhew extends AppCompatActivity implements OnMap
         };
         RequestQueue requestQueue = Volley.newRequestQueue(DailyLogAttendaneMathhew.this);
         requestQueue.add(stringRequest);
-
-
     }
 
     private void setClientList2(JSONObject object) {
@@ -1383,8 +1391,6 @@ public class DailyLogAttendaneMathhew extends AppCompatActivity implements OnMap
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-
-
                         }
                     }
 
@@ -1398,4 +1404,9 @@ public class DailyLogAttendaneMathhew extends AppCompatActivity implements OnMap
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        isAppMinimizeDailyLog = false;
+        super.onBackPressed();
+    }
 }

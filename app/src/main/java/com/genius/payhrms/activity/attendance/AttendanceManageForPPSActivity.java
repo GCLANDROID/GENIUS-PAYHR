@@ -1,5 +1,7 @@
 package com.genius.payhrms.activity.attendance;
 
+import static com.genius.payhrms.activity.attendance.AttendanceCalenderDashboardActivity.isAppMinimizeAttendance;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -47,7 +49,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
+import com.genius.payhrms.activity.dailylog.NumberTourActivity;
 import com.genius.payhrms.activity.model.AttendanceManageModule;
 import com.genius.payhrms.activity.utility.ApiClientForPPS;
 import com.genius.payhrms.activity.utility.AttendanceService;
@@ -294,16 +298,20 @@ public class AttendanceManageForPPSActivity extends AppCompatActivity implements
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
+
+        if (isAppMinimizeAttendance){
+            Intent intent = new Intent(AttendanceManageForPPSActivity.this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 
 
     private void setUpMapIfNeeded() {
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         //  mapView.getMapAsync(this);
-
     }
 
     @Override
@@ -838,5 +846,9 @@ public class AttendanceManageForPPSActivity extends AppCompatActivity implements
         return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
     }
 
-
+    @Override
+    public void onBackPressed() {
+        isAppMinimizeAttendance = false;
+        super.onBackPressed();
+    }
 }

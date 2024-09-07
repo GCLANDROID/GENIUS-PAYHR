@@ -1,5 +1,6 @@
 package com.genius.payhrms.activity.dailylog;
 
+import static com.genius.payhrms.activity.dailylog.DailyLogCalenderDashboardActivity.isAppMinimizeDailyLog;
 import static com.genius.payhrms.activity.utility.Util.SECRET_KEY;
 import static com.genius.payhrms.activity.utility.Util.encrypt;
 
@@ -59,6 +60,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.payhrms.R;
 
+import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.attendance.AttendanceManageActivity;
 import com.genius.payhrms.activity.helper.DatabaseHelper;
@@ -282,6 +284,13 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
+
+        if (isAppMinimizeDailyLog){
+            Intent intent = new Intent(OfflineDailyLogManageActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+
     }
 
 
@@ -409,8 +418,6 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
                 handleNewLocation(location);
             }
         }
-
-
     }
 
     @Override
@@ -1209,5 +1216,11 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
                         pd.dismiss();
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        isAppMinimizeDailyLog = false;
+        super.onBackPressed();
     }
 }

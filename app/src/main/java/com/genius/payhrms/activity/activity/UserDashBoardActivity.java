@@ -97,8 +97,8 @@ public class UserDashBoardActivity extends AppCompatActivity {
     ImageView imgUser;
     NetworkStateChecker airplaneModeChangeReceiver = new NetworkStateChecker();
     DailylogSyncReciever dailyLogReciever = new DailylogSyncReciever();
-
     String appVersionName;
+    public static boolean isAppMinimizeDashboard = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,8 +111,8 @@ public class UserDashBoardActivity extends AppCompatActivity {
         pref=new Pref(UserDashBoardActivity.this);
         // Referencing the button
         pref.setFirstTimeLaunch(true);
-        imgUser=(ImageView)findViewById(R.id.imgUser);
-        llLoader=(LinearLayout)findViewById(R.id.llLoader);
+        imgUser= (ImageView) findViewById(R.id.imgUser);
+        llLoader= (LinearLayout) findViewById(R.id.llLoader);
         llMain=(LinearLayout)findViewById(R.id.llMain);
         llNoConnection=(LinearLayout)findViewById(R.id.llNoConnection);
         imgLogout=findViewById(R.id.imgLogout);
@@ -128,13 +128,12 @@ public class UserDashBoardActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        rvItem=(RecyclerView)findViewById(R.id.rvItem);
+        rvItem= (RecyclerView) findViewById(R.id.rvItem);
         rvItem.setLayoutManager(new GridLayoutManager(this, 3));
 
         if (pref.getSecurityCode().equals("1080")){
             ipAddress="https://adityabirla.geniusconsultant.com/";
-
-        }else {
+        } else {
             ipAddress="https://cloud.geniusconsultant.com/";
         }
         pref.saveIpAddress(ipAddress);
@@ -162,9 +161,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
             } else {
                 tvGreeting.setText("Good Evening");
             }
-
         } else if (timeOfDay >= 21 && timeOfDay < 24) {
-
             if (pref.getLanguage().equals("hi")) {
                 tvGreeting.setText("सुसंध्या");
             } else {
@@ -263,7 +260,6 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
     private void menu(JSONObject jsonObject) {
         Log.e(TAG, "menu_object: "+jsonObject );
-
         AndroidNetworking.post(Api.sMenuapi)
                 .addJSONObjectBody(jsonObject)
                 .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
@@ -281,16 +277,15 @@ public class UserDashBoardActivity extends AppCompatActivity {
                         int Response_Code = job1.optInt("Response_Code");
                         if (Response_Code == 101) {
                             // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
-
                             JSONArray responseData = job1.optJSONArray("Response_Data");
                             for (int i = 0; i < responseData.length(); i++) {
                                 JSONObject obj = responseData.optJSONObject(i);
                                 String MenuItemName = obj.optString("MenuItemName");
                                 int MenuItemId = obj.optInt("MenuItemId");
                                 if (MenuItemName.equalsIgnoreCase("Dailylog")){
-                                    menuName="Dailylog Attendance";
+                                    menuName = "Dailylog Attendance";
                                 }else {
-                                    menuName=MenuItemName;
+                                    menuName = MenuItemName;
                                 }
                                 MenuItemModel obj2 = new MenuItemModel(menuName,MenuItemId);
                                 itemList.add(obj2);
@@ -345,8 +340,6 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-
-
                         JSONObject job1 = response;
                         Log.e("response12", "@@@@@@" + job1);
                         pd.dismiss();
@@ -376,8 +369,6 @@ public class UserDashBoardActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError error) {
                         pd.dismiss();
-
-
                     }
                 });
     }
@@ -420,8 +411,8 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
+
     public void shoeDialog() {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(UserDashBoardActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);

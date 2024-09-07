@@ -1,5 +1,6 @@
 package com.genius.payhrms.activity.dailylog.Dayco;
 
+import static com.genius.payhrms.activity.dailylog.DailyLogCalenderDashboardActivity.isAppMinimizeDailyLog;
 import static com.genius.payhrms.activity.utility.Util.SECRET_KEY;
 import static com.genius.payhrms.activity.utility.Util.encrypt;
 
@@ -60,7 +61,9 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
+import com.genius.payhrms.activity.dailylog.DailyLogMarkActivity;
 import com.genius.payhrms.activity.dailylog.archisman.DailyLogAttendaneArchisman;
 import com.genius.payhrms.activity.helper.DatabaseHelperForDailyLog;
 import com.genius.payhrms.activity.utility.Api;
@@ -169,7 +172,7 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_log_attendane_archisman);
-        Log.e(TAG, "onCreate: called: DailyLogAttendaneDayco");
+        Log.e(TAG, "onCreate: called: Dayco Attendance page");
         initview();
         setUpMapIfNeeded();
         onClick();
@@ -779,8 +782,30 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
 
         Log.e(TAG, "dailyActivity2: client: "+client);
 
+        Log.e(TAG, "dailyActivity2: \nEmployeeID:"+pref.getEmpId()
+                +"\nRemarksIN:"+etRemarks.getText().toString()
+                +"\nRemarksOUT:"+etRemarks.getText().toString()
+                +"\nLongitudeIN:"+currentlat
+                +"\nLongitudeOUT:"+""
+                +"\nLatitudeIN:"+currentlat
+                +"\nLatitudeOUT:"+""
+                +"\nAddressIN:"+address
+                +"\nAddressOUT:"+address
+                +"\nYear:"+"0"
+                +"\nMonth:"+"0"
+                +"\nSecurityCode:"+pref.getSecurityCode()
+                +"\nWorkMode:"+workmode
+                +"\nClient:"+client
+                +"\nApprovalStatus:"+"1"
+                +"\nPunchStatus:"+punchstatus
+                +"\nFNameOUT:"+"0"
+                +"\nOperation:"+"3"
+                +"\nImage:"+compressedImageFile);
+
+
+        //String demo = "http://171.16.2.67/GHRMSApi_V2_DevMode/api/FileUpload/PostAttendanceStatusDayco";
         //Api.sPostAttendanceStatusDayco
-        //http://171.16.2.67/GHRMSApi_V2/api/FileUpload/PostAttendanceStatusDayco
+        String token = "";
         AndroidNetworking.upload(Api.sPostAttendanceStatusDayco)
                 .addMultipartParameter("EmployeeID", pref.getEmpId())
                 .addMultipartParameter("RemarksIN", etRemarks.getText().toString())
@@ -809,7 +834,6 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
                     @Override
                     public void onProgress(long bytesUploaded, long totalBytes) {
 
-
                     }
                 })
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -817,13 +841,6 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
                     public void onResponse(JSONObject response) {
                         Log.e(TAG, "Dayco: "+response.toString());
                         progressDialog.dismiss();
-                        /*JSONObject job = response;
-                        boolean responseStatus = job.optBoolean("responseStatus");
-                        if (responseStatus) {
-                            successAlert();
-                        } else {
-
-                        }*/
 
                         JSONObject job1 = response;
                         int Response_Code = job1.optInt("Response_Code");
@@ -841,7 +858,7 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
                     public void onError(ANError error) {
                         // handle error
                         progressDialog.dismiss();
-                        if (error.getErrorCode()==401){
+                        if (error.getErrorCode() == 401){
                             JSONObject obj=new JSONObject();
                             try {
                                 obj.put("MasterID",encrypt(pref.getMasterId(),SECRET_KEY));
@@ -855,9 +872,9 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
                                 e.printStackTrace();
                             }
                         } else {
+                            Log.e(TAG, "onError: "+error.getErrorBody());
                             Toast.makeText(DailyLogAttendaneDayco.this, "Something went wrong", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 
@@ -873,6 +890,12 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
         if (mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
+        }
+
+        if (isAppMinimizeDailyLog){
+            Intent intent = new Intent(DailyLogAttendaneDayco.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 
@@ -1226,5 +1249,11 @@ public class DailyLogAttendaneDayco extends AppCompatActivity implements OnMapRe
                     }
                 });
         alertDialogBuilder.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        isAppMinimizeDailyLog = false;
+        super.onBackPressed();
     }
 }

@@ -1,5 +1,6 @@
 package com.genius.payhrms.activity.attendance;
 
+import static com.genius.payhrms.activity.activity.UserDashBoardActivity.isAppMinimizeDashboard;
 import static com.genius.payhrms.activity.utility.Util.SECRET_KEY;
 import static com.genius.payhrms.activity.utility.Util.encrypt;
 
@@ -24,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,28 +32,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.androidnetworking.interfaces.UploadProgressListener;
 
 import com.genius.payhrms.R;
-import com.genius.payhrms.activity.activity.HolidayActivity;
+import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
-import com.genius.payhrms.activity.adapter.AttendanceAdapter;
 import com.genius.payhrms.activity.adapter.AttendanceCalenderAdapter;
 import com.genius.payhrms.activity.dailylog.NumberTourActivity;
 import com.genius.payhrms.activity.dailylog.QRAttendanceDashboardActivity;
 import com.genius.payhrms.activity.dailylog.QRCodeScannerActivity;
 import com.genius.payhrms.activity.model.AttendanceCalenderModel;
-import com.genius.payhrms.activity.model.HoliDayModel;
 import com.genius.payhrms.activity.model.SpinnerModel;
 import com.genius.payhrms.activity.reciver.DailylogSyncReciever;
 import com.genius.payhrms.activity.reciver.NetworkStateChecker;
@@ -62,6 +53,7 @@ import com.genius.payhrms.activity.utility.Pref;
 import com.genius.payhrms.activity.utility.Util;
 
 
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,6 +71,7 @@ import java.util.Map;
 
 public class AttendanceCalenderDashboardActivity extends AppCompatActivity implements View.OnClickListener , OnNavigationButtonClickedListener {
     private static final String TAG = "ACD";
+    private static final org.apache.commons.logging.Log log = LogFactory.getLog(AttendanceCalenderDashboardActivity.class);
     Spinner spMonth;
     ArrayList<String>monthList=new ArrayList<>();
     ArrayList<SpinnerModel>mmonthList=new ArrayList<>();
@@ -114,7 +107,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     int presentDayCount = 0,absentDayCount = 0, onLeaveCount = 0;
 
     String address = "";
-
+    public static boolean isAppMinimizeAttendance = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -457,27 +450,34 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     public void onClick(View view) {
         if (view == imgMenu) {
             dlMain.openDrawer(Gravity.LEFT);
-        }else if (view==llManage){
-           attenDanceIntent();
+        }else if (view==llManage) {
+            isAppMinimizeAttendance = true;
+            attenDanceIntent();
         }else if (view==llLog){
+            isAppMinimizeAttendance = true;
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, NumberTourActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else if (view==llSubordinate){
+            isAppMinimizeAttendance = true;
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, SuperVisiorActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        }else if (view==llBackLog){
+        } else if (view==llBackLog) {
+            isAppMinimizeAttendance = true;
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, BacklogActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        }else if (view==llReport){
+        } else if (view==llReport) {
+            isAppMinimizeAttendance = true;
             attenDanceReportIntent();
-        }else if (view==imgHome){
+        } else if (view==imgHome) {
+            isAppMinimizeDashboard = false;
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, UserDashBoardActivity.class);
             startActivity(intent);
             finish();
-        }else if (view==llQRCode){
+        } else if (view==llQRCode){
+            isAppMinimizeAttendance = true;
             if (approver) {
                 Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, QRAttendanceDashboardActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -487,9 +487,9 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
-        }else if (view==tvOK){
+        } else if (view==tvOK) {
             lnStatus.setVisibility(View.GONE);
-        }else if (view==llFace){
+        } else if (view==llFace) {
             faceAlert();
         }
     }
@@ -614,6 +614,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     @Override
     protected void onResume() {
         super.onResume();
+        isAppMinimizeAttendance = false;
         JSONObject jsonObject=new JSONObject();
         try {
             jsonObject.put("AEMEmployeeId",pref.getEmpId());
@@ -623,6 +624,18 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             currentcalendar(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e(TAG, "onPause: isAppMinimizeAttendance: "+isAppMinimizeAttendance+" isAppMinimizeDashboard: "+isAppMinimizeDashboard);
+        if (isAppMinimizeAttendance == false && isAppMinimizeDashboard == true){
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 
@@ -787,8 +800,6 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                 Calendar calendar9=Calendar.getInstance();
                 calendar9.set(newMonth.get(Calendar.YEAR),9,1);
 
-
-
                 JSONObject jsonObject9=new JSONObject();
                 try {
                     jsonObject9.put("AEMEmployeeId",pref.getEmpId());
@@ -803,8 +814,6 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             case Calendar.NOVEMBER:
                 Calendar calendar10=Calendar.getInstance();
                 calendar10.set(newMonth.get(Calendar.YEAR),10,1);
-
-
 
                 JSONObject jsonObject10=new JSONObject();
                 try {
@@ -844,7 +853,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     private void attenDanceIntent() {
         if (pref.getSecurityCode().equals("11") || pref.getSecurityCode().equals("123")) {
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceManageForPPSActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (pref.getSecurityCode().equals("1135")) {
 
@@ -854,11 +863,9 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             Log.e(TAG, "attenDanceIntent: AttendanceMarkActivity");
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceMarkActivity.class);
             intent.putExtra("address",address);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
-
-
     }
 
 
@@ -1374,4 +1381,9 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     }
 
 
+    @Override
+    public void onBackPressed() {
+        isAppMinimizeDashboard = false;
+        super.onBackPressed();
+    }
 }

@@ -92,6 +92,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance_report);
+        Log.e(TAG, "Dyco: called");
         mPageCount = 1;
         initialize();
         onClick();
@@ -475,7 +476,6 @@ public class AttendanceReportActivity extends AppCompatActivity {
                             }
                         }
 
-
                         alertDialog.dismiss();
                     }
                 });
@@ -626,6 +626,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                 alertDialog2.dismiss();
             }
         });
+
         llM2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -643,6 +644,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                 alertDialog2.dismiss();
             }
         });
+
         llM4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -651,6 +653,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                 alertDialog2.dismiss();
             }
         });
+
         llM5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -668,6 +671,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                 alertDialog2.dismiss();
             }
         });
+
         llM7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -676,6 +680,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                 alertDialog2.dismiss();
             }
         });
+
         llM8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -684,6 +689,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                 alertDialog2.dismiss();
             }
         });
+
         llM9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -692,6 +698,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                 alertDialog2.dismiss();
             }
         });
+
         llM10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -700,6 +707,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                 alertDialog2.dismiss();
             }
         });
+
         llM11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -708,6 +716,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                 alertDialog2.dismiss();
             }
         });
+
         llM112.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -716,6 +725,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                 alertDialog2.dismiss();
             }
         });
+
         ImageView imgCancel = (ImageView) dialogView.findViewById(R.id.imgCancel);
         imgCancel.setOnClickListener(new View.OnClickListener() {
             @Override
