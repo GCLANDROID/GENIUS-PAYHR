@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+ >
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/dlMain">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:background="@mipmap/headerribbon">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_dehaze_black_24dp"
+                        android:id="@+id/imgMenu"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <LinearLayout
+
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_gravity="center"
+                            android:id="@+id/tvEmpName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Arpan Saha"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/white" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="right">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/logoutimg"
+                        android:id="@+id/imgLogout"
+                        app:tint="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+                        <Spinner
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:id="@+id/spMonth"
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"></Spinner>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@color/black"></View>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/blue">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3"
+                                android:gravity="bottom|center"
+                                android:layout_marginLeft="16dp">
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/attcalendar"></ImageView>
+                            </LinearLayout>
+                            <LinearLayout
+
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="bottom|right"
+                                android:padding="5dp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/white"
+                                    android:text="Present"></TextView>
+                                <TextView
+                                    android:textStyle="bold"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="30sp"
+                                    android:textColor="@color/white"
+                                    android:id="@+id/tvPresent"></TextView>
+                                <TextView
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/white"
+                                    android:text="Days"></TextView>
+                            </LinearLayout>
+                        </LinearLayout>
+                        <org.naishadhparmar.zcustomcalendar.CustomCalendar
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/custom_calendar"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="bottom">
+
+                                <!--
+                                                            <LinearLayout
+                                                                android:id="@+id/lnStatus"
+                                                                android:layout_width="match_parent"
+                                                                android:layout_height="50dp"
+                                                                android:background="@color/white"
+                                                                android:orientation="horizontal"
+                                                                android:visibility="visible">
+
+                                                                <TextView
+                                                                    android:id="@+id/tvDetails"
+                                                                    android:layout_width="0dp"
+                                                                    android:layout_height="wrap_content"
+                                                                    android:layout_gravity="center"
+                                                                    android:layout_marginLeft="5dp"
+                                                                    android:layout_weight="1"
+                                                                    android:textColor="@color/white"
+                                                                    android:textSize="14sp"></TextView>
+
+                                                                <TextView
+                                                                    android:id="@+id/tvOK"
+                                                                    android:layout_width="0dp"
+                                                                    android:layout_height="wrap_content"
+                                                                    android:layout_gravity="center"
+                                                                    android:layout_marginLeft="5dp"
+                                                                    android:layout_marginRight="5dp"
+                                                                    android:layout_weight="0.1"
+                                                                    android:text="OK"
+                                                                    android:textColor="@color/white"
+                                                                    android:textSize="14sp"></TextView>
+                                                            </LinearLayout>
+                                -->
+                            </LinearLayout>
+                        </org.naishadhparmar.zcustomcalendar.CustomCalendar>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+                            <LinearLayout
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_margin="4dp"
+                                    app:cardCornerRadius="4dp"
+                                    app:cardBackgroundColor="@color/current"
+                                    android:layout_gravity="center">
+
+
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                            <TextView
+                                android:layout_marginRight="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/textcolor1"
+                                android:layout_gravity="center"
+                                android:text="Current"></TextView>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_margin="4dp"
+                                    app:cardCornerRadius="4dp"
+                                    app:cardBackgroundColor="@color/green"
+                                    android:layout_gravity="center">
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/textcolor1"
+                                android:layout_gravity="center"
+
+                                android:text="Present"></TextView>
+
+                            <LinearLayout
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_margin="4dp"
+                                    app:cardCornerRadius="4dp"
+                                    app:cardBackgroundColor="@color/misscolor"
+                                    android:layout_gravity="center">
+
+
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/textcolor1"
+                                android:layout_gravity="center"
+
+                                android:text="Absent"></TextView>
+
+                            <LinearLayout
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_margin="4dp"
+                                    app:cardCornerRadius="4dp"
+                                    app:cardBackgroundColor="@color/blue"
+                                    android:layout_gravity="center">
+
+
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                            <TextView
+                                android:layout_marginRight="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/textcolor1"
+                                android:layout_gravity="center"
+                                android:text="Weekly Off"></TextView>
+                            <LinearLayout
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_margin="4dp"
+                                    app:cardCornerRadius="4dp"
+                                    app:cardBackgroundColor="@color/nessecarycolor"
+                                    android:layout_gravity="center">
+
+
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                            <TextView
+                                android:layout_marginRight="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/textcolor1"
+                                android:layout_gravity="center"
+                                android:text="Holiday"></TextView>
+
+                            <LinearLayout
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_margin="4dp"
+                                    app:cardCornerRadius="4dp"
+                                    app:cardBackgroundColor="@color/contactcolor"
+                                    android:layout_gravity="center">
+
+
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/textcolor1"
+                                android:layout_gravity="center"
+                                android:text="Leave"></TextView>
+
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_margin="4dp"
+                                    app:cardCornerRadius="4dp"
+                                    app:cardBackgroundColor="@color/halfday"
+                                    android:layout_gravity="center">
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="5dp"
+                                android:text="Half Day"
+                                android:textColor="@color/textcolor1"
+                                android:textSize="8sp"></TextView>
+
+                            <LinearLayout
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_margin="4dp"
+                                    app:cardCornerRadius="4dp"
+                                    app:cardBackgroundColor="@color/purple"
+                                    android:layout_gravity="center">
+
+
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                            <TextView
+                                android:layout_marginRight="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/textcolor1"
+                                android:layout_gravity="center"
+                                android:text="Half Day Leave"></TextView>
+
+                            <LinearLayout
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_margin="4dp"
+                                    app:cardCornerRadius="4dp"
+                                    app:cardBackgroundColor="@color/missedpunch"
+                                    android:layout_gravity="center">
+
+
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                            <TextView
+                                android:layout_marginRight="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/textcolor1"
+                                android:layout_gravity="center"
+                                android:text="Missed Punch"></TextView>
+
+                            <LinearLayout
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_margin="4dp"
+                                    app:cardCornerRadius="4dp"
+                                    app:cardBackgroundColor="@color/ul"
+                                    android:layout_gravity="center">
+
+
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+                            <TextView
+                                android:layout_marginRight="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="8sp"
+                                android:textColor="@color/textcolor1"
+                                android:layout_gravity="center"
+                                android:text="Un Approved Leave"></TextView>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_margin="4dp"
+                                    app:cardCornerRadius="4dp"
+                                    app:cardBackgroundColor="@color/apcolor"
+                                    android:layout_gravity="center">
+
+                                </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="5dp"
+                                android:text="Attendance Approval Pending"
+                                android:textColor="@color/textcolor1"
+                                android:textSize="8sp"></TextView>
+
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            >
+
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:layout_marginRight="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textColor="@color/contactcolor"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="5dp"
+                                android:text="Note : Please click on the date for more details"/>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lnStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:layout_gravity="bottom"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tvDetails"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/tvOK"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.1"
+                        android:text="OK"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"></TextView>
+                </LinearLayout>
+
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <include
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/llDrawerPane"
+            layout="@layout/emp_drawer_layout"
+            android:layout_width="290dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:fitsSystemWindows="false"
+            android:focusableInTouchMode="false"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</layout>

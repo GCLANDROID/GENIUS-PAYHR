@@ -41,9 +41,11 @@ import com.genius.payhrms.R;
 import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.adapter.AttendanceCalenderAdapter;
+import com.genius.payhrms.activity.attendance.tour.TourActivity;
 import com.genius.payhrms.activity.dailylog.NumberTourActivity;
 import com.genius.payhrms.activity.dailylog.QRAttendanceDashboardActivity;
 import com.genius.payhrms.activity.dailylog.QRCodeScannerActivity;
+import com.genius.payhrms.activity.leaveapplication.OtherLeavesActivity;
 import com.genius.payhrms.activity.model.AttendanceCalenderModel;
 import com.genius.payhrms.activity.model.SpinnerModel;
 import com.genius.payhrms.activity.reciver.DailylogSyncReciever;
@@ -83,7 +85,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     Pref pref;
     ArrayList<AttendanceCalenderModel> itemList = new ArrayList<>();
     RecyclerView rvItem;
-    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog,llQRCode;
+    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog,llQRCode,llAdjustment,llTour;
     ImageView imgHome;
     boolean approver;
     NetworkStateChecker airplaneModeChangeReceiver = new NetworkStateChecker();
@@ -142,6 +144,18 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             llQRCode.setVisibility(View.VISIBLE);
         }else {
             llQRCode.setVisibility(View.GONE);
+        }
+
+        llAdjustment=(LinearLayout)findViewById(R.id.llAdjustment);
+        llTour=(LinearLayout) findViewById(R.id.llTour);
+
+        if (pref.getSecurityCode().equals("1186")){
+            llAdjustment.setVisibility(View.VISIBLE);
+            llTour.setVisibility(View.VISIBLE);
+
+        }else {
+            llAdjustment.setVisibility(View.GONE);
+            llTour.setVisibility(View.GONE);
         }
 
 
@@ -248,7 +262,8 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         llReport.setOnClickListener(this);
         llSubordinate.setOnClickListener(this);
         llQRCode.setOnClickListener(this);
-
+        llTour.setOnClickListener(this);
+        llAdjustment.setOnClickListener(this);
 
         customCalendar = findViewById(R.id.custom_calendar);
 
@@ -491,6 +506,14 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             lnStatus.setVisibility(View.GONE);
         } else if (view==llFace) {
             faceAlert();
+        }else if (view==llAdjustment){
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, OtherLeavesActivity.class);
+            startActivity(intent);
+            finish();
+        }else if (view==llTour){
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, TourActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 

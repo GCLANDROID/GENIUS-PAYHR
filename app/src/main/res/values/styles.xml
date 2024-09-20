@@ -32,7 +32,13 @@
         <item name="endIconMode">dropdown_menu</item>
     </style>
 
+    <style name="CustomDialogNew2" parent="android:Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:gravity">bottom</item>
 
+    </style>
 
 
 </resources>
