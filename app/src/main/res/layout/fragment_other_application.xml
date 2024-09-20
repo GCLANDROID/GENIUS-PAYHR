@@ -55,7 +55,7 @@
                     android:id="@+id/tvStartDateName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Start Date:*"
+                    android:text="Off Date:*"
                     android:textColor="@color/textcolor"
                     android:textSize="12sp"
                     android:textStyle="bold"></TextView>
@@ -99,7 +99,7 @@
                     android:id="@+id/tvEndDateName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="End Date:*"
+                    android:text="Leave Date:*"
                     android:textColor="@color/textcolor"
                     android:textSize="12sp"
                     android:textStyle="bold"></TextView>
