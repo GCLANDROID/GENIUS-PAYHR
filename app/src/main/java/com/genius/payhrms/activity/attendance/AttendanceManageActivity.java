@@ -91,6 +91,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.wajahatkarim3.longimagecamera.LongImageCameraActivity;
 
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -122,6 +123,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AttendanceManageActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     public static final String TAG = AttendanceManageActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private static final org.apache.commons.logging.Log log = LogFactory.getLog(AttendanceManageActivity.class);
     //  private MapView mapView;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private GoogleApiClient mGoogleApiClient;
@@ -182,7 +184,7 @@ public class AttendanceManageActivity extends AppCompatActivity implements OnMap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance_manage);
-
+        Log.e(TAG, "ATT: DECO");
         initialize();
         setUpMapIfNeeded();
         onClick();

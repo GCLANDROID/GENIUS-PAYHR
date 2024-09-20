@@ -1,5 +1,6 @@
 package com.genius.payhrms.activity.attendance;
 
+import static com.genius.payhrms.activity.attendance.AttendanceCalenderDashboardActivity.isAppMinimizeAttendance;
 import static com.genius.payhrms.activity.utility.Util.SECRET_KEY;
 import static com.genius.payhrms.activity.utility.Util.encrypt;
 
@@ -33,13 +34,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,28 +59,19 @@ import com.androidnetworking.interfaces.UploadProgressListener;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.payhrms.R;
 import com.genius.payhrms.activity.activity.LoginActivity;
-import com.genius.payhrms.activity.activity.SplashScreenActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
+import com.genius.payhrms.activity.dailylog.DailyLogCalenderDashboardActivity;
 import com.genius.payhrms.activity.helper.DatabaseHelperForDailyLog;
-import com.genius.payhrms.activity.model.SpinnerModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.AttendanceService;
 import com.genius.payhrms.activity.utility.GPSTracker;
-import com.genius.payhrms.activity.utility.NetworkConnectionCheck;
 import com.genius.payhrms.activity.utility.Pref;
 import com.genius.payhrms.activity.utility.UploadObject;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStates;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -103,7 +92,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -144,7 +132,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
 
     TextView tvName;
     EditText etRemarks;
-    AlertDialog alerDialog1,locationpopup;
+    AlertDialog alerDialog1;
     ImageView imgBack, imgHome;
     TextView tvClick, tvClickHere;
 
@@ -172,17 +160,12 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
     public static String DATA_SAVED_BROADCAST = "";
     private BroadcastReceiver broadcastReceiver;
-    ArrayList<SpinnerModel>punchTypeList=new ArrayList<>();
-    ArrayList<String>punchtypeList=new ArrayList<>();
-    Spinner spshift;
-    String Punchtype;
-    LinearLayout llShift;
-    private NetworkConnectionCheck connectionCheck;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mark_in_dailylog);
-        Log.e(TAG, "onCreate: called");
+        Log.e(TAG, "onCreate: Iskraemeco");
         initview();
         setUpMapIfNeeded();
         onClick();
@@ -191,19 +174,11 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     @SuppressLint("RestrictedApi")
     private void initview() {
         db = new DatabaseHelperForDailyLog(this);
-        connectionCheck = new NetworkConnectionCheck(this);
-
-        if (connectionCheck.isGPSEnabled()) {
-
-        } else {
-            locationAlert();
-        }
-        spshift=(Spinner)findViewById(R.id.spshift);
         pref = new Pref(AttendanceMarkActivity.this);
         lnMain=(LinearLayout) findViewById(R.id.lnMain);
         lnLoader=(LinearLayout) findViewById(R.id.lnLoader);
         getAttendanceFromReport = getIntent().getStringExtra("address");
-        llShift=(LinearLayout)findViewById(R.id.llShift);
+
         Log.e(TAG, "initview: address: "+getAttendanceFromReport );
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -243,15 +218,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         imgImage = (ImageView) findViewById(R.id.imgImage);
 
         gps = new GPSTracker(AttendanceMarkActivity.this);
-        if (pref.getShiftFlag().equals("1")){
-            llShift.setVisibility(View.VISIBLE);
-        }else {
-            llShift.setVisibility(View.GONE);
-        }
-
-
-
-
 
         // tvAddress.setText("YOU ARE AT: " + address);
         Date d = new Date();
@@ -279,40 +245,15 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         llImage = (LinearLayout) findViewById(R.id.llImage);
         tvCustom = (TextView) findViewById(R.id.tvCustom);
 
-        JSONObject jsonObject=new JSONObject();
-        try {
-            jsonObject.put("BranchID",pref.getEmpClintOffId());
-            jsonObject.put("SecurityCode",pref.getSecurityCode());
-            getpunchType(jsonObject);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
         getAPIKey();
     }
 
 
     private void onClick() {
-
-        spshift.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Punchtype=punchTypeList.get(i).getItemId();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
         imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 cameraIntent();
-
-
             }
         });
 
@@ -324,20 +265,29 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                 }
             }
         });
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                     if (!tvAddress.getText().toString().equals("YOU ARE AT: null") || tvAddress.getText().toString().equals("YOU ARE AT: ")) {
-                        if (pref.getSecurityCode().equals("1186")){
-                            if (flag==1){
-                                shiftFlagFilter();
-                            }else {
-                                Toast.makeText(AttendanceMarkActivity.this,"Please Capture Your Image",Toast.LENGTH_LONG).show();
-                            }
-                        }else {
-                            shiftFlagFilter();
-                        }
-
+                           if (flag==1){
+                              // attendance();
+                               selfAttendance();
+                           }else {
+                               //attendancefunction();
+                               JSONObject object=new JSONObject();
+                               try {
+                                   object.put("AEMEmployeeID",pref.getEmpId());
+                                   object.put("Address",address);
+                                   object.put("Longitude",longitude);
+                                   object.put("Latitude",latitude);
+                                   object.put("SecurityCode",pref.getSecurityCode());
+                                   Log.e(TAG, "SELF_ATTENDANCE_WITH_OUT_IMAGE: "+object);
+                                   selfAttendance(object);
+                               } catch (JSONException e) {
+                                   e.printStackTrace();
+                               }
+                           }
                     } else {
                         Toast.makeText(getApplicationContext(), "Sorry! Your address not found.Please click on Refresh button", Toast.LENGTH_LONG).show();
                     }
@@ -375,7 +325,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
-
             }
         });
 
@@ -394,7 +343,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         cameraIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
         cameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
-
     }
 
     @Override
@@ -402,11 +350,9 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case CAMERA_REQUEST:
-
                 if (resultCode == Activity.RESULT_OK) {
                     try {
                         try {
-
                             //messageAlert();
                             String imageurl = /*"file://" +*/ getRealPathFromURIPath(imageUri);
                             file = new File(imageurl);
@@ -416,8 +362,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                                     .setMaxHeight(250)
                                     .compressToFile(file);
                             // Log.d("imageSixw", String.valueOf(getReadableFileSize(compressedImageFile.length())));
-
-
                             BitmapFactory.Options o = new BitmapFactory.Options();
                             o.inSampleSize = 6;
                             Bitmap bo = cropToSquare(BitmapFactory.decodeFile(imageurl, o));
@@ -436,7 +380,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                     } catch (OutOfMemoryError e) {
                         e.printStackTrace();
                     }
-
                 }
                 break;
             case REQUEST_GALLERY_CODE:
@@ -470,8 +413,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                 }
                 break;
             case LongImageCameraActivity.LONG_IMAGE_RESULT_CODE:
-
-
                 if (resultCode == RESULT_OK && requestCode == LongImageCameraActivity.LONG_IMAGE_RESULT_CODE) {
                     file = (File) data.getExtras().get("picture");
                     try {
@@ -491,11 +432,8 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                     imgImage.setImageBitmap(putImage);
                     flag = 1;
                     // al2.dismiss();
-
                 }
                 break;
-
-
         }
     }
 
@@ -521,7 +459,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         return cropImg;
     }
 
-
     private void successAlert() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceMarkActivity.this, R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -533,13 +470,10 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
             public void onClick(View v) {
                 alerDialog1.dismiss();
                 onBackPressed();
-
             }
         });
         TextView tvSuccess = (TextView) dialogView.findViewById(R.id.tvSuccess);
         tvSuccess.setText("Your Attendance saved successfully");
-
-
         alerDialog1 = dialogBuilder.create();
         alerDialog1.setCancelable(false);
         Window window = alerDialog1.getWindow();
@@ -591,10 +525,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                             String responseText = job1.optString("responseText");
 
                             getaddressFromAPI(responseText);
-
-
-
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -660,12 +590,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                             if (latitude==0.0){
                                 address=getAttendanceFromReport;
                                 tvAddress.setText(address);
-                            }else if (latitude==0){
-                                address=getAttendanceFromReport;
-                                tvAddress.setText(address);
-                            }else if (address.equals("--")){
-                                address=getAttendanceFromReport;
-                                tvAddress.setText(address);
                             }else {
 
                             }
@@ -687,21 +611,8 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
             public void onErrorResponse(VolleyError error) {
                 pd.dismiss();
 
-                if (latitude==0.0){
-                    address=getAttendanceFromReport;
-                    tvAddress.setText(address);
-                }else if (latitude==0){
-                    address=getAttendanceFromReport;
-                    tvAddress.setText(address);
-                }else if (address.equals("--")){
-                    address=getAttendanceFromReport;
-                    tvAddress.setText(address);
-                }else {
-                    address = getCompleteAddressString(latitude, longitude);
-                    tvAddress.setText(address);
-                }
-
-
+                address = getCompleteAddressString(latitude, longitude);
+                tvAddress.setText(address);
 
                 // Toast.makeText(SalaryActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
                 Log.e("ert", error.toString());
@@ -712,8 +623,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         };
         RequestQueue requestQueue = Volley.newRequestQueue(AttendanceMarkActivity.this);
         requestQueue.add(stringRequest);
-
-
     }
 
 
@@ -745,11 +654,17 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     @Override
     public void onPause() {
         super.onPause();
-
+        Log.e(TAG, "onPause: Att Mark : "+isAppMinimizeAttendance);
         // mapView.onPause();
         if (mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
+        }
+
+        if (isAppMinimizeAttendance) {
+            Intent intent = new Intent(AttendanceMarkActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 
@@ -854,14 +769,10 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
 
 
     private void handleNewLocation(Location location) {
-
-
         latitude = location.getLatitude();
         currentlat = String.valueOf(latitude);
         longitude = location.getLongitude();
         currentlong = String.valueOf(longitude);
-
-
         // tvAddress.setText(address);
         // latLng = new LatLng(latitude, longitude);
 
@@ -993,9 +904,51 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     }
 
 
+    private void attendancefunction() {
+        String surl = pref.getIpAddress() + "GHRMSApi/api/post_SelfAttendance?AEMEmployeeID=" + pref.getEmpId() + "&Address=" + address.replaceAll("#","abc").replaceAll("\\s+", "") + "&Longitude=" + currentlong + "&Latitude=" + currentlat + "&SecurityCode=" + pref.getSecurityCode();
+        Log.d("attendenceinput", surl);
+        final ProgressDialog progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);//you can cancel it by pressing back button
+        progressBar.setMessage("Loading...");
+        progressBar.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("responseLeave", response);
+                        progressBar.dismiss();
+                        try {
+                            JSONObject job1 = new JSONObject(response);
 
+                            String responseText = job1.optString("responseText");
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+                                successAlert();
+                            }
+                            // boolean _status = job1.getBoolean("status");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(AttendanceMarkActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressBar.dismiss();
+                Toast.makeText(AttendanceMarkActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
+
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceMarkActivity.this);
+        requestQueue.add(stringRequest);
+
+    }
     private void selfAttendance(JSONObject jsonObject) {
-
         final ProgressDialog pd=new ProgressDialog(AttendanceMarkActivity.this);
         pd.setMessage("Loading");
         pd.setCancelable(false);
@@ -1043,7 +996,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                                 obj.put("DeviceType","A");
                                 obj.put("SecurityCode",pref.getSecurityCode());
                                 login(obj);
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -1126,7 +1078,6 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     }
 
     private void login(JSONObject jsonObject) {
-
         final ProgressDialog pd = new ProgressDialog(AttendanceMarkActivity.this);
         pd.setMessage("Loading..");
         pd.setCancelable(false);
@@ -1155,15 +1106,12 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                                 JSONObject obj = responseData.optJSONObject(i);
                                 String Genius_Access_Token=obj.optString("Genius_Access_Token");
                                 pref.saveAccessToken(Genius_Access_Token);
-
                                 // boolean _status = job1.getBoolean("status");
-
                                 if (flag==1){
                                     selfAttendance();
                                 }else {
                                     JSONObject object=new JSONObject();
                                     try {
-
                                         object.put("AEMEmployeeID",pref.getEmpId());
                                         object.put("Address",address);
                                         object.put("Longitude",longitude);
@@ -1173,10 +1121,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-
                                 }
-
-
                                 // do anything with response
                             }
                         }
@@ -1185,278 +1130,13 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                     @Override
                     public void onError(ANError error) {
                         pd.dismiss();
-
-
                     }
                 });
     }
 
-
-    private void getpunchType(JSONObject jsonObject) {
-
-        final ProgressDialog pd = new ProgressDialog(AttendanceMarkActivity.this);
-        pd.setMessage("Loading..");
-        pd.setCancelable(false);
-        pd.show();
-        AndroidNetworking.post(Api.sGetPunchtypeapi)
-                .addJSONObjectBody(jsonObject)
-                .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
-                .setTag("uploadTest")
-                .setPriority(Priority.HIGH)
-                .build()
-
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-
-                        JSONObject job1 = response;
-                        Log.e("response12", "@@@@@@" + job1);
-                        pd.dismiss();
-
-                        int Response_Code = job1.optInt("Response_Code");
-                        if (Response_Code == 101) {
-
-                            String Response_Data=job1.optString("Response_Data");
-                            try {
-                                JSONArray jsonArray=new JSONArray(Response_Data);
-                                for (int i=0;i<jsonArray.length();i++){
-                                    JSONObject obj=jsonArray.optJSONObject(i);
-                                    String ID=obj.optString("ID");
-                                    String Punchtype=obj.optString("Punchtype");
-                                    punchtypeList.add(Punchtype);
-                                    SpinnerModel spModel=new SpinnerModel(Punchtype,ID);
-                                    punchTypeList.add(spModel);
-
-                                }
-
-                                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
-                                        (AttendanceMarkActivity.this, android.R.layout.simple_spinner_item,
-                                                punchtypeList); //selected item will look like a spinner set from XML
-                                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                spshift.setAdapter(spinnerArrayAdapter);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
-
-
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError error) {
-                        pd.dismiss();
-
-
-                    }
-                });
+    @Override
+    public void onBackPressed() {
+        isAppMinimizeAttendance = false;
+        super.onBackPressed();
     }
-
-
-    public void selfAttendanceWithPunch() {
-        final ProgressDialog pg=new ProgressDialog(AttendanceMarkActivity.this);
-        pg.setMessage("Loading..");
-        pg.setCancelable(false);
-        pg.show();
-        //Log.e(TAG, "selfAttendance: ", );
-        Log.e(TAG, "SELF_ATTENDANCE_WITH_IMAGE: \nAEMEmployeeID:"+pref.getEmpId()
-                +"\nAddress:"+address+"\nLongitude:"+longitude+"\nLatitude:"+latitude+"\nSecurityCode:"+pref.getSecurityCode()+"\nImage:");
-
-        AndroidNetworking.upload(Api.sselfattendanceimageapi)
-                .addMultipartParameter("AEMEmployeeID", pref.getEmpId())
-                .addMultipartParameter("Address", address)
-                .addMultipartParameter("Longitude", String.valueOf(longitude))
-                .addMultipartParameter("Latitude",  String.valueOf(latitude))
-                .addMultipartParameter("Punchtype",Punchtype)
-                .addMultipartParameter("SecurityCode",pref.getSecurityCode())
-                .addMultipartFile("Image",compressedImageFile)
-                .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
-                .setTag("uploadTest")
-                .setPriority(Priority.HIGH)
-                .build()
-                .setUploadProgressListener(new UploadProgressListener() {
-                    @Override
-                    public void onProgress(long bytesUploaded, long totalBytes) {
-                        pg.show();
-                    }
-                })
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        pg.dismiss();
-                        JSONObject job = response;
-                        int Response_Code = job.optInt("Response_Code");
-                        String Response_Message=job.optString("Response_Message");
-                        if (Response_Code == 101) {
-                            // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
-                            successAlert();
-                            // boolean _status = job1.getBoolean("status");
-                            // do anything with response
-                        }else {
-                            Toast.makeText(getApplicationContext(),Response_Message,Toast.LENGTH_LONG).show();
-                        }
-
-                        // boolean _status = job1.getBoolean("status");
-                        // do anything with response
-                    }
-
-                    @Override
-                    public void onError(ANError error) {
-                        // handle error
-                        Log.e("error",error.toString());
-                        pg.dismiss();
-                        if (error.getErrorCode()==401){
-                            JSONObject obj=new JSONObject();
-                            try {
-                                obj.put("MasterID",encrypt(pref.getMasterId(),SECRET_KEY));
-                                obj.put("Password",encrypt(pref.getPassword(),SECRET_KEY));
-                                obj.put("IMEI","0");
-                                obj.put("DeviceID","0");
-                                obj.put("DeviceType","A");
-                                obj.put("SecurityCode",pref.getSecurityCode());
-                                login(obj);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-                });
-    }
-
-    private void selfAttendanceWithPunch(JSONObject jsonObject) {
-
-        final ProgressDialog pd=new ProgressDialog(AttendanceMarkActivity.this);
-        pd.setMessage("Loading");
-        pd.setCancelable(false);
-        pd.show();
-        AndroidNetworking.post(Api.sPostSelfAttendanceShalimarapi)
-                .addJSONObjectBody(jsonObject)
-                .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
-                .setTag("uploadTest")
-                .setPriority(Priority.HIGH)
-                .build()
-
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        pd.dismiss();
-                        JSONObject job1 = response;
-                        Log.e("response12", "@@@@@@" + job1);
-
-                        int Response_Code = job1.optInt("Response_Code");
-                        String Response_Message=job1.optString("Response_Message");
-                        if (Response_Code == 101) {
-                            // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
-
-                            successAlert();
-                            // boolean _status = job1.getBoolean("status");
-                            // do anything with response
-                        }else {
-
-                            Toast.makeText(getApplicationContext(),Response_Message,Toast.LENGTH_LONG).show();
-
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError error) {
-
-                        if (error.getErrorCode()==401){
-                            JSONObject obj=new JSONObject();
-                            try {
-                                obj.put("MasterID",encrypt(pref.getMasterId(),SECRET_KEY));
-                                obj.put("Password",encrypt(pref.getPassword(),SECRET_KEY));
-                                obj.put("IMEI","0");
-                                obj.put("DeviceID","0");
-                                obj.put("DeviceType","A");
-                                obj.put("SecurityCode",pref.getSecurityCode());
-                                login(obj);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-
-                    }
-                });
-    }
-
-    private void shiftFlagFilter(){
-        if (pref.getShiftFlag().equals("1")){
-            if (flag==1){
-                // attendance();
-                selfAttendanceWithPunch();
-            }else {
-                //attendancefunction();
-                JSONObject object=new JSONObject();
-                try {
-                    object.put("AEMEmployeeID",pref.getEmpId());
-                    object.put("Address",address);
-                    object.put("Longitude",longitude);
-                    object.put("Latitude",latitude);
-                    object.put("Punchtype",Punchtype);
-                    object.put("SecurityCode",pref.getSecurityCode());
-                    Log.e(TAG, "SELF_ATTENDANCE_WITH_OUT_IMAGE: "+object);
-                    selfAttendanceWithPunch(object);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }else {
-            if (flag==1){
-                // attendance();
-                selfAttendance();
-            }else {
-                //attendancefunction();
-                JSONObject object=new JSONObject();
-                try {
-                    object.put("AEMEmployeeID",pref.getEmpId());
-                    object.put("Address",address);
-                    object.put("Longitude",longitude);
-                    object.put("Latitude",latitude);
-                    object.put("SecurityCode",pref.getSecurityCode());
-                    Log.e(TAG, "SELF_ATTENDANCE_WITH_OUT_IMAGE: "+object);
-                    selfAttendance(object);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-    }
-
-
-    private void locationAlert() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AttendanceMarkActivity.this, R.style.CustomDialogNew);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View dialogView = inflater.inflate(R.layout.location_error, null);
-        dialogBuilder.setView(dialogView);
-        TextView tvError = (TextView) dialogView.findViewById(R.id.tvError);
-        tvError.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                locationpopup.dismiss();
-                onBackPressed();
-
-            }
-        });
-
-
-
-        locationpopup = dialogBuilder.create();
-        locationpopup.setCancelable(false);
-        Window window = locationpopup.getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setGravity(Gravity.CENTER);
-        locationpopup.show();
-    }
-
-
-
-
 }

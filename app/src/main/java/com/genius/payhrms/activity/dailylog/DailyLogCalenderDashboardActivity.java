@@ -1,8 +1,10 @@
 package com.genius.payhrms.activity.dailylog;
 
+import static com.genius.payhrms.activity.activity.UserDashBoardActivity.isAppMinimizeDashboard;
 import static com.genius.payhrms.activity.utility.Util.SECRET_KEY;
 import static com.genius.payhrms.activity.utility.Util.encrypt;
 
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -26,17 +28,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.adapter.AttendanceCalenderAdapter;
 import com.genius.payhrms.activity.attendance.AttendanceReportActivity;
@@ -96,18 +93,24 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
     TextView tvDetails,tvOK;
     LinearLayout llFace;
     int date;
+    public static boolean isAppMinimizeDailyLog = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_log_calender_dashboard);
         initView();
-
         ONCLICK();
-
     }
 
+
+
+
+
+
     private void initView(){
-        Log.e(TAG, "initView: DALYLOG");
+        Log.e(TAG, "initView: DALYLOG Calender");
         pref=new Pref(DailyLogCalenderDashboardActivity.this);
         llFace=(LinearLayout)findViewById(R.id.llFace);
         JSONObject object=new JSONObject();
@@ -439,7 +442,6 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
                 }
             }
         });
-
         tvOK.setOnClickListener(this);
     }
 
@@ -510,18 +512,22 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         if (view == imgMenu) {
             dlMain.openDrawer(Gravity.LEFT);
         }else if (view==llManage){
+            isAppMinimizeDailyLog = true;
             Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, VisitLocationActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else if (view==llLog){
+            isAppMinimizeDailyLog = true;
             Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, NumberTourActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else if (view==llSubordinate){
+            isAppMinimizeDailyLog = true;
             Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, SuperVisiorActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else if (view==llBackLog){
+            isAppMinimizeDailyLog = true;
             Log.e(TAG, "onClick: Back Log");
             Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, BacklogActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -531,6 +537,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
             Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, DaycoAttendanceReportActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);*/
+            isAppMinimizeDailyLog = true;
             if (pref.getSecurityCode().equals("1167")){
                 Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, DaycoAttendanceReportActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -541,10 +548,12 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
                 startActivity(intent);
             }
         }else if (view==imgHome){
+            isAppMinimizeDashboard = false;
             Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, UserDashBoardActivity.class);
             startActivity(intent);
             finish();
         }else if (view==llQRCode){
+            isAppMinimizeDailyLog = true;
             if (pref.getSecurityCode().equals("1160")){
                 if (pref.getLoginID().equals("FSS0120") ||pref.getLoginID().equals("FSS0243") ||pref.getLoginID().equals("FSS0047")||pref.getLoginID().equals("FSS0163")||pref.getLoginID().equals("FSS0101") ){
                     Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, QRAttendanceDashboardActivity.class);
@@ -652,7 +661,6 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-
                             }
                         }
                     }
@@ -660,8 +668,6 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
                     @Override
                     public void onError(ANError error) {
                         pd.dismiss();
-
-
                     }
                 });
     }
@@ -680,12 +686,20 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         super.onStop();
         unregisterReceiver(airplaneModeChangeReceiver);
         unregisterReceiver(dailyLogReciever);
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         //getAttendanceList(y, m);
+        isAppMinimizeDailyLog = false;
         JSONObject object=new JSONObject();
         try {
             object.put("AEMEmployeeId",pref.getEmpId());
@@ -696,6 +710,21 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (isAppMinimizeDailyLog == false && isAppMinimizeDashboard == true){
+            Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void getAttendanceList2(int year, int month, JSONObject object) {
@@ -712,7 +741,6 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         pd.setMessage("Loading...");
         pd.show();
         pd.setCancelable(false);
-
 
         AndroidNetworking.post(Api.sGetEmployeeAttendanceReport)
                 .addJSONObjectBody(object)
@@ -1149,5 +1177,11 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        isAppMinimizeDashboard = false;
+        super.onBackPressed();
     }
 }

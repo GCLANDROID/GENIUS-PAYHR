@@ -1,5 +1,7 @@
 package com.genius.payhrms.activity.adapter;
 
+import static com.genius.payhrms.activity.activity.UserDashBoardActivity.isAppMinimizeDashboard;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -49,6 +51,8 @@ import com.google.cloud.translate.Translation;
 
 import java.util.ArrayList;
 
+import javax.xml.transform.stream.StreamSource;
+
 public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyViewHolder> {
     ArrayList<MenuItemModel>itemList=new ArrayList<>();
     Context mContex;
@@ -83,12 +87,9 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                     textViewHandler1.post(new Runnable() {
                         @Override
                         public void run() {
-
                             Log.d("sssh", translation.getTranslatedText());
                             String hLoc = translation.getTranslatedText();
                             myViewHolder.tvMenuItem.setText(hLoc);
-
-
                         }
                     });
                     return null;
@@ -98,19 +99,13 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 protected void onPreExecute() {
                     super.onPreExecute();
                     pd.show();
-
-
                 }
 
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
                     pd.dismiss();
-
-
                 }
-
-
             }.execute();
         }else {
             myViewHolder.tvMenuItem.setText(itemList.get(i).getMenuName());
@@ -181,7 +176,6 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContex.startActivity(intent);
                     }
-
                 } else if (itemList.get(i).getMenuId()==1){
                     //profile
                     if (pref.getSecurityCode().equals("1080")) {
@@ -192,10 +186,8 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                         Intent intent = new Intent(mContex, ProfileActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContex.startActivity(intent);
-
                     }
-                }
-                else if (itemList.get(i).getMenuId()==2){
+                } else if (itemList.get(i).getMenuId()==2){
                     //logout
                     pref.setFirstTimeLaunch(false);
                     pref.saveLoginFlag("2");
@@ -214,12 +206,14 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                     //chat
                 } else if (itemList.get(i).getMenuId() == 5) {
                     //attendance
+                    isAppMinimizeDashboard = true;
                     Intent intent = new Intent(mContex, AttendanceCalenderDashboardActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContex.startActivity(intent);
 
                 } else if (itemList.get(i).getMenuId() == 7) {
-                    //dailylog
+                    //Dailylog
+                    isAppMinimizeDashboard = true;
                     if (pref.getSecurityCode().equals("1156") ||pref.getSecurityCode().equals("1000")||pref.getSecurityCode().equals("1160")||pref.getSecurityCode().equals("1168")|| pref.getSecurityCode().equals("5000") ||pref.getSecurityCode().equals("1167")||pref.getSecurityCode().equals("1172")||pref.getSecurityCode().equals("1173")){
                         Intent intent = new Intent(mContex, DailyLogCalenderDashboardActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -309,10 +303,6 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 }
             }
         });
-
-
-
-
     }
 
     @Override

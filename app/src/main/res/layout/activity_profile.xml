@@ -202,7 +202,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@color/purple"
                                 android:orientation="vertical"
-                                android:visibility="gone">
+                                android:visibility="visible">
 
                                 <LinearLayout
                                     android:id="@+id/llEmpId"

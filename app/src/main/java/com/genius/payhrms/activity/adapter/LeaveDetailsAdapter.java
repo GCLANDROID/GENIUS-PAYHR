@@ -247,15 +247,12 @@ public class LeaveDetailsAdapter extends RecyclerView.Adapter<LeaveDetailsAdapte
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-
-
-
                 }
 
 
             }.execute();
         } else {
-            myViewHolder.tvApprovedBy.setText(itemList.get(i).getApprovedDate());
+            myViewHolder.tvApprovedBy.setText(itemList.get(i).getApprovedBy());
         }
 
         if (pref.getLanguage().equals("hi")){

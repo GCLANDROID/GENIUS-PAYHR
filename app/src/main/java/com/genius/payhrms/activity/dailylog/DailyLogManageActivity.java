@@ -65,6 +65,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.apache.commons.logging.LogFactory;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.DecimalFormat;
@@ -85,6 +87,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DailyLogManageActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     public static final String TAG = AttendanceManageActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private static final org.apache.commons.logging.Log log = LogFactory.getLog(DailyLogManageActivity.class);
     //  private MapView mapView;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private GoogleApiClient mGoogleApiClient;
@@ -134,6 +137,7 @@ public class DailyLogManageActivity extends AppCompatActivity implements OnMapRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_log_manage);
+        Log.e(TAG, "onCreate: 1186");
         locationalerts();
         intialize();
         setUpMapIfNeeded();
@@ -141,12 +145,14 @@ public class DailyLogManageActivity extends AppCompatActivity implements OnMapRe
     }
 
     private void intialize(){
-        pref=new Pref(getApplicationContext());
+        pref = new Pref(getApplicationContext());
+
         if (pref.getSecurityCode().equals("123")){
             SERVER_PATH="";
         }else {
             SERVER_PATH = "";
         }
+
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds

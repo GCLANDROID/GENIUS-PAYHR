@@ -1,5 +1,6 @@
 package com.genius.payhrms.activity.dailylog;
 
+import static com.genius.payhrms.activity.dailylog.DailyLogCalenderDashboardActivity.isAppMinimizeDailyLog;
 import static com.genius.payhrms.activity.utility.Util.SECRET_KEY;
 import static com.genius.payhrms.activity.utility.Util.encrypt;
 
@@ -68,7 +69,6 @@ public class VisitLocationActivity extends AppCompatActivity {
     String frstPunch;
     double SLongitude, SLatitude, s;
     String punchFrom;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -276,46 +276,53 @@ public class VisitLocationActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }*/
                     //getAttendanceInformationForSmart();
+                    isAppMinimizeDailyLog = true;
                     Intent intent = new Intent(VisitLocationActivity.this, OfflineDailyLogManageActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else if (pref.getSecurityCode().equals("1157")) {
-
+                    isAppMinimizeDailyLog = true;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogMarkActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else if (pref.getSecurityCode().equals("1168")) {
+                    isAppMinimizeDailyLog = true;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneArchisman.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }else if (pref.getSecurityCode().equals("1000")) {
+                    isAppMinimizeDailyLog = true;
                     //TODO: Mathhew
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneMathhew.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else if (pref.getSecurityCode().equals("1167")) {
+                    isAppMinimizeDailyLog = true;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneMathhew.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                }else if (pref.getSecurityCode().equals("1169")) {
+                } else if (pref.getSecurityCode().equals("1169")) {
+                    isAppMinimizeDailyLog = true;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneDayco.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else if (pref.getSecurityCode().equals("1000")) {
+                    isAppMinimizeDailyLog = true;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneArchisman.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else if (pref.getSecurityCode().equals("5000")) {
+                    isAppMinimizeDailyLog = true;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneArchisman.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else {
+                    isAppMinimizeDailyLog = true;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogMarkActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
             }
-
         });
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -336,31 +343,38 @@ public class VisitLocationActivity extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);*/
                 } else if (pref.getSecurityCode().equals("1157")) {
+                    isAppMinimizeDailyLog = false;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogMarkActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else if (pref.getSecurityCode().equals("1168")) {
+                    isAppMinimizeDailyLog = false;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneArchisman.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }else if (pref.getSecurityCode().equals("1167")) {
+                    isAppMinimizeDailyLog = false;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneMathhew.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else if (pref.getSecurityCode().equals("1169")) {
+                    isAppMinimizeDailyLog = false;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneDayco.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else if (pref.getSecurityCode().equals("1000")) {
+                    isAppMinimizeDailyLog = false;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneArchisman.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }else if (pref.getSecurityCode().equals("5000")) {
                     Log.e(TAG, "onClick: called =======");
+                    isAppMinimizeDailyLog = false;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneArchisman.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else {
+                    isAppMinimizeDailyLog = false;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogMarkActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -374,6 +388,7 @@ public class VisitLocationActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -392,14 +407,13 @@ public class VisitLocationActivity extends AppCompatActivity {
     }
 
 
-
-
     private void getAttendanceInformationForSmart2(JSONObject object) {
         Log.e(TAG, "getAttendanceInformationForSmart2: called");
         final ProgressDialog progressDialog = new ProgressDialog(VisitLocationActivity.this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
         progressDialog.show();
+
         /*String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
         Log.d("input", surl);*/
 
@@ -472,5 +486,11 @@ public class VisitLocationActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        isAppMinimizeDailyLog = false;
+        super.onBackPressed();
     }
 }

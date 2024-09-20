@@ -1,5 +1,6 @@
 package com.genius.payhrms.activity.attendance;
 
+import static com.genius.payhrms.activity.activity.UserDashBoardActivity.isAppMinimizeDashboard;
 import static com.genius.payhrms.activity.utility.Util.SECRET_KEY;
 import static com.genius.payhrms.activity.utility.Util.encrypt;
 
@@ -24,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,30 +32,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.androidnetworking.interfaces.UploadProgressListener;
 
 import com.genius.payhrms.R;
-import com.genius.payhrms.activity.activity.HolidayActivity;
+import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
-import com.genius.payhrms.activity.adapter.AttendanceAdapter;
 import com.genius.payhrms.activity.adapter.AttendanceCalenderAdapter;
-import com.genius.payhrms.activity.attendance.tour.TourActivity;
 import com.genius.payhrms.activity.dailylog.NumberTourActivity;
 import com.genius.payhrms.activity.dailylog.QRAttendanceDashboardActivity;
 import com.genius.payhrms.activity.dailylog.QRCodeScannerActivity;
-import com.genius.payhrms.activity.leaveapplication.OtherLeavesActivity;
 import com.genius.payhrms.activity.model.AttendanceCalenderModel;
-import com.genius.payhrms.activity.model.HoliDayModel;
 import com.genius.payhrms.activity.model.SpinnerModel;
 import com.genius.payhrms.activity.reciver.DailylogSyncReciever;
 import com.genius.payhrms.activity.reciver.NetworkStateChecker;
@@ -64,6 +53,7 @@ import com.genius.payhrms.activity.utility.Pref;
 import com.genius.payhrms.activity.utility.Util;
 
 
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,7 +64,6 @@ import org.naishadhparmar.zcustomcalendar.Property;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -82,6 +71,7 @@ import java.util.Map;
 
 public class AttendanceCalenderDashboardActivity extends AppCompatActivity implements View.OnClickListener , OnNavigationButtonClickedListener {
     private static final String TAG = "ACD";
+    private static final org.apache.commons.logging.Log log = LogFactory.getLog(AttendanceCalenderDashboardActivity.class);
     Spinner spMonth;
     ArrayList<String>monthList=new ArrayList<>();
     ArrayList<SpinnerModel>mmonthList=new ArrayList<>();
@@ -93,7 +83,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     Pref pref;
     ArrayList<AttendanceCalenderModel> itemList = new ArrayList<>();
     RecyclerView rvItem;
-    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog,llQRCode,llAdjustment,llTour;
+    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog,llQRCode;
     ImageView imgHome;
     boolean approver;
     NetworkStateChecker airplaneModeChangeReceiver = new NetworkStateChecker();
@@ -117,8 +107,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     int presentDayCount = 0,absentDayCount = 0, onLeaveCount = 0;
 
     String address = "";
-    ArrayList<String>addrressList=new ArrayList<>();
-
+    public static boolean isAppMinimizeAttendance = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,26 +132,6 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-        JSONObject object1=new JSONObject();
-        try {
-            object1.put("AEMConsultantID",pref.getEmpConId());
-            object1.put("AEMClientID",pref.getEmpClintId());
-            object1.put("AEMClientOfficeID",pref.getEmpClintOffId());
-            object1.put("AEMEmployeeID",pref.getEmpId());
-            object1.put("CurrentPage",0);
-            object1.put("AID",1);
-            object1.put("ApproverStatus",4);
-            object1.put("YearVal",y);
-            object1.put("MonthName",m);
-            object1.put("WorkingStatus",1);
-            object1.put("DbOperation",1);
-            object1.put("SecurityCode",pref.getSecurityCode());
-            attendanceReport(object1);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         imgHome=(ImageView)findViewById(R.id.imgHome);
         imgHome.setOnClickListener(this);
         llManage = (LinearLayout) findViewById(R.id.llAttandanceManage);
@@ -175,17 +144,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             llQRCode.setVisibility(View.GONE);
         }
 
-        llAdjustment=(LinearLayout)findViewById(R.id.llAdjustment);
-        llTour=(LinearLayout) findViewById(R.id.llTour);
 
-        if (pref.getSecurityCode().equals("1186")){
-            llAdjustment.setVisibility(View.VISIBLE);
-            llTour.setVisibility(View.VISIBLE);
-
-        }else {
-            llAdjustment.setVisibility(View.GONE);
-            llTour.setVisibility(View.GONE);
-        }
         llLog = (LinearLayout) findViewById(R.id.llLog);
         llLog.setVisibility(View.GONE);
         llBackLog = (LinearLayout) findViewById(R.id.llBackLog);
@@ -289,8 +248,6 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         llReport.setOnClickListener(this);
         llSubordinate.setOnClickListener(this);
         llQRCode.setOnClickListener(this);
-        llTour.setOnClickListener(this);
-        llAdjustment.setOnClickListener(this);
 
 
         customCalendar = findViewById(R.id.custom_calendar);
@@ -371,11 +328,6 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         current.layoutResource = R.layout.current_view;
         current.dateTextViewResource = R.id.text_view;
         descHashMap.put("C", current);
-
-        Property hc = new Property();
-        hc.layoutResource = R.layout.hc_view;
-        hc.dateTextViewResource = R.id.text_view;
-        descHashMap.put("HC", hc);
 
         customCalendar.setMapDescToProp(descHashMap);
         customCalendar.setOnNavigationButtonClickedListener(CustomCalendar.PREVIOUS, this);
@@ -481,12 +433,6 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                     tvDetails.setText(date + " : "+PunchTiming );
                     tvDetails.setTextColor(Color.parseColor("#F2FFFFFF"));
                     tvOK.setTextColor(Color.parseColor("#F2FFFFFF"));
-                }else if (Status.equalsIgnoreCase("HC")) {
-                    lnStatus.setVisibility(View.VISIBLE);
-                    lnStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#59945C")));
-                    tvDetails.setText(date + " : "+PunchTiming );
-                    tvDetails.setTextColor(Color.parseColor("#F2FFFFFF"));
-                    tvOK.setTextColor(Color.parseColor("#F2FFFFFF"));
                 } else {
                     lnStatus.setVisibility(View.VISIBLE);
                     lnStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#AFAFAF")));
@@ -504,35 +450,34 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     public void onClick(View view) {
         if (view == imgMenu) {
             dlMain.openDrawer(Gravity.LEFT);
-        }else if (view==llManage){
-           attenDanceIntent();
+        }else if (view==llManage) {
+            isAppMinimizeAttendance = true;
+            attenDanceIntent();
         }else if (view==llLog){
+            isAppMinimizeAttendance = true;
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, NumberTourActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else if (view==llSubordinate){
+            isAppMinimizeAttendance = true;
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, SuperVisiorActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        }else if (view==llBackLog){
+        } else if (view==llBackLog) {
+            isAppMinimizeAttendance = true;
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, BacklogActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        }else if (view==llReport){
+        } else if (view==llReport) {
+            isAppMinimizeAttendance = true;
             attenDanceReportIntent();
-        }else if (view==imgHome){
+        } else if (view==imgHome) {
+            isAppMinimizeDashboard = false;
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, UserDashBoardActivity.class);
             startActivity(intent);
             finish();
-        }else if (view==llAdjustment){
-            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, OtherLeavesActivity.class);
-            startActivity(intent);
-            finish();
-        }else if (view==llTour){
-            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, TourActivity.class);
-            startActivity(intent);
-            finish();
-        }else if (view==llQRCode){
+        } else if (view==llQRCode){
+            isAppMinimizeAttendance = true;
             if (approver) {
                 Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, QRAttendanceDashboardActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -542,9 +487,9 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
-        }else if (view==tvOK){
+        } else if (view==tvOK) {
             lnStatus.setVisibility(View.GONE);
-        }else if (view==llFace){
+        } else if (view==llFace) {
             faceAlert();
         }
     }
@@ -605,7 +550,24 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                                     // llShow.setVisibility(View.GONE);
                                 }
 
-
+                                JSONObject object=new JSONObject();
+                                try {
+                                    object.put("AEMConsultantID",pref.getEmpConId());
+                                    object.put("AEMClientID",pref.getEmpClintId());
+                                    object.put("AEMClientOfficeID",pref.getEmpClintOffId());
+                                    object.put("AEMEmployeeID",pref.getEmpId());
+                                    object.put("CurrentPage",0);
+                                    object.put("AID",1);
+                                    object.put("ApproverStatus",4);
+                                    object.put("YearVal",y);
+                                    object.put("MonthName",m);
+                                    object.put("WorkingStatus",1);
+                                    object.put("DbOperation",1);
+                                    object.put("SecurityCode",pref.getSecurityCode());
+                                    attendanceReport(object);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
@@ -652,6 +614,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     @Override
     protected void onResume() {
         super.onResume();
+        isAppMinimizeAttendance = false;
         JSONObject jsonObject=new JSONObject();
         try {
             jsonObject.put("AEMEmployeeId",pref.getEmpId());
@@ -661,6 +624,18 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             currentcalendar(jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e(TAG, "onPause: isAppMinimizeAttendance: "+isAppMinimizeAttendance+" isAppMinimizeDashboard: "+isAppMinimizeDashboard);
+        if (isAppMinimizeAttendance == false && isAppMinimizeDashboard == true){
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 
@@ -825,8 +800,6 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                 Calendar calendar9=Calendar.getInstance();
                 calendar9.set(newMonth.get(Calendar.YEAR),9,1);
 
-
-
                 JSONObject jsonObject9=new JSONObject();
                 try {
                     jsonObject9.put("AEMEmployeeId",pref.getEmpId());
@@ -841,8 +814,6 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             case Calendar.NOVEMBER:
                 Calendar calendar10=Calendar.getInstance();
                 calendar10.set(newMonth.get(Calendar.YEAR),10,1);
-
-
 
                 JSONObject jsonObject10=new JSONObject();
                 try {
@@ -882,7 +853,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     private void attenDanceIntent() {
         if (pref.getSecurityCode().equals("11") || pref.getSecurityCode().equals("123")) {
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceManageForPPSActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (pref.getSecurityCode().equals("1135")) {
 
@@ -892,16 +863,77 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             Log.e(TAG, "attenDanceIntent: AttendanceMarkActivity");
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceMarkActivity.class);
             intent.putExtra("address",address);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
-
-
     }
 
 
 
+    /*private void getAttendanceInformationForSmart() {
+        Log.d("Arpan", "arpan");
+        final ProgressDialog progressDialog = new ProgressDialog(AttendanceCalenderDashboardActivity.this);
+        progressDialog.setMessage("Loading..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        String surl = pref.getIpAddress() + "GHRMSApi/api/attendance/SingleAttendanceExistanceStatus?EmployeeID=" + pref.getEmpId() + "&AttendanceDate=" + formattedDate + "&SecurityCode=" + pref.getSecurityCode();
+        Log.d("input", surl);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, surl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
 
+                        Log.d("responseAttendance", response);
+                        progressDialog.dismiss();
+
+                        // attendabceInfiList.clear();
+
+                        try {
+                            JSONObject job1 = new JSONObject(response);
+                            Log.e("response12", "@@@@@@" + job1);
+                            String responseText = job1.optString("responseText");
+
+
+                            boolean responseStatus = job1.optBoolean("responseStatus");
+                            if (responseStatus) {
+                                // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+
+                                attCode = "1";
+
+
+                            } else {
+                                attCode = "0";
+                            }
+
+                           *//* Intent intent = new Intent(AttendanceActivity.this, SmartJuleDailyLogActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("attCode", attCode);
+                            startActivity(intent);
+*//*
+                            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, AttendanceManageActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // Toast.makeText(AttendanceReportActivity.this, "Volly Error", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                // Toast.makeText(AttendanceReportActivity.this, "volly 2"+error.toString(), Toast.LENGTH_LONG).show();
+                Log.e("ert", error.toString());
+            }
+        }) {
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(AttendanceCalenderDashboardActivity.this);
+        requestQueue.add(stringRequest);
+    }*/
 
     private void attenDanceReportIntent() {
         if (pref.getSecurityCode().equals("11") || pref.getSecurityCode().equals("123")) {
@@ -1306,7 +1338,6 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                             // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
 
                             String responseData = job1.optString("Response_Data");
-
                             try {
                                 JSONArray jsonArray=new JSONArray(responseData);
                                 /*attendabceInfiList=jsonArray;
@@ -1323,19 +1354,11 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
 
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                                    addrressList.add(jsonObject1.getString("EmpInAddress"));
-
-                                   /* if (!jsonObject1.getString("EmpInAddress").equals("--") || !jsonObject1.getString("EmpInAddress").equals("") ||!jsonObject1.getString("EmpInAddress").equals(" ")){
+                                    if (!jsonObject1.getString("EmpInAddress").equals("--")){
                                         address = jsonObject1.getString("EmpInAddress");
-
-                                    }else {
-
-                                    }*/
+                                        break;
+                                    }
                                 }
-
-                                addrressList.removeAll(Arrays.asList("", null));
-                                addrressList.removeAll(Arrays.asList("--", null));
-                                address=addrressList.get(0);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -1358,4 +1381,9 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     }
 
 
+    @Override
+    public void onBackPressed() {
+        isAppMinimizeDashboard = false;
+        super.onBackPressed();
+    }
 }

@@ -1,5 +1,6 @@
 package com.genius.payhrms.activity.dailylog;
 
+import static com.genius.payhrms.activity.dailylog.DailyLogCalenderDashboardActivity.isAppMinimizeDailyLog;
 import static com.genius.payhrms.activity.utility.Util.SECRET_KEY;
 import static com.genius.payhrms.activity.utility.Util.encrypt;
 
@@ -59,6 +60,7 @@ import com.androidnetworking.interfaces.UploadProgressListener;
 import com.developers.imagezipper.ImageZipper;
 
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.helper.DatabaseHelperForDailyLog;
 import com.genius.payhrms.activity.utility.Api;
@@ -126,8 +128,6 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
     Button btnSubmit;
     String currentlat, currentlong;
 
-    ;
-
     TextView tvName;
     EditText etRemarks;
     AlertDialog alerDialog1;
@@ -163,6 +163,7 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mark_in_dailylog);
+        Log.e(TAG, "onCreate: frederal soft");
         initview();
         setUpMapIfNeeded();
         onClick();
@@ -495,7 +496,6 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
         cameraIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
         cameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
-
     }
 
     @Override
@@ -783,8 +783,6 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
         };
         RequestQueue requestQueue = Volley.newRequestQueue(DailyLogMarkActivity.this);
         requestQueue.add(stringRequest);
-
-
     }
 
 
@@ -816,22 +814,25 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
     @Override
     public void onPause() {
         super.onPause();
-
         // mapView.onPause();
         if (mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
+
+        if (isAppMinimizeDailyLog){
+            Intent intent = new Intent(DailyLogMarkActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 
 
     private void setUpMapIfNeeded() {
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         //mapView.getMapAsync(this);
-
     }
 
     @Override
@@ -858,17 +859,12 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
-
-
         // Creates a CameraPosition from the builder
-
-
     }
 
 
     @Override
     public void onConnected(Bundle bundle) {
-
         if (ContextCompat.checkSelfPermission(DailyLogMarkActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -882,7 +878,6 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
     }
 
     protected synchronized void buildGoogleApiClient() {
-
         mGoogleApiClient = new GoogleApiClient.Builder(DailyLogMarkActivity.this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -1017,14 +1012,12 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
                     }
 
                 } else {
-
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                     Toast.makeText(DailyLogMarkActivity.this, "permission denied", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
-
             // other 'case' lines to check for other
             // permissions this app might request
         }
@@ -1044,7 +1037,6 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
                 .setUploadProgressListener(new UploadProgressListener() {
                     @Override
                     public void onProgress(long bytesUploaded, long totalBytes) {
-
 
                     }
                 })
@@ -1108,5 +1100,11 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
                     }
                 });
         alertDialogBuilder.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        isAppMinimizeDailyLog = false;
+        super.onBackPressed();
     }
 }
