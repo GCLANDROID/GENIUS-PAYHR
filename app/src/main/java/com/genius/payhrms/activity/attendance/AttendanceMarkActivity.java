@@ -660,6 +660,12 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                             if (latitude==0.0){
                                 address=getAttendanceFromReport;
                                 tvAddress.setText(address);
+                            }else if (latitude==0){
+                                address=getAttendanceFromReport;
+                                tvAddress.setText(address);
+                            }else if (address.equals("--")){
+                                address=getAttendanceFromReport;
+                                tvAddress.setText(address);
                             }else {
 
                             }
@@ -681,8 +687,21 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
             public void onErrorResponse(VolleyError error) {
                 pd.dismiss();
 
-                address = getCompleteAddressString(latitude, longitude);
-                tvAddress.setText(address);
+                if (latitude==0.0){
+                    address=getAttendanceFromReport;
+                    tvAddress.setText(address);
+                }else if (latitude==0){
+                    address=getAttendanceFromReport;
+                    tvAddress.setText(address);
+                }else if (address.equals("--")){
+                    address=getAttendanceFromReport;
+                    tvAddress.setText(address);
+                }else {
+                    address = getCompleteAddressString(latitude, longitude);
+                    tvAddress.setText(address);
+                }
+
+
 
                 // Toast.makeText(SalaryActivity.this, "volly 2" + error.toString(), Toast.LENGTH_LONG).show();
                 Log.e("ert", error.toString());
