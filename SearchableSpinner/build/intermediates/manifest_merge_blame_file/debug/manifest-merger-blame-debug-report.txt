@@ -6,13 +6,13 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="14"
-8-->D:\GeniusPayhrV1\GeniusPayhrV1\SearchableSpinner\src\main\AndroidManifest.xml
+8-->C:\android\Genius Payhr\SearchableSpinner\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="28" />
-9-->D:\GeniusPayhrV1\GeniusPayhrV1\SearchableSpinner\src\main\AndroidManifest.xml
+9-->C:\android\Genius Payhr\SearchableSpinner\src\main\AndroidManifest.xml
 10
 11    <application android:allowBackup="true" >
-11-->D:\GeniusPayhrV1\GeniusPayhrV1\SearchableSpinner\src\main\AndroidManifest.xml:5:5-7:19
-11-->D:\GeniusPayhrV1\GeniusPayhrV1\SearchableSpinner\src\main\AndroidManifest.xml:5:18-44
+11-->C:\android\Genius Payhr\SearchableSpinner\src\main\AndroidManifest.xml:5:5-7:19
+11-->C:\android\Genius Payhr\SearchableSpinner\src\main\AndroidManifest.xml:5:18-44
 12    </application>
 13
 14</manifest>

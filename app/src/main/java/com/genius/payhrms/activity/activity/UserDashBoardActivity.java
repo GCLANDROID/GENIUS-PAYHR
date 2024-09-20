@@ -60,10 +60,13 @@ import com.genius.payhrms.activity.reciver.DailylogSyncReciever;
 import com.genius.payhrms.activity.reciver.NetworkStateChecker;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
-import com.google.android.play.core.tasks.OnFailureListener;
+
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
@@ -669,9 +672,9 @@ public class UserDashBoardActivity extends AppCompatActivity {
     public void RateApp(final Context mContext) {
         try {
             final ReviewManager manager = ReviewManagerFactory.create(mContext);
-            manager.requestReviewFlow().addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<ReviewInfo>() {
+            manager.requestReviewFlow().addOnCompleteListener(new OnCompleteListener<ReviewInfo>() {
                 @Override
-                public void onComplete(@NonNull com.google.android.play.core.tasks.Task<ReviewInfo> task) {
+                public void onComplete(@NonNull Task<ReviewInfo> task) {
                     if(task.isSuccessful()){
                         ReviewInfo reviewInfo = task.getResult();
                         manager.launchReviewFlow((Activity) mContext, reviewInfo).addOnFailureListener(new OnFailureListener() {
@@ -679,10 +682,10 @@ public class UserDashBoardActivity extends AppCompatActivity {
                             public void onFailure(Exception e) {
                                 //Toast.makeText(mContext, "Rating Failed", Toast.LENGTH_SHORT).show();
                             }
-                        }).addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<Void>() {
+                        }).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull com.google.android.play.core.tasks.Task<Void> task) {
-                               // Toast.makeText(mContext, "Review Completed, Thank You!", Toast.LENGTH_SHORT).show();
+                            public void onComplete(@NonNull Task<Void> task) {
+                                // Toast.makeText(mContext, "Review Completed, Thank You!", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
