@@ -6,9 +6,9 @@ android {
     defaultConfig {
         applicationId "com.genius.payhrms"
         minSdkVersion 22
-        targetSdkVersion 33
-        versionCode 12
-        versionName "1.6"
+        targetSdkVersion 34
+        versionCode 22
+        versionName "2.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         packagingOptions {
@@ -39,6 +39,10 @@ android {
 
     dataBinding {
         enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -124,4 +128,7 @@ dependencies {
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
     implementation 'com.google.android.play:core:1.8.0'
     implementation 'org.naishadhparmar.zcustomcalendar:zcustomcalendar:1.0.1'
+    implementation 'commons-io:commons-io:2.13.0'
+
+
 }
