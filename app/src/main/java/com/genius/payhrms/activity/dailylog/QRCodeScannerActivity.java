@@ -71,17 +71,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        db = new DatabaseHelper(this);
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
 
-                //loading the names again
-
-            }
-        };
-
-        registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
         pref=new Pref(QRCodeScannerActivity.this);
         gps = new GPSTracker(QRCodeScannerActivity.this);
         if (gps.canGetLocation()) {
@@ -220,7 +210,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
                             String formattedDate = df.format(dof);
 
                             String date = formattedDate + "  " + currentDateTimeString;
-                            saveNameToLocalStorage( date, NAME_NOT_SYNCED_WITH_SERVER);
+
                         }
                     }
                 });
@@ -338,7 +328,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
                             String formattedDate = df.format(dof);
 
                             String date = formattedDate + "  " + currentDateTimeString;
-                            saveNameToLocalStorage( date, NAME_NOT_SYNCED_WITH_SERVER);
+
                         }
                     }
                 });
@@ -407,8 +397,5 @@ public class QRCodeScannerActivity extends AppCompatActivity {
         alerDialog1.show();
     }
 
-    private void saveNameToLocalStorage( String date ,int status) {
-        db.addName( date,  status);
-        successAlert();
-    }
+
 }
