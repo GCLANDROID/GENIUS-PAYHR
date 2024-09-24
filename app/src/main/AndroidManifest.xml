@@ -544,6 +544,8 @@
         <activity
             android:name="com.genius.payhrms.activity.dailylog.Dayco.DaycoDailyLogReportActivity"
             android:screenOrientation="userPortrait" />
+        <activity
+            android:name="com.genius.payhrms.activity.attendance.TeamAttendanceReportActivity"
+            android:screenOrientation="userPortrait" />
     </application>
-
 </manifest>
