@@ -1351,7 +1351,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                         JSONObject job1 = response;
-                        Log.e("response12", "@@@@@@" + job1);
+                        Log.e("response12", "WESTERN_PROFILE: " + job1);
                         progressBar.dismiss();
 
                         int Response_Code = job1.optInt("Response_Code");
@@ -1746,7 +1746,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 } else {
                                     tvGurdianName.setText(GuardianName);
                                 }
-
+                                lnRelationship.setVisibility(View.GONE);
                                 final String RelationShip = obj.optString("RelationShip");
                                 if (pref.getLanguage().equals("hi")) {
                                     final Handler textViewHandler10 = new Handler();
