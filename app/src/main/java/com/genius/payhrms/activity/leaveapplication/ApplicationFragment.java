@@ -159,7 +159,7 @@ public class ApplicationFragment extends Fragment {
     String category;
     AlertDialog alerDialog1;
     String stringFile = "";
-    TextView tvRequestedName, tvApprovedName, tvRejectedName, tvPendingName, tvLeaveTypeName, tvLeaveModeName, tvContactName, tvStartDateName, tvEndDateName, tvReasonName, tvDocName, tvPreviewName;
+    TextView tvRequestedName, tvApprovedName, tvRejectedName, tvPendingName, tvLeaveTypeName, tvLeaveModeName, tvContactName, tvStartDateName, tvEndDateName, tvReasonName, tvDocName, tvPreviewName,txtLengthCount;
     String color;
     TextView tvBalance, tvDetail;
     String hCode;
@@ -191,6 +191,7 @@ public class ApplicationFragment extends Fragment {
         tvApporved = (TextView) v.findViewById(R.id.tvApporved);
         tvRejected = (TextView) v.findViewById(R.id.tvRejected);
         tvPending = (TextView) v.findViewById(R.id.tvPending);
+        txtLengthCount = (TextView) v.findViewById(R.id.txtLengthCount);
         llLoader = (LinearLayout) v.findViewById(R.id.llLoader);
         llPending = (LinearLayout) v.findViewById(R.id.llPending);
         llRejected = (LinearLayout) v.findViewById(R.id.llRejected);
@@ -377,12 +378,12 @@ public class ApplicationFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                txtLengthCount.setText(etReason.getText().toString().length()+"/"+150);
                 if (etReason.getText().toString().length() > 3) {
                     llPreview.setVisibility(View.VISIBLE);
                 } else {
                     llPreview.setVisibility(View.GONE);
                 }
-
             }
         });
 
@@ -408,7 +409,7 @@ public class ApplicationFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }else {
+                    } else {
                         Toast.makeText(getContext(),"End date not selected",Toast.LENGTH_LONG).show();
                     }
                 } else {
@@ -1242,7 +1243,6 @@ public class ApplicationFragment extends Fragment {
                     }else {
                         Toast.makeText(getContext(),"Please select first half or second half",Toast.LENGTH_LONG).show();
                     }
-
                 }
                /* if (category.equals("1") || category.equals("3")) {
                     showCompOffDialog();
