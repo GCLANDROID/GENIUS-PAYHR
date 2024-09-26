@@ -730,11 +730,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
             mGoogleApiClient.disconnect();
         }
 
-        if (isAppMinimizeAttendance) {
-            Intent intent = new Intent(AttendanceMarkActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
+
     }
 
 
