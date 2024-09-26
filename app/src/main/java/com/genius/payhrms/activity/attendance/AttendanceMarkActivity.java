@@ -321,24 +321,8 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                         shiftFlagFilter();
                     }
 
-                    if (flag==1){
-                        // attendance();
-                        selfAttendance();
-                    }else {
-                        //attendancefunction();
-                        JSONObject object=new JSONObject();
-                        try {
-                            object.put("AEMEmployeeID",pref.getEmpId());
-                            object.put("Address",address);
-                            object.put("Longitude",longitude);
-                            object.put("Latitude",latitude);
-                            object.put("SecurityCode",pref.getSecurityCode());
-                            Log.e(TAG, "SELF_ATTENDANCE_WITH_OUT_IMAGE: "+object);
-                            selfAttendance(object);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
+
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Sorry! Your address not found.Please click on Refresh button", Toast.LENGTH_LONG).show();
                 }
