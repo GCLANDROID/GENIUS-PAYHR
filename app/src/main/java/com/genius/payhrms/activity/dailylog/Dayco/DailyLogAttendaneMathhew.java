@@ -968,11 +968,7 @@ public class DailyLogAttendaneMathhew extends AppCompatActivity implements OnMap
         }
 
 
-        if (isAppMinimizeDailyLog){
-            Intent intent = new Intent(DailyLogAttendaneMathhew.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
+
     }
 
 

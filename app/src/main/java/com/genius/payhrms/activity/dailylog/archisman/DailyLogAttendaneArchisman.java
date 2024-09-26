@@ -746,11 +746,7 @@ public class DailyLogAttendaneArchisman extends AppCompatActivity implements OnM
             mGoogleApiClient.disconnect();
         }
 
-        if (isAppMinimizeDailyLog){
-            Intent intent = new Intent(DailyLogAttendaneArchisman.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
+
     }
 
 

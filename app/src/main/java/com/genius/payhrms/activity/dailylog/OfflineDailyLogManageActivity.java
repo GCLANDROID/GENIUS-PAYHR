@@ -285,11 +285,7 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
             mGoogleApiClient.disconnect();
         }
 
-        if (isAppMinimizeDailyLog){
-            Intent intent = new Intent(OfflineDailyLogManageActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
+
 
     }
 

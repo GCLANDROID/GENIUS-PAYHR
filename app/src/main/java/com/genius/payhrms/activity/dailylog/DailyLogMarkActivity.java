@@ -820,11 +820,7 @@ public class DailyLogMarkActivity extends AppCompatActivity implements OnMapRead
             mGoogleApiClient.disconnect();
         }
 
-        if (isAppMinimizeDailyLog){
-            Intent intent = new Intent(DailyLogMarkActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
+
     }
 
 
