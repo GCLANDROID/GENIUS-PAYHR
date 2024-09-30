@@ -1192,16 +1192,18 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                                 String PFNumber = obj.optString("PFNumber");
-                                if (!PFNumber.equals("")) {
+                                tvPfNumber.setText(PFNumber);
+                                /*if (!PFNumber.equals("")) {
                                     tvPfNumber.setText(PFNumber);
                                 } else {
                                     tvPfNumber.setText("N/A");
-                                }
+                                }*/
 
                                 String ESINumber = obj.optString("ESINumber");
-                                if (!ESINumber.equals("")) {
+                                tvEsiNumber.setText(ESINumber);
+                                /*if (!ESINumber.equals("")) {
                                     tvEsiNumber.setText(ESINumber);
-                                }
+                                }*/
 
                                 final String BankName = obj.optString("BanKName");
                                 if (pref.getLanguage().equals("hi")) {
@@ -1264,11 +1266,13 @@ public class ProfileActivity extends AppCompatActivity {
                                 }
 
                                 String UanNo = obj.optString("UanNo");
-                                if (!UanNo.equals("")) {
+                                tvUanNumber.setText(UanNo);
+
+                                /*if (!UanNo.equals("")) {
                                     tvUanNumber.setText(UanNo);
                                 } else {
                                     tvUanNumber.setText("N/A");
-                                }
+                                }*/
                                 String panNo = obj.optString("PanNo");
                                 if (!panNo.equals("")) {
                                     tvPanNumber.setText(panNo);
@@ -1300,11 +1304,7 @@ public class ProfileActivity extends AppCompatActivity {
                             } else {
 
                             }
-
-
                             // boolean _status = job1.getBoolean("status");
-
-
                             // do anything with response
                         }
                     }
@@ -1322,18 +1322,15 @@ public class ProfileActivity extends AppCompatActivity {
                                 obj.put("DeviceType","A");
                                 obj.put("SecurityCode",pref.getSecurityCode());
                                 login(obj);
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
-
-
                     }
                 });
     }
     private void westernprofile(JSONObject jsonObject) {
-
+        Log.e(TAG, "westernprofile: "+jsonObject);
         final ProgressDialog progressBar = new ProgressDialog(ProfileActivity.this);
         progressBar.setMessage("Loading..");
         progressBar.setCancelable(false);
@@ -2062,16 +2059,18 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                                 String PFNumber = obj.optString("PFNumber");
-                                if (!PFNumber.equals("")) {
+                                tvPfNumber.setText(PFNumber);
+                               /* if (!PFNumber.equals("")) {
                                     tvPfNumber.setText(PFNumber);
                                 } else {
                                     tvPfNumber.setText("N/A");
-                                }
+                                }*/
 
                                 String ESINumber = obj.optString("ESINumber");
-                                if (!ESINumber.equals("")) {
+                                tvEsiNumber.setText(ESINumber);
+                                /*if (!ESINumber.equals("")) {
                                     tvEsiNumber.setText(ESINumber);
-                                }
+                                }*/
 
                                 final String BankName = obj.optString("BanKName");
                                 if (pref.getLanguage().equals("hi")) {
@@ -2134,11 +2133,12 @@ public class ProfileActivity extends AppCompatActivity {
                                 }
 
                                 String UanNo = obj.optString("UanNo");
-                                if (!UanNo.equals("")) {
+                                tvUanNumber.setText(UanNo);
+                                /*if (!UanNo.equals("")) {
                                     tvUanNumber.setText(UanNo);
                                 } else {
                                     tvUanNumber.setText("N/A");
-                                }
+                                }*/
                                 String panNo=obj.optString("PanNo");
                                 if (!panNo.equals("")){
                                     tvPanNumber.setText(panNo);
