@@ -1266,7 +1266,12 @@ public class ProfileActivity extends AppCompatActivity {
                                 }
 
                                 String UanNo = obj.optString("UanNo");
-                                tvUanNumber.setText(UanNo);
+                                //tvUanNumber.setText(UanNo);
+                                if (UanNo.equals("0")){
+                                    tvUanNumber.setText("");
+                                } else {
+                                    tvUanNumber.setText(UanNo);
+                                }
 
                                 /*if (!UanNo.equals("")) {
                                     tvUanNumber.setText(UanNo);
@@ -2133,7 +2138,12 @@ public class ProfileActivity extends AppCompatActivity {
                                 }
 
                                 String UanNo = obj.optString("UanNo");
-                                tvUanNumber.setText(UanNo);
+                                if (UanNo.equals("0")){
+                                    tvUanNumber.setText("");
+                                } else {
+                                    tvUanNumber.setText(UanNo);
+                                }
+
                                 /*if (!UanNo.equals("")) {
                                     tvUanNumber.setText(UanNo);
                                 } else {
