@@ -715,11 +715,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
     @Override
     protected void onPause() {
         super.onPause();
-        if (isAppMinimizeDailyLog == false && isAppMinimizeDashboard == true){
-            Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
+
     }
 
     @Override

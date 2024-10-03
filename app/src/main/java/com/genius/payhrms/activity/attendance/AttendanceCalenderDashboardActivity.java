@@ -655,11 +655,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     protected void onPause() {
         super.onPause();
         Log.e(TAG, "onPause: isAppMinimizeAttendance: "+isAppMinimizeAttendance+" isAppMinimizeDashboard: "+isAppMinimizeDashboard);
-        if (isAppMinimizeAttendance == false && isAppMinimizeDashboard == true){
-            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
+
     }
 
     @Override

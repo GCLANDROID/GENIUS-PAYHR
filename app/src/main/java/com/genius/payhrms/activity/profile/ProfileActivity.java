@@ -1255,14 +1255,14 @@ public class ProfileActivity extends AppCompatActivity {
                                 if (!AccountNumber.equals("")) {
                                     tvAcNumber.setText(AccountNumber);
                                 } else {
-                                    tvAcNumber.setText("N/A");
+                                    tvAcNumber.setText("");
                                 }
 
                                 String AadharCard = obj.optString("AadharCard");
                                 if (!AadharCard.equals("")) {
                                     tvAddharNumber.setText(AadharCard);
                                 } else {
-                                    tvAddharNumber.setText("N/A");
+                                    tvAddharNumber.setText("");
                                 }
 
                                 String UanNo = obj.optString("UanNo");
@@ -1282,7 +1282,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 if (!panNo.equals("")) {
                                     tvPanNumber.setText(panNo);
                                 } else {
-                                    tvPanNumber.setText("N/A");
+                                    tvPanNumber.setText("");
                                 }
 
                                 String ReportingManager = obj.optString("ReportingManager");
