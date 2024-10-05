@@ -42,6 +42,7 @@ import com.genius.payhrms.activity.adapter.AttendanceRegulizationAdapter;
 import com.genius.payhrms.activity.model.BackLogModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,6 +65,7 @@ public class AttendanceRegulizationActivity extends AppCompatActivity {
     AlertDialog alerDialog1;
     EditText etFocus;
     TextView tvNote;
+    FloatingActionButton fbUp;
 
 
 
@@ -91,6 +93,7 @@ public class AttendanceRegulizationActivity extends AppCompatActivity {
 
     private void initView(){
         pref=new Pref(AttendanceRegulizationActivity.this);
+        fbUp=(FloatingActionButton)findViewById(R.id.fbUp);
         tvNote=(TextView)findViewById(R.id.tvNote);
         if (pref.getSecurityCode().equals("1153")){
             tvNote.setVisibility(View.GONE);
@@ -111,6 +114,12 @@ public class AttendanceRegulizationActivity extends AppCompatActivity {
 
         imgBack=(ImageView)findViewById(R.id.imgBack);
         imgHome=(ImageView)findViewById(R.id.imgHome);
+        fbUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rvItem.smoothScrollToPosition(0);
+            }
+        });
     }
 
     private void onClick(){

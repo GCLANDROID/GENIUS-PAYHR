@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ import com.genius.payhrms.activity.adapter.BackLogAdapter;
 import com.genius.payhrms.activity.model.BackLogModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,6 +73,8 @@ public class BacklogActivity extends AppCompatActivity {
     AlertDialog alerDialog1;
     TextView tvRemark,tvDate,tvInTime,tvOutTime;
     String securityCode;
+    FloatingActionButton fbUp,fbDown;
+    ScrollView scMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +85,8 @@ public class BacklogActivity extends AppCompatActivity {
 
     private void initView() {
         pref = new Pref(getApplicationContext());
+        fbUp=(FloatingActionButton)findViewById(R.id.fbUp);
+        fbDown=(FloatingActionButton)findViewById(R.id.fbDown);
         securityCode=pref.getSecurityCode();
         tvToolBar = findViewById(R.id.tvToolBar);
         rvItem = findViewById(R.id.rvItem);
@@ -125,6 +131,21 @@ public class BacklogActivity extends AppCompatActivity {
             tvOutTime.setText("Out Time");
             tvToolBar.setText("Backlog Attendance");
         }
+        scMain=(ScrollView)findViewById(R.id.scMain);
+
+        fbUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rvItem.smoothScrollToPosition(0);
+            }
+        });
+        fbDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rvItem.smoothScrollToPosition(blockLogList.size());
+
+            }
+        });
 
     }
 
@@ -265,6 +286,14 @@ public class BacklogActivity extends AppCompatActivity {
                                     String OutTime = obj.optString("OutTime");
                                     BackLogModel blockModule = new BackLogModel(AttDate, InTime, OutTime);
                                     blockLogList.add(blockModule);
+                                }
+
+                                if (blockLogList.size()>5){
+                                    fbUp.setVisibility(View.VISIBLE);
+                                    fbDown.setVisibility(View.VISIBLE);
+                                }else {
+                                    fbUp.setVisibility(View.GONE);
+                                    fbDown.setVisibility(View.GONE);
                                 }
                                 llLoader.setVisibility(View.GONE);
                                 llMain.setVisibility(View.VISIBLE);

@@ -59,9 +59,10 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/llLoader"
         android:gravity="center"
         android:orientation="vertical">
@@ -91,7 +92,7 @@
         android:layout_marginRight="5dp"
         android:orientation="vertical"
         android:id="@+id/llMain"
-        android:visibility="gone">
+        android:visibility="visible">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -99,115 +100,149 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvNote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:text="*Note:Please Enter Remarks to submit Attendance Regularization"></TextView>
-                <LinearLayout
-                    android:id="@+id/llHeading"
-                    android:visibility="visible"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="15sp"
-                    android:background="@drawable/lldesign16"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent">
                     <LinearLayout
-                        android:visibility="gone"
-                        android:orientation="vertical"
-                        android:id="@+id/llLike"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_height="20dp"
-                        android:layout_weight="0.1">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tvNote"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:text="*Note:Please Enter Remarks to submit Attendance Regularization"></TextView>
+                        <LinearLayout
+                            android:id="@+id/llHeading"
+                            android:visibility="visible"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="15sp"
+                            android:background="@drawable/lldesign16"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:visibility="gone"
+                                android:orientation="vertical"
+                                android:id="@+id/llLike"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:layout_width="0dp"
+                                android:layout_height="20dp"
+                                android:layout_weight="0.1">
 
+                            </LinearLayout>
+                            <TextView
+                                android:layout_marginLeft="2dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Date"
+                                android:layout_weight="0.5"
+                                android:layout_gravity="center"
+                                android:textColor="@android:color/black"
+                                android:textSize="10sp"/>
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sys In time"
+                                android:layout_weight="0.5"
+                                android:layout_gravity="center"
+                                android:textColor="@android:color/black"
+                                android:textSize="10sp"/>
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sys Out time"
+                                android:layout_weight="0.5"
+                                android:layout_gravity="center"
+                                android:textColor="@android:color/black"
+                                android:textSize="10sp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Remarks"
+                                android:layout_weight="1.2"
+                                android:layout_gravity="center"
+                                android:textColor="@android:color/black"
+                                android:textSize="10sp"/>
+                        </LinearLayout>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/rvItem"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
+                        <EditText
+                            android:background="@null"
+                            android:id="@+id/etFocus"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"></EditText>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="right"
+                            android:paddingRight="10dp">
+                            <LinearLayout
+
+                                android:id="@+id/btnSubmit"
+                                android:layout_width="120dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/lldesigngreen"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center">
+                                    <TextView
+                                        android:layout_gravity="center"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="14sp"
+                                        android:textColor="@android:color/white"
+                                        android:text="SUBMIT"></TextView>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
-                    <TextView
-                        android:layout_marginLeft="2dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Date"
-                        android:layout_weight="0.5"
-                        android:layout_gravity="center"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"/>
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sys In time"
-                        android:layout_weight="0.5"
-                        android:layout_gravity="center"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"/>
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sys Out time"
-                        android:layout_weight="0.5"
-                        android:layout_gravity="center"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Remarks"
-                        android:layout_weight="1.2"
-                        android:layout_gravity="center"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"/>
-                </LinearLayout>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rvItem"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
-                <EditText
-                    android:background="@null"
-                    android:id="@+id/etFocus"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"></EditText>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="right"
-                    android:paddingRight="10dp">
                     <LinearLayout
-
-                        android:id="@+id/btnSubmit"
-                        android:layout_width="120dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/lldesigngreen"
-                        android:orientation="horizontal">
-
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center">
-                            <TextView
-                                android:layout_gravity="center"
+                            android:gravity="right|center"
+                            android:orientation="vertical">
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="14sp"
-                                android:textColor="@android:color/white"
-                                android:text="SUBMIT"></TextView>
+                                android:backgroundTint="@color/white"
+                                android:src="@drawable/uparow"
+                                android:id="@+id/fbUp"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/white"
+                                android:src="@drawable/downarow"
+                                android:layout_marginTop="10dp"
+                                android:id="@+id/fbDown"></com.google.android.material.floatingactionbutton.FloatingActionButton>
                         </LinearLayout>
+
                     </LinearLayout>
-                </LinearLayout>
+                </FrameLayout>
             </LinearLayout>
+
         </ScrollView>
 
 
