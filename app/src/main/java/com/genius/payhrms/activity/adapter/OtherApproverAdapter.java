@@ -48,13 +48,7 @@ public class OtherApproverAdapter extends RecyclerView.Adapter<OtherApproverAdap
         holder.tvEmpName.setText(otherApproverList.get(position).Name);
         holder.tvType.setText("Adjustment Type:");
         holder.tvLeaveType.setText(otherApproverList.get(position).AdjustmentType);
-        if (otherApproverList.get(position).AdjustmentType.equals("Compensatory off")){
-            holder.tvleaveStrtDate.setText("Off Date:");
-            holder.tvLeaveEndDate.setText("Leave Date:");
-        } else {
-            holder.tvleaveStrtDate.setText("Start Date:");
-            holder.tvLeaveEndDate.setText("End Date:");
-        }
+
         holder.tvStrtDate.setText(otherApproverList.get(position).StartDate);
         if (otherApproverList.get(position).AdjustmentType.equals("Compensatory off")){
             holder.tvStrtDate.setText(otherApproverList.get(position).offdate);

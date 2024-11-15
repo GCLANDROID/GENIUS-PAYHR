@@ -299,6 +299,11 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         wcProperty.dateTextViewResource = R.id.text_view;
         descHashMap.put("WC", wcProperty);
 
+        Property hcProperty = new Property();
+        hcProperty.layoutResource = R.layout.wc_view;
+        hcProperty.dateTextViewResource = R.id.text_view;
+        descHashMap.put("HC", hcProperty);
+
 
         Property unapprovedleaveProperty = new Property();
         unapprovedleaveProperty.layoutResource = R.layout.ul_view;
@@ -397,12 +402,20 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
                     tvDetails.setText(date + " : "+PunchTiming + " Weekly Off" );
                     tvDetails.setTextColor(Color.parseColor("#F2FFFFFF"));
                     tvOK.setTextColor(Color.parseColor("#F2FFFFFF"));
-                } else if (Status.equalsIgnoreCase("WC")){
+                } else if (Status.equalsIgnoreCase("WC")) {
                     lnStatus.setVisibility(View.VISIBLE);
-                    lnStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F20C5EDA")));
+                    lnStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#59945C")));
                     tvDetails.setText(date + " : " + PunchTiming );
                     tvDetails.setTextColor(Color.parseColor("#F2FFFFFF"));
                     tvOK.setTextColor(Color.parseColor("#F2FFFFFF"));
+
+                }else if (Status.equalsIgnoreCase("HC")) {
+                    lnStatus.setVisibility(View.VISIBLE);
+                    lnStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#59945C")));
+                    tvDetails.setText(date + " : " + PunchTiming );
+                    tvDetails.setTextColor(Color.parseColor("#F2FFFFFF"));
+                    tvOK.setTextColor(Color.parseColor("#F2FFFFFF"));
+
                 } else if (Status.equalsIgnoreCase("M")){
                     lnStatus.setVisibility(View.VISIBLE);
                     lnStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#AC4782")));

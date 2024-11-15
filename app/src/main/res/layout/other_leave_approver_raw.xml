@@ -159,7 +159,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:paddingLeft="5dp"
-                            android:text="Start Date:"
+                            android:text="Off Date:"
                             android:textColor="@color/color7"
                             android:textSize="12sp"></TextView>
                     </LinearLayout>
@@ -204,7 +204,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:paddingLeft="5dp"
-                            android:text="End Date:"
+                            android:text="Leave Date:"
                             android:textColor="@color/color7"
                             android:textSize="12sp"></TextView>
                     </LinearLayout>

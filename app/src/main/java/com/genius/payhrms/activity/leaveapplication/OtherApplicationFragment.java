@@ -477,16 +477,11 @@ public class OtherApplicationFragment extends Fragment {
                                         AdjustmentModel adjustmentModel = adjustmentList.get(position);
                                         if (adjustmentModel.id.equals("0")){
                                             LeaveTypeID = adjustmentModel.id;
-                                            binding.tvStartDateName.setText("Start Date");
-                                            binding.tvEndDateName.setText("End Date");
                                         } else if (adjustmentModel.id.equals(COMPENSATORY_OFF_ID)){
                                             LeaveTypeID = adjustmentModel.id;
-                                            binding.tvStartDateName.setText("Off Date");
-                                            binding.tvEndDateName.setText("Leave Date");
                                         } else {
                                             LeaveTypeID = adjustmentModel.id;
-                                            binding.tvStartDateName.setText("Start Date");
-                                            binding.tvEndDateName.setText("End Date");
+
                                         }
                                     }
 
