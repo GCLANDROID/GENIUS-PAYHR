@@ -69,7 +69,7 @@ public class ProfileActivity extends AppCompatActivity {
     String surl;
     ImageView imgUser;
     TextView tvPersonalEmail,tvReportingManager,tvGMob,tvGurdianMob,tvReportingManagerTitle;
-    LinearLayout llRegion,llAsset,lnEmergency,lnLocation,lnGurdianContact,lnRelationship,lnQualification,lnBloodGrp,lnPF,lnBankName,lnAcNumber,lnAadhar,lnPAN;
+    LinearLayout llRegion,llAsset,lnEmergency,lnLocation,lnGurdianContact,lnRelationship,lnQualification,lnBloodGrp,lnPF,lnBankName,lnAcNumber,lnAadhar,lnPAN,llPFNominee;
     TextView tvRegion,tvGrade;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -245,6 +245,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         }
         tvDocuments = (TextView) findViewById(R.id.tvDocuments);
+        llPFNominee=(LinearLayout) findViewById(R.id.llPFNominee);
+        if (pref.getSecurityCode().equals("1186")){
+            llPFNominee.setVisibility(View.VISIBLE);
+        }else {
+            llPFNominee.setVisibility(View.GONE);
+        }
 
 
 
@@ -444,6 +450,17 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+        llPFNominee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, PFNomineeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+
+            }
+        });
+
+
 
 
 

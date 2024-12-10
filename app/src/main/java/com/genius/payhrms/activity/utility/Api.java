@@ -100,4 +100,5 @@ public class Api {
     public static String sGetApprovalView = baseurl + "Shalimar/GetApprovalView";
     public static String sGetIStouraplicable = baseurl + "Shalimar/GetIStouraplicable";
     public static String sSaveTourApprove = baseurl + "Shalimar/SaveTourApprove";
+    public static String sGetPFNominationAPi = baseurl + "Shalimar/GetPFNomination";
 }

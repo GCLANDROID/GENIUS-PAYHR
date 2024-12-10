@@ -202,7 +202,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@color/purple"
                                 android:orientation="vertical"
-                                android:visibility="visible">
+                                android:visibility="gone">
 
                                 <LinearLayout
                                     android:id="@+id/llEmpId"
@@ -1991,7 +1991,72 @@
                                 </LinearLayout>
                             </LinearLayout>
 
+                            <LinearLayout
+                                android:id="@+id/llPFNominee"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:background="@color/purple"
+                                android:orientation="horizontal">
 
+                                <FrameLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="10dp">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/doubletap"
+                                        app:tint="@color/white" />
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:visibility="gone" />
+                                </FrameLayout>
+
+
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="PF &amp; Gratuity Nomination Details"
+                                    android:textAppearance="?android:textAppearanceSmall"
+                                    android:textColor="@color/white" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginRight="20dp"
+                                    android:gravity="right">
+
+                                    <FrameLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center">
+
+                                        <ImageView
+                                            android:layout_width="15dp"
+                                            android:layout_height="15dp"
+                                            android:layout_gravity="center"
+                                            />
+
+                                        <ImageView
+                                            android:layout_width="15dp"
+                                            android:layout_height="15dp"
+                                            android:layout_gravity="center"
+                                            android:src="@drawable/minusimg"
+                                            android:visibility="gone" />
+                                    </FrameLayout>
+
+
+                                </LinearLayout>
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_marginTop="5dp"

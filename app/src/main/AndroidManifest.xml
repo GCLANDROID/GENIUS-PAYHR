@@ -26,6 +26,13 @@
         android:usesCleartextTraffic="true"
         tools:node="merge">
         <activity
+            android:name=".activity.profile.PFNomineeActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.attendance.tour.TourActivity"
             android:exported="false">
             <meta-data
@@ -50,12 +57,11 @@
         <activity
             android:name="com.genius.payhrms.activity.dailylog.TabularTeamAttendaceReportActivity"
             android:exported="false" />
-
         <activity
             android:name="com.genius.payhrms.activity.geofence.GeoFenceSupervisiorActivity"
             android:exported="false" />
         <activity
-            android:name="com.genius.payhrms.activity.profile.CompanyAssetActivity"
+            android:name=".activity.profile.CompanyAssetActivity"
             android:exported="false" />
         <activity
             android:name="com.genius.payhrms.activity.dailylog.DailyLogCalenderDashboardActivity"
@@ -95,10 +101,10 @@
             android:name="com.genius.payhrms.activity.resignation.ResignationActivity"
             android:exported="false" />
         <activity
-            android:name="com.genius.payhrms.activity.profile.DocumentDetails"
+            android:name=".activity.profile.DocumentDetails"
             android:exported="true" />
         <activity
-            android:name="com.genius.payhrms.activity.profile.DocumentActivity"
+            android:name=".activity.profile.DocumentActivity"
             android:exported="true" />
         <activity
             android:name=".activity.activity.VoiceAssistantActivity"
@@ -141,10 +147,10 @@
             android:screenOrientation="userPortrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.genius.payhrms.activity.profile.ProfileUpdateActivity"
+            android:name=".activity.profile.ProfileUpdateActivity"
             android:exported="true" />
         <activity
-            android:name="com.genius.payhrms.activity.profile.ProfileDashboardActivity"
+            android:name=".activity.profile.ProfileDashboardActivity"
             android:exported="true" />
         <activity
             android:name="com.genius.payhrms.activity.leaveapplication.SpecialholidayActivity"
@@ -334,7 +340,7 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.profile.ProfileActivity"
+            android:name=".activity.profile.ProfileActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -548,4 +554,5 @@
             android:name="com.genius.payhrms.activity.attendance.TeamAttendanceReportActivity"
             android:screenOrientation="userPortrait" />
     </application>
+
 </manifest>
