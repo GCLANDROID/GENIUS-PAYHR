@@ -50,9 +50,9 @@ import com.genius.payhrms.activity.adapter.AddFaceReportAdapter;
 import com.genius.payhrms.activity.model.AddFaceModel;
 import com.genius.payhrms.activity.utility.FileUtils;
 import com.genius.payhrms.activity.utility.Pref;
-import com.tzutalin.dlib.Constants;
+/*import com.tzutalin.dlib.Constants;
 import com.tzutalin.dlib.FaceRec;
-import com.tzutalin.dlib.VisionDetRet;
+import com.tzutalin.dlib.VisionDetRet;*/
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -236,7 +236,7 @@ public class AddPerson extends AppCompatActivity {
 
 
 
-        destination = new File(Constants.getDLibDirectoryPath() + "/temp.jpg");
+        //destination = new File(Constants.getDLibDirectoryPath() + "/temp.jpg");
         //getItemList();
     }
 
@@ -253,8 +253,8 @@ public class AddPerson extends AppCompatActivity {
                     selectImage();
                     break;
                 case R.id.btn_add:
-                    String targetPath = Constants.getDLibImageDirectoryPath() + "/"  + pref.getMasterId()   + ".jpg";
-                    FileUtils.copyFile(imgPath,targetPath);
+                    /*String targetPath = Constants.getDLibImageDirectoryPath() + "/"  + pref.getMasterId()   + ".jpg";
+                    FileUtils.copyFile(imgPath,targetPath);*/
                     viewDialog();
                     //postAddFace();
 
@@ -387,7 +387,7 @@ public class AddPerson extends AppCompatActivity {
         return newBitmap;
     }
 
-    private FaceRec mFaceRec;
+    //private FaceRec mFaceRec;
 
     private class detectAsync extends AsyncTask<Bitmap, Void, String> {
         ProgressDialog dialog = new ProgressDialog(AddPerson.this);
@@ -401,7 +401,7 @@ public class AddPerson extends AppCompatActivity {
         }
 
         protected String doInBackground(Bitmap... bp) {
-            mFaceRec = new FaceRec(Constants.getDLibDirectoryPath());
+           /* mFaceRec = new FaceRec(Constants.getDLibDirectoryPath());
             List<VisionDetRet> results;
             results = mFaceRec.detect(bp[0]);
             String msg = null;
@@ -425,7 +425,8 @@ public class AddPerson extends AppCompatActivity {
                 }
                 imgPath = destination.getAbsolutePath();
             }
-            return msg;
+            return msg;*/
+            return null;
         }
 
         protected void onPostExecute(String result) {

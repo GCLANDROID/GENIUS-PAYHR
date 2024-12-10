@@ -47,6 +47,7 @@ import com.genius.payhrms.activity.utility.NetworkConnectionCheck;
 import com.genius.payhrms.activity.utility.Pref;
 
 
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +57,7 @@ import java.util.Calendar;
 
 public class AttendanceReportActivity extends AppCompatActivity {
     private static final String TAG = "AttendanceReportActivit";
+    private static final org.apache.commons.logging.Log log = LogFactory.getLog(AttendanceReportActivity.class);
     RecyclerView rvAttendanceReport;
     JSONArray attendabceInfiList;
     AttendanceModule attendanceModule;
@@ -231,8 +233,8 @@ public class AttendanceReportActivity extends AppCompatActivity {
     }
 
 
-    private void attendanceReport(JSONObject jsonObject) {
-        Log.e(TAG, "attendanceReport: "+jsonObject.toString());
+    private void attendanceReport(JSONObject jsonObject) throws JSONException {
+        Log.e(TAG, "attendanceReport: "+jsonObject.toString(4));
         llLoder.setVisibility(View.VISIBLE);
         llMain.setVisibility(View.GONE);
         llNodata.setVisibility(View.GONE);
@@ -264,7 +266,7 @@ public class AttendanceReportActivity extends AppCompatActivity {
                             try {
                                 JSONArray jsonArray=new JSONArray(responseData);
                                 attendabceInfiList=jsonArray;
-
+                                Log.e(TAG, "attendabceInfiList: "+attendabceInfiList.length());
                                 attendanceAdapter = new AttendanceAdapter(AttendanceReportActivity.this,attendabceInfiList,1);
                                 rvAttendanceReport.setAdapter(attendanceAdapter);
                                 llLoder.setVisibility(View.GONE);
@@ -281,12 +283,10 @@ public class AttendanceReportActivity extends AppCompatActivity {
 
                             // do anything with response
                         }else {
-
                             llLoder.setVisibility(View.GONE);
-                            llMain.setVisibility(View.VISIBLE);
+                            llMain.setVisibility(View.GONE);
                             llNodata.setVisibility(View.VISIBLE);
                             llAgain.setVisibility(View.GONE);
-
                         }
                     }
 
@@ -382,8 +382,6 @@ public class AttendanceReportActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError error) {
                         pd.dismiss();
-
-
                     }
                 });
     }
@@ -442,7 +440,6 @@ public class AttendanceReportActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         showMonthDialog();
-
                     }
                 });
                 tvMonth.setText(month);

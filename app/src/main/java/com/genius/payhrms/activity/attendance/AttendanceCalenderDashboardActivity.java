@@ -42,6 +42,10 @@ import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.adapter.AttendanceCalenderAdapter;
 import com.genius.payhrms.activity.attendance.tour.TourActivity;
+import com.genius.payhrms.activity.customcalender.CustomCalendar;
+import com.genius.payhrms.activity.customcalender.OnDateSelectedListener;
+import com.genius.payhrms.activity.customcalender.OnNavigationButtonClickedListener;
+import com.genius.payhrms.activity.customcalender.Property;
 import com.genius.payhrms.activity.dailylog.NumberTourActivity;
 import com.genius.payhrms.activity.dailylog.QRAttendanceDashboardActivity;
 import com.genius.payhrms.activity.dailylog.QRCodeScannerActivity;
@@ -59,10 +63,7 @@ import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.naishadhparmar.zcustomcalendar.CustomCalendar;
-import org.naishadhparmar.zcustomcalendar.OnDateSelectedListener;
-import org.naishadhparmar.zcustomcalendar.OnNavigationButtonClickedListener;
-import org.naishadhparmar.zcustomcalendar.Property;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

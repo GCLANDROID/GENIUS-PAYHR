@@ -85,10 +85,10 @@ public class QRGeneratorActivity extends AppCompatActivity {
 
         // setting this dimensions inside our qr code
         // encoder to generate our qr code.
-        qrgEncoder = new QRGEncoder(coordinates, null, QRGContents.Type.TEXT, dimen);
+        /*qrgEncoder = new QRGEncoder(coordinates, null, QRGContents.Type.TEXT, dimen);
         try {
             // getting our qrcode in the form of bitmap.
-            bitmap = qrgEncoder.encodeAsBitmap();
+            //bitmap = qrgEncoder.encodeAsBitmap();
             // the bitmap is set inside our image
             // view using .setimagebitmap method.
             imgQR.setImageBitmap(bitmap);
@@ -96,7 +96,7 @@ public class QRGeneratorActivity extends AppCompatActivity {
             // this method is called for
             // exception handling.
             Log.e("Tag", e.toString());
-        }
+        }*/
 
         btnDwnload.setOnClickListener(new View.OnClickListener() {
             @Override

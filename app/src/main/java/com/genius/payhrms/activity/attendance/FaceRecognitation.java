@@ -50,9 +50,7 @@ import com.genius.payhrms.R;
 import com.genius.payhrms.activity.utility.FileUtils;
 import com.genius.payhrms.activity.utility.Pref;
 import com.google.android.cameraview.CameraView;
-import com.tzutalin.dlib.Constants;
-import com.tzutalin.dlib.FaceRec;
-import com.tzutalin.dlib.VisionDetRet;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -188,7 +186,7 @@ public class FaceRecognitation extends AppCompatActivity implements
     }
 
     //END
-    private FaceRec mFaceRec;
+    //private FaceRec mFaceRec;
 
     private void changeProgressDialogMessage(final ProgressDialog pd, final String msg) {
         Runnable changeMessage = new Runnable() {
@@ -214,7 +212,7 @@ public class FaceRecognitation extends AppCompatActivity implements
         protected Void doInBackground(Void... args) {
 // create dlib_rec_example directory in sd card and copy model files
 
-            File image_folder = new File(Constants.getDLibImageDirectoryPath());
+            /*File image_folder = new File(Constants.getDLibImageDirectoryPath());
             image_folder.mkdirs();
             if (!new File(Constants.getFaceShapeModelPath()).exists()) {
                 com.genius.payhrms.activity.utility.FileUtils.copyFileFromRawToOthers(FaceRecognitation.this, R.raw.shape_predictor_5_face_landmarks, Constants.getFaceShapeModelPath());
@@ -225,7 +223,7 @@ public class FaceRecognitation extends AppCompatActivity implements
 
             mFaceRec = new FaceRec(Constants.getDLibDirectoryPath());
             changeProgressDialogMessage(dialog, "Please wait...");
-            mFaceRec.train();
+            mFaceRec.train();*/
             return null;
         }
 
@@ -285,9 +283,9 @@ public class FaceRecognitation extends AppCompatActivity implements
     protected void onDestroy() {
         Log.d(TAG, "onDestroy called");
         super.onDestroy();
-        if (mFaceRec != null) {
+       /* if (mFaceRec != null) {
             mFaceRec.release();
-        }
+        }*/
         if (mBackgroundHandler != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 mBackgroundHandler.getLooper().quitSafely();
@@ -386,7 +384,7 @@ public class FaceRecognitation extends AppCompatActivity implements
 
         protected ArrayList<String> doInBackground(Bitmap... bp) {
 
-            drawResizedBitmap(bp[0], mCroppedBitmap);
+            /*drawResizedBitmap(bp[0], mCroppedBitmap);
             Log.d(TAG, "byte to bitmap");
 
             long startTime = System.currentTimeMillis();
@@ -399,6 +397,7 @@ public class FaceRecognitation extends AppCompatActivity implements
             for (VisionDetRet n : results) {
                 names.add(n.getLabel());
             }
+            return names;*/
             return names;
         }
 

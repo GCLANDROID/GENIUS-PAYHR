@@ -84,7 +84,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import id.zelory.compressor.Compressor;
+//import id.zelory.compressor.Compressor;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -590,7 +590,7 @@ public class DailyActivityManageActivity extends AppCompatActivity implements On
                             //messageAlert();
                             String imageurl = /*"file://" +*/ getRealPathFromURIPath(imageUri);
                             file = new File(imageurl);
-                            compressedImageFile = new Compressor(this).compressToFile(file);
+                            //compressedImageFile = Compressor.compress(this).compressToFile(file);
                             Log.d("imageSixw", String.valueOf(getReadableFileSize(compressedImageFile.length())));
 
                             BitmapFactory.Options o = new BitmapFactory.Options();
@@ -603,10 +603,6 @@ public class DailyActivityManageActivity extends AppCompatActivity implements On
                             Log.d("encodedimage",encodedImage);
                             imgPic.setImageBitmap(bm);
                             flag = 1;
-
-
-
-
 
                         } catch (Exception e) {
                             e.printStackTrace();

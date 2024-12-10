@@ -125,7 +125,6 @@ public class ApproverFragment extends Fragment {
     }
 
     private void getItem(JSONObject jsonObject) {
-
         mId="";
         mIdList.clear();
         llLoader.setVisibility(View.VISIBLE);

@@ -559,12 +559,11 @@ public class OtherLeaveApproverFragment extends Fragment {
                         }
                     }).onRender(new OnRenderListener() {
                         @Override
-                        public void onInitiallyRendered(int nbPages, float pageWidth, float pageHeight) {
+                        public void onInitiallyRendered(int nbPages) {
                             Log.e(TAG, "onInitiallyRendered: nbPages: " + nbPages);
                             llLoading.setVisibility(View.GONE);
                             txtPdfPageCount.setVisibility(View.VISIBLE);
                         }
-
 
                     }).onTap(new OnTapListener() {
                         @Override

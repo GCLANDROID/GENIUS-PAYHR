@@ -85,7 +85,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.inforoeste.mocklocationdetector.MockLocationDetector;
 import com.wajahatkarim3.longimagecamera.LongImageCameraActivity;
 
 import org.json.JSONArray;
@@ -364,13 +363,13 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
         mMap.addMarker(options);
-        boolean isMock = MockLocationDetector.isLocationFromMockProvider(this, location);
+      /*  boolean isMock = MockLocationDetector.isLocationFromMockProvider(this, location);
         if (isMock) {
             btnSubmit.setVisibility(View.GONE);
             showMocAlert();
         } else {
             btnSubmit.setVisibility(View.VISIBLE);
-        }
+        }*/
 
     }
 

@@ -39,6 +39,10 @@ import com.genius.payhrms.activity.adapter.AttendanceCalenderAdapter;
 import com.genius.payhrms.activity.attendance.AttendanceReportActivity;
 import com.genius.payhrms.activity.attendance.BacklogActivity;
 import com.genius.payhrms.activity.attendance.SuperVisiorActivity;
+import com.genius.payhrms.activity.customcalender.CustomCalendar;
+import com.genius.payhrms.activity.customcalender.OnDateSelectedListener;
+import com.genius.payhrms.activity.customcalender.OnNavigationButtonClickedListener;
+import com.genius.payhrms.activity.customcalender.Property;
 import com.genius.payhrms.activity.dailylog.Dayco.DaycoAttendanceReportActivity;
 import com.genius.payhrms.activity.model.AttendanceCalenderModel;
 import com.genius.payhrms.activity.model.SpinnerModel;
@@ -51,10 +55,7 @@ import com.genius.payhrms.activity.utility.Util;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.naishadhparmar.zcustomcalendar.CustomCalendar;
-import org.naishadhparmar.zcustomcalendar.OnDateSelectedListener;
-import org.naishadhparmar.zcustomcalendar.OnNavigationButtonClickedListener;
-import org.naishadhparmar.zcustomcalendar.Property;
+
 
 import java.util.ArrayList;
 import java.util.Calendar;
