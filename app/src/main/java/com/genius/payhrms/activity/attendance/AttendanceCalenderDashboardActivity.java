@@ -347,6 +347,12 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         missedproperty.dateTextViewResource = R.id.text_view;
         descHashMap.put("M", missedproperty);
 
+
+        Property wowproperty = new Property();
+        wowproperty.layoutResource = R.layout.wow_view;
+        wowproperty.dateTextViewResource = R.id.text_view;
+        descHashMap.put("WOW", wowproperty);
+
         Property current = new Property();
         current.layoutResource = R.layout.current_view;
         current.dateTextViewResource = R.id.text_view;
@@ -461,6 +467,12 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                     lnStatus.setVisibility(View.VISIBLE);
                     lnStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#010360")));
                     tvDetails.setText(date + " : "+PunchTiming );
+                    tvDetails.setTextColor(Color.parseColor("#F2FFFFFF"));
+                    tvOK.setTextColor(Color.parseColor("#F2FFFFFF"));
+                }else if (Status.equalsIgnoreCase("WOW")) {
+                    lnStatus.setVisibility(View.VISIBLE);
+                    lnStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#05A761")));
+                    tvDetails.setText(date + " : "+PunchTiming+" -Week off Work date" );
                     tvDetails.setTextColor(Color.parseColor("#F2FFFFFF"));
                     tvOK.setTextColor(Color.parseColor("#F2FFFFFF"));
                 } else {
