@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
     GPSTracker gps;
     double latitude, longitude;
     String TutorialFlag;
-    ImageView imgForward;
+
     ProgressBar pgBar;
     String android_id;
     TextView tvWelcome, tvLogin;
@@ -186,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
 //        imgshow=(ImageView) findViewById(R.id.imgShow);
 //        imghide=(ImageView) findViewById(R.id.imghide);
 
-        imgForward = (ImageView) findViewById(R.id.imgForward);
+
         pgBar = (ProgressBar) findViewById(R.id.pgBar);
         refreshedToken = "12233";
         pref.saveRefreshToken(refreshedToken);
@@ -217,7 +217,7 @@ public class LoginActivity extends AppCompatActivity {
         tvForgot = (TextView) findViewById(R.id.tvForgot);
         Log.d("getlan", pref.getLanguage());
         if (pref.getLanguage().equals("hi")) {
-            tvLogin.setText("लॉग इन");
+           // tvLogin.setText("लॉग इन");
             tvWelcome.setText("स्वागत हे");
             ckRemember.setText("कृपया याद रखें");
             tvShow.setText("प्रदर्शन");
@@ -227,7 +227,7 @@ public class LoginActivity extends AppCompatActivity {
             etSecurityCode.setHint("अपना गुप्त कोड डालो");
             tvForgot.setText("पासवर्ड भूल गए?");
         } else {
-            tvLogin.setText("LogIn");
+
             tvWelcome.setText("Welcome");
             ckRemember.setText("Remember Me");
             tvShow.setText("Show");
@@ -622,7 +622,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         } else {
                             shoeDialog();
-                            imgForward.setVisibility(View.VISIBLE);
+                            tvLogin.setVisibility(View.VISIBLE);
                             pgBar.setVisibility(View.GONE);
 
                         }

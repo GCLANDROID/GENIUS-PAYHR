@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.activity.LoginActivity">
+    tools:context=".activity.activity.LoginActivity"
+    android:background="@color/white">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,7 +50,7 @@
                             android:layout_height="2dp"
                             android:background="@android:color/white"></LinearLayout>
                         <TextView
-                            android:id="@+id/tvLogin"
+
                             android:layout_marginTop="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -259,14 +260,32 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp">
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:text="Welcome Back"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"></TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="280dp"
-                    android:background="@mipmap/topbgloginpayhr"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:background="@mipmap/mobile_login"
                     ></ImageView>
                 <TextView
                     android:textStyle="bold|italic"
@@ -279,16 +298,29 @@
             </FrameLayout>
 
         </LinearLayout>
-        <LinearLayout
+        <TextView
+            android:visibility="visible"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/android_text_color"
+            android:text="Login to continue"
+            ></TextView>
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:padding="20dp"
-                    android:orientation="vertical">
+                    android:padding="26dp"
+                    android:orientation="vertical"
+                    >
                     <LinearLayout
+                        android:padding="10dp"
+                        android:background="@drawable/lldesign9"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:orientation="horizontal">
@@ -296,7 +328,8 @@
                             android:layout_gravity="center"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:src="@drawable/useridpayhr"/>
+                            android:src="@drawable/useridpayhr"
+                            app:tint="@color/black" />
                         <EditText
                             android:textSize="14sp"
                             android:id="@+id/etUserId"
@@ -306,15 +339,14 @@
                             android:background="@null"
                             android:imeOptions="actionNext"
                             android:singleLine="true"
-                            android:textColor="@android:color/black"
-                            android:textColorHint="@android:color/black"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
                             android:hint="Enter user id"/>
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#E1DFDF"></LinearLayout>
-                    <LinearLayout
+                        android:padding="10dp"
+                        android:background="@drawable/lldesign9"
                         android:layout_marginTop="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
@@ -323,7 +355,8 @@
                             android:layout_gravity="center"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/passwordpayhr"/>
+                            android:src="@drawable/passwordpayhr"
+                            app:tint="@color/black" />
                         <EditText
                             android:textSize="14sp"
                             android:inputType="textPassword"
@@ -335,8 +368,8 @@
                             android:background="@null"
                             android:imeOptions="actionNext"
                             android:singleLine="true"
-                            android:textColor="@android:color/black"
-                            android:textColorHint="@android:color/black"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
                             android:hint="Enter Password"/>
                         <LinearLayout
                             android:layout_width="0dp"
@@ -349,7 +382,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/black"
                                 android:textSize="15sp"
                                 android:text="SHOW"/>
                             <TextView
@@ -359,7 +392,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/black"
                                 android:textSize="15sp"
                                 android:text="HIDE"/>
 <!--                            <ImageView-->
@@ -376,11 +409,10 @@
 <!--                                android:src="@drawable/showiconpayhr"></ImageView>-->
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#E1DFDF"></LinearLayout>
-                    <LinearLayout
+                        android:padding="10dp"
+                        android:background="@drawable/lldesign9"
                         android:layout_marginTop="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
@@ -389,7 +421,8 @@
                             android:layout_gravity="center"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/scodepayhr"/>
+                            android:src="@drawable/scodepayhr"
+                            app:tint="@color/black" />
                         <EditText
                             android:textSize="14sp"
                             android:id="@+id/etSecuritycode"
@@ -399,14 +432,11 @@
                             android:background="@null"
                             android:imeOptions="actionNext"
                             android:singleLine="true"
-                            android:textColor="@android:color/black"
-                            android:textColorHint="@android:color/black"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
                             android:hint="Enter Security Code"/>
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#E1DFDF"></LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -416,42 +446,48 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:backgroundTint="@android:color/white"
+                            android:backgroundTint="@color/colorAccent"
                             android:text="Remember Me"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/black"
                             android:textSize="12sp" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
                             android:gravity="right"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/black"
                             android:id="@+id/tvForgot"
                             android:text="Forgot Password"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="14dp"
                         android:gravity="center">
                         <LinearLayout
                             android:gravity="center"
                             android:id="@+id/llSignIn"
-                            android:layout_width="150dp"
-                            android:layout_height="100dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             >
                             <FrameLayout
                                 android:layout_gravity="center"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 >
-                                <ImageView
-                                    android:id="@+id/imgForward"
-                                    android:visibility="visible"
-                                    android:src="@drawable/loginbuttonpayhr"
+                                <TextView
+                                    android:id="@+id/tvLogin"
+                                    android:gravity="center"
                                     android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:layout_gravity="center"/>
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/lldesign9"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="20dp"
+                                    android:paddingTop="10dp"
+                                    android:paddingBottom="10dp"
+                                    android:backgroundTint="@color/colorAccent"
+                                    android:text="Login"
+                                    android:textColor="@color/white"></TextView>
                                 <ProgressBar
                                     android:visibility="gone"
                                     android:id="@+id/pgBar"
@@ -466,6 +502,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom">
                         <TextView
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="#9C27B0"
@@ -479,7 +516,7 @@
                 </LinearLayout>
 
 
-        </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
     </ScrollView>
