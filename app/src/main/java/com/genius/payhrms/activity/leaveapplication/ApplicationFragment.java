@@ -68,6 +68,7 @@ import com.genius.payhrms.activity.model.LeaveBalanceDetailsModel;
 import com.genius.payhrms.activity.model.PrevieModel;
 import com.genius.payhrms.activity.model.SpinnerModel;
 import com.genius.payhrms.activity.utility.Api;
+import com.genius.payhrms.activity.utility.FileUtils;
 import com.genius.payhrms.activity.utility.Pref;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
@@ -612,7 +613,6 @@ public class ApplicationFragment extends Fragment {
                 .setTag("uploadTest")
                 .setPriority(Priority.HIGH)
                 .build()
-
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -1578,11 +1578,21 @@ public class ApplicationFragment extends Fragment {
                             //messageAlert();
                             String imageurl = /*"file://" +*/ getRealPathFromURIPath(imageUri);
                             file = new File(imageurl);
+                            Log.e(TAG, "File Size: "+FileUtils.checkFileSize(file.getAbsolutePath()));
+                            file = new ImageZipper(getContext())
+                                    .setQuality(60)
+                                    .setMaxWidth(640)
+                                    .setMaxHeight(480)
+                                    .setCompressFormat(Bitmap.CompressFormat.JPEG)
+                                    .compressToFile(file);
+                            Log.e(TAG, "File Size: "+FileUtils.checkFileSize(file.getAbsolutePath()));
                             // Log.d("imageSixw", String.valueOf(getReadableFileSize(compressedImageFile.length())));
                             BitmapFactory.Options o = new BitmapFactory.Options();
                             o.inSampleSize = 6;
                             //Bitmap bm = cropToSquare(BitmapFactory.decodeFile(imageurl, o));
                             Bitmap bm = new ImageZipper(getContext()).compressToBitmap(file);
+                            //int memorySize = bm.getByteCount();
+                            //Log.e(TAG, "memorySize: "+memorySize);
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                             bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
                             byte[] b = baos.toByteArray();
