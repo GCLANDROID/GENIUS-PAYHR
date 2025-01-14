@@ -172,8 +172,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
             }
         }
 
-        tvLoginDateTime = (TextView) findViewById(R.id.tvLoginDateTime);
-        tvLoginDateTime.setText(pref.getloginTime());
+
         tvEmployeeName = (TextView) findViewById(R.id.tvEmployeeName);
         tvEmployeeName.setText(pref.getEmpName());
         if (pref.getMsgStatus()){
@@ -182,7 +181,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
         }
 
-        llUser=(LinearLayout)findViewById(R.id.llUser);
+
         Date cd = Calendar.getInstance().getTime();
         System.out.println("Current time => " + cd);
 
@@ -398,13 +397,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 swipeToRefresh.setRefreshing(false);
             }
         });
-        llUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(UserDashBoardActivity.this, LeaveApplicationDashboardActivity.class);
-                startActivity(intent);
-            }
-        });
+
         imgLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
