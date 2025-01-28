@@ -5,18 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.activity.SplashScreenActivity"
-    android:background="@mipmap/splashscreen">
+    android:background="@mipmap/splash_blue_bg"
+    android:orientation="vertical">
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:src="@mipmap/genius_newlogo"></ImageView>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="bottom"
-        android:layout_marginBottom="10dp">
-        <ProgressBar
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"/>
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:gravity="top|center"
+        android:paddingBottom="10dp">
+
     </LinearLayout>
+
+
+
+
 
 
 

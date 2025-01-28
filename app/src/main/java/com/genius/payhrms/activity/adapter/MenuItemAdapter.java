@@ -112,50 +112,50 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
         }
 
         if (itemList.get(i).getMenuId()==1){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.profile_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.profile_new);
         }
         else if (itemList.get(i).getMenuId()==5){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.attendance_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.attendance_new);
         }
         else if (itemList.get(i).getMenuId()==6){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.payroll_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.payroll_new);
         }
         else if (itemList.get(i).getMenuId()==7){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.dailylog_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.daily_log_new);
         }
         else if (itemList.get(i).getMenuId()==8){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.dailylog_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.daily_log_new);
         }
         else if (itemList.get(i).getMenuId()==9){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.geofence_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.fence_new);
         }
         else if (itemList.get(i).getMenuId()==10){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.leaveapplication_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.leaveapplication_new);
         }
         else if (itemList.get(i).getMenuId()==11){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.subordinatereport_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.notifcation_new);
         }
         else if (itemList.get(i).getMenuId()==12){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.holidaylist_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.holiday_new);
         }
         else if (itemList.get(i).getMenuId()==13){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.bilingual_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.translate);
         }
         else if (itemList.get(i).getMenuId()==14){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.elearning_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.elearning_new);
         }
         else if (itemList.get(i).getMenuId()==4){
             myViewHolder.imgMenu.setImageResource(R.mipmap.chaticon_payhr);
         }
         else  if (itemList.get(i).getMenuId()==2){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.logout_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.exit_new);
         }
         else  if (itemList.get(i).getMenuId()==3){
-            myViewHolder.imgMenu.setImageResource(R.mipmap.changepassword_payhr);
+            myViewHolder.imgMenu.setImageResource(R.drawable.resetpassword_new);
         } else  if (itemList.get(i).getMenuId()==101){
             myViewHolder.imgMenu.setImageResource(R.drawable.questionicon);
         }  else  if (itemList.get(i).getMenuId()==16){
-            myViewHolder.imgMenu.setImageResource(R.drawable.voiceassistant);
+            myViewHolder.imgMenu.setImageResource(R.drawable.voiceassistant_new);
         }else  if (itemList.get(i).getMenuId()==212){
             myViewHolder.imgMenu.setImageResource(R.drawable.resignation);
         }else {
@@ -271,7 +271,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 }
                 else if (itemList.get(i).getMenuId()==12){
                     if (pref.getSecurityCode().equals("1156")){
-                        Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://genpayhr.geniusconsultant.com/WesternEnterprises/ESS/Holiday/HolidayCalMobile.aspx?CalenderYear=2024&EmployeeID=2070000002"));
+                        Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://genpayhr.geniusconsultant.com/WesternEnterprises/ESS/Holiday/HolidayCalMobile.aspx?CalenderYear=2025&EmployeeID=2070000002"));
                         urlIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContex.startActivity(urlIntent);
                     }else {
