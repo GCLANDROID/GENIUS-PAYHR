@@ -363,7 +363,7 @@
                                 android:layout_gravity="center"
                                 android:text="Half Day Leave"></TextView>
 
-                            <LinearLayout
+                            <!--<LinearLayout
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
@@ -386,7 +386,7 @@
                                 android:textSize="8sp"
                                 android:textColor="@color/textcolor1"
                                 android:layout_gravity="center"
-                                android:text="Missed Punch"></TextView>
+                                android:text="Missed Punch"></TextView>-->
 
                             <LinearLayout
 
