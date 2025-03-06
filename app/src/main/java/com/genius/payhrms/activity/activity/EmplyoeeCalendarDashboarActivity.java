@@ -863,7 +863,7 @@ public class EmplyoeeCalendarDashboarActivity extends AppCompatActivity implemen
                                 menuitemList.add(obj2);
                             }
 
-                            menuitemList.add(1,new MenuItemModel("Attendance Regularization",1001));
+                            //menuitemList.add(1,new MenuItemModel("Attendance Regularization",1001));
 
 
                             setAdapter();
