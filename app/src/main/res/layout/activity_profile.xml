@@ -1045,55 +1045,7 @@
                                         android:background="@color/barcolor"></LinearLayout>
 
                                 </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:id="@+id/lnQualification">
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:orientation="horizontal"
-                                        android:paddingLeft="10dp"
-                                        android:paddingRight="10dp">
 
-                                        <LinearLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="0.5">
-
-                                            <TextView
-                                                android:id="@+id/tvQuali"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:text="Qualification"
-                                                android:textAppearance="?android:textAppearanceSmall"
-                                                android:textColor="@color/purple" />
-                                        </LinearLayout>
-
-                                        <LinearLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1">
-
-                                            <TextView
-                                                android:id="@+id/tvQualification"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_marginLeft="10dp"
-                                                android:text="--"
-                                                android:textAppearance="?android:textAppearanceSmall"
-                                                android:textColor="@color/purple" />
-                                        </LinearLayout>
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="1dp"
-                                        android:layout_marginTop="10dp"
-                                        android:background="@color/barcolor"></LinearLayout>
-                                </LinearLayout>
 
 
                                 <LinearLayout
@@ -1193,12 +1145,152 @@
 
                             </LinearLayout>
 
+
+                            <LinearLayout
+                                android:id="@+id/llEducation"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_marginTop="5dp"
+                                android:background="@color/purple"
+                                android:orientation="horizontal">
+
+                                <FrameLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="10dp">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/education"
+                                        app:tint="@color/white" />
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:visibility="gone" />
+                                </FrameLayout>
+
+
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="Education"
+                                    android:textAppearance="?android:textAppearanceSmall"
+                                    android:textColor="@color/white" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginRight="20dp"
+                                    android:gravity="right">
+
+                                    <FrameLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center">
+
+                                        <ImageView
+
+                                            android:layout_width="15dp"
+                                            android:layout_height="15dp"
+                                            android:layout_gravity="center"
+                                            />
+
+                                        <ImageView
+
+                                            android:layout_width="15dp"
+                                            android:layout_height="15dp"
+                                            android:layout_gravity="center"
+                                            android:src="@drawable/minusimg"
+                                            android:visibility="gone" />
+                                    </FrameLayout>
+
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/llEducationDetails"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/purple"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+
+
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:id="@+id/lnQualification">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:orientation="horizontal"
+                                        android:paddingLeft="10dp"
+                                        android:paddingRight="10dp">
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.5">
+
+                                            <TextView
+                                                android:id="@+id/tvQuali"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Qualification"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/white" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1">
+
+                                            <TextView
+                                                android:id="@+id/tvQualification"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="10dp"
+                                                android:text="--"
+                                                android:textAppearance="?android:textAppearanceSmall"
+                                                android:textColor="@color/white" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@color/barcolor"></LinearLayout>
+                                </LinearLayout>
+
+
+
+
+
+                            </LinearLayout>
+
+
                             <LinearLayout
                                 android:id="@+id/llContact"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@color/purple"
+                                android:background="@color/white"
                                 android:orientation="horizontal">
 
                                 <FrameLayout
@@ -1213,7 +1305,7 @@
                                         android:layout_height="20dp"
                                         android:layout_gravity="center"
                                         android:src="@drawable/contact"
-                                        app:tint="@color/white" />
+                                        app:tint="@color/purple" />
 
                                     <ImageView
                                         android:id="@+id/imgConFor1"
@@ -1232,7 +1324,7 @@
                                     android:layout_marginLeft="10dp"
                                     android:text="Contact"
                                     android:textAppearance="?android:textAppearanceSmall"
-                                    android:textColor="@color/white" />
+                                    android:textColor="@color/purple" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -1269,7 +1361,7 @@
                                 android:id="@+id/llContactDetail"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/purple"
+                                android:background="@color/white"
                                 android:orientation="vertical"
                                 android:visibility="gone">
 
@@ -1292,7 +1384,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Permanent Address"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/white" />
+                                            android:textColor="@color/purple" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -1307,7 +1399,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/white" />
+                                            android:textColor="@color/purple" />
                                     </LinearLayout>
 
 
@@ -1338,7 +1430,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Present Address"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/white" />
+                                            android:textColor="@color/purple" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -1353,7 +1445,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/white" />
+                                            android:textColor="@color/purple" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -1382,7 +1474,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Phone Number"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/white" />
+                                            android:textColor="@color/purple" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -1397,7 +1489,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/white" />
+                                            android:textColor="@color/purple" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -1426,7 +1518,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Email Id"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/white" />
+                                            android:textColor="@color/purple" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -1441,7 +1533,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/white" />
+                                            android:textColor="@color/purple" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -1469,7 +1561,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Email Id  (personal)"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/white" />
+                                            android:textColor="@color/purple" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -1484,7 +1576,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/white" />
+                                            android:textColor="@color/purple" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -1502,8 +1594,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:layout_marginTop="5dp"
-                                android:layout_marginBottom="15dp"
-                                android:background="@color/white"
+                                android:background="@color/purple"
                                 android:orientation="horizontal"
                                 android:visibility="visible">
 
@@ -1518,7 +1609,8 @@
                                         android:layout_width="20dp"
                                         android:layout_height="20dp"
                                         android:layout_gravity="center"
-                                        android:src="@drawable/miscellaneous" />
+                                        android:src="@drawable/miscellaneous"
+                                        app:tint="@color/white" />
 
                                     <ImageView
                                         android:id="@+id/imgMisFor1"
@@ -1537,7 +1629,7 @@
                                     android:layout_marginLeft="10dp"
                                     android:text="Miscellaneous"
                                     android:textAppearance="?android:textAppearanceSmall"
-                                    android:textColor="@color/purple" />
+                                    android:textColor="@color/white" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -1573,7 +1665,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="15dp"
-                                android:background="@color/white"
+                                android:background="@color/purple"
                                 android:orientation="vertical"
                                 android:visibility="gone">
                                 <LinearLayout
@@ -1600,7 +1692,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:text="PF Number"
                                                 android:textAppearance="?android:textAppearanceSmall"
-                                                android:textColor="@color/purple" />
+                                                android:textColor="@color/white" />
                                         </LinearLayout>
 
                                         <LinearLayout
@@ -1615,7 +1707,7 @@
                                                 android:layout_marginLeft="10dp"
                                                 android:text="--"
                                                 android:textAppearance="?android:textAppearanceSmall"
-                                                android:textColor="@color/purple" />
+                                                android:textColor="@color/white" />
                                         </LinearLayout>
 
 
@@ -1648,7 +1740,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="UAN Number"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -1663,7 +1755,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
                                 <LinearLayout
@@ -1691,7 +1783,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="ESI Number"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
 
                                     <LinearLayout
@@ -1706,7 +1798,7 @@
                                             android:layout_marginLeft="10dp"
                                             android:text="--"
                                             android:textAppearance="?android:textAppearanceSmall"
-                                            android:textColor="@color/purple" />
+                                            android:textColor="@color/white" />
                                     </LinearLayout>
                                 </LinearLayout>
 
@@ -1739,7 +1831,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:text="Bank Name"
                                                 android:textAppearance="?android:textAppearanceSmall"
-                                                android:textColor="@color/purple" />
+                                                android:textColor="@color/white" />
                                         </LinearLayout>
 
                                         <LinearLayout
@@ -1754,7 +1846,7 @@
                                                 android:layout_marginLeft="10dp"
                                                 android:text="--"
                                                 android:textAppearance="?android:textAppearanceSmall"
-                                                android:textColor="@color/purple" />
+                                                android:textColor="@color/white" />
                                         </LinearLayout>
                                     </LinearLayout>
 
@@ -1789,7 +1881,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:text="A/c Number"
                                                 android:textAppearance="?android:textAppearanceSmall"
-                                                android:textColor="@color/purple" />
+                                                android:textColor="@color/white" />
                                         </LinearLayout>
 
                                         <LinearLayout
@@ -1804,7 +1896,7 @@
                                                 android:layout_marginLeft="10dp"
                                                 android:text="--"
                                                 android:textAppearance="?android:textAppearanceSmall"
-                                                android:textColor="@color/purple" />
+                                                android:textColor="@color/white" />
                                         </LinearLayout>
                                     </LinearLayout>
 
@@ -1839,7 +1931,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:text="Aadhar Number"
                                                 android:textAppearance="?android:textAppearanceSmall"
-                                                android:textColor="@color/purple" />
+                                                android:textColor="@color/white" />
                                         </LinearLayout>
 
                                         <LinearLayout
@@ -1854,7 +1946,7 @@
                                                 android:layout_marginLeft="10dp"
                                                 android:text="--"
                                                 android:textAppearance="?android:textAppearanceSmall"
-                                                android:textColor="@color/purple" />
+                                                android:textColor="@color/white" />
                                         </LinearLayout>
                                     </LinearLayout>
                                     <LinearLayout
@@ -1888,7 +1980,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:text="Pan Number"
                                                 android:textAppearance="?android:textAppearanceSmall"
-                                                android:textColor="@color/purple" />
+                                                android:textColor="@color/white" />
                                         </LinearLayout>
 
                                         <LinearLayout
@@ -1903,7 +1995,7 @@
                                                 android:layout_marginLeft="10dp"
                                                 android:text="--"
                                                 android:textAppearance="?android:textAppearanceSmall"
-                                                android:textColor="@color/purple" />
+                                                android:textColor="@color/white" />
                                         </LinearLayout>
                                     </LinearLayout>
 

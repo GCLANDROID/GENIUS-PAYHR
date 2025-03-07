@@ -69,7 +69,7 @@ public class ProfileActivity extends AppCompatActivity {
     String surl;
     ImageView imgUser;
     TextView tvPersonalEmail,tvReportingManager,tvGMob,tvGurdianMob,tvReportingManagerTitle;
-    LinearLayout llRegion,llAsset,lnEmergency,lnLocation,lnGurdianContact,lnRelationship,lnQualification,lnBloodGrp,lnPF,lnBankName,lnAcNumber,lnAadhar,lnPAN,llPFNominee;
+    LinearLayout llRegion,llAsset,lnEmergency,lnLocation,lnGurdianContact,lnRelationship,lnQualification,lnBloodGrp,lnPF,lnBankName,lnAcNumber,lnAadhar,lnPAN,llPFNominee,llEducation,llEducationDetails;
     TextView tvRegion,tvGrade;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -223,6 +223,8 @@ public class ProfileActivity extends AppCompatActivity {
         lnAcNumber=(LinearLayout) findViewById(R.id.lnAcNumber);
         lnAadhar=(LinearLayout) findViewById(R.id.lnAadhar);
         lnPAN=(LinearLayout) findViewById(R.id.lnPAN);
+        llEducation=(LinearLayout) findViewById(R.id.llEducation);
+        llEducationDetails=(LinearLayout) findViewById(R.id.llEducationDetails);
         if (pref.getSecurityCode().equals("1156") || pref.getSecurityCode().equals("1000")){
             llAsset.setVisibility(View.VISIBLE);
         }else {
@@ -233,7 +235,7 @@ public class ProfileActivity extends AppCompatActivity {
             lnLocation.setVisibility(View.GONE);
             lnGurdianContact.setVisibility(View.GONE);
             lnRelationship.setVisibility(View.GONE);
-            lnQualification.setVisibility(View.GONE);
+            llEducation.setVisibility(View.GONE);
             lnBloodGrp.setVisibility(View.GONE);
             lnBankName.setVisibility(View.GONE);
             lnPF.setVisibility(View.GONE);
@@ -244,6 +246,12 @@ public class ProfileActivity extends AppCompatActivity {
         }else {
 
         }
+
+        if (pref.getSecurityCode().equals("6716")||pref.getSecurityCode().equals("6715")){
+            lnGurdianContact.setVisibility(View.GONE);
+            lnRelationship.setVisibility(View.GONE);
+
+        }
         tvDocuments = (TextView) findViewById(R.id.tvDocuments);
         llPFNominee=(LinearLayout) findViewById(R.id.llPFNominee);
         if (pref.getSecurityCode().equals("1186")){
@@ -251,6 +259,7 @@ public class ProfileActivity extends AppCompatActivity {
         }else {
             llPFNominee.setVisibility(View.GONE);
         }
+
 
 
 
@@ -380,6 +389,23 @@ public class ProfileActivity extends AppCompatActivity {
                 } else {
 
                     llOffDetail.setVisibility(View.GONE);
+
+
+                }
+            }
+        });
+
+
+        llEducation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (llEducationDetails.getVisibility() == view.GONE) {
+
+                    llEducationDetails.setVisibility(View.VISIBLE);
+
+                } else {
+
+                    llEducationDetails.setVisibility(View.GONE);
 
 
                 }
