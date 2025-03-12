@@ -139,9 +139,18 @@ public class HolidayActivity extends AppCompatActivity {
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(HolidayActivity.this,UserDashBoardActivity.class);
-                startActivity(intent);
-                finish();
+                if (pref.getSecurityCode().equals("6715")|| pref.getSecurityCode().toString().equals("6716")){
+                    Intent intent=new Intent(HolidayActivity.this,EmplyoeeCalendarDashboarActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    //finish();
+                } else {
+                    Intent intent=new Intent(HolidayActivity.this,UserDashBoardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    //finish();
+                }
+
             }
         });
     }
