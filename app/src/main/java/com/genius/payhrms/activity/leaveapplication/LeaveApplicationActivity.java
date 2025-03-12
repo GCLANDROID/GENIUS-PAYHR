@@ -3,6 +3,7 @@ package com.genius.payhrms.activity.leaveapplication;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.EmplyoeeCalendarDashboarActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.utility.Pref;
 
@@ -88,9 +90,17 @@ public class LeaveApplicationActivity extends AppCompatActivity {
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), UserDashBoardActivity.class);
-                startActivity(intent);
-                finish();
+                if (pref.getSecurityCode().equals("6715")|| pref.getSecurityCode().toString().equals("6716")){
+                    Intent intent=new Intent(getApplicationContext(), EmplyoeeCalendarDashboarActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    //finish();
+                } else {
+                    Intent intent=new Intent(getApplicationContext(), UserDashBoardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    //finish();
+                }
             }
         });
     }
