@@ -68,8 +68,10 @@ import com.genius.payhrms.activity.model.LeaveBalanceDetailsModel;
 import com.genius.payhrms.activity.model.PrevieModel;
 import com.genius.payhrms.activity.model.SpinnerModel;
 import com.genius.payhrms.activity.utility.Api;
+import com.genius.payhrms.activity.utility.FileToBase64Converter;
 import com.genius.payhrms.activity.utility.FileUtils;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.RealPathUtil;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
@@ -91,6 +93,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
+import static android.os.Build.VERSION.SDK_INT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -1617,14 +1620,25 @@ public class ApplicationFragment extends Fragment {
             case PDF_REQUEST:
                 if (requestCode == PDF_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
                     Uri selectedFileURI = data.getData();
-                    pdffile = new File(getRealPDFPathFromURI(selectedFileURI));
+                    String realPath = getRealPath(getContext(),selectedFileURI);
+                    pdffile = new File(realPath);
                     alert4.dismiss();
-                    encodedImage = encodeFileToBase64Binary(pdffile);
-                    String filePath = getRealPDFPathFromURI(selectedFileURI);
-                    String[] brkDown = filePath.split("/");
+                    //encodedImage = encodeFileToBase64Binary(pdffile);
+
+                    //String filePath = getRealPDFPathFromURI(selectedFileURI);
+                    String[] brkDown = realPath.split("/");
                     String name = brkDown[5];
+                    Log.e(TAG, "onActivityResult: "+name);
+                    try {
+                        encodedImage = FileToBase64Converter.convertToBase64(FileToBase64Converter.convertInputStreamToFile(getContext(),selectedFileURI,name)).replaceAll("\n","");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     String contentType = "application/pdf";
                     stringFile = name + "_" + encodedImage + "_" + contentType;
+                    Log.e(TAG, "onActivityResult: "+stringFile);
+                    imgPic.setImageResource(R.drawable.pdficon);
+                    attachmentFlag = 1;
                 }
                 break;
         }
@@ -1959,5 +1973,23 @@ public class ApplicationFragment extends Fragment {
 
                     }
                 });
+    }
+
+    public static String getRealPath(Context context, Uri fileUri) {
+        String realPath;
+        Log.e("SDK_INT", "= "+ SDK_INT);
+        // SDK < API11
+        if (SDK_INT < 11) {
+            realPath = RealPathUtil.getRealPathFromURI_BelowAPI11(context, fileUri);
+        }
+        // SDK >= 11 && SDK < 19
+        else if (SDK_INT < 19) {
+            realPath = RealPathUtil.getRealPathFromURI_API11to18(context, fileUri);
+        }
+        // SDK > 19 (Android 4.4) and up
+        else {
+            realPath = RealPathUtil.getRealPathFromURI_API19(context, fileUri);
+        }
+        return realPath;
     }
 }
