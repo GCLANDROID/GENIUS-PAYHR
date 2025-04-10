@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -61,10 +62,12 @@ import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.adapter.CompOffAdapter;
 import com.genius.payhrms.activity.adapter.DayBreakUpAdapter;
 import com.genius.payhrms.activity.adapter.LeaveBalanceDetailsAdapter;
+import com.genius.payhrms.activity.adapter.MultipleImageAdapter;
 import com.genius.payhrms.activity.adapter.PreviewAdapter;
 import com.genius.payhrms.activity.model.CompOffDetailsModel;
 import com.genius.payhrms.activity.model.DayBreakUpModel;
 import com.genius.payhrms.activity.model.LeaveBalanceDetailsModel;
+import com.genius.payhrms.activity.model.MultipleDocModel;
 import com.genius.payhrms.activity.model.PrevieModel;
 import com.genius.payhrms.activity.model.SpinnerModel;
 import com.genius.payhrms.activity.utility.Api;
@@ -151,7 +154,8 @@ public class ApplicationFragment extends Fragment {
     File file;
     private static final int CAMERA_REQUEST = 1;
     private static final int PDF_REQUEST = 2;
-    int attachmentFlag = 0;
+    private static final int GALLERY_IMAGE_SELECTION = 3;
+    int attachmentFlag = 0,multipleImageSelected = 0;
     RecyclerView rvPreviewItem;
     ArrayList<PrevieModel> previewItem = new ArrayList<>();
     String leaveType;
@@ -172,13 +176,17 @@ public class ApplicationFragment extends Fragment {
     RecyclerView rvCompOffItem;
     CompOffAdapter compOffAdapter;
     LinearLayout lnBalance,lnDocument;
-
+    RecyclerView rvMulImages;
+    ArrayList<Uri> imageURI;
+    ArrayList<MultipleDocModel> multipleImageUriList = new ArrayList<>();
+    MultipleImageAdapter multipleImageAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_application, container, false);
+        Log.e(TAG, "onCreateView: Dayco Matthews");
         initView();
         onClick();
         return v;
@@ -191,6 +199,10 @@ public class ApplicationFragment extends Fragment {
         rvItem = (RecyclerView) v.findViewById(R.id.rvItem);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         rvItem.setLayoutManager(gridLayoutManager);
+        rvMulImages = (RecyclerView) v.findViewById(R.id.rvMulImages);
+        GridLayoutManager gridLayoutManagerMulImages = new GridLayoutManager(getContext(), 4);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvMulImages.setLayoutManager(linearLayoutManager);
         tvRequested = (TextView) v.findViewById(R.id.tvRequested);
         tvApporved = (TextView) v.findViewById(R.id.tvApporved);
         tvRejected = (TextView) v.findViewById(R.id.tvRejected);
@@ -1376,6 +1388,13 @@ public class ApplicationFragment extends Fragment {
             }
         });
 
+        ImageView imgGallery = dialogView.findViewById(R.id.imgGallery);
+        imgGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                galleryImageSelection();
+            }
+        });
 
         alert4 = dialogBuilder.create();
         alert4.setCancelable(true);
@@ -1383,6 +1402,16 @@ public class ApplicationFragment extends Fragment {
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
         alert4.show();
+    }
+
+    private void galleryImageSelection() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        //intent.setType("*/*");  // or set specific MIME type if you need specific document types
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivityForResult(Intent.createChooser(intent, "Select Media"), GALLERY_IMAGE_SELECTION);
     }
 
     private void showPDFChooser() {
@@ -1406,7 +1435,6 @@ public class ApplicationFragment extends Fragment {
                 .setTag("uploadTest")
                 .setPriority(Priority.HIGH)
                 .build()
-
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -1601,14 +1629,26 @@ public class ApplicationFragment extends Fragment {
                             byte[] b = baos.toByteArray();
                             encodedImage = encodeFileToBase64Binary(file);
                             Log.d("encoded", encodedImage);
-                            imgPic.setImageBitmap(bm);
+                            //imgPic.setImageBitmap(bm);
                             attachmentFlag = 1;
+                            multipleImageSelected = 0;
                             alert4.dismiss();
                             String contentType = "image/jpg";
                             String[] brkDown = imageurl.split("/");
                             String name = brkDown[5];
-                            stringFile = name + "_" + encodedImage + "_" + contentType;
-                            Log.d("stringFile", stringFile);
+                            //stringFile = name + "_" + encodedImage + "_" + contentType;
+                            String completeString = name + "_" + encodedImage + "_" + contentType;
+                            Log.d("stringFile", completeString);
+                            //rvMulImages.setVisibility(View.GONE);
+                            MultipleDocModel multipleDocModel = new MultipleDocModel(name,contentType,imageUri,completeString);
+                            multipleImageUriList.add(multipleDocModel);
+                            if (multipleImageAdapter == null){
+                                multipleImageAdapter = new MultipleImageAdapter(getContext(),multipleImageUriList);
+                                rvMulImages.setAdapter(multipleImageAdapter);
+                            }  else {
+                                multipleImageAdapter.notifyDataSetChanged();
+                            }
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -1635,10 +1675,73 @@ public class ApplicationFragment extends Fragment {
                         throw new RuntimeException(e);
                     }
                     String contentType = "application/pdf";
-                    stringFile = name + "_" + encodedImage + "_" + contentType;
-                    Log.e(TAG, "onActivityResult: "+stringFile);
-                    imgPic.setImageResource(R.drawable.pdficon);
+                    //stringFile = name + "_" + encodedImage + "_" + contentType;
+
+                    String completeString = name + "_" + encodedImage + "_" + contentType;
+                    Log.e(TAG, "onActivityResult: "+completeString);
+                    //imgPic.setImageResource(R.drawable.pdficon);
                     attachmentFlag = 1;
+                    multipleImageSelected = 0;
+                    //rvMulImages.setVisibility(View.GONE);
+                    MultipleDocModel multipleDocModel = new MultipleDocModel(name,contentType,imageUri,completeString);
+                    multipleImageUriList.add(multipleDocModel);
+                    if (multipleImageAdapter == null){
+                        multipleImageAdapter = new MultipleImageAdapter(getContext(),multipleImageUriList);
+                        rvMulImages.setAdapter(multipleImageAdapter);
+                    }  else {
+                        multipleImageAdapter.notifyDataSetChanged();
+                    }
+                }
+                break;
+            case GALLERY_IMAGE_SELECTION:
+                if (requestCode == GALLERY_IMAGE_SELECTION && resultCode == RESULT_OK) {
+                    if (data.getData() != null) {
+                        Uri selectedFileURI = data.getData();
+                        String realPath = getRealPath(getContext(),selectedFileURI);
+                        file = new File(realPath);
+                        try {
+                            file = new ImageZipper(getContext())
+                                    .setQuality(60)
+                                    .setMaxWidth(640)
+                                    .setMaxHeight(480)
+                                    .setCompressFormat(Bitmap.CompressFormat.JPEG)
+                                    .compressToFile(file);
+                            Log.e(TAG, "File Size: "+FileUtils.checkFileSize(file.getAbsolutePath()));
+                            // Log.d("imageSixw", String.valueOf(getReadableFileSize(compressedImageFile.length())));
+                            BitmapFactory.Options o = new BitmapFactory.Options();
+                            o.inSampleSize = 6;
+                            //Bitmap bm = cropToSquare(BitmapFactory.decodeFile(imageurl, o));
+                            Bitmap bm = new ImageZipper(getContext()).compressToBitmap(file);
+                            //int memorySize = bm.getByteCount();
+                            //Log.e(TAG, "memorySize: "+memorySize);
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+                            byte[] b = baos.toByteArray();
+                            encodedImage = encodeFileToBase64Binary(file);
+                            Log.d("encoded", encodedImage);
+                            //imgPic.setImageBitmap(bm);
+                            attachmentFlag = 1;
+                            multipleImageSelected = 0;
+                            alert4.dismiss();
+                            String contentType = "image/jpg";
+                            String[] brkDown = realPath.split("/");
+                            String name = brkDown[5];
+                            //stringFile = name + "_" + encodedImage + "_" + contentType;
+                            String completeString = name + "_" + encodedImage + "_" + contentType;
+                            Log.d("stringFile", completeString);
+                            //rvMulImages.setVisibility(View.GONE);
+                            MultipleDocModel multipleDocModel = new MultipleDocModel(name,contentType,selectedFileURI,completeString);
+                            multipleImageUriList.add(multipleDocModel);
+                            if (multipleImageAdapter == null){
+                                multipleImageAdapter = new MultipleImageAdapter(getContext(),multipleImageUriList);
+                                rvMulImages.setAdapter(multipleImageAdapter);
+                            }  else {
+                                multipleImageAdapter.notifyDataSetChanged();
+                            }
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                 }
                 break;
         }
@@ -1689,28 +1792,35 @@ public class ApplicationFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //leaveSave();
-                JSONObject object = new JSONObject();
-                try {
-                    object.put("CompanyID", pref.getEmpClintId());
-                    object.put("EmployeeId", applicantId);
-                    object.put("StartDate", startDate);
-                    object.put("EndDate", endDate);
-                    object.put("LeaveTypeID", typeId);
-                    object.put("LeaveMode", leaveModeId);
-                    object.put("AppliedLeave", LeaveValue);
-                    object.put("Reasons", etReason.getText().toString());
-                    object.put("LeaveCategory", category);
-                    object.put("StrDayBreakUp", (dayBreakUpDetails.isEmpty())?JSONObject.NULL:dayBreakUpDetails);
-                    object.put("StrCompOff", compOffDetails);
-                    object.put("StrFile", stringFile);
-                    object.put("createdby", pref.getEmpId());
-                    object.put("SecurityCode", pref.getSecurityCode());
-                    object.put("Operation","0");
-                    LeaveSave(object);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                /*if (multipleImageSelected == 1){
+
+                } else {
+                    final ProgressDialog progressDialog=new ProgressDialog(getContext());
+                    progressDialog.setCancelable(false);
+                    progressDialog.setMessage("Loading...");
+                    progressDialog.show();
+                    try {
+                        object.put("CompanyID", pref.getEmpClintId());
+                        object.put("EmployeeId", applicantId);
+                        object.put("StartDate", startDate);
+                        object.put("EndDate", endDate);
+                        object.put("LeaveTypeID", typeId);
+                        object.put("LeaveMode", leaveModeId);
+                        object.put("AppliedLeave", LeaveValue);
+                        object.put("Reasons", etReason.getText().toString());
+                        object.put("LeaveCategory", category);
+                        object.put("StrDayBreakUp", (dayBreakUpDetails.isEmpty())?JSONObject.NULL:dayBreakUpDetails);
+                        object.put("StrCompOff", compOffDetails);
+                        object.put("StrFile", stringFile);
+                        object.put("createdby", pref.getEmpId());
+                        object.put("SecurityCode", pref.getSecurityCode());
+                        object.put("Operation","0");
+                        LeaveSave(object,progressDialog);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }*/
+                LeaveSubmitOperation();
             }
         });
         Button btnDiscard = (Button) dialogView.findViewById(R.id.btnDiscard);
@@ -1750,7 +1860,53 @@ public class ApplicationFragment extends Fragment {
 
     }
 
+    private void LeaveSubmitOperation() {
+        final ProgressDialog progressDialog=new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+        JSONObject object = new JSONObject();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+               if(multipleImageUriList.size() > 0){
+                   for (MultipleDocModel model:multipleImageUriList){
+                       if (stringFile.isEmpty()){
+                           stringFile = model.getBase64String();
+                       } else {
+                           stringFile += ","+model.getBase64String();
+                       }
+                   }
+               }
 
+                requireActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            object.put("CompanyID", pref.getEmpClintId());
+                            object.put("EmployeeId", applicantId);
+                            object.put("StartDate", startDate);
+                            object.put("EndDate", endDate);
+                            object.put("LeaveTypeID", typeId);
+                            object.put("LeaveMode", leaveModeId);
+                            object.put("AppliedLeave", LeaveValue);
+                            object.put("Reasons", etReason.getText().toString());
+                            object.put("LeaveCategory", category);
+                            object.put("StrDayBreakUp", (dayBreakUpDetails.isEmpty())?JSONObject.NULL:dayBreakUpDetails);
+                            object.put("StrCompOff", compOffDetails);
+                            object.put("StrFile", stringFile);
+                            object.put("createdby", pref.getEmpId());
+                            object.put("SecurityCode", pref.getSecurityCode());
+                            object.put("Operation","0");
+                            LeaveSave(object,progressDialog);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
 
 
     private void getPreviewItem2(JSONObject object) {
@@ -1853,11 +2009,7 @@ public class ApplicationFragment extends Fragment {
     }
 
 
-    private void LeaveSave(JSONObject object) {
-        final ProgressDialog progressDialog=new ProgressDialog(getContext());
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Loading");
-        progressDialog.show();
+    private void LeaveSave(JSONObject object, ProgressDialog progressDialog)  {
         Log.e(TAG, "LeaveSave: object: "+object);
         AndroidNetworking.post(Api.sLeaveAdd)
                 .addJSONObjectBody(object)
@@ -1991,5 +2143,36 @@ public class ApplicationFragment extends Fragment {
             realPath = RealPathUtil.getRealPathFromURI_API19(context, fileUri);
         }
         return realPath;
+    }
+    //String imageToString(Uri uri) throws IOException {
+    String imageToString() throws IOException {
+        Log.e(TAG, "imageToString: called");
+        String images ="";
+        for (int i = 0; i < imageURI.size(); i++){
+            Uri uri = imageURI.get(i);
+            Log.e(TAG, "imageToString: "+uri);
+            String imageurl =  getRealPath(getContext(),uri);
+            file = new File(imageurl);
+            Log.e(TAG, "File Size: "+FileUtils.checkFileSize(file.getAbsolutePath()));
+            file = new ImageZipper(getContext())
+                    .setQuality(60)
+                    .setMaxWidth(640)
+                    .setMaxHeight(480)
+                    .setCompressFormat(Bitmap.CompressFormat.JPEG)
+                    .compressToFile(file);
+            //Log.e(TAG, "imageToString: "+file.getPath());
+            encodedImage = encodeFileToBase64Binary(file);
+            //Log.d("encoded", encodedImage);
+            String contentType = "image/jpg";
+            String[] brkDown = imageurl.split("/");
+            String name = brkDown[5];
+            if(images.isEmpty()){
+                images = name + "_" + encodedImage + "_" + contentType;
+            } else {
+                images += ","+name + "_" + encodedImage + "_" + contentType;
+            }
+            Log.e(TAG, "stringFile: "+images);
+        }
+        return images;
     }
 }
