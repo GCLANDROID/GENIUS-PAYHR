@@ -772,7 +772,14 @@ public class Pref {
 
 
 
+    public void saveLargeData(String ShiftFlag){
+        _editorPref.putString("large_data", ShiftFlag);
+        _editorPref.commit();
+    }
 
+    public String getLargeData(){
+        return _pref.getString("large_data","");
+    }
 
 
 }
