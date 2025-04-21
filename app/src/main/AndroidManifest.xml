@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name="com.genius.payhrms.activity.utility.App"
+        android:name=".activity.utility.App"
         android:allowBackup="true"
         android:exported="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,6 +25,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:node="merge">
+        <activity
+            android:name=".activity.MultipleDocumentView.LeaveDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MultipleDocumentView.MultipleDocumentViewActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.profile.PFNomineeActivity"
             android:exported="false">
@@ -48,57 +54,57 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.Dayco.DailyLogAttendaneDayco"
+            android:name=".activity.dailylog.Dayco.DailyLogAttendaneDayco"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.archisman.DailyLogAttendaneArchisman"
+            android:name=".activity.dailylog.archisman.DailyLogAttendaneArchisman"
             android:exported="false" />
         <activity android:name=".activity.attendance.AttendanceMarkActivity" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.TabularTeamAttendaceReportActivity"
+            android:name=".activity.dailylog.TabularTeamAttendaceReportActivity"
             android:exported="false" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.GeoFenceSupervisiorActivity"
+            android:name=".activity.geofence.GeoFenceSupervisiorActivity"
             android:exported="false" />
         <activity
             android:name=".activity.profile.CompanyAssetActivity"
             android:exported="false" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.DailyLogCalenderDashboardActivity"
+            android:name=".activity.dailylog.DailyLogCalenderDashboardActivity"
             android:exported="false" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.QRAttendanceDashboardActivity"
+            android:name=".activity.dailylog.QRAttendanceDashboardActivity"
             android:exported="false" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.QRCodeScannerActivity"
+            android:name=".activity.dailylog.QRCodeScannerActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.QRGeneratorActivity"
+            android:name=".activity.dailylog.QRGeneratorActivity"
             android:exported="false" />
         <activity
             android:name=".activity.attendance.AttendanceCalenderDashboardActivity"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.DailyLogMarkActivity"
+            android:name=".activity.dailylog.DailyLogMarkActivity"
             android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.attendance.AttendanceMonthlyReport"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.GeoFenceVisitLocationActivity"
+            android:name=".activity.geofence.GeoFenceVisitLocationActivity"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.GeoFenceApprovalActivity"
+            android:name=".activity.geofence.GeoFenceApprovalActivity"
             android:exported="false" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.GeoFenceConfigEmpReportActivity"
+            android:name=".activity.geofence.GeoFenceConfigEmpReportActivity"
             android:exported="false" />
         <activity
             android:name=".activity.activity.UpdateActivity"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.resignation.ResignationActivity"
+            android:name=".activity.resignation.ResignationActivity"
             android:exported="false" />
         <activity
             android:name=".activity.profile.DocumentDetails"
@@ -111,19 +117,19 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.leaveapplication.LeaveBalanceActivity"
+            android:name=".activity.leaveapplication.LeaveBalanceActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.leaveapplication.LeaveDashboardActivity"
+            android:name=".activity.leaveapplication.LeaveDashboardActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.GeoFenceAttendanceManageActivity"
+            android:name=".activity.geofence.GeoFenceAttendanceManageActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.GeoFenceDailyLogManageActivity"
+            android:name=".activity.geofence.GeoFenceDailyLogManageActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -153,11 +159,11 @@
             android:name=".activity.profile.ProfileDashboardActivity"
             android:exported="true" />
         <activity
-            android:name="com.genius.payhrms.activity.leaveapplication.SpecialholidayActivity"
+            android:name=".activity.leaveapplication.SpecialholidayActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.leaveapplication.LeaveApplicationDashboardActivity"
+            android:name=".activity.leaveapplication.LeaveApplicationDashboardActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -190,7 +196,7 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.leaveapplication.LeaveWebViewActivity"
+            android:name=".activity.leaveapplication.LeaveWebViewActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -198,7 +204,7 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.leaveapplication.LeaveApplicationActivity"
+            android:name=".activity.leaveapplication.LeaveApplicationActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -206,26 +212,26 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.SEMFActivity"
+            android:name=".activity.geofence.SEMFActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.EmployeeMappingNumberActivity"
+            android:name=".activity.geofence.EmployeeMappingNumberActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.livetracking.EmployeeSearchActivity"
+            android:name=".activity.livetracking.EmployeeSearchActivity"
             android:exported="true" />
         <activity
             android:name=".activity.activity.ForgotPasswordActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.SubordinateReportDetailsActivity"
+            android:name=".activity.geofence.SubordinateReportDetailsActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.NotificationActivity"
+            android:name=".activity.geofence.NotificationActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -233,19 +239,19 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.FencePointActivity"
+            android:name=".activity.geofence.FencePointActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.MulFenceAttendanceActivity"
+            android:name=".activity.geofence.MulFenceAttendanceActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.MultipleConfigReportActivity"
+            android:name=".activity.geofence.MultipleConfigReportActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.ConfigNumberActivity"
+            android:name=".activity.geofence.ConfigNumberActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -257,42 +263,42 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.EmpMapingReportActivity"
+            android:name=".activity.geofence.EmpMapingReportActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.EmpMapiingDashBoardActivity"
+            android:name=".activity.geofence.EmpMapiingDashBoardActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.EmpMappingActivity"
+            android:name=".activity.geofence.EmpMappingActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.activity.APiHitActivity"
             android:exported="true" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.TourViewReportActivity"
+            android:name=".activity.dailylog.TourViewReportActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.NumberTourActivity"
+            android:name=".activity.dailylog.NumberTourActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.VisitLocationActivity"
+            android:name=".activity.dailylog.VisitLocationActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.FenceNumberActivity"
+            android:name=".activity.geofence.FenceNumberActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.GeoFenceManageDashBoardActivity"
+            android:name=".activity.geofence.GeoFenceManageDashBoardActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.ConfigReportActivity"
+            android:name=".activity.geofence.ConfigReportActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -300,11 +306,11 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.OfflineDailyLogReportActivity"
+            android:name=".activity.dailylog.OfflineDailyLogReportActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.OfflineDailyDashBoardActivity"
+            android:name=".activity.dailylog.OfflineDailyDashBoardActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -312,11 +318,11 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.OfflineDailyLogManageActivity"
+            android:name=".activity.dailylog.OfflineDailyLogManageActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.OfflineDailyLogActivity"
+            android:name=".activity.dailylog.OfflineDailyLogActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -356,7 +362,7 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.payroll.PayrollActivity"
+            android:name=".activity.payroll.PayrollActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -364,23 +370,23 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.payroll.SalaryActivity"
+            android:name=".activity.payroll.SalaryActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.payroll.ReimActivity"
+            android:name=".activity.payroll.ReimActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailyactivity.DailyTaskDashBoardActivity"
+            android:name=".activity.dailyactivity.DailyTaskDashBoardActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailyactivity.DailyActivityManageActivity"
+            android:name=".activity.dailyactivity.DailyActivityManageActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailyactivity.DailyTaskReportActivity"
+            android:name=".activity.dailyactivity.DailyTaskReportActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -388,7 +394,7 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.DailyLogManageActivity"
+            android:name=".activity.dailylog.DailyLogManageActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -396,15 +402,15 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.DailyLogReportActivity"
+            android:name=".activity.dailylog.DailyLogReportActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.OfflineAttenReportActivity"
+            android:name=".activity.dailylog.OfflineAttenReportActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.FencingDashBoardActivity"
+            android:name=".activity.geofence.FencingDashBoardActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -412,35 +418,35 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.GeoFenceActivity"
+            android:name=".activity.geofence.GeoFenceActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.ReportActivityActivity"
+            android:name=".activity.geofence.ReportActivityActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.MulFenceConfigActivity"
+            android:name=".activity.geofence.MulFenceConfigActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.MapReportActivity"
+            android:name=".activity.dailylog.MapReportActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.MapPointActivity"
+            android:name=".activity.geofence.MapPointActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.SingleFenceConfigActivity"
+            android:name=".activity.geofence.SingleFenceConfigActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.geofence.UpdateMulFenceConfigActivity"
+            android:name=".activity.geofence.UpdateMulFenceConfigActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.livetracking.TrackMapActivity"
+            android:name=".activity.livetracking.TrackMapActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
 
@@ -452,21 +458,21 @@
             android:value="@string/google_maps_key" />
 
         <receiver
-            android:name="com.genius.payhrms.activity.reciver.NetworkStateChecker"
+            android:name=".activity.reciver.NetworkStateChecker"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.genius.payhrms.activity.reciver.DailylogSyncReciever"
+            android:name=".activity.reciver.DailylogSyncReciever"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.genius.payhrms.activity.utility.NetworkReceiver"
+            android:name=".activity.utility.NetworkReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -474,36 +480,36 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.genius.payhrms.activity.reciver.Wake"
+            android:name=".activity.reciver.Wake"
             android:enabled="true"
             android:exported="true" />
         <receiver
-            android:name="com.genius.payhrms.activity.utility.AlarmBroadCastReceiver"
+            android:name=".activity.utility.AlarmBroadCastReceiver"
             android:enabled="true"
             android:exported="true" />
         <receiver
-            android:name="com.genius.payhrms.activity.reciver.Alarm"
+            android:name=".activity.reciver.Alarm"
             android:exported="true"
             android:process=":remote" />
         <receiver
-            android:name="com.genius.payhrms.activity.reciver.MulAlarm"
+            android:name=".activity.reciver.MulAlarm"
             android:exported="true"
             android:process=":remote" />
 
-        <service android:name="com.genius.payhrms.activity.utility.LocationUpdaterService" />
+        <service android:name=".activity.utility.LocationUpdaterService" />
         <service
-            android:name="com.genius.payhrms.activity.utility.LocationAlertIntentService"
+            android:name=".activity.utility.LocationAlertIntentService"
             android:allowBackup="true" />
         <service
-            android:name="com.genius.payhrms.activity.utility.LocationUpdatingService"
+            android:name=".activity.utility.LocationUpdatingService"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name="com.genius.payhrms.activity.utility.MulLocationUpdatingService"
+            android:name=".activity.utility.MulLocationUpdatingService"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name="com.genius.payhrms.activity.utility.LocationUpdateService"
+            android:name=".activity.utility.LocationUpdateService"
             android:enabled="true"
             android:exported="false" />
 
@@ -530,7 +536,7 @@
             android:name="com.wajahatkarim3.longimagecamera.LongBackImageCameraActivity"
             android:exported="true" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.DailyLogManageForMaxActivity"
+            android:name=".activity.dailylog.DailyLogManageForMaxActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
@@ -538,20 +544,20 @@
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.SmartJuleDailyLogActivity"
+            android:name=".activity.dailylog.SmartJuleDailyLogActivity"
             android:exported="true"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.Dayco.DailyLogAttendaneMathhew"
+            android:name=".activity.dailylog.Dayco.DailyLogAttendaneMathhew"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.Dayco.DaycoAttendanceReportActivity"
+            android:name=".activity.dailylog.Dayco.DaycoAttendanceReportActivity"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.dailylog.Dayco.DaycoDailyLogReportActivity"
+            android:name=".activity.dailylog.Dayco.DaycoDailyLogReportActivity"
             android:screenOrientation="userPortrait" />
         <activity
-            android:name="com.genius.payhrms.activity.attendance.TeamAttendanceReportActivity"
+            android:name=".activity.attendance.TeamAttendanceReportActivity"
             android:screenOrientation="userPortrait" />
     </application>
 

@@ -30,12 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
@@ -47,6 +42,7 @@ import com.genius.payhrms.activity.model.ApprovalModel;
 import com.genius.payhrms.activity.model.LeaveDetailsModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,6 +74,7 @@ public class ApproverFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_approver, container, false);
+        Log.e("TAG", "onCreateView: Dayco Matthews");
         initView();
         onClick();
         return view;
@@ -131,14 +128,18 @@ public class ApproverFragment extends Fragment {
         llMain.setVisibility(View.GONE);
         llNoData.setVisibility(View.GONE);
         llShow.setVisibility(View.GONE);
-
-        AndroidNetworking.post(Api.sApproverLeaveItemapi)
+        String URL="";
+        if (pref.getSecurityCode().equals(SecurityCode.Future_Foundation) || pref.getSecurityCode().equals(SecurityCode.Arun_Nursery)){
+            URL = Api.sApproverLeaveListWise;
+        } else {
+            URL = Api.sApproverLeaveItemapi;
+        }
+        AndroidNetworking.post(URL)
                 .addJSONObjectBody(jsonObject)
                 .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
                 .setTag("uploadTest")
                 .setPriority(Priority.HIGH)
                 .build()
-
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -165,7 +166,13 @@ public class ApproverFragment extends Fragment {
                                     String LeaveValue = obj.optString("LeaveValue");
                                     String Reason = obj.optString("Reason");
                                     String ApprovalStatus = obj.optString("ApprovalStatus");
-                                    String Documentlink=obj.optString("Documentlink");
+                                    String Documentlink="";
+                                    if (pref.getSecurityCode().equals(SecurityCode.Future_Foundation) || pref.getSecurityCode().equals(SecurityCode.Arun_Nursery)){
+                                        Documentlink= String.valueOf(obj.optJSONArray("Documents"));
+                                    } else {
+                                        Documentlink=obj.optString("Documentlink");
+                                    }
+
                                     int IsLink= obj.getInt("IsLink");
 
                                     ApprovalModel aModel = new ApprovalModel(ApplicationMID, Name, LeaveName, LeaveSDate, LeaveEDate, LeaveValue, Reason, ApprovalStatus);
@@ -173,7 +180,7 @@ public class ApproverFragment extends Fragment {
                                     aModel.setDocumentlink(Documentlink);
                                     itemList.add(aModel);
                                 }
-                                lAdaapter = new ApproverAdapter(itemList, ApproverFragment.this, getContext());
+                                lAdaapter = new ApproverAdapter(itemList, ApproverFragment.this, getActivity());
                                 rvItem.setAdapter(lAdaapter);
                                 llLoader.setVisibility(View.GONE);
                                 llMain.setVisibility(View.VISIBLE);
@@ -684,7 +691,7 @@ public class ApproverFragment extends Fragment {
             }
         });
     }
-    public void imageAlert(String doc) {
+    /*public void imageAlert(String doc) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext(), R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_image, null);
@@ -713,5 +720,5 @@ public class ApproverFragment extends Fragment {
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
         alerDialog1.show();
-    }
+    }*/
 }

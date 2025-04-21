@@ -1635,7 +1635,7 @@ public class ApplicationFragment extends Fragment {
                             alert4.dismiss();
                             String contentType = "image/jpg";
                             String[] brkDown = imageurl.split("/");
-                            String name = brkDown[5];
+                            String name = brkDown[brkDown.length-1];
                             //stringFile = name + "_" + encodedImage + "_" + contentType;
                             String completeString = name + "_" + encodedImage + "_" + contentType;
                             Log.d("stringFile", completeString);
@@ -1667,7 +1667,7 @@ public class ApplicationFragment extends Fragment {
 
                     //String filePath = getRealPDFPathFromURI(selectedFileURI);
                     String[] brkDown = realPath.split("/");
-                    String name = brkDown[5];
+                    String name = brkDown[brkDown.length-1];
                     Log.e(TAG, "onActivityResult: "+name);
                     try {
                         encodedImage = FileToBase64Converter.convertToBase64(FileToBase64Converter.convertInputStreamToFile(getContext(),selectedFileURI,name)).replaceAll("\n","");
@@ -1698,6 +1698,7 @@ public class ApplicationFragment extends Fragment {
                     if (data.getData() != null) {
                         Uri selectedFileURI = data.getData();
                         String realPath = getRealPath(getContext(),selectedFileURI);
+                        Log.e(TAG, "onActivityResult: "+realPath);
                         file = new File(realPath);
                         try {
                             file = new ImageZipper(getContext())
@@ -1725,7 +1726,7 @@ public class ApplicationFragment extends Fragment {
                             alert4.dismiss();
                             String contentType = "image/jpg";
                             String[] brkDown = realPath.split("/");
-                            String name = brkDown[5];
+                            String name = brkDown[brkDown.length-1];
                             //stringFile = name + "_" + encodedImage + "_" + contentType;
                             String completeString = name + "_" + encodedImage + "_" + contentType;
                             Log.d("stringFile", completeString);

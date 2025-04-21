@@ -2,7 +2,9 @@ package com.genius.payhrms.activity.adapter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,19 +19,28 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.MultipleDocumentView.MultipleDocumentViewActivity;
 import com.genius.payhrms.activity.leaveapplication.ApproverFragment;
 import com.genius.payhrms.activity.model.ApprovalModel;
 import com.genius.payhrms.activity.utility.Pref;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
+import com.genius.payhrms.activity.MultipleDocumentView.LeaveDetailsActivity;
 
+import org.apache.commons.logging.LogFactory;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.zip.GZIPOutputStream;
 
 public class ApproverAdapter  extends RecyclerView.Adapter<ApproverAdapter.MyViewHolder> {
+    private static final org.apache.commons.logging.Log log = LogFactory.getLog(ApproverAdapter.class);
     ArrayList<ApprovalModel>itemList=new ArrayList<>();
     Fragment context;
     Context mContex;
+    Pref pref;
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -290,7 +301,12 @@ public class ApproverAdapter  extends RecyclerView.Adapter<ApproverAdapter.MyVie
         myViewHolder.tvDocument.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((ApproverFragment)context).imageAlert(itemList.get(i).getDocumentlink());
+                //((ApproverFragment)context).imageAlert(itemList.get(i).getDocumentlink());
+                // Compressing a large string
+               Log.e("onClick", "onClick: "+itemList.get(i).getDocumentlink());
+               pref.saveLargeData(itemList.get(i).getDocumentlink());
+               Intent intent = new Intent(mContex, MultipleDocumentViewActivity.class);
+               mContex.startActivity(intent);
             }
         });
 
@@ -349,5 +365,6 @@ public class ApproverAdapter  extends RecyclerView.Adapter<ApproverAdapter.MyVie
         this.itemList = itemList;
         this.context = context;
         this.mContex=mContext;
+        pref = new Pref(mContex);
     }
 }
