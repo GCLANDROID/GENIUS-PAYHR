@@ -1,8 +1,8 @@
 package com.genius.payhrms.activity.utility;
 
 public class Api {
-
     public static String baseurl = "https://cloud.geniusconsultant.com/GHRMSApi_v2/api/";
+    //public static String baseurl = "https://cloud.geniusconsultant.com/GHRMSApi_UAT_v2/api/";
     //public static String baseurl="http://171.16.1.136/GHRMSApi_V2/api/"; //todo: SUMAN DA
     //public static String baseurl="http://171.16.2.67/GHRMSApi_V2_DevMode/api/";
     //public static String baseurl_SubhamDa="http://171.16.2.67/GHRMSApi_V2_DevMode/api/";
@@ -101,4 +101,5 @@ public class Api {
     public static String sGetIStouraplicable = baseurl + "Shalimar/GetIStouraplicable";
     public static String sSaveTourApprove = baseurl + "Shalimar/SaveTourApprove";
     public static String sGetPFNominationAPi = baseurl + "Shalimar/GetPFNomination";
+    public static String sApproverLeaveListWise = baseurl + "leave/ApproverLeavelistwise";
 }
