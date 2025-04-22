@@ -151,6 +151,7 @@ public class OtherApplicationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.e(TAG, "onViewCreated: Shalimar");
         initView();
         btnClick();
 
@@ -302,17 +303,19 @@ public class OtherApplicationFragment extends Fragment {
                 if (LeaveTypeID.equals("0")){
                     Toast.makeText(getActivity(), "Please select Adjustment Type", Toast.LENGTH_SHORT).show();
                 } else if (startDate.isEmpty()){
-                    if (LeaveTypeID.equals(COMPENSATORY_OFF_ID)){
+                    /*if (LeaveTypeID.equals(COMPENSATORY_OFF_ID)){
                         Toast.makeText(getActivity(), "Please select Off Date", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getActivity(), "Please select Start Date", Toast.LENGTH_SHORT).show();
-                    }
+                    }*/
+                    Toast.makeText(getActivity(), "Please select Off Date", Toast.LENGTH_SHORT).show();
                 } else if (endDate.isEmpty()){
-                    if (LeaveTypeID.equals(COMPENSATORY_OFF_ID)){
+                    /*if (LeaveTypeID.equals(COMPENSATORY_OFF_ID)){
                         Toast.makeText(getActivity(), "Please select Leave Date", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getActivity(), "Please select End Date", Toast.LENGTH_SHORT).show();
-                    }
+                    }*/
+                    Toast.makeText(getActivity(), "Please select Leave Date", Toast.LENGTH_SHORT).show();
                 } else if (binding.etReason.getText().toString().trim().isEmpty()){
                     Toast.makeText(getActivity(), "Please enter your reason", Toast.LENGTH_SHORT).show();
                 } else {
