@@ -588,26 +588,38 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:layout_marginTop="5dp">
+
                                 <LinearLayout
                                     android:id="@+id/llChoose"
-                                    android:layout_width="100dp"
-                                    android:layout_height="30dp"
+                                    android:layout_width="106dp"
+                                    android:layout_height="32dp"
                                     android:background="@drawable/lldesign4"
                                     android:gravity="center">
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="12sp"
+                                        android:text="Choose file"
                                         android:textColor="@android:color/black"
-                                        android:text="Choose file"></TextView>
+                                        android:textSize="12sp"></TextView>
 
                                 </LinearLayout>
                                 <ImageView
                                     android:id="@+id/imgPic"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
+                                    android:visibility="gone"
                                     android:layout_marginLeft="5dp"></ImageView>
                             </LinearLayout>
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvMulImages"
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_height="wrap_content"/>
+
+
 
 
                         </LinearLayout>
