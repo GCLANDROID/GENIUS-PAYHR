@@ -38,7 +38,7 @@ public class DocumentViewAdapter extends RecyclerView.Adapter<DocumentViewAdapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Log.e(TAG, "onBindViewHolder: \nName: "+docList.get(position).name
                 +"\ntype:"+docList.get(position).type);
-        if(docList.get(position).type.contains("pdf")){
+        if(docList.get(position).name.contains("pdf")){
             holder.imageType.setImageResource(R.drawable.pdficon);
         } else {
             holder.imageType.setImageResource(R.drawable.img);
@@ -48,7 +48,7 @@ public class DocumentViewAdapter extends RecyclerView.Adapter<DocumentViewAdapte
         holder.txtView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MultipleDocumentViewActivity) context).imageAlert(docList.get(position).base64String,docList.get(position).type);
+                ((MultipleDocumentViewActivity) context).imageAlert(docList.get(position).base64String,docList.get(position).name);
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.genius.payhrms.activity.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.genius.payhrms.R;
 import com.genius.payhrms.activity.model.MultipleDocModel;
 
@@ -35,9 +37,13 @@ public class MultipleImageAdapter extends RecyclerView.Adapter<MultipleImageAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (multipleImageUriList.get(position).getFileType().equalsIgnoreCase("image/jpg") ){
-            holder.image.setImageURI(multipleImageUriList.get(position).getFileUri());
+            Glide.with(context)
+                    .load(multipleImageUriList.get(position).getFileUri())
+                    .override(800, 600)  // Resize the image to 800x600
+                    .into(holder.image);
+            //holder.image.setImageURI(multipleImageUriList.get(position).getFileUri());
         } else {
             holder.image.setImageResource(R.drawable.pdficon);
         }
