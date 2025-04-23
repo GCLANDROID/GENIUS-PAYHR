@@ -24,6 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
+        android:largeHeap="true"
+        android:hardwareAccelerated="false"
         tools:node="merge">
         <activity
             android:name=".activity.MultipleDocumentView.LeaveDetailsActivity"
