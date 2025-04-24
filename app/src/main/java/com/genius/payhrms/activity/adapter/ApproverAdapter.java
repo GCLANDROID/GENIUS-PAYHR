@@ -23,6 +23,7 @@ import com.genius.payhrms.activity.MultipleDocumentView.MultipleDocumentViewActi
 import com.genius.payhrms.activity.leaveapplication.ApproverFragment;
 import com.genius.payhrms.activity.model.ApprovalModel;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
@@ -303,10 +304,15 @@ public class ApproverAdapter  extends RecyclerView.Adapter<ApproverAdapter.MyVie
             public void onClick(View view) {
                 //((ApproverFragment)context).imageAlert(itemList.get(i).getDocumentlink());
                 // Compressing a large string
-               Log.e("onClick", "onClick: "+itemList.get(i).getDocumentlink());
-               pref.saveLargeData(itemList.get(i).getDocumentlink());
-               Intent intent = new Intent(mContex, MultipleDocumentViewActivity.class);
-               mContex.startActivity(intent);
+                if (pref.getSecurityCode().equals(SecurityCode.Arun_Nursery) || pref.getSecurityCode().equals(SecurityCode.Future_Foundation)){
+                    Log.e("onClick", "onClick: "+itemList.get(i).getDocumentlink());
+                    pref.saveLargeData(itemList.get(i).getDocumentlink());
+                    Intent intent = new Intent(mContex, MultipleDocumentViewActivity.class);
+                    mContex.startActivity(intent);
+                } else {
+                    ((ApproverFragment)context).imageAlert(itemList.get(i).getDocumentlink());
+                }
+
             }
         });
 

@@ -5,6 +5,7 @@ import static com.genius.payhrms.activity.utility.Util.SECRET_KEY;
 import static com.genius.payhrms.activity.utility.Util.encrypt;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +21,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -43,6 +45,11 @@ import com.genius.payhrms.activity.model.LeaveDetailsModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
 import com.genius.payhrms.activity.utility.SecurityCode;
+import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.github.barteksc.pdfviewer.listener.OnRenderListener;
+import com.github.barteksc.pdfviewer.listener.OnTapListener;
+import com.github.chrisbanes.photoview.PhotoView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +61,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class ApproverFragment extends Fragment {
-
+    private static final String TAG = "ApproverFragment";
     LinearLayout llLoader, llMain, llNoData;
     RecyclerView rvItem;
     View view;
@@ -68,7 +75,7 @@ public class ApproverFragment extends Fragment {
     AlertDialog alerDialog1;
     AlertDialog.Builder builder;
     Button btnDelete;
-
+    boolean isDialogShowing = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -691,34 +698,93 @@ public class ApproverFragment extends Fragment {
             }
         });
     }
-    /*public void imageAlert(String doc) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext(), R.style.CustomDialogNew);
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View dialogView = inflater.inflate(R.layout.dialog_image, null);
-        dialogBuilder.setView(dialogView);
-        ImageView imgDoc=(ImageView)dialogView.findViewById(R.id.imgDoc);
+    public void imageAlert(String doc) {
+        Dialog dialogView = new Dialog(getContext(),R.style.CustomDialogNew2);
+        dialogView.setContentView(R.layout.dialog_image);
+        dialogView.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialogView.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialogView.setCancelable(false);
+        if (!isDialogShowing){
+            dialogView.show();
+            isDialogShowing = true;
+        }
+        PhotoView viewImage = dialogView.findViewById(R.id.viewImage);
+        PDFView pdfView = dialogView.findViewById(R.id.pdfView);
+        LinearLayout llLoading = dialogView.findViewById(R.id.llLoading);
+        TextView txtPdfPageCount = dialogView.findViewById(R.id.txtPdfPageCount);
         String[] parts = doc.split(",");
         String part1 = parts[1];
         String[] partsB = part1.split("\\$");
         String doclink=partsB[0];
+        Log.e(TAG, "part1: "+part1);
+        Log.e(TAG, "partsB[1]: "+partsB[1]);
+        Log.e(TAG, "doclink: "+doclink);
 
-        byte[] decodedString = Base64.decode(doclink, Base64.DEFAULT);
+        /*byte[] decodedString = Base64.decode(doclink, Base64.DEFAULT);
         Bitmap selfieImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        imgDoc.setImageBitmap(selfieImage);
+        viewImage.setImageBitmap(selfieImage);*/
+        byte[] decodedString = Base64.decode(doclink, Base64.DEFAULT);
+        if (partsB[1].contains("pdf")){
+            //Log.e(TAG, "showPdfView: png: "+base64string);
+            Log.e(TAG, "showPdfView: pdf");
+            //Log.e(TAG, "showPdfView: pdf: "+base64string);
+            llLoading.setVisibility(View.VISIBLE);
+
+            pdfView.fromBytes(decodedString).onPageChange(new OnPageChangeListener() {
+                        @Override
+                        public void onPageChanged(int page, int pageCount) {
+                            Log.e(TAG, "onPageChanged: Current Page: " + page + " Total number of page: " + pageCount);
+                            txtPdfPageCount.setText(page+1+" / "+pageCount);
+                        }
+                    }).onRender(new OnRenderListener() {
+                        @Override
+                        public void onInitiallyRendered(int nbPages) {
+                            Log.e(TAG, "onInitiallyRendered: nbPages: " + nbPages);
+                            llLoading.setVisibility(View.GONE);
+                            txtPdfPageCount.setVisibility(View.VISIBLE);
+                        }
+                    }).onTap(new OnTapListener() {
+                        @Override
+                        public boolean onTap(MotionEvent e) {
+                            Log.e(TAG, "onTap: called.");
+                            if (txtPdfPageCount.getVisibility() == View.VISIBLE) {
+                                txtPdfPageCount.setVisibility(View.GONE);
+                            } else {
+                                txtPdfPageCount.setVisibility(View.VISIBLE);
+                            }
+                            return false;
+                        }
+                    })
+                    .spacing(15)
+                    .pageSnap(true)
+                    .autoSpacing(true)
+                    .pageFling(true)
+                    .load();
+            pdfView.setVisibility(View.VISIBLE);
+            viewImage.setVisibility(View.GONE);
+        } else {
+            //byte[] decodedString = Base64.decode(doclink, Base64.DEFAULT);
+            Bitmap image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            viewImage.setImageBitmap(image);
+            viewImage.setVisibility(View.VISIBLE);
+            txtPdfPageCount.setVisibility(View.GONE);
+            llLoading.setVisibility(View.GONE);
+        }
 
         ImageView imgCancel=(ImageView)dialogView.findViewById(R.id.imgCancel);
         imgCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alerDialog1.dismiss();
+                dialogView.dismiss();
+                isDialogShowing = false;
             }
         });
 
-        alerDialog1 = dialogBuilder.create();
+        /*alerDialog1 = dialogBuilder.create();
         alerDialog1.setCancelable(true);
         Window window = alerDialog1.getWindow();
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
-        alerDialog1.show();
-    }*/
+        alerDialog1.show();*/
+    }
 }

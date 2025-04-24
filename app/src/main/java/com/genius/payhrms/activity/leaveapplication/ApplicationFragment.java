@@ -4,6 +4,7 @@ package com.genius.payhrms.activity.leaveapplication;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ContentUris;
@@ -28,6 +29,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -75,6 +77,12 @@ import com.genius.payhrms.activity.utility.FileToBase64Converter;
 import com.genius.payhrms.activity.utility.FileUtils;
 import com.genius.payhrms.activity.utility.Pref;
 import com.genius.payhrms.activity.utility.RealPathUtil;
+import com.genius.payhrms.activity.utility.SecurityCode;
+import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.github.barteksc.pdfviewer.listener.OnRenderListener;
+import com.github.barteksc.pdfviewer.listener.OnTapListener;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
@@ -1641,7 +1649,13 @@ public class ApplicationFragment extends Fragment {
                             Log.d("stringFile", completeString);
                             //rvMulImages.setVisibility(View.GONE);
                             MultipleDocModel multipleDocModel = new MultipleDocModel(name,contentType,imageUri,completeString);
-                            multipleImageUriList.add(multipleDocModel);
+                            if (pref.getSecurityCode().equals(SecurityCode.Arun_Nursery) || pref.getSecurityCode().equals(SecurityCode.Future_Foundation)){
+                                multipleImageUriList.add(multipleDocModel);
+                            } else {
+                                multipleImageUriList.clear();
+                                multipleImageUriList.add(multipleDocModel);
+                            }
+
                             if (multipleImageAdapter == null){
                                 multipleImageAdapter = new MultipleImageAdapter(getContext(),multipleImageUriList);
                                 rvMulImages.setAdapter(multipleImageAdapter);
@@ -1684,7 +1698,12 @@ public class ApplicationFragment extends Fragment {
                     multipleImageSelected = 0;
                     //rvMulImages.setVisibility(View.GONE);
                     MultipleDocModel multipleDocModel = new MultipleDocModel(name,contentType,imageUri,completeString);
-                    multipleImageUriList.add(multipleDocModel);
+                    if (pref.getSecurityCode().equals(SecurityCode.Arun_Nursery) || pref.getSecurityCode().equals(SecurityCode.Future_Foundation)){
+                        multipleImageUriList.add(multipleDocModel);
+                    } else {
+                        multipleImageUriList.clear();
+                        multipleImageUriList.add(multipleDocModel);
+                    }
                     if (multipleImageAdapter == null){
                         multipleImageAdapter = new MultipleImageAdapter(getContext(),multipleImageUriList);
                         rvMulImages.setAdapter(multipleImageAdapter);
@@ -1732,7 +1751,12 @@ public class ApplicationFragment extends Fragment {
                             Log.d("stringFile", completeString);
                             //rvMulImages.setVisibility(View.GONE);
                             MultipleDocModel multipleDocModel = new MultipleDocModel(name,contentType,selectedFileURI,completeString);
-                            multipleImageUriList.add(multipleDocModel);
+                            if (pref.getSecurityCode().equals(SecurityCode.Arun_Nursery) || pref.getSecurityCode().equals(SecurityCode.Future_Foundation)){
+                                multipleImageUriList.add(multipleDocModel);
+                            } else {
+                                multipleImageUriList.clear();
+                                multipleImageUriList.add(multipleDocModel);
+                            }
                             if (multipleImageAdapter == null){
                                 multipleImageAdapter = new MultipleImageAdapter(getContext(),multipleImageUriList);
                                 rvMulImages.setAdapter(multipleImageAdapter);
@@ -2176,4 +2200,6 @@ public class ApplicationFragment extends Fragment {
         }
         return images;
     }
+
+
 }
