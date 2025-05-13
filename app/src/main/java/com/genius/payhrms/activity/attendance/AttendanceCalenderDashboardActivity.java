@@ -524,7 +524,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             startActivity(intent);
             finish();
         } else if (view==llQRCode){
-            isAppMinimizeAttendance = true;
+
             if (approver) {
                 Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, QRAttendanceDashboardActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
