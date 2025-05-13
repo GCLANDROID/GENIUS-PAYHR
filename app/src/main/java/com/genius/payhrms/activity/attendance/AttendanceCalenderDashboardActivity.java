@@ -468,6 +468,12 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                     tvDetails.setTextColor(Color.parseColor("#F2FFFFFF"));
                     tvOK.setTextColor(Color.parseColor("#F2FFFFFF"));
 
+                } else if (Status.equalsIgnoreCase("AP")){
+                    lnStatus.setVisibility(View.VISIBLE);
+                    lnStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F2FF89CC")));
+                    tvDetails.setText(date + " : "+PunchTiming+" Attendance Approval Pending" );
+                    tvDetails.setTextColor(Color.parseColor("#F2FFFFFF"));
+                    tvOK.setTextColor(Color.parseColor("#F2FFFFFF"));
                 } else if (Status.equalsIgnoreCase("C")) {
                     lnStatus.setVisibility(View.VISIBLE);
                     lnStatus.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#010360")));
