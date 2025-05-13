@@ -337,6 +337,11 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         unapprovedleaveProperty.dateTextViewResource = R.id.text_view;
         descHashMap.put("UL", unapprovedleaveProperty);
 
+        Property approperty = new Property();
+        approperty.layoutResource = R.layout.approval_pending_view;
+        approperty.dateTextViewResource = R.id.text_view;
+        descHashMap.put("AP", approperty);
+
         Property hdproperty = new Property();
         hdproperty.layoutResource = R.layout.hd_view;
         hdproperty.dateTextViewResource = R.id.text_view;
