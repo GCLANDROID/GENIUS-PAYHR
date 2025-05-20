@@ -86,30 +86,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <LinearLayout
+                    android:id="@+id/llTeamReport"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:background="@drawable/lldesign18">
+                    android:background="@mipmap/headerribbon">
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/team"></ImageView>
+                        android:src="@drawable/team"
+                        android:visibility="gone"/>
                     <TextView
                         android:layout_marginLeft="2dp"
                         android:id="@+id/tvTeam"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
-                        android:textColor="@color/maincolor"
-                        android:text="Team Report"></TextView>
+                        android:textColor="@color/white"
+                        android:text="Team Report"/>
                 </LinearLayout>
                 <LinearLayout
                     android:orientation="horizontal"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:id="@+id/llTBlock"
                     android:background="@drawable/lldesign15"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></LinearLayout>
+                    android:layout_height="match_parent"/>
             </FrameLayout>
 
         </LinearLayout>
@@ -124,22 +126,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <LinearLayout
+                    android:id="@+id/llApprover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="@drawable/lldesign18">
+                    android:gravity="center">
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/approved"></ImageView>
+                        android:src="@drawable/approved"
+                        android:visibility="gone"/>
                     <TextView
                         android:layout_marginLeft="2dp"
                         android:id="@+id/tvApprove"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
-                        android:textColor="@color/maincolor"
-                        android:text="Approval"></TextView>
+                        android:textColor="@color/black"
+                        android:text="Approval"/>
                 </LinearLayout>
                 <LinearLayout
                     android:orientation="horizontal"
