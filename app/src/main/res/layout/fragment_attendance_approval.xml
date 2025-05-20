@@ -57,7 +57,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@drawable/lldesigngreen"
+        android:background="@mipmap/headerribbon"
         android:textColor="@android:color/white"
         android:textSize="13sp"
         android:text="Show"
