@@ -33,7 +33,7 @@
                   <Spinner
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
-                      android:id="@+id/spYear"></Spinner>
+                      android:id="@+id/spYear"/>
               </LinearLayout>
           </LinearLayout>
           <LinearLayout
@@ -47,7 +47,7 @@
                   android:layout_height="wrap_content"
                   android:textColor="@color/blue"
                   android:textSize="14sp"
-                  android:text="Select Month"></TextView>
+                  android:text="Select Month"/>
               <LinearLayout
                   android:background="@drawable/lldesign9"
                   android:layout_marginLeft="10dp"
@@ -57,7 +57,7 @@
                   <Spinner
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
-                      android:id="@+id/spMonth"></Spinner>
+                      android:id="@+id/spMonth"/>
               </LinearLayout>
           </LinearLayout>
           <Button
@@ -70,7 +70,7 @@
               android:layout_marginTop="20dp"
               android:textSize="14sp"
               android:textColor="@color/white"
-              android:text="Search"></Button>
+              android:text="Search"/>
       </LinearLayout>
       <LinearLayout
           android:layout_width="match_parent"
@@ -81,7 +81,7 @@
               android:id="@+id/rvItem"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:padding="10dp"></androidx.recyclerview.widget.RecyclerView>
+              android:padding="10dp"/>
       </LinearLayout>
       <LinearLayout
           android:id="@+id/llNoData"

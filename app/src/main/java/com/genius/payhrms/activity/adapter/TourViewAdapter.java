@@ -3,6 +3,7 @@ package com.genius.payhrms.activity.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,9 @@ public class TourViewAdapter extends RecyclerView.Adapter<TourViewAdapter.MyView
 
         String[] split = itemList.get(position).getAppliedOn().split("T");
         String firstSubString = split[0];
-
-        holder.tvAppliedOn.setText(TimeDateConverter.convert_Date_YYYY_MM_DD_To_dd_MMM_yyyy(firstSubString));
+        Log.e("G", "onBindViewHolder: "+itemList.get(position).getAppliedOn());
+        //holder.tvAppliedOn.setText(TimeDateConverter.convert_Date_YYYY_MM_DD_To_dd_MMM_yyyy(firstSubString));
+        holder.tvAppliedOn.setText(itemList.get(position).getAppliedOn());
 
         holder.tvTourDate.setText("From "+itemList.get(position).getStartDate()+" To "+itemList.get(position).getEndDate());
 
