@@ -217,7 +217,7 @@ public class BacklogActivity extends AppCompatActivity {
         if (pref.getLanguage().equals("hi")) {
             tvInvalidDate.setText("बैकलॉग उपस्थिति सफलतापूर्वक सहेजी गई");
         } else {
-            tvInvalidDate.setText("Backlog Attendance saved successfully");
+            tvInvalidDate.setText("Backlog attendance has been saved successfully");
         }
 
 
