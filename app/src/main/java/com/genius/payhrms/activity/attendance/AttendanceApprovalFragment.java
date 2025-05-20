@@ -519,7 +519,7 @@ public class AttendanceApprovalFragment extends Fragment {
         dialogBuilder.setView(dialogView);
         TextView tvInvalidDate = (TextView) dialogView.findViewById(R.id.tvSuccess);
 
-        tvInvalidDate.setText("Attendance approved successfully");
+        tvInvalidDate.setText("Attendance has been approved successfully");
 
 
         Button btnOk = (Button) dialogView.findViewById(R.id.btnOk);
@@ -560,7 +560,7 @@ public class AttendanceApprovalFragment extends Fragment {
         dialogBuilder.setView(dialogView);
         TextView tvInvalidDate = (TextView) dialogView.findViewById(R.id.tvSuccess);
 
-        tvInvalidDate.setText("Attendance rejected successfully");
+        tvInvalidDate.setText("Attendance has been rejected successfully");
 
 
         Button btnOk = (Button) dialogView.findViewById(R.id.btnOk);
