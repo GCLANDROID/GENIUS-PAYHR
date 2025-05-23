@@ -2076,8 +2076,7 @@ public class ApplicationFragment extends Fragment {
         if (pref.getLanguage().equals("hi")) {
             tvInvalidDate.setText("सफलतापूर्वक लागू किया गया");
         } else {
-
-            tvInvalidDate.setText("Leave has been successfully applied");
+            tvInvalidDate.setText("Leave Application Save successfully and Mail sent to your Approver!");
         }
 
 
@@ -2201,5 +2200,7 @@ public class ApplicationFragment extends Fragment {
         return images;
     }
 
-
+    public void removeFromList(int pos){
+        Log.e(TAG, "removeFromList: "+multipleImageUriList.size());
+    }
 }
