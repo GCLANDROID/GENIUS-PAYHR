@@ -650,49 +650,6 @@ public class ProfileActivity extends AppCompatActivity {
                                     tvBloodGroup.setText(BloodGroup);
                                 }
 
-                                if (pref.getLanguage().equals("hi")) {
-                                    final Handler textViewHandler13 = new Handler();
-                                    new AsyncTask<Void, Void, Void>() {
-                                        @Override
-                                        protected Void doInBackground(Void... params) {
-                                            TranslateOptions options = TranslateOptions.newBuilder()
-                                                    .setApiKey("AIzaSyCEQyxLkrIoD2-k_185t2EUKEc8IlggaMs")
-                                                    .build();
-                                            Translate translate = options.getService();
-                                            final Translation translation =
-                                                    translate.translate(BloodGroup,
-                                                            Translate.TranslateOption.sourceLanguage("en"), Translate.TranslateOption.targetLanguage(pref.getLanguage()));
-                                            textViewHandler13.post(new Runnable() {
-                                                @Override
-                                                public void run() {
-
-                                                    Log.d("sssh", translation.getTranslatedText());
-                                                    String h = translation.getTranslatedText();
-                                                    tvBloodGroup.setText(h);
-
-                                                }
-                                            });
-                                            return null;
-                                        }
-
-                                        @Override
-                                        protected void onPreExecute() {
-                                            super.onPreExecute();
-                                            pd.show();
-                                        }
-
-                                        @Override
-                                        protected void onPostExecute(Void aVoid) {
-                                            super.onPostExecute(aVoid);
-                                            pd.show();
-                                        }
-
-
-                                    }.execute();
-                                } else {
-                                    tvBloodGroup.setText(BloodGroup);
-                                }
-
                                 final String permanentpincode = obj.optString("PermanentPinCode");
 
                                 final String PermanentAddress = obj.optString("PermanentAddress");
@@ -733,7 +690,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 if (!PFNumber.equals("") || !PFNumber.equalsIgnoreCase("null")) {
                                     tvPfNumber.setText(PFNumber);
                                 } else {
-                                    tvPfNumber.setText("N/A");
+                                    tvPfNumber.setText("");
                                 }
 
                                 String ESINumber = obj.optString("ESINumber");
@@ -772,10 +729,10 @@ public class ProfileActivity extends AppCompatActivity {
                                 }
 
                                 String panNo = obj.optString("PanNo");
-                                if (!panNo.equals("")) {
-                                    tvPanNumber.setText(panNo);
-                                } else {
+                                if (panNo.isEmpty() || panNo.equals("null")) {
                                     tvPanNumber.setText("");
+                                } else {
+                                    tvPanNumber.setText(panNo);
                                 }
 
                                 String ReportingManager = obj.optString("ReportingManager");
