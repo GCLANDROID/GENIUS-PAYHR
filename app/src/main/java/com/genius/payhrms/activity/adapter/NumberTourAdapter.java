@@ -3,6 +3,7 @@ package com.genius.payhrms.activity.adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Handler;
 
@@ -94,7 +95,11 @@ public class NumberTourAdapter extends RecyclerView.Adapter<NumberTourAdapter.My
         }else {
             myViewHolder.tvDate.setText(itemList.get(i).getDate());
         }
-
+        if (i%2 == 0){
+            myViewHolder.llMain.setBackgroundColor(Color.WHITE);
+        } else {
+            myViewHolder.llMain.setBackgroundColor(Color.parseColor("#EBEBEB"));
+        }
         if (pref.getLanguage().equals("hi")) {
             final Handler textViewHandler1 = new Handler();
             new AsyncTask<Void, Void, Void>() {
@@ -217,7 +222,7 @@ public class NumberTourAdapter extends RecyclerView.Adapter<NumberTourAdapter.My
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvDate,tvNumber,tvDistance;
-        LinearLayout llMap,llTour,llNormal;
+        LinearLayout llMap,llTour,llNormal,llMain;
         TextView tvLogDate,tvVisit,tvTotalDistance,tvMap,tvTour,tvView;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -227,6 +232,7 @@ public class NumberTourAdapter extends RecyclerView.Adapter<NumberTourAdapter.My
             llNormal=(LinearLayout)itemView.findViewById(R.id.llNormal);
             llMap=(LinearLayout)itemView.findViewById(R.id.llMap);
             llTour=(LinearLayout)itemView.findViewById(R.id.llTour);
+            llMain=(LinearLayout)itemView.findViewById(R.id.llMain);
             tvDistance=(TextView)itemView.findViewById(R.id.tvDistance);
 
             tvLogDate=(TextView)itemView.findViewById(R.id.tvLogDate);
