@@ -750,10 +750,20 @@ public class ProfileActivity extends AppCompatActivity {
                                 }
 
                                 String GuardContMobile = obj.optString("GuardContMobile");
-                                tvGurdianMob.setText(GuardContMobile);
+                                if (GuardContMobile.equalsIgnoreCase("null")){
+                                    tvGurdianMob.setText("");
+                                } else {
+                                    tvGurdianMob.setText(GuardContMobile);
+                                }
+
 
                                 final String Level = obj.optString("Level");
-                                tvGrade.setText(Level);
+                                if(Level.equalsIgnoreCase("null")){
+                                    tvGrade.setText("");
+                                } else {
+                                    tvGrade.setText(Level);
+                                }
+
                             }
 
                             if (pref.getSecurityCode().equals("1155")) {
@@ -1102,18 +1112,18 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                                 String PFNumber = obj.optString("PFNumber");
-                                tvPfNumber.setText(PFNumber);
-                               /* if (!PFNumber.equals("")) {
+                                if (!PFNumber.equals("") || !PFNumber.equalsIgnoreCase("null")) {
                                     tvPfNumber.setText(PFNumber);
                                 } else {
-                                    tvPfNumber.setText("N/A");
-                                }*/
+                                    tvPfNumber.setText("");
+                                }
 
                                 String ESINumber = obj.optString("ESINumber");
-                                tvEsiNumber.setText(ESINumber);
-                                /*if (!ESINumber.equals("")) {
+                                if(ESINumber.equalsIgnoreCase("null")){
+                                    tvEsiNumber.setText("");
+                                } else {
                                     tvEsiNumber.setText(ESINumber);
-                                }*/
+                                }
 
                                 final String BankName = obj.optString("BanKName");
                                 if (pref.getLanguage().equals("hi")) {
@@ -1162,14 +1172,14 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                                 String AccountNumber = obj.optString("AccountNumber");
-                                if (!AccountNumber.equals("")) {
+                                if (!AccountNumber.equals("") || !AccountNumber.equalsIgnoreCase("null")) {
                                     tvAcNumber.setText(AccountNumber);
                                 } else {
                                     tvAcNumber.setText("N/A");
                                 }
 
                                 String AadharCard = obj.optString("AadharCard");
-                                if (!AadharCard.equals("")) {
+                                if (!AadharCard.equals("") || !AadharCard.equalsIgnoreCase("null")) {
                                     tvAddharNumber.setText(AadharCard);
                                 } else {
                                     tvAddharNumber.setText("N/A");
@@ -1188,7 +1198,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     tvUanNumber.setText("N/A");
                                 }*/
                                 String panNo=obj.optString("PanNo");
-                                if (!panNo.equals("")){
+                                if (!panNo.equals("") || !panNo.equals("null")){
                                     tvPanNumber.setText(panNo);
                                 }else{
                                     tvPanNumber.setText("N/A");
