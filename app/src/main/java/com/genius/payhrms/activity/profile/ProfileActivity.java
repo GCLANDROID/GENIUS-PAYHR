@@ -1175,14 +1175,14 @@ public class ProfileActivity extends AppCompatActivity {
                                 if (!AccountNumber.equals("") || !AccountNumber.equalsIgnoreCase("null")) {
                                     tvAcNumber.setText(AccountNumber);
                                 } else {
-                                    tvAcNumber.setText("N/A");
+                                    tvAcNumber.setText("");
                                 }
 
                                 String AadharCard = obj.optString("AadharCard");
                                 if (!AadharCard.equals("") || !AadharCard.equalsIgnoreCase("null")) {
                                     tvAddharNumber.setText(AadharCard);
                                 } else {
-                                    tvAddharNumber.setText("N/A");
+                                    tvAddharNumber.setText("");
                                 }
 
                                 String UanNo = obj.optString("UanNo");
@@ -1201,15 +1201,29 @@ public class ProfileActivity extends AppCompatActivity {
                                 if (!panNo.equals("") || !panNo.equals("null")){
                                     tvPanNumber.setText(panNo);
                                 }else{
-                                    tvPanNumber.setText("N/A");
+                                    tvPanNumber.setText("");
                                 }
 
                                 String ReportingManager=obj.optString("ReportingManager");
-                                tvReportingManager.setText(ReportingManager);
+                                if(!ReportingManager.equalsIgnoreCase("") || !ReportingManager.equalsIgnoreCase("null")){
+                                    tvReportingManager.setText(ReportingManager);
+                                } else {
+                                    tvReportingManager.setText("");
+                                }
+
                                 String PersonalEmail=obj.optString("PersonalEmail");
-                                tvPersonalEmail.setText(PersonalEmail);
+                                if(!PersonalEmail.isEmpty() || !PersonalEmail.equalsIgnoreCase("null")){
+                                    tvPersonalEmail.setText(PersonalEmail);
+                                } else {
+                                    tvPersonalEmail.setText("");
+                                }
+
                                 String GuardContMobile=obj.optString("GuardContMobile");
-                                tvGurdianMob.setText(GuardContMobile);
+                                if(!GuardContMobile.isEmpty() || !GuardContMobile.equalsIgnoreCase("null")){
+                                    tvGurdianMob.setText(GuardContMobile);
+                                } else {
+                                    tvGurdianMob.setText("");
+                                }
                             }
 
 
