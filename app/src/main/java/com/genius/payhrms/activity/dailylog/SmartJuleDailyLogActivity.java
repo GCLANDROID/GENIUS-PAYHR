@@ -534,7 +534,7 @@ public class SmartJuleDailyLogActivity extends AppCompatActivity implements OnMa
         dialogBuilder.setView(dialogView);
         TextView tvInvalidDate = (TextView) dialogView.findViewById(R.id.tvSuccess);
 
-        tvInvalidDate.setText("Attendance saved successfully");
+        tvInvalidDate.setText("Attendance has been saved successfully");
 
 
         Button btnOk = (Button) dialogView.findViewById(R.id.btnOk);
