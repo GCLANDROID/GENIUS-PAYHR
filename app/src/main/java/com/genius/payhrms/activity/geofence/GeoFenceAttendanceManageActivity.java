@@ -666,7 +666,7 @@ public class GeoFenceAttendanceManageActivity extends AppCompatActivity implemen
         if (pref.getLanguage().equals("hi")) {
             tvInvalidDate.setText("उपस्थिति सफलतापूर्वक सहेजी गई");
         } else {
-            tvInvalidDate.setText("Attendance saved successfully");
+            tvInvalidDate.setText("Attendance has been saved successfully");
         }
 
 
