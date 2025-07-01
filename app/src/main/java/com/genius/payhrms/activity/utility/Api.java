@@ -102,4 +102,5 @@ public class Api {
     public static String sSaveTourApprove = baseurl + "Shalimar/SaveTourApprove";
     public static String sGetPFNominationAPi = baseurl + "Shalimar/GetPFNomination";
     public static String sApproverLeaveListWise = baseurl + "leave/ApproverLeavelistwise";
+    public static String sGetEnForm16api = baseurl + "Profile/GetEnForm16";
 }

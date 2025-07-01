@@ -589,6 +589,8 @@ public class LoginActivity extends AppCompatActivity {
                                 pref.saveHolidayMapFlag(IsHoliday);
                                 String ShiftFlag=obj.optString("ShiftFlag");
                                 pref.saveShiftFlag(ShiftFlag);
+                                String CompanyName=obj.optString("CompanyName");
+                                pref.saveCompanyName(CompanyName);
 
 
 
