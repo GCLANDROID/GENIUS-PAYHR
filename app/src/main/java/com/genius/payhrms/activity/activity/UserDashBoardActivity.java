@@ -452,6 +452,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
         pd.show();
         AndroidNetworking.post(Api.sGetEnForm16api)
                 .addJSONObjectBody(jsonObject)
+                .addHeaders("Authorization", "Bearer " + pref.getAccessToken())
                 .setTag("uploadTest")
                 .setPriority(Priority.HIGH)
                 .build()
@@ -926,6 +927,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 // this is the method
                 // to handle errors.
                 e.printStackTrace();
+
                 return null;
             }
             return inputStream;
@@ -936,6 +938,13 @@ public class UserDashBoardActivity extends AppCompatActivity {
             // after the execution of our async
             // task we are loading our pdf in our pdf view.
             //openTrainingPopup(doc_name,doc_type,url,inputStream);
+            if (inputStream == null) {
+                Toast.makeText(UserDashBoardActivity.this,
+                        "No doument found",
+                        Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                return;                 // stop here
+            }
 
             pdfView.fromStream(inputStream)
                     .swipeHorizontal(true)
