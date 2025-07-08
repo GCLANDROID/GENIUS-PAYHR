@@ -781,6 +781,17 @@ public class Pref {
         return _pref.getString("large_data","");
     }
 
+    public void saveCompanyName(String CompanyName){
+        _editorPref.putString("CompanyName", CompanyName);
+        _editorPref.commit();
+    }
+
+    public String getCompanyName(){
+        return _pref.getString("CompanyName","");
+    }
+
+
+
 
 }
 

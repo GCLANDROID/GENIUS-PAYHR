@@ -534,7 +534,7 @@
                             android:textAlignment="center"
                             android:gravity="center"
                             android:layout_marginBottom="5dp"
-                            android:text="2021 @ Genius Consultant Ltd."
+                            android:text="2021 @ Genius HRTech Limited."
                             android:textSize="12sp"></TextView>
                     </LinearLayout>
 

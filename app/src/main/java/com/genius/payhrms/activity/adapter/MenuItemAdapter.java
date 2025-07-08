@@ -158,6 +158,8 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
             myViewHolder.imgMenu.setImageResource(R.drawable.voiceassistant_new);
         }else  if (itemList.get(i).getMenuId()==212){
             myViewHolder.imgMenu.setImageResource(R.drawable.resignation);
+        }else  if (itemList.get(i).getMenuId()==105){
+            myViewHolder.imgMenu.setImageResource(R.drawable.form16);
         }else {
             myViewHolder.itemView.setVisibility(View.GONE);
         }
@@ -300,6 +302,8 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                     Intent intent=new Intent(mContex, VoiceAssistantActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContex.startActivity(intent);
+                }else if (itemList.get(i).getMenuId()==105){
+                    ((UserDashBoardActivity)mContex).getFormSixten();
                 }
             }
         });
