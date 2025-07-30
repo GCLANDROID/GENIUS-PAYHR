@@ -171,6 +171,7 @@ public class DailyLogAttendaneMathhew extends AppCompatActivity implements OnMap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_log_attendane_archisman);
+        Log.e(TAG, "onCreate: Mathhew Attendance");
         initview();
         setUpMapIfNeeded();
         onClick();
@@ -360,7 +361,7 @@ public class DailyLogAttendaneMathhew extends AppCompatActivity implements OnMap
                 if (flag == 1) {
                     if (!tvAddress.getText().toString().equals("YOU ARE AT: null") || tvAddress.getText().toString().equals("YOU ARE AT: ")) {
                         if (!client.equalsIgnoreCase("")){
-                            dailyActivity2();
+                            dailyActivity2("0");
                         }else {
                             Toast.makeText(DailyLogAttendaneMathhew.this,"Please Select Client",Toast.LENGTH_LONG).show();
                         }
@@ -402,7 +403,7 @@ public class DailyLogAttendaneMathhew extends AppCompatActivity implements OnMap
                 if (flag == 1) {
                     if (!tvAddress.getText().toString().equals("YOU ARE AT: null") || tvAddress.getText().toString().equals("YOU ARE AT: ")) {
                         //dailyActivity();
-                        dailyActivity2();
+                        dailyActivity2("1");
                     } else {
                         Toast.makeText(getApplicationContext(), "Sorry! Your address not found.Please click on Refresh button", Toast.LENGTH_LONG).show();
                     }
@@ -817,7 +818,7 @@ public class DailyLogAttendaneMathhew extends AppCompatActivity implements OnMap
 
 
 
-    private void dailyActivity2() {
+    private void dailyActivity2(String punchstatus) {
         Log.e(TAG, "dailyActivity2: called");
         final ProgressDialog progressDialog=new ProgressDialog(DailyLogAttendaneMathhew.this);
         progressDialog.setMessage("Loading");
@@ -827,6 +828,25 @@ public class DailyLogAttendaneMathhew extends AppCompatActivity implements OnMap
         Log.e(TAG, "dailyActivity2: "+client);
 
         //http://171.16.2.67/GHRMSApi_V2/api/FileUpload/PostAttendanceDayco
+        Log.e(TAG, "dailyActivity2: \nEmployeeID: "+pref.getEmpId()
+        +"\nApprovalStatus: 1"
+        +"\nRemarksIN: "+etRemarks.getText().toString()
+        +"\nRemarksOUT:"+etRemarks.getText().toString()
+        +"\nLongitudeIN:"+currentlong
+        +"\nLongitudeOUT:"+currentlong
+        +"\nLatitudeIN:"+currentlat
+        +"\nLatitudeOUT:"+currentlat
+        +"\nAddressIN:"+address
+        +"\nAddressOUT:"+address
+        +"\nYear:2023"
+        +"\nMonth:08"
+        +"\nSecurityCode:"+pref.getSecurityCode()
+        +"\nWorkMode:"+workmode
+        +"\nClient:"+client
+        +"\nPunchStatus:"+punchstatus
+        +"\nFNameOUT:0"
+        +"\nOperation:3"
+        +"\nImage: file");
 
         AndroidNetworking.upload(Api.sPostAttendanceDayco)
                 .addMultipartParameter("EmployeeID", pref.getEmpId())
@@ -844,6 +864,7 @@ public class DailyLogAttendaneMathhew extends AppCompatActivity implements OnMap
                 .addMultipartParameter("SecurityCode", pref.getSecurityCode())
                 .addMultipartParameter("WorkMode", workmode)
                 .addMultipartParameter("Client",client)
+                .addMultipartParameter("PunchStatus", punchstatus)
                 .addMultipartParameter("FNameOUT", "0")
                 .addMultipartParameter("Operation", "3")
                 .addMultipartFile("Image",compressedImageFile)
