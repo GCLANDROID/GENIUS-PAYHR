@@ -39,6 +39,7 @@ import com.genius.payhrms.activity.geofence.GeoFenceDailyLogManageActivity;
 import com.genius.payhrms.activity.model.VisitingLocationModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -296,12 +297,12 @@ public class VisitLocationActivity extends AppCompatActivity {
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneMathhew.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                } else if (pref.getSecurityCode().equals("1167")) {
+                } else if (pref.getSecurityCode().equals(SecurityCode.Matthews)) {
                     isAppMinimizeDailyLog = true;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneMathhew.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                } else if (pref.getSecurityCode().equals("1169")) {
+                } else if (pref.getSecurityCode().equals(SecurityCode.Dayco) ) {
                     isAppMinimizeDailyLog = true;
                     Intent intent = new Intent(VisitLocationActivity.this, DailyLogAttendaneDayco.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
