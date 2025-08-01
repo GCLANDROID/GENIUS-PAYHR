@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:id="@+id/dlMain"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activity.dailylog.DailyLogCalenderDashboardActivity">
     <LinearLayout
         android:layout_width="match_parent"

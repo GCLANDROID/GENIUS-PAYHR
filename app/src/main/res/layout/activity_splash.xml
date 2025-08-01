@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.activity.SplashScreenActivity"
     android:background="@mipmap/splash_blue_bg"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
     <LinearLayout
         android:gravity="center"
