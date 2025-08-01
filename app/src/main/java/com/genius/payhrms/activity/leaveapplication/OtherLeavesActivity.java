@@ -81,7 +81,7 @@ public class OtherLeavesActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         OtherApplicationFragment pfragment=new OtherApplicationFragment();
-
+        binding.tvToolBar.setText("Other Leave");
         binding.llApplication.setBackgroundColor(Color.parseColor("#075994"));
         binding.tvApplication.setTextColor(Color.parseColor("#FFFFFF"));
 
@@ -96,7 +96,7 @@ public class OtherLeavesActivity extends AppCompatActivity {
     }
 
     public void loadOtherDetailsFragment() {
-
+        binding.tvToolBar.setText("Leave Details");
         binding.llApplication.setBackgroundColor(Color.parseColor("#FFFFFF"));
         binding.tvApplication.setTextColor(Color.parseColor("#075994"));
 
@@ -115,7 +115,7 @@ public class OtherLeavesActivity extends AppCompatActivity {
     //OtherLeaveApproverFragment
 
     public void loadOtherLeaveApproverFragment() {
-
+        binding.tvToolBar.setText("Leaves Approval");
         binding.llApplication.setBackgroundColor(Color.parseColor("#FFFFFF"));
         binding.tvApplication.setTextColor(Color.parseColor("#075994"));
 

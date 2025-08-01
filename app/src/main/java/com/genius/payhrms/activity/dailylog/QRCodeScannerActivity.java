@@ -387,7 +387,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
             }
         });
         TextView tvSuccess = (TextView) dialogView.findViewById(R.id.tvSuccess);
-        tvSuccess.setText("Your Attendance saved successfully");
+        tvSuccess.setText("Attendance has been saved successfully");
 
         alerDialog1 = dialogBuilder.create();
         alerDialog1.setCancelable(false);

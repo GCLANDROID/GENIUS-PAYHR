@@ -819,7 +819,8 @@ public class OfflineDailyLogManageActivity extends AppCompatActivity implements 
         if (pref.getLanguage().equals("hi")){
             tvInvalidDate.setText("सफलतापूर्वक चिह्नित किया गया ");
         }else {
-            tvInvalidDate.setText("Successfully marked ");
+            //tvInvalidDate.setText("Successfully marked ");
+            tvInvalidDate.setText("Attendance has been saved successfully");
         }
 
         Button btnOk = (Button) dialogView.findViewById(R.id.btnOk);

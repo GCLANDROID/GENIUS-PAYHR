@@ -107,6 +107,7 @@ public class LeaveApplicationActivity extends AppCompatActivity {
 
 
     public void loadApplicationFragment() {
+        tvToolBar.setText("Leave Application");
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         ApplicationFragment pfragment = new ApplicationFragment();
@@ -115,6 +116,8 @@ public class LeaveApplicationActivity extends AppCompatActivity {
    }
 
     public void loadApproverFragment() {
+        tvToolBar.setText("Leave Details");
+        tvToolBar.setText("Leave Approval");
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         ApproverFragment efr=new ApproverFragment();
@@ -124,6 +127,7 @@ public class LeaveApplicationActivity extends AppCompatActivity {
 
 
     public void loadDetailsFragment() {
+        tvToolBar.setText("Leave Details");
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         DetailsFragment htfragment=new DetailsFragment();

@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/lldesign9"
-    android:padding="10dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/lldesign21"
     android:orientation="vertical"
     android:layout_marginBottom="10dp">
     <LinearLayout
@@ -11,23 +11,26 @@
         android:layout_height="wrap_content"
         android:gravity="right"
         android:orientation="horizontal"
-        android:background="@drawable/lldesign"
+        android:background="@drawable/lldesign18"
         android:backgroundTint="@color/maincolor">
+
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="34dp"
-            >
+            android:layout_weight="1"
+            android:gravity="center">
+
             <TextView
-                android:textColor="@color/white"
+                android:id="@+id/tvTourDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
-                android:id="@+id/tvTourDate"></TextView>
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="Sample text" />
         </LinearLayout>
+
         <TextView
             android:visibility="gone"
             android:layout_width="wrap_content"
@@ -38,39 +41,44 @@
             android:textColor="@color/white"
             android:backgroundTint="@color/blue"
             android:text="Pending"
-            android:id="@+id/tvApporvalStatus"></TextView>
+            android:id="@+id/tvApporvalStatus"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginHorizontal="10dp"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
                 android:text="Applied On"
-                android:textSize="12sp"></TextView>
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
             <TextView
                 android:id="@+id/tvAppliedOn"
-                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/blue"
+                android:layout_marginTop="5dp"
                 android:text="Start Date"
-                android:textSize="12sp"></TextView>
+                android:textColor="@color/blue"
+                android:textSize="12sp" />
         </LinearLayout>
-
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="0dp"
@@ -80,9 +88,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
+                android:textColor="@color/black"
                 android:text="Reason"
-                android:textSize="12sp"></TextView>
+                android:textSize="12sp"/>
             <TextView
                 android:id="@+id/tvReason"
                 android:layout_marginTop="5dp"
@@ -90,35 +98,37 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue"
                 android:text="Start Date"
-                android:textSize="12sp"></TextView>
+                android:textSize="12sp"/>
         </LinearLayout>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right">
-        <FrameLayout
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/imgPending"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/pending"></ImageView>
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/imgApprove"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/approve"></ImageView>
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/imgReject"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/rejected"></ImageView>
-        </FrameLayout>
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginBottom="10dp">
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:visibility="visible"
+                    android:id="@+id/imgPending"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/pending"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/imgApprove"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/approve"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/imgReject"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/rejected"/>
+            </FrameLayout>
+        </LinearLayout>
     </LinearLayout>
+
+
 </LinearLayout>

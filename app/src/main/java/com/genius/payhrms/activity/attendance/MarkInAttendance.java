@@ -657,7 +657,7 @@ public class MarkInAttendance extends AppCompatActivity implements OnMapReadyCal
         if (pref.getLanguage().equals("hi")) {
             tvInvalidDate.setText("उपस्थिति सफलतापूर्वक सहेजी गई");
         } else {
-            tvInvalidDate.setText("Attendance saved successfully");
+            tvInvalidDate.setText("Attendance has been saved successfully");
         }
 
 

@@ -6,6 +6,7 @@ import static com.genius.payhrms.activity.utility.Util.encrypt;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +28,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -82,7 +84,8 @@ public class LoginActivity extends AppCompatActivity {
     String userId, password;
     LinearLayout llSignIn;
     NetworkConnectionCheck connectionCheck;
-    AlertDialog alertDialog;
+    AlertDialog alertDialog,alerDialog1;
+    private Dialog forgotPasswordAlertDialog;
     androidx.appcompat.app.AlertDialog alertDialog1;
     AlertDialog al1;
     Pref pref;
@@ -274,6 +277,7 @@ public class LoginActivity extends AppCompatActivity {
                                         //loginFunctionForPPS();
                                     }else {
                                         //loginFunction();
+                                        //throw new RuntimeException("testing");
                                         JSONObject obj=new JSONObject();
                                         try {
                                             obj.put("MasterID",encrypt(etUserId.getText().toString(),SECRET_KEY));
@@ -357,9 +361,10 @@ public class LoginActivity extends AppCompatActivity {
         tvForgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+                /*Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                startActivity(intent);*/
+                openForgotPasswordDialog();
             }
         });
 
@@ -372,6 +377,43 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void openForgotPasswordDialog() {
+        forgotPasswordAlertDialog = new Dialog(LoginActivity.this, R.style.CustomDialogNew2);
+        forgotPasswordAlertDialog.setContentView(R.layout.dialog_forgot_password);
+        forgotPasswordAlertDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        forgotPasswordAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        EditText etUserId = (EditText) forgotPasswordAlertDialog.findViewById(R.id.etUserId);
+        EditText etSecurityCode = (EditText) forgotPasswordAlertDialog.findViewById(R.id.etSecurityCode);
+        ImageView btnSubmit = (ImageView) forgotPasswordAlertDialog.findViewById(R.id.btnSubmit);
+        ImageView imgCancel = (ImageView) forgotPasswordAlertDialog.findViewById(R.id.imgCancel);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etUserId.getText().toString().isEmpty()){
+                    Toast.makeText(LoginActivity.this, "Please Enter User Id", Toast.LENGTH_SHORT).show();
+                } else if(etSecurityCode.getText().toString().isEmpty()){
+                    Toast.makeText(LoginActivity.this, "Please Enter Security Code", Toast.LENGTH_SHORT).show();
+                } else {
+                    JSONObject jsonObject=new JSONObject();
+                    try {
+                        jsonObject.put("MasterID",etUserId.getText().toString());
+                        jsonObject.put("SecurityCode",etSecurityCode.getText().toString());
+                        forgotpassword(jsonObject);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgotPasswordAlertDialog.cancel();;
+            }
+        });
+        forgotPasswordAlertDialog.show();
     }
 
     private void shoeDialog() {
@@ -773,5 +815,65 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    private void forgotpassword(JSONObject jsonObject) {
+        final ProgressDialog progressDialog=new ProgressDialog(LoginActivity.this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
+        AndroidNetworking.post(Api.sForgotPasswordapi)
+                .addJSONObjectBody(jsonObject)
+                .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
 
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        progressDialog.dismiss();
+                        JSONObject job1 = response;
+                        Log.e("response12", "@@@@@@" + job1);
+
+                        String responseText = job1.optString("Response_Message");
+                        int Response_Code = job1.optInt("Response_Code");
+                        if (Response_Code == 101) {
+                            // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+                            forgotPasswordAlertDialog.dismiss();
+                            successAlert(responseText);
+                            // boolean _status = job1.getBoolean("status");
+                            // do anything with response
+                        }else {
+                            progressDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
+    private void successAlert(String text) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginActivity.this, R.style.CustomDialogNew);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.dialog_success, null);
+        dialogBuilder.setView(dialogView);
+        TextView tvInvalidDate = (TextView) dialogView.findViewById(R.id.tvSuccess);
+        tvInvalidDate.setText(text);
+        Button btnOk = (Button) dialogView.findViewById(R.id.btnOk);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alerDialog1.dismiss();
+            }
+        });
+
+        alerDialog1 = dialogBuilder.create();
+        alerDialog1.setCancelable(true);
+        Window window = alerDialog1.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+        alerDialog1.show();
+    }
 }

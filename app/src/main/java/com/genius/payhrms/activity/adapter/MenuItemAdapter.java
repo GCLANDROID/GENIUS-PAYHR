@@ -216,7 +216,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                 } else if (itemList.get(i).getMenuId() == 7) {
                     //Dailylog
                     isAppMinimizeDashboard = true;
-                    if (pref.getSecurityCode().equals("1156") ||pref.getSecurityCode().equals("1000")||pref.getSecurityCode().equals("1160")||pref.getSecurityCode().equals("1168")|| pref.getSecurityCode().equals("5000") ||pref.getSecurityCode().equals("1167")||pref.getSecurityCode().equals("1172")||pref.getSecurityCode().equals("1173")){
+                    if (pref.getSecurityCode().equals("1156") ||pref.getSecurityCode().equals("1000")||pref.getSecurityCode().equals("1160")||pref.getSecurityCode().equals("1168")|| pref.getSecurityCode().equals("5000") /*||pref.getSecurityCode().equals("1167")*/||pref.getSecurityCode().equals("1172")||pref.getSecurityCode().equals("1173")){
                         Intent intent = new Intent(mContex, DailyLogCalenderDashboardActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContex.startActivity(intent);
