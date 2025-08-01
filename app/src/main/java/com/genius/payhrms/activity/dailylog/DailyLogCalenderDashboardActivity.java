@@ -569,7 +569,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         }else if (view==llQRCode){
             isAppMinimizeDailyLog = true;
             if (pref.getSecurityCode().equals("1160")){
-                if (pref.getLoginID().equals("FSS0120") ||pref.getLoginID().equals("FSS0243") ||pref.getLoginID().equals("FSS0047")||pref.getLoginID().equals("FSS0163")||pref.getLoginID().equals("FSS0101") ){
+                if (pref.getLoginID().equals("FSS0047") ||pref.getLoginID().equals("FSS0131") ||pref.getLoginID().equals("FSS0070")||pref.getLoginID().equals("FSS0462")||pref.getLoginID().equals("FSS0101") ||pref.getLoginID().equals("FSS0107") ){
                     Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, QRAttendanceDashboardActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
