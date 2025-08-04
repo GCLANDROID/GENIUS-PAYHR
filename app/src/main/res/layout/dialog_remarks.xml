@@ -5,8 +5,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:background="@drawable/lldesign7"
-
-    >
+    android:fitsSystemWindows="true">
     <EditText
 
         android:id="@+id/etRemarks"

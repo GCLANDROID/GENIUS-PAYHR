@@ -11,7 +11,8 @@
     android:background="#6E6E6E"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:ignore="WebViewLayout">
+    tools:ignore="WebViewLayout"
+    android:fitsSystemWindows="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"

@@ -5,6 +5,7 @@
     android:layout_height="330dp"
     android:layout_gravity="center"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:background="@drawable/lldesign7">
     <LinearLayout
         android:orientation="horizontal"

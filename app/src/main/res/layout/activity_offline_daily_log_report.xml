@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.dailylog.OfflineDailyLogReportActivity"
     android:orientation="vertical"
-    android:background="@drawable/llbackdesign">
+    android:background="@drawable/llbackdesign"
+    android:fitsSystemWindows="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"

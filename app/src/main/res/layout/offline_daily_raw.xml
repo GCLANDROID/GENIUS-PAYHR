@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp"
     android:orientation="vertical"
-
-    >
+    android:fitsSystemWindows="true">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"

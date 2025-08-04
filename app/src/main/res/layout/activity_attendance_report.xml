@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/llbackdesign"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
+
     tools:context=".activity.attendance.AttendanceReportActivity">
 
     <LinearLayout

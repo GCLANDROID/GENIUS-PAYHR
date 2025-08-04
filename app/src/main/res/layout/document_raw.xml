@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/lldesign"
-    android:backgroundTint="@color/gray">
+    android:backgroundTint="@color/gray"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
     android:id="@+id/llDocumentList"

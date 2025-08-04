@@ -7,7 +7,8 @@
     android:background="@mipmap/headerribbon"
     app:titleTextAppearance="?android:textAppearanceMedium"
     android:id="@+id/toolbar"
-    app:title="">
+    app:title=""
+    android:fitsSystemWindows="true">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

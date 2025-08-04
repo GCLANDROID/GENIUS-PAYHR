@@ -8,6 +8,7 @@
     android:background="#EBEBEB"
     android:paddingLeft="10dp"
     android:id="@+id/llMain"
+    android:fitsSystemWindows="true"
     android:layout_marginBottom="@dimen/layout_margin_left_right">
     <LinearLayout
         android:layout_marginTop="10dp"

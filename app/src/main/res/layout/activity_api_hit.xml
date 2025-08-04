@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.activity.APiHitActivity"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
     <ProgressBar
         android:layout_width="50dp"
         android:layout_height="50dp" />
