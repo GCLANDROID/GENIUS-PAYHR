@@ -488,7 +488,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GoogleApi
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    if (pref.getSecurityCode().equals("6715") || pref.getSecurityCode().equals("6716")){
+                                    if (pref.getSecurityCode().equals("6715") || pref.getSecurityCode().equals("6716") || pref.getSecurityCode().equals("5841")){
                                         Intent intent = new Intent(SplashScreenActivity.this, EmplyoeeCalendarDashboarActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.putExtra("ismodiFied", IsModified);
