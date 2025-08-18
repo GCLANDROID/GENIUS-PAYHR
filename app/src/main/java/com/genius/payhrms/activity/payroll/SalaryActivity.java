@@ -54,7 +54,7 @@ import com.genius.payhrms.activity.utility.Pref;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 public class SalaryActivity extends AppCompatActivity  {
@@ -82,6 +82,7 @@ public class SalaryActivity extends AppCompatActivity  {
     String yearid = "";
     String yearName;
     TextView tvSalary,tvNoData;
+    DecimalFormat df = new DecimalFormat("#.00");
    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +164,8 @@ public class SalaryActivity extends AppCompatActivity  {
                                     JSONObject obj = jsonArray.optJSONObject(i);
                                     String SalMonth = obj.optString("MonthName");
                                     String SalYear = obj.optString("FinancialYear");
-                                    String MonthlyNet = obj.optString("MonthlyNet");
+                                    //String MonthlyNet = obj.optString("MonthlyNet");
+                                    String MonthlyNet = df.format(obj.optDouble("MonthlyNet"));
                                     String url = obj.optString("PayslipPage");
                                     SalaryModule salaryModule = new SalaryModule(SalYear, SalMonth, MonthlyNet, url);
                                     salaryList.add(salaryModule);
