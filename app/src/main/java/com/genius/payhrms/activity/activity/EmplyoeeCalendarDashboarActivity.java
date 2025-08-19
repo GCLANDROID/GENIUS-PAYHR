@@ -411,6 +411,7 @@ public class EmplyoeeCalendarDashboarActivity extends AppCompatActivity implemen
                                     String Status = obj.optString("Status");
 
 
+
                                     AttendanceCalenderModel obj2 = new AttendanceCalenderModel();
                                     obj2.setDate(Date);
                                     obj2.setStatus(Status);
