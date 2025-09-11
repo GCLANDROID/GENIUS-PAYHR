@@ -1454,6 +1454,7 @@ public class ApplicationFragment extends Fragment {
                             int Response_Code = job1.optInt("Response_Code");
                             if (Response_Code == 101) {
                                 // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+                                dayBreakupList.clear();
                                 String responseData = job1.optString("Response_Data");
                                 JSONArray jsonArray = new JSONArray(responseData);
                                 for (int i = 0; i < jsonArray.length(); i++) {
