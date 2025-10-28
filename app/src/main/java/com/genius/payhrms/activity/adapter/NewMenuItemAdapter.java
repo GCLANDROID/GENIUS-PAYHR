@@ -26,7 +26,10 @@ import com.genius.payhrms.activity.activity.QueryActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.activity.VoiceAssistantActivity;
 import com.genius.payhrms.activity.attendance.AttendanceCalenderDashboardActivity;
+import com.genius.payhrms.activity.attendance.AttendanceDashboardActivity;
+import com.genius.payhrms.activity.attendance.AttendanceMarkActivity;
 import com.genius.payhrms.activity.attendance.AttendanceRegulizationActivity;
+import com.genius.payhrms.activity.attendance.AttendanceReportActivity;
 import com.genius.payhrms.activity.attendance.BacklogActivity;
 import com.genius.payhrms.activity.dailyactivity.DailyTaskDashBoardActivity;
 import com.genius.payhrms.activity.dailylog.DailyLogCalenderDashboardActivity;
@@ -43,6 +46,7 @@ import com.genius.payhrms.activity.payroll.SalaryActivity;
 import com.genius.payhrms.activity.profile.ProfileActivity;
 import com.genius.payhrms.activity.profile.ProfileDashboardActivity;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
@@ -52,6 +56,7 @@ import java.util.ArrayList;
 public class NewMenuItemAdapter extends RecyclerView.Adapter<NewMenuItemAdapter.MyViewHolder> {
     ArrayList<MenuItemModel>itemList=new ArrayList<>();
     Context mContex;
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -163,9 +168,9 @@ public class NewMenuItemAdapter extends RecyclerView.Adapter<NewMenuItemAdapter.
             myViewHolder.imgMenu.setImageResource(R.drawable.voiceassistant);
         }else  if (itemList.get(i).getMenuId()==212){
             myViewHolder.imgMenu.setImageResource(R.drawable.resignation);
-        }else  if (itemList.get(i).getMenuId()==1001){
+        }else  if (itemList.get(i).getMenuId()==17){
             myViewHolder.imgMenu.setImageResource(R.drawable.backattendanceicon_payhr);
-        }else {
+        } else {
             myViewHolder.itemView.setVisibility(View.GONE);
         }
 
@@ -216,10 +221,8 @@ public class NewMenuItemAdapter extends RecyclerView.Adapter<NewMenuItemAdapter.
                     //chat
                 } else if (itemList.get(i).getMenuId() == 5) {
                     //attendance
-                    Intent intent = new Intent(mContex, AttendanceCalenderDashboardActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Intent intent = new Intent(mContex, AttendanceDashboardActivity.class);
                     mContex.startActivity(intent);
-
                 } else if (itemList.get(i).getMenuId() == 7) {
                     //dailylog
                     if (pref.getSecurityCode().equals("1156") ||pref.getSecurityCode().equals("1000")||pref.getSecurityCode().equals("1160")||pref.getSecurityCode().equals("1168")|| pref.getSecurityCode().equals("5000") ||pref.getSecurityCode().equals("1167")||pref.getSecurityCode().equals("1172")||pref.getSecurityCode().equals("1173")){
@@ -308,7 +311,7 @@ public class NewMenuItemAdapter extends RecyclerView.Adapter<NewMenuItemAdapter.
                     Intent intent=new Intent(mContex, VoiceAssistantActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContex.startActivity(intent);
-                }else if (itemList.get(i).getMenuId()==1001){
+                }else if (itemList.get(i).getMenuId()==17){
                     //attendance regularize
                     Intent intent=new Intent(mContex, BacklogActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);

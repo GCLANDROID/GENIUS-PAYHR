@@ -1,8 +1,5 @@
 package com.genius.payhrms.activity.activity;
 
-import static com.genius.payhrms.activity.utility.Util.SECRET_KEY;
-import static com.genius.payhrms.activity.utility.Util.encrypt;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -18,7 +15,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -26,10 +22,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.genius.payhrms.R;
-import com.genius.payhrms.activity.adapter.MenuItemAdapter;
 import com.genius.payhrms.activity.adapter.NewMenuItemAdapter;
-import com.genius.payhrms.activity.attendance.AttendanceCalenderDashboardActivity;
-import com.genius.payhrms.activity.attendance.AttendanceReportActivity;
 import com.genius.payhrms.activity.customcalender.CustomCalendar;
 import com.genius.payhrms.activity.customcalender.OnDateSelectedListener;
 import com.genius.payhrms.activity.customcalender.OnNavigationButtonClickedListener;
@@ -48,6 +41,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -854,27 +848,46 @@ public class EmplyoeeCalendarDashboarActivity extends AppCompatActivity implemen
                         int Response_Code = job1.optInt("Response_Code");
                         if (Response_Code == 101) {
                             // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
-
+                            int attendanceRegularIndex = -1;
+                            int changePwdIndex = -1;
+                            int leaveAppIndex = -1;
                             JSONArray responseData = job1.optJSONArray("Response_Data");
                             for (int i = 0; i < responseData.length(); i++) {
                                 JSONObject obj = responseData.optJSONObject(i);
                                 String MenuItemName = obj.optString("MenuItemName");
                                 int MenuItemId = obj.optInt("MenuItemId");
+                                if (MenuItemName.equalsIgnoreCase("Attendance Regularization")) {
+                                    attendanceRegularIndex = i;
+                                } else if (MenuItemName.equalsIgnoreCase("Change Password")) {
+                                    changePwdIndex = i;
+                                } else if(MenuItemName.equalsIgnoreCase("Leave Application")){
+                                    leaveAppIndex = i;
+                                }
                                 MenuItemModel obj2 = new MenuItemModel(MenuItemName,MenuItemId);
                                 menuitemList.add(obj2);
                             }
-                            if (pref.getSecurityCode().equalsIgnoreCase("5841")){
-                                menuitemList.add(1,new MenuItemModel("Attendance Regularization",1001));
+
+                            try {
+                                if (attendanceRegularIndex != -1 && leaveAppIndex !=-1){
+                                    MenuItemModel menu = menuitemList.get(attendanceRegularIndex);
+                                    menuitemList.remove(attendanceRegularIndex);
+                                    menuitemList.add(leaveAppIndex,menu);
+                                } else {
+                                    if (attendanceRegularIndex != -1 && changePwdIndex != -1) {
+                                        Collections.swap(menuitemList, attendanceRegularIndex, changePwdIndex);
+                                        Log.d("MenuSwap", "Swapped Attendance Regularization and Change Password");
+                                    } else {
+                                        Log.d("MenuSwap", "One or both items not found — no swap performed");
+                                    }
+                                }
+                            } catch (Exception e){
+                                e.printStackTrace();
                             }
-
-
-
 
                             setAdapter();
                             // boolean _status = job1.getBoolean("status");
                             // do anything with response
                         }else {
-
                             Toast.makeText(getApplicationContext(),"No data found",Toast.LENGTH_LONG).show();
                         }
                     }
