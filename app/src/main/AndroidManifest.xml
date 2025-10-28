@@ -559,6 +559,9 @@
         <activity
             android:name=".activity.attendance.TeamAttendanceReportActivity"
             android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.attendance.AttendanceDashboardActivity"
+            android:screenOrientation="userPortrait" />
     </application>
 
 </manifest>
