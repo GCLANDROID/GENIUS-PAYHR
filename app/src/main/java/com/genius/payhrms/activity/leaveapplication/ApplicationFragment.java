@@ -2077,7 +2077,11 @@ public class ApplicationFragment extends Fragment {
         if (pref.getLanguage().equals("hi")) {
             tvInvalidDate.setText("सफलतापूर्वक लागू किया गया");
         } else {
-            tvInvalidDate.setText("Leave Application Save successfully and Mail sent to your Approver!");
+            if (pref.getSecurityCode().equals(SecurityCode.Western_Enterprises)){
+                tvInvalidDate.setText("Leave application save successfully");
+            } else {
+                tvInvalidDate.setText("Leave Application Save successfully and Mail sent to your Approver!");
+            }
         }
 
 

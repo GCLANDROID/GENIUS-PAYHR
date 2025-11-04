@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:textColor="#32C75A"
             android:textStyle="bold"
+            android:layout_marginHorizontal="10dp"
             android:textAppearance="?android:textAppearanceSmall"
             android:id="@+id/tvSuccess"/>
     </LinearLayout>
