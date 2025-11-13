@@ -304,8 +304,8 @@ public class NumberTourActivity extends AppCompatActivity {
                                 JSONObject object=new JSONObject();
                                 try {
                                     object.put("AEMEmployeeID",pref.getEmpId());
-                                    object.put("Year",0);
-                                    object.put("Month",0);
+                                    object.put("Year",year);
+                                    object.put("Month",month);
                                     object.put("SecurityCode",pref.getSecurityCode());
                                     object.put("AttendanceDate",0);
                                     object.put("Operation",2);
