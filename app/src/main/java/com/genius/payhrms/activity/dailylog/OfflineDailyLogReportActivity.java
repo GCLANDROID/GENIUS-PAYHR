@@ -145,6 +145,7 @@ public class OfflineDailyLogReportActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         imgSearch=(ImageView)findViewById(R.id.imgSearch);
+        imgSearch.setVisibility(View.GONE);
         tvToolBar=(TextView)findViewById(R.id.tvToolBar);
         if (pref.getLanguage().equals("hi")){
             tvToolBar.setText("लॉग दृश्य");
@@ -602,7 +603,7 @@ public class OfflineDailyLogReportActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        activityList.clear();
+                        //activityList.clear();
 
                         alertDialog.dismiss();
                     }
