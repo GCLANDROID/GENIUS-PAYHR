@@ -36,12 +36,14 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.EmplyoeeCalendarDashboarActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.adapter.AttendanceAdapter;
 import com.genius.payhrms.activity.model.AttendanceModule;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.NetworkConnectionCheck;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -477,9 +479,15 @@ public class TeamAttendanceReportActivity extends AppCompatActivity {
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TeamAttendanceReportActivity.this, UserDashBoardActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                    Intent intent = new Intent(TeamAttendanceReportActivity.this, EmplyoeeCalendarDashboarActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(TeamAttendanceReportActivity.this, UserDashBoardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
                 //  finish();
             }
         });
