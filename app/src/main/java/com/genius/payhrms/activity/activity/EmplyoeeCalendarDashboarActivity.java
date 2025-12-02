@@ -31,6 +31,7 @@ import com.genius.payhrms.activity.model.AttendanceCalenderModel;
 import com.genius.payhrms.activity.model.MenuItemModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 import com.genius.payhrms.activity.utility.Util;
 import com.genius.payhrms.databinding.ActivityEmplyoeeCalendarDashboarBinding;
 
@@ -46,6 +47,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EmplyoeeCalendarDashboarActivity extends AppCompatActivity implements OnNavigationButtonClickedListener {
+    private static final String TAG = "EmplyoeeCalendarDashboa";
     ActivityEmplyoeeCalendarDashboarBinding binding;
     Pref pref;
     String greeting;
@@ -60,7 +62,7 @@ public class EmplyoeeCalendarDashboarActivity extends AppCompatActivity implemen
     JSONArray attendanceArray;
     int date;
     int y,m;
-
+    NewMenuItemAdapter itemAdapter;
     ArrayList<MenuItemModel>menuitemList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -867,6 +869,7 @@ public class EmplyoeeCalendarDashboarActivity extends AppCompatActivity implemen
                                 menuitemList.add(obj2);
                             }
 
+
                             try {
                                 if (attendanceRegularIndex != -1 && leaveAppIndex !=-1){
                                     MenuItemModel menu = menuitemList.get(attendanceRegularIndex);
@@ -880,6 +883,10 @@ public class EmplyoeeCalendarDashboarActivity extends AppCompatActivity implemen
                                         Log.d("MenuSwap", "One or both items not found — no swap performed");
                                     }
                                 }
+                                /*if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                                    MenuItemModel menuTeamReport = new MenuItemModel("Team Report",600);
+                                    menuitemList.add(changePwdIndex,menuTeamReport);
+                                }*/
                             } catch (Exception e){
                                 e.printStackTrace();
                             }
@@ -887,6 +894,18 @@ public class EmplyoeeCalendarDashboarActivity extends AppCompatActivity implemen
                             setAdapter();
                             // boolean _status = job1.getBoolean("status");
                             // do anything with response
+                            if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                                JSONObject object=new JSONObject();
+                                try {
+                                    object.put("AEMEmployeeID",pref.getEmpId());
+                                    object.put("CompanyID",pref.getEmpClintId());
+                                    object.put("SecurityCode",pref.getSecurityCode());
+                                    getApproverOrNot(object,changePwdIndex);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
                         }else {
                             Toast.makeText(getApplicationContext(),"No data found",Toast.LENGTH_LONG).show();
                         }
@@ -900,8 +919,53 @@ public class EmplyoeeCalendarDashboarActivity extends AppCompatActivity implemen
                 });
     }
 
+
+    private void getApproverOrNot(JSONObject object, int changePwdIndex) {
+        final ProgressDialog pd = new ProgressDialog(EmplyoeeCalendarDashboarActivity.this);
+        pd.setMessage("Loading...");
+        pd.setCancelable(true);
+        pd.show();
+
+        AndroidNetworking.post(Api.sapprovercheckapi)
+                .addJSONObjectBody(object)
+                .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e(TAG, "getApproverOrNot2: "+response.toString());
+                        pd.dismiss();
+
+                        JSONObject job1 = response;
+                        Log.e("response12", "@@@@@@" + job1);
+
+                        int Response_Code = job1.optInt("Response_Code");
+                        if (Response_Code == 101) {
+                            if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                                MenuItemModel menuTeamReport = new MenuItemModel("Team Report",600);
+                                menuitemList.add(changePwdIndex,menuTeamReport);
+                            }
+                            itemAdapter.notifyDataSetChanged();
+                        }else {
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Log.e(TAG, "onError: "+anError);
+                        pd.dismiss();
+                    }
+                });
+
+    }
+
     private void setAdapter(){
-        NewMenuItemAdapter itemAdapter = new NewMenuItemAdapter(menuitemList, EmplyoeeCalendarDashboarActivity.this);
+
+        itemAdapter = new NewMenuItemAdapter(menuitemList, EmplyoeeCalendarDashboarActivity.this);
         rvItem.setAdapter(itemAdapter);
+
     }
 }
