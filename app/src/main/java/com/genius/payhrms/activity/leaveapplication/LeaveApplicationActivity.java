@@ -18,6 +18,7 @@ import com.genius.payhrms.R;
 import com.genius.payhrms.activity.activity.EmplyoeeCalendarDashboarActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 
 
 public class LeaveApplicationActivity extends AppCompatActivity {
@@ -90,7 +91,8 @@ public class LeaveApplicationActivity extends AppCompatActivity {
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pref.getSecurityCode().equals("6715")|| pref.getSecurityCode().toString().equals("6716")){
+                if (pref.getSecurityCode().equals("6715")|| pref.getSecurityCode().toString().equals("6716")
+                        || pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
                     Intent intent=new Intent(getApplicationContext(), EmplyoeeCalendarDashboarActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);

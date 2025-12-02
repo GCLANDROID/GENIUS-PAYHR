@@ -2052,7 +2052,7 @@ public class ApplicationFragment extends Fragment {
                                 int Response_Code = job1.optInt("Response_Code");
                                 String Response_Message = job1.optString("Response_Message");
                                 if (Response_Code == 101) {
-                                    successAlert();
+                                    successAlert(Response_Message);
                                 } else {
                                     Toast.makeText(getContext(),Response_Message,Toast.LENGTH_LONG).show();
                                     alert3.dismiss();
@@ -2068,7 +2068,7 @@ public class ApplicationFragment extends Fragment {
     }
 
 
-    private void successAlert() {
+    private void successAlert(String message) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext(), R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_success, null);
@@ -2077,11 +2077,12 @@ public class ApplicationFragment extends Fragment {
         if (pref.getLanguage().equals("hi")) {
             tvInvalidDate.setText("सफलतापूर्वक लागू किया गया");
         } else {
-            if (pref.getSecurityCode().equals(SecurityCode.Western_Enterprises)){
+            tvInvalidDate.setText(message);
+            /*if (pref.getSecurityCode().equals(SecurityCode.Western_Enterprises)){
                 tvInvalidDate.setText("Leave application save successfully");
             } else {
                 tvInvalidDate.setText("Leave Application Save successfully and Mail sent to your Approver!");
-            }
+            }*/
         }
 
 

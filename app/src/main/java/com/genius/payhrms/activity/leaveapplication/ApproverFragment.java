@@ -37,11 +37,9 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.androidnetworking.interfaces.UploadProgressListener;
 import com.genius.payhrms.R;
 import com.genius.payhrms.activity.adapter.ApproverAdapter;
 import com.genius.payhrms.activity.model.ApprovalModel;
-import com.genius.payhrms.activity.model.LeaveDetailsModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
 import com.genius.payhrms.activity.utility.SecurityCode;
@@ -350,7 +348,7 @@ public class ApproverFragment extends Fragment {
                         int Response_Code = job1.optInt("Response_Code");
                         String Response_Message=job1.optString("Response_Message");
                         if (Response_Code == 101) {
-                            approveAlert();
+                            approveAlert(Response_Message);
 
 
                             // boolean _status = job1.getBoolean("status");
@@ -403,7 +401,7 @@ public class ApproverFragment extends Fragment {
                         int Response_Code = job1.optInt("Response_Code");
                         String Response_Message=job1.optString("Response_Message");
                         if (Response_Code == 101) {
-                            rejectAlert();
+                            rejectAlert(Response_Message);
 
 
                             // boolean _status = job1.getBoolean("status");
@@ -464,7 +462,7 @@ public class ApproverFragment extends Fragment {
                         int Response_Code = job1.optInt("Response_Code");
                         String Response_Message=job1.optString("Response_Message");
                         if (Response_Code == 101) {
-                            deleteAlert();
+                            deleteAlert(Response_Message);
 
 
                             // boolean _status = job1.getBoolean("status");
@@ -489,16 +487,18 @@ public class ApproverFragment extends Fragment {
     }
 
 
-    private void approveAlert() {
+    private void approveAlert(String Response_Message) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext(), R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_success, null);
         dialogBuilder.setView(dialogView);
         TextView tvInvalidDate = (TextView) dialogView.findViewById(R.id.tvSuccess);
 
+        if (Response_Message.isEmpty() || Response_Message.equalsIgnoreCase("null") || Response_Message.equalsIgnoreCase("No Error")){
             tvInvalidDate.setText("Leave has been approved successfully");
-
-
+        } else {
+            tvInvalidDate.setText(Response_Message);
+        }
 
         Button btnOk = (Button) dialogView.findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
@@ -528,16 +528,18 @@ public class ApproverFragment extends Fragment {
         alerDialog1.show();
     }
 
-    private void deleteAlert() {
+    private void deleteAlert(String Response_Message) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext(), R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_success, null);
         dialogBuilder.setView(dialogView);
         TextView tvInvalidDate = (TextView) dialogView.findViewById(R.id.tvSuccess);
 
-        tvInvalidDate.setText("Leave has been deleted successfully");
-
-
+        if (Response_Message.isEmpty() || Response_Message.equalsIgnoreCase("null") || Response_Message.equalsIgnoreCase("No Error")){
+            tvInvalidDate.setText("Leave has been deleted successfully");
+        } else {
+            tvInvalidDate.setText(Response_Message);
+        }
 
         Button btnOk = (Button) dialogView.findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
@@ -568,7 +570,7 @@ public class ApproverFragment extends Fragment {
     }
 
 
-    private void rejectAlert() {
+    private void rejectAlert(String Response_Message) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext(), R.style.CustomDialogNew);
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.dialog_success, null);
@@ -577,7 +579,11 @@ public class ApproverFragment extends Fragment {
         if (pref.getLanguage().equals("hi")) {
             tvInvalidDate.setText("");
         } else {
-            tvInvalidDate.setText("Leave has been rejected successfully");
+            if (Response_Message.isEmpty() || Response_Message.equalsIgnoreCase("null") || Response_Message.equalsIgnoreCase("No Error")){
+                tvInvalidDate.setText("Leave has been rejected successfully");
+            } else {
+                tvInvalidDate.setText(Response_Message);
+            }
         }
 
 

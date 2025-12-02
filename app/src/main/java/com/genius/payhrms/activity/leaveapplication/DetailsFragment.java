@@ -390,7 +390,7 @@ public class DetailsFragment extends Fragment {
                         int Response_Code = job1.optInt("Response_Code");
                         String Response_Message = job1.optString("Response_Message");
                         if (Response_Code == 101) {
-                            successAlert("Leave has been deleted successfully");
+                            successAlert(Response_Message);
                         } else {
                             successAlert("Leave cancel request has been sent to approver");
                         }
