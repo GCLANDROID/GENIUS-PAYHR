@@ -149,7 +149,7 @@ public class OfflineDailyDashBoardActivity extends AppCompatActivity {
         JSONObject object=new JSONObject();
         try {
             object.put("CompanyID",pref.getEmpClintId());
-            object.put("EmployeeID",pref.getEmpId());
+            object.put("AEMEmployeeID",pref.getEmpId());
             object.put("SecurityCode",pref.getSecurityCode());
             getApproverOrNot2(object);
         } catch (JSONException e) {
