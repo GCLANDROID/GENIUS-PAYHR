@@ -39,6 +39,7 @@ import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.NetworkConnectionCheck;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 import com.genius.payhrms.activity.utility.ValidUtils;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
@@ -494,7 +495,8 @@ public class ProfileActivity extends AppCompatActivity {
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (pref.getSecurityCode().equals("6715")|| pref.getSecurityCode().toString().equals("6716")){
+                if (pref.getSecurityCode().equals("6715")|| pref.getSecurityCode().toString().equals("6716")
+                        || pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
                     Intent intent = new Intent(ProfileActivity.this, EmplyoeeCalendarDashboarActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
