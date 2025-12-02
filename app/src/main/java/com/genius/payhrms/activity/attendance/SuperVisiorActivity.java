@@ -13,14 +13,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.EmplyoeeCalendarDashboarActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
+import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 
 public class SuperVisiorActivity extends AppCompatActivity {
     ImageView imgBack,imgHome;
     LinearLayout llTeam,llApproval,llTBlock,llABlock,llTeamReport,llApprover;
 
     TextView tvToolBar,tvTeam,tvApprove;
-
+    Pref pref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,7 @@ public class SuperVisiorActivity extends AppCompatActivity {
     }
 
     private void initView(){
+        pref = new Pref(this);
         imgBack=(ImageView)findViewById(R.id.imgBack);
         imgHome=(ImageView)findViewById(R.id.imgHome);
 
@@ -100,9 +104,15 @@ public class SuperVisiorActivity extends AppCompatActivity {
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(SuperVisiorActivity.this, UserDashBoardActivity.class);
-                startActivity(intent);
-                finish();
+                if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                    Intent intent=new Intent(SuperVisiorActivity.this, EmplyoeeCalendarDashboarActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent=new Intent(SuperVisiorActivity.this, UserDashBoardActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
         imgBack.setOnClickListener(new View.OnClickListener() {
