@@ -25,6 +25,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.EmplyoeeCalendarDashboarActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.adapter.LeaveBalanceAdapter;
 import com.genius.payhrms.activity.model.HoliDayModel;
@@ -32,6 +33,7 @@ import com.genius.payhrms.activity.model.LeaveBalanceModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.NetworkConnectionCheck;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -120,9 +122,17 @@ public class LeaveBalanceActivity extends AppCompatActivity {
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LeaveBalanceActivity.this, UserDashBoardActivity.class);
-                startActivity(intent);
-                finish();
+                if (pref.getSecurityCode().equals("6715")|| pref.getSecurityCode().toString().equals("6716")
+                        || pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                    Intent intent=new Intent(LeaveBalanceActivity.this, EmplyoeeCalendarDashboarActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent=new Intent(LeaveBalanceActivity.this, UserDashBoardActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         });
     }
