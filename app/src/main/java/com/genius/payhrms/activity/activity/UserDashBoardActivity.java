@@ -144,6 +144,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler(Looper.getMainLooper());
     String partAURL, partBURL;
+    String incrementLetter,promotionLetter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -348,6 +349,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
                             }
                             if (pref.getSecurityCode().equals("1186")) {
                                 itemList.add(new MenuItemModel("Form-16", 105));
+                                itemList.add(new MenuItemModel("Increment Letter", 107));
                             }
                             llLoader.setVisibility(View.GONE);
                             llMain.setVisibility(View.VISIBLE);
@@ -497,6 +499,67 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 });
     }
 
+    public void getIncerementLetter() {
+
+        JSONObject jsonObject=new JSONObject();
+        try {
+            jsonObject.put("EmployeeID",pref.getEmpId());
+            jsonObject.put("SecurityCode",pref.getSecurityCode());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.e(TAG, "login: " + jsonObject.toString());
+        final ProgressDialog pd = new ProgressDialog(UserDashBoardActivity.this);
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        pd.show();
+        AndroidNetworking.post(Api.sIncrementLetterapi)
+                .addJSONObjectBody(jsonObject)
+                .addHeaders("Authorization", "Bearer " + pref.getAccessToken())
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
+
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        JSONObject job1 = response;
+                        Log.e("response12", "@@@@@@" + job1);
+                        pd.dismiss();
+
+                        int Response_Code = job1.optInt("Response_Code");
+                        if (Response_Code == 101) {
+                            // Toast.makeText(getApplicationContext(),responseText,Toast.LENGTH_LONG).show();
+
+                            String Response_Data = job1.optString("Response_Data");
+                            byte[] rawJsonBytes = Base64.decode(Response_Data, Base64.DEFAULT);
+                            String jsonText = new String(rawJsonBytes, StandardCharsets.UTF_8);
+                            try {
+                                JSONObject root = new JSONObject(jsonText);
+                                String PartA = root.getString("IncUrl");
+                                String PartB = root.getString("PromUrl");
+
+                                byte[] rawpartA = Base64.decode(PartA, Base64.DEFAULT);
+                                incrementLetter = new String(rawpartA, StandardCharsets.UTF_8);
+
+
+                                byte[] rawpartB = Base64.decode(PartB, Base64.DEFAULT);
+                                promotionLetter = new String(rawpartB, StandardCharsets.UTF_8);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            showIncementLetterDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        pd.dismiss();
+                    }
+                });
+    }
+
 
     private void setAdapter() {
         attendanceAdapter = new MenuItemAdapter(itemList, UserDashBoardActivity.this);
@@ -559,6 +622,46 @@ public class UserDashBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openForsixteenPopup("Part-B", partBURL);
+            }
+        });
+
+
+        alert2 = dialogBuilder.create();
+        alert2.setCancelable(false);
+        Window window = alert2.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+        alert2.show();
+    }
+
+
+    public void showIncementLetterDialog() {
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(UserDashBoardActivity.this, R.style.CustomDialogNew);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.dialog_incement_letter, null);
+        dialogBuilder.setView(dialogView);
+        ImageView imgCancel = (ImageView) dialogView.findViewById(R.id.imgCancel);
+
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert2.dismiss();
+            }
+        });
+
+        LinearLayout llPartA = (LinearLayout) dialogView.findViewById(R.id.llPartA);
+        LinearLayout llPartB = (LinearLayout) dialogView.findViewById(R.id.llPartB);
+        llPartA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openForsixteenPopup("Increment Letter", incrementLetter);
+            }
+        });
+
+        llPartB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openForsixteenPopup("Promotion Letter", promotionLetter);
             }
         });
 
