@@ -33,6 +33,7 @@ import com.genius.payhrms.activity.model.TourApprovalModel;
 import com.genius.payhrms.activity.model.TourViewModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.YearMonthUtil;
 import com.genius.payhrms.databinding.FragmentTourApprovalBinding;
 import com.genius.payhrms.databinding.FragmentTourViewBinding;
 
@@ -71,17 +72,23 @@ public class TourApprovalFragment extends Fragment {
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.rvItem.setLayoutManager(layoutManager);
-        yearList.add("2024-2025");
+        /*yearList.add("2024-2025");
         yearList.add("2025-2026");
-        yearList.add("2026-2027");
+        yearList.add("2026-2027");*/
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        String CurrentYear = String.valueOf(currentYear);
+        String NextYear = String.valueOf(currentYear + 1);
+        yearList = YearMonthUtil.getFinancialYearList();
 
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
                 (getContext(), android.R.layout.simple_spinner_item,
                         yearList); //selected item will look like a spinner set from XML
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spYear.setAdapter(spinnerArrayAdapter);
+        int indexF = yearList.indexOf(currentYear+"-"+NextYear);
+        binding.spYear.setSelection(indexF);
 
-        Calendar calendar = Calendar.getInstance();
         int month=calendar.get(Calendar.MONTH)+1;
         if (month==1){
             Month="January";
