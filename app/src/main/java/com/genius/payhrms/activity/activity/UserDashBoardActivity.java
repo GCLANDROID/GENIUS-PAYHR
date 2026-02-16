@@ -86,6 +86,7 @@ import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
 
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -108,6 +109,7 @@ import im.delight.android.webview.AdvancedWebView;
 
 public class UserDashBoardActivity extends AppCompatActivity {
     private static final String TAG = "UserDashBoardActivity";
+    private static final org.apache.commons.logging.Log log = LogFactory.getLog(UserDashBoardActivity.class);
     LinearLayout llLoader, llMain, llNoConnection;
     RecyclerView rvItem;
     String ipAddress;
@@ -143,7 +145,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
     private TextView tvPercentDialog;
 
     private final Handler handler = new Handler(Looper.getMainLooper());
-    String partAURL, partBURL;
+    String partAURL, partBURL,medicalCard_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -348,6 +350,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
                             }
                             if (pref.getSecurityCode().equals("1186")) {
                                 itemList.add(new MenuItemModel("Form-16", 105));
+                                itemList.add(new MenuItemModel("Medical card", 106));
                             }
                             llLoader.setVisibility(View.GONE);
                             llMain.setVisibility(View.VISIBLE);
@@ -904,6 +907,54 @@ public class UserDashBoardActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private void openMedicalCardPopup(String docname, String fileURL) {
+
+
+        TextView textView = dialog.findViewById(R.id.textView);
+        textView.setText(docname);
+        final ImageView imgCancel = dialog.findViewById(R.id.imgCancel);
+
+
+        llPdfLoading = dialog.findViewById(R.id.llPdfLoading);
+        tvPdfPageNo = dialog.findViewById(R.id.tvPdfPageNo);
+        pdfView = dialog.findViewById(R.id.pdfView);
+
+        llPdfLoading.setVisibility(View.VISIBLE);
+        pdfView.setVisibility(View.VISIBLE);
+        new RetrievePdfFromUrl().execute(fileURL);
+
+
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.cancel();
+
+
+            }
+        });
+        ImageView imgDownload = dialog.findViewById(R.id.imgDownload);
+        imgDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (Build.VERSION.SDK_INT < 30 &&
+                            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                    != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
+                    } else {
+                        createAndShowProgressDialog();   // ⬅️ new
+                        startDownload(fileURL,docname+".pdf");
+                    }
+                }
+            }
+        });
+
+
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
 
     class RetrievePdfFromUrl extends AsyncTask<String, Void, InputStream> {
         @Override
@@ -1059,5 +1110,55 @@ public class UserDashBoardActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Storage permission denied", Toast.LENGTH_SHORT).show();
         }
+    }
+    public void getMedicalCard(){
+        JSONObject jsonObject=new JSONObject();
+        try {
+            jsonObject.put("EmployeeID",pref.getEmpId());
+            jsonObject.put("SecurityCode",pref.getSecurityCode());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.e(TAG, "login: " + jsonObject.toString());
+        final ProgressDialog pd = new ProgressDialog(UserDashBoardActivity.this);
+        pd.setMessage("Loading..");
+        pd.setCancelable(false);
+        pd.show();
+        AndroidNetworking.post(Api.sGetMedicalCard)
+                .addJSONObjectBody(jsonObject)
+                .addHeaders("Authorization", "Bearer " + pref.getAccessToken())
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject job1 = response;
+                            Log.e("response12", "Medical Card: " + job1);
+                            pd.dismiss();
+
+                            int Response_Code = job1.optInt("Response_Code");
+                            if (Response_Code == 101) {
+
+                                String Response_Data = job1.optString("Response_Data");
+                                //byte[] rawJsonBytes = Base64.decode(Response_Data, Base64.DEFAULT);
+                                //String jsonText = new String(rawJsonBytes, StandardCharsets.UTF_8);
+                                byte[] medicalCard = Base64.decode(Response_Data, Base64.DEFAULT);
+                                medicalCard_URL = new String(medicalCard, StandardCharsets.UTF_8);
+                                Log.e(TAG, "medicalCard_URL: "+medicalCard_URL);
+                                openMedicalCardPopup("Medical Card", medicalCard_URL);
+                            }
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        pd.dismiss();
+                    }
+                });
     }
 }
