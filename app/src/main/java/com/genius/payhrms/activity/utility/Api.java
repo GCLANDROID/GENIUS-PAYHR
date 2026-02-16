@@ -2,10 +2,11 @@ package com.genius.payhrms.activity.utility;
 
 public class Api {
     public static String baseurl = "https://cloud.geniusconsultant.com/GHRMSApi_v2/api/";
+    //171.16.1.97
     //public static String baseurl = "https://cloud.geniusconsultant.com/GHRMSApi_UAT_v2/api/";
     //public static String baseurl="http://171.16.1.136/GHRMSApi_V2/api/"; //todo: SUMAN DA
     //public static String baseurl="http://171.16.2.67/GHRMSApi_V2_DevMode/api/";
-    //public static String baseurl_SubhamDa="http://171.16.2.67/GHRMSApi_V2_DevMode/api/";
+    //public static String baseurl="http://171.16.1.97/GHRMSApi_V2_DevMode/api/";
     public static String sLoginapi = baseurl + "Login/LoginUser";
     public static String sProfileapi = baseurl + "Profile/GetProfileDetails";
     public static String sWesternProfileapi = baseurl + "Profile/GetWesternProfileDetails";
@@ -103,4 +104,5 @@ public class Api {
     public static String sGetPFNominationAPi = baseurl + "Shalimar/GetPFNomination";
     public static String sApproverLeaveListWise = baseurl + "leave/ApproverLeavelistwise";
     public static String sGetEnForm16api = baseurl + "Profile/GetEnForm16";
+    public static String sGetMedicalCard = baseurl+"Profile/GetMedicalCard";
 }
