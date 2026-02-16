@@ -104,5 +104,6 @@ public class Api {
     public static String sApproverLeaveListWise = baseurl + "leave/ApproverLeavelistwise";
     public static String sGetEnForm16api = baseurl + "Profile/GetEnForm16";
     public static String sIncrementLetterapi = baseurl + "Profile/GetIncrementLetter";
+    public static String sGetMedicalCard = baseurl + "Profile/GetMedicalCard";
 
 }
