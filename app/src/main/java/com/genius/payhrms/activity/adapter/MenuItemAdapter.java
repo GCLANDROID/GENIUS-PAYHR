@@ -162,6 +162,8 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
             myViewHolder.imgMenu.setImageResource(R.drawable.form16);
         }else  if (itemList.get(i).getMenuId()==107){
             myViewHolder.imgMenu.setImageResource(R.drawable.jobpromotion);
+        }else if (itemList.get(i).getMenuId()==106){
+            myViewHolder.imgMenu.setImageResource(R.drawable.medical_card);
         }else {
             myViewHolder.itemView.setVisibility(View.GONE);
         }
@@ -308,7 +310,8 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                     ((UserDashBoardActivity)mContex).getFormSixten();
                 }else if (itemList.get(i).getMenuId()==107){
                     ((UserDashBoardActivity)mContex).getIncerementLetter();
-
+                }else if (itemList.get(i).getMenuId()==106){
+                    ((UserDashBoardActivity)mContex). getMedicalCard();
                 }
             }
         });
