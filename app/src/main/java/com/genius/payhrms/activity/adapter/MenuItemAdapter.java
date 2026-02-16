@@ -308,6 +308,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
                     ((UserDashBoardActivity)mContex).getFormSixten();
                 }else if (itemList.get(i).getMenuId()==107){
                     ((UserDashBoardActivity)mContex).getIncerementLetter();
+
                 }
             }
         });
