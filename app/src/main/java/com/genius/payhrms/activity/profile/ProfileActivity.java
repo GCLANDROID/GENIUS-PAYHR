@@ -245,7 +245,11 @@ public class ProfileActivity extends AppCompatActivity {
             lnAadhar.setVisibility(View.GONE);
             lnPAN.setVisibility(View.GONE);
             tvReportingManagerTitle.setText("Leave Approver");
-        }else {
+
+        }else if (pref.getSecurityCode().equals(SecurityCode.Shyamoly_Paribahan)) {
+            lnGurdianContact.setVisibility(View.GONE);
+            lnRelationship.setVisibility(View.GONE);
+        } else {
 
         }
 
