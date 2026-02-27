@@ -383,7 +383,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                 Log.d("position", String.valueOf(pos));
                 JSONObject object=attendanceArray.optJSONObject(pos);
                 String PunchTiming = object.optString("Punchtime");
-                String Status = object.optString("Status").toUpperCase();
+                String Status = object.optString("Status").trim().toUpperCase();
 
                 if (Status.equalsIgnoreCase("")) {
                     lnStatus.setVisibility(View.VISIBLE);
