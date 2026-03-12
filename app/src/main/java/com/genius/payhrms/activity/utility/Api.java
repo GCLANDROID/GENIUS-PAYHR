@@ -105,5 +105,5 @@ public class Api {
     public static String sGetEnForm16api = baseurl + "Profile/GetEnForm16";
     public static String sIncrementLetterapi = baseurl + "Profile/GetIncrementLetter";
     public static String sGetMedicalCard = baseurl + "Profile/GetMedicalCard";
-
+    public static String GetEmployeeDistance = baseurl + "Attendance/GetEmployeeDistance";
 }
