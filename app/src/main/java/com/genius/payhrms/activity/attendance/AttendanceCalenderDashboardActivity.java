@@ -38,6 +38,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
 import com.genius.payhrms.R;
+import com.genius.payhrms.activity.activity.DistanceCalculationActivity;
 import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.adapter.AttendanceCalenderAdapter;
@@ -56,6 +57,7 @@ import com.genius.payhrms.activity.reciver.DailylogSyncReciever;
 import com.genius.payhrms.activity.reciver.NetworkStateChecker;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 import com.genius.payhrms.activity.utility.Util;
 
 
@@ -86,7 +88,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     Pref pref;
     ArrayList<AttendanceCalenderModel> itemList = new ArrayList<>();
     RecyclerView rvItem;
-    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog,llQRCode,llAdjustment,llTour;
+    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog,llQRCode,llAdjustment,llTour,llDistanceCalculation;
     ImageView imgHome;
     boolean approver;
     NetworkStateChecker airplaneModeChangeReceiver = new NetworkStateChecker();
@@ -141,6 +143,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         llReport = (LinearLayout) findViewById(R.id.llReport);
         llSubordinate = (LinearLayout) findViewById(R.id.llSubordinate);
         llQRCode = (LinearLayout) findViewById(R.id.llQRCode);
+        llDistanceCalculation = (LinearLayout) findViewById(R.id.llDistanceCalculation);
         if (pref.getSecurityCode().equals("1000")){
             llQRCode.setVisibility(View.VISIBLE);
         }else {
@@ -157,6 +160,12 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         }else {
             llAdjustment.setVisibility(View.GONE);
             llTour.setVisibility(View.GONE);
+        }
+
+        if (pref.getSecurityCode().equals(SecurityCode.CFLO_WORLD)){
+            llDistanceCalculation.setVisibility(View.VISIBLE);
+        } else{
+            llDistanceCalculation.setVisibility(View.GONE);
         }
 
 
@@ -265,6 +274,9 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         llQRCode.setOnClickListener(this);
         llTour.setOnClickListener(this);
         llAdjustment.setOnClickListener(this);
+        llDistanceCalculation.setOnClickListener(this);
+
+
 
         customCalendar = findViewById(R.id.custom_calendar);
 
@@ -552,6 +564,9 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, TourActivity.class);
             startActivity(intent);
             finish();
+        }else if(view == llDistanceCalculation){
+            Intent intent = new Intent(AttendanceCalenderDashboardActivity.this, DistanceCalculationActivity.class);
+            startActivity(intent);
         }
     }
 
