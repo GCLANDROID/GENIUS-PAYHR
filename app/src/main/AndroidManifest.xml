@@ -562,6 +562,9 @@
         <activity
             android:name=".activity.attendance.AttendanceDashboardActivity"
             android:screenOrientation="userPortrait" />
+        <activity
+            android:name=".activity.activity.DistanceCalculationActivity"
+            android:screenOrientation="userPortrait"/>
     </application>
 
 </manifest>

@@ -16,4 +16,6 @@ public class SecurityCode {
     public static String Laxmi_Motors ="1147";
     public static String IFB_Travel_System ="5841";
     public static String Shyamoly_Paribahan  ="9852";
+    public static String CFLO_WORLD  ="9851";
+    public static String Teadus_Pharma  ="9850";
 }
