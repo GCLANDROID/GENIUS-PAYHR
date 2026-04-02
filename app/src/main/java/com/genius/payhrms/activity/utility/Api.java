@@ -106,4 +106,9 @@ public class Api {
     public static String sIncrementLetterapi = baseurl + "Profile/GetIncrementLetter";
     public static String sGetMedicalCard = baseurl + "Profile/GetMedicalCard";
     public static String GetEmployeeDistance = baseurl + "Attendance/GetEmployeeDistance";
+    public static String SaveSortLeaveApplication = baseurl+"ShortLeave/SaveSleaveApplication";
+    public static String GetSortLeaveApplications = baseurl+"ShortLeave/GetSleaveApplications";
+    public static String GetShortLeaveForApproval = baseurl+"ShortLeave/GetShortLeaveForApproval";
+    public static String ApproveRejectShortLeaveApplication = baseurl+"ShortLeave/ApproveRejectShortLeaveApplication";
+    public static String DeleteShortLeave = baseurl+"ShortLeave/DeleteShortLeave";
 }

@@ -565,6 +565,9 @@
         <activity
             android:name=".activity.activity.DistanceCalculationActivity"
             android:screenOrientation="userPortrait"/>
+        <activity
+            android:name=".activity.leaveapplication.SortLeaveApplication.SortLeaveActivity"
+            android:screenOrientation="userPortrait"/>
     </application>
 
 </manifest>
