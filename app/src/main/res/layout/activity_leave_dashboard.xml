@@ -262,7 +262,32 @@
                 android:orientation="vertical"
                 android:background="@drawable/layoutstrokebottom"
                 android:layout_weight="1">
+                <LinearLayout
+                    android:layout_width="160dp"
+                    android:layout_height="130dp"
+                    android:id="@+id/llSortLeaveApplication"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/layoutstroke"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:padding="10dp"
+                        android:src="@drawable/leave_application_dash"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvSortLeave"
+                        android:padding="10dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/black"
+                        android:text="Sort Leave Application"/>
 
+
+
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

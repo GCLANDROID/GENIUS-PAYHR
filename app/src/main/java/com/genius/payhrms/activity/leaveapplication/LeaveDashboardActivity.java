@@ -30,6 +30,7 @@ import com.genius.payhrms.R;
 import com.genius.payhrms.activity.activity.EmplyoeeCalendarDashboarActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.dailylog.DailyLogReportActivity;
+import com.genius.payhrms.activity.leaveapplication.SortLeaveApplication.SortLeaveActivity;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
 import com.genius.payhrms.activity.utility.SecurityCode;
@@ -40,7 +41,7 @@ import org.json.JSONObject;
 
 public class LeaveDashboardActivity extends AppCompatActivity {
     private static final String TAG = "LeaveDashboardActivity";
-    LinearLayout llLeaveApplication,llLeaveBalance,llLeaveAdjustment;
+    LinearLayout llLeaveApplication,llLeaveBalance,llLeaveAdjustment,llSortLeaveApplication;
     ImageView imgBack,imgHome;
     TextView tvLeave,tvLeaveBalance,tvToolBar;
     Pref pref;
@@ -80,6 +81,14 @@ public class LeaveDashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        llSortLeaveApplication.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LeaveDashboardActivity.this, SortLeaveActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
         imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,6 +120,7 @@ public class LeaveDashboardActivity extends AppCompatActivity {
         llLeaveAdjustment=(LinearLayout)findViewById(R.id.llLeaveAdjustment);
         lnAccess=(LinearLayout)findViewById(R.id.lnAccess);
         llLeaveApplication=findViewById(R.id.llLeaveApplication);
+        llSortLeaveApplication=findViewById(R.id.llSortLeaveApplication);
         llLeaveBalance=findViewById(R.id.llLeaveBalance);
         imgBack=findViewById(R.id.imgBack);
         imgHome=findViewById(R.id.imgHome);
@@ -136,6 +146,11 @@ public class LeaveDashboardActivity extends AppCompatActivity {
         }
 
         //CompanyID="+pref.getEmpClintId()+"&MenuItemName=Leave&SecurityCode="+pref.getSecurityCode();
+        if(pref.getSecurityCode().equals(SecurityCode.Shyamoly_Paribahan)){
+            llSortLeaveApplication.setVisibility(View.VISIBLE);
+        } else {
+            llSortLeaveApplication.setVisibility(View.GONE);
+        }
     }
 
     private void accessChecking2(JSONObject object) {
