@@ -213,7 +213,7 @@ public class DistanceCalculationActivity extends AppCompatActivity {
     private void DatePicker() {
         final Calendar c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH)+1;
+        int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(DistanceCalculationActivity.this,
@@ -222,7 +222,8 @@ public class DistanceCalculationActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        inputDate = year+"-"+monthOfYear+"-"+dayOfMonth;
+                        inputDate = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
+                        Log.e(TAG, "onDateSet: "+inputDate);
                         tvSelectedDate.setText(Util.changeAnyDateFormat(inputDate,"yyyy-M-d","d-MMM-yyyy"));
                     }
                 }, mYear, mMonth, mDay);
