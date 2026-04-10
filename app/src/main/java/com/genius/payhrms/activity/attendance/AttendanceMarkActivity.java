@@ -71,6 +71,8 @@ import com.genius.payhrms.activity.utility.AttendanceService;
 import com.genius.payhrms.activity.utility.GPSTracker;
 import com.genius.payhrms.activity.utility.NetworkConnectionCheck;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
+import com.genius.payhrms.activity.utility.ShowDialog;
 import com.genius.payhrms.activity.utility.UploadObject;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -311,18 +313,19 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
             @Override
             public void onClick(View view) {
                 if (!tvAddress.getText().toString().equals("YOU ARE AT: null") || tvAddress.getText().toString().equals("YOU ARE AT: ")) {
-                    if (pref.getSecurityCode().equals("1186")){
+                    if (pref.getSecurityCode().equals("1186") || pref.getSecurityCode().equals(SecurityCode.Shyamoly_Paribahan)){
                         if (flag==1){
                             shiftFlagFilter();
                         }else {
-                            Toast.makeText(AttendanceMarkActivity.this,"Please Capture Your Image",Toast.LENGTH_LONG).show();
+                            if (pref.getSecurityCode().equals(SecurityCode.Shyamoly_Paribahan)){
+                                ShowDialog.showErrorDialog(AttendanceMarkActivity.this,"Please upload your selfie image before submitting attendance");
+                            } else {
+                                Toast.makeText(AttendanceMarkActivity.this,"Please Capture Your Image",Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }else {
+                    } else {
                         shiftFlagFilter();
                     }
-
-
-
                 } else {
                     Toast.makeText(getApplicationContext(), "Sorry! Your address not found.Please click on Refresh button", Toast.LENGTH_LONG).show();
                 }

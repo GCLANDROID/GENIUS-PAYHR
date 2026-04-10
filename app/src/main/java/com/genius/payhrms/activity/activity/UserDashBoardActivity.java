@@ -62,8 +62,10 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.bumptech.glide.Glide;
 import com.genius.payhrms.R;
 import com.genius.payhrms.activity.adapter.MenuItemAdapter;
+import com.genius.payhrms.activity.attendance.AttendanceMarkActivity;
 import com.genius.payhrms.activity.leaveapplication.LeaveApplicationDashboardActivity;
 import com.genius.payhrms.activity.model.HoliDayModel;
 import com.genius.payhrms.activity.model.MenuItemModel;
@@ -71,6 +73,7 @@ import com.genius.payhrms.activity.reciver.DailylogSyncReciever;
 import com.genius.payhrms.activity.reciver.NetworkStateChecker;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnRenderListener;
@@ -108,7 +111,7 @@ import im.delight.android.webview.AdvancedWebView;
 
 public class UserDashBoardActivity extends AppCompatActivity {
     private static final String TAG = "UserDashBoardActivity";
-    LinearLayout llLoader, llMain, llNoConnection;
+    LinearLayout llLoader, llMain, llNoConnection,llMarkAttendance;
     RecyclerView rvItem;
     String ipAddress;
     Pref pref;
@@ -146,7 +149,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
     private final Handler handler = new Handler(Looper.getMainLooper());
     String partAURL, partBURL,medicalCard_URL;
     String incrementLetter,promotionLetter;
-
+    ImageView gifMarkAttendance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,8 +174,18 @@ public class UserDashBoardActivity extends AppCompatActivity {
         llLoader = (LinearLayout) findViewById(R.id.llLoader);
         llMain = (LinearLayout) findViewById(R.id.llMain);
         llNoConnection = (LinearLayout) findViewById(R.id.llNoConnection);
+        llMarkAttendance = (LinearLayout) findViewById(R.id.llMarkAttendance);
         imgLogout = findViewById(R.id.imgLogout);
-
+        gifMarkAttendance = findViewById(R.id.gifMarkAttendance);
+        /*Glide.with(this)
+                .asGif()
+                .load(R.drawable.gif_biometric)
+                .into(gifMarkAttendance);*/
+        if(pref.getSecurityCode().equals(SecurityCode.Shyamoly_Paribahan)){
+            llMarkAttendance.setVisibility(View.VISIBLE);
+        } else {
+            llMarkAttendance.setVisibility(View.GONE);
+        }
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;
@@ -592,6 +605,13 @@ public class UserDashBoardActivity extends AppCompatActivity {
                 Intent intent = new Intent(UserDashBoardActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        llMarkAttendance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserDashBoardActivity.this, AttendanceMarkActivity.class);
+                startActivity(intent);
             }
         });
     }
