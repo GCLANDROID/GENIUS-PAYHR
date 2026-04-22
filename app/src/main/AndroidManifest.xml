@@ -568,6 +568,9 @@
         <activity
             android:name=".activity.leaveapplication.SortLeaveApplication.SortLeaveActivity"
             android:screenOrientation="userPortrait"/>
+        <activity
+            android:name=".activity.AndroidXCamera.AndroidXCameraActivity"
+            android:screenOrientation="userPortrait"/>
     </application>
 
 </manifest>
