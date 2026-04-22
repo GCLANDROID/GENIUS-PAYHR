@@ -28,6 +28,7 @@
         android:background="@drawable/oval_white_background"
         android:backgroundTint="@color/white"
         android:src="@drawable/cameraicon"
+        app:tint="@color/colorPrimaryDark"
         android:padding="16dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
