@@ -61,9 +61,8 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.developers.imagezipper.ImageZipper;
 import com.genius.payhrms.R;
-import com.genius.payhrms.activity.activity.LoginActivity;
+import com.genius.payhrms.activity.AndroidXCamera.AndroidXCameraActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
-import com.genius.payhrms.activity.dailylog.DailyLogCalenderDashboardActivity;
 import com.genius.payhrms.activity.helper.DatabaseHelperForDailyLog;
 import com.genius.payhrms.activity.model.SpinnerModel;
 import com.genius.payhrms.activity.utility.Api;
@@ -73,7 +72,6 @@ import com.genius.payhrms.activity.utility.NetworkConnectionCheck;
 import com.genius.payhrms.activity.utility.Pref;
 import com.genius.payhrms.activity.utility.SecurityCode;
 import com.genius.payhrms.activity.utility.ShowDialog;
-import com.genius.payhrms.activity.utility.UploadObject;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -90,6 +88,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.wajahatkarim3.longimagecamera.LongBackImageCameraActivity;
 import com.wajahatkarim3.longimagecamera.LongImageCameraActivity;
 
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -100,24 +99,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AttendanceMarkActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private static final String TAG = "AttendanceMarkActivity";
+    private static final org.apache.commons.logging.Log log = LogFactory.getLog(AttendanceMarkActivity.class);
     TextView tvAddress, tvTime;
     LinearLayout llRefresh;
     ImageView imgCamera, imgImage;
@@ -140,7 +132,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
 
     TextView tvName;
     EditText etRemarks;
-    AlertDialog alerDialog1,locationpopup;
+    AlertDialog alerDialog1,locationpopup,alert4;
     ImageView imgBack, imgHome;
     TextView tvClick, tvClickHere;
 
@@ -296,7 +288,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cameraIntent();
+                showChooseCameraDialog();
             }
         });
 
@@ -386,6 +378,8 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.e(TAG, "requestCode: "+requestCode);
+        Log.e(TAG, "resultCode: "+resultCode);
         switch (requestCode) {
             case CAMERA_REQUEST:
                 if (resultCode == Activity.RESULT_OK) {
@@ -470,6 +464,27 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
                     imgImage.setImageBitmap(putImage);
                     flag = 1;
                     // al2.dismiss();
+                }
+                break;
+            case AndroidXCameraActivity.LONG_IMAGE_RESULT_CODE:
+                if (requestCode == AndroidXCameraActivity.LONG_IMAGE_RESULT_CODE) {
+                    if (data != null){
+                        String imageURL = data.getStringExtra("image");
+                        Log.e(TAG, "imageURL: "+imageURL);
+                        file = new File(imageURL);
+                        try {
+                            compressedImageFile = new ImageZipper(AttendanceMarkActivity.this)
+                                    .setQuality(80)
+                                    .setMaxWidth(250)
+                                    .setMaxHeight(250)
+                                    .compressToFile(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        imgImage.setImageURI(Uri.parse(imageURL));
+                        flag = 1;
+                        alert4.dismiss();
+                    }
                 }
                 break;
         }
@@ -1454,5 +1469,40 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     public void onBackPressed() {
         isAppMinimizeAttendance = false;
         super.onBackPressed();
+    }
+
+    private void showChooseCameraDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, R.style.CustomDialogNew3);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.choose_camera_popup, null);
+        dialogBuilder.setView(dialogView);
+
+        LinearLayout llDefaultCamera = dialogView.findViewById(R.id.llDefaultCamera);
+        LinearLayout llCustomCamera = dialogView.findViewById(R.id.llCustomCamera);
+        ImageView imgCancel = dialogView.findViewById(R.id.imgCancel);
+        llDefaultCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cameraIntent();
+            }
+        });
+        llCustomCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AndroidXCameraActivity.launch(AttendanceMarkActivity.this);
+            }
+        });
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert4.dismiss();
+            }
+        });
+        alert4 = dialogBuilder.create();
+        alert4.setCancelable(true);
+        Window window = alert4.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+        alert4.show();
     }
 }
