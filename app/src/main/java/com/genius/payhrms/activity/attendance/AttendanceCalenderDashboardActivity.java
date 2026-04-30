@@ -39,7 +39,6 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
 import com.genius.payhrms.R;
 import com.genius.payhrms.activity.activity.DistanceCalculationActivity;
-import com.genius.payhrms.activity.activity.LoginActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
 import com.genius.payhrms.activity.adapter.AttendanceCalenderAdapter;
 import com.genius.payhrms.activity.attendance.tour.TourActivity;
@@ -98,6 +97,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
     JSONArray attendanceArray;
     Button btnLeave;
     ArrayList<String>presentDays=new ArrayList<>();
+    ArrayList<String> wowDays =new ArrayList<>();
     ArrayList<String>dateList=new ArrayList<>();
     TextView tvPresent;
     LinearLayout lnStatus;
@@ -1052,6 +1052,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         halfday=new ArrayList<>();
         halfdayleave=new ArrayList<>();
         dateList=new ArrayList<>();
+        wowDays = new ArrayList<>();
         final HashMap<Integer, Object> dateHashmap = new HashMap<>();
 
         // initialize calendar
@@ -1120,6 +1121,10 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                                     if (Status.equalsIgnoreCase("HDL")){
                                         halfdayleave.add(Day);
                                     }
+
+                                    if (Status.equalsIgnoreCase("WOW")){
+                                        wowDays.add(Day);
+                                    }
                                     dateHashmap.put(date, Status);
                                 }
 
@@ -1131,7 +1136,13 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                                 float halfdayCount=halfdaycount/2;
                                 float halfdayleavecount=hdlcount/2;
 
-                                float totalcount=presentDays.size()+halfdayCount+halfdayleavecount;
+                                float totalcount=0;
+
+                                if (pref.getSecurityCode().equals(SecurityCode.Shyamoly_Paribahan)){
+                                    totalcount=presentDays.size()+halfdayCount+halfdayleavecount+ wowDays.size();
+                                } else {
+                                    totalcount=presentDays.size()+halfdayCount+halfdayleavecount;
+                                }
 
                                 tvPresent.setText(""+totalcount);
                                 setAdapter();
@@ -1179,6 +1190,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
         halfday=new ArrayList<>();
         halfdayleave=new ArrayList<>();
         dateList=new ArrayList<>();
+        wowDays = new ArrayList<>();
         final HashMap<Integer, Object> dateHashmap = new HashMap<>();
 
         // initialize calendar
@@ -1249,6 +1261,10 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                                         halfdayleave.add(Day);
                                     }
 
+                                    if (Status.equalsIgnoreCase("WOW")){
+                                        wowDays.add(Day);
+                                    }
+
                                    /*if (Status.equalsIgnoreCase("P")){
                                         presentDays.add(Day);
                                         presentDayCount++;
@@ -1272,7 +1288,13 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
                                 float halfdayCount=halfdaycount/2;
                                 float halfdayleavecount=hdlcount/2;
 
-                                float totalcount=presentDays.size()+halfdayCount+halfdayleavecount;
+                                float totalcount = 0;
+
+                                if (pref.getSecurityCode().equals(SecurityCode.Shyamoly_Paribahan)){
+                                    totalcount=presentDays.size()+halfdayCount+halfdayleavecount+ wowDays.size();
+                                } else {
+                                    totalcount=presentDays.size()+halfdayCount+halfdayleavecount;
+                                }
 
                                 tvPresent.setText(""+totalcount);
                                 setAdapter();
