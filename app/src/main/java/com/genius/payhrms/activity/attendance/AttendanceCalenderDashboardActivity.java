@@ -162,7 +162,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             llTour.setVisibility(View.GONE);
         }
 
-        if (pref.getSecurityCode().equals(SecurityCode.CFLO_WORLD)){
+        if (pref.getSecurityCode().equals(SecurityCode.CFLO_WORLD) || pref.getSecurityCode().equals(SecurityCode.DOCTOR_SAND )){
             llDistanceCalculation.setVisibility(View.VISIBLE);
         } else{
             llDistanceCalculation.setVisibility(View.GONE);
