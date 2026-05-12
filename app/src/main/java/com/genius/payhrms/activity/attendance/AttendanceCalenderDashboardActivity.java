@@ -162,7 +162,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
             llTour.setVisibility(View.GONE);
         }
 
-        if (pref.getSecurityCode().equals(SecurityCode.CFLO_WORLD) || pref.getSecurityCode().equals(SecurityCode.DOCTOR_SAND )){
+        if (pref.getSecurityCode().equals(SecurityCode.CFLO_WORLD) || pref.getSecurityCode().equals(SecurityCode.DOCTOR_SAND)){
             llDistanceCalculation.setVisibility(View.VISIBLE);
         } else{
             llDistanceCalculation.setVisibility(View.GONE);
@@ -1099,7 +1099,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
 
                                     String PunchTiming = obj.optString("PunchTiming");
                                     String Day = obj.optString("Day");
-                                    String Status = obj.optString("Status");
+                                    String Status = obj.optString("Status").trim();
 
 
                                     AttendanceCalenderModel obj2 = new AttendanceCalenderModel();
@@ -1238,7 +1238,7 @@ public class AttendanceCalenderDashboardActivity extends AppCompatActivity imple
 
                                     String PunchTiming = obj.optString("PunchTiming");
                                     String Day = obj.optString("Day");
-                                    String Status = obj.optString("Status");
+                                    String Status = obj.optString("Status").trim();
 
 
                                     AttendanceCalenderModel obj2 = new AttendanceCalenderModel();
