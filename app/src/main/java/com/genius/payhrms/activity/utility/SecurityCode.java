@@ -18,4 +18,5 @@ public class SecurityCode {
     public static String Shyamoly_Paribahan  ="9852";
     public static String CFLO_WORLD  ="9851";
     public static String Teadus_Pharma  ="9850";
+    public static String DOCTOR_SAND  ="9853";
 }
