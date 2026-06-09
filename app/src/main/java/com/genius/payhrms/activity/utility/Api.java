@@ -111,4 +111,14 @@ public class Api {
     public static String GetShortLeaveForApproval = baseurl+"ShortLeave/GetShortLeaveForApproval";
     public static String ApproveRejectShortLeaveApplication = baseurl+"ShortLeave/ApproveRejectShortLeaveApplication";
     public static String DeleteShortLeave = baseurl+"ShortLeave/DeleteShortLeave";
+    public static String CFLOApplicationApprovalDetails = baseurl+"CFLO/GetApproverApplications";
+    public static String CFLOApplicationCount = baseurl+"CFLO/GetAdjustmentDashboardCount";
+    public static String CFLOSaveWFH = baseurl+"CFLO/SaveCFLOWFHDetails";
+    public static String CFLOSaveTour = baseurl+"CFLO/SaveEmployeeTourDetails";
+    public static String CFLOApplicationMenu = baseurl+"CFLO/GetData";
+    public static String CFLOApplicationDetails = baseurl+"CFLO/GetEmployeeTourDetails";
+    public static String CFLOApplicationDelete = baseurl+"CFLO/DeleteApplication";
+    public static String CFLOApplicationApproval = baseurl+"CFLO/ApproveRejectApplications";
+
+
 }

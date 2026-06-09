@@ -26,6 +26,34 @@
         android:usesCleartextTraffic="true"
         tools:node="merge">
         <activity
+            android:name=".activity.attendance.cflo.otherapplicationdetails.OtherApplicationApprovalActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.attendance.cflo.otherapplicationdetails.OtherApplicationDetailsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.attendance.cflo.wfh.WFHApplicationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.attendance.cflo.tour.TourApplicationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.MultipleDocumentView.LeaveDetailsActivity"
             android:exported="false" />
         <activity
@@ -564,13 +592,13 @@
             android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.activity.DistanceCalculationActivity"
-            android:screenOrientation="userPortrait"/>
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.leaveapplication.SortLeaveApplication.SortLeaveActivity"
-            android:screenOrientation="userPortrait"/>
+            android:screenOrientation="userPortrait" />
         <activity
             android:name=".activity.AndroidXCamera.AndroidXCameraActivity"
-            android:screenOrientation="userPortrait"/>
+            android:screenOrientation="userPortrait" />
     </application>
 
 </manifest>
