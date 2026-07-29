@@ -417,10 +417,8 @@ public class AttendanceApprovalFragment extends Fragment {
         itemList.get(position).setSelected(status);
         if (itemList.get(position).isSelected() == true) {
             aIDList.add(itemList.get(position).getaId() + "_" + itemList.get(position).getInTime() + "_" + itemList.get(position).getOutTime());
-
-
         } else {
-            aIDList.remove(position);
+            aIDList.remove(itemList.get(position).getaId() + "_" + itemList.get(position).getInTime() + "_" + itemList.get(position).getOutTime());
         }
 
         aid = aIDList.toString().replace("[", "").replace("]", "");
