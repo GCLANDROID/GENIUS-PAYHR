@@ -41,6 +41,7 @@ import com.genius.payhrms.activity.geofence.NotificationActivity;
 import com.genius.payhrms.activity.leaveapplication.LeaveApplicationActivity;
 import com.genius.payhrms.activity.leaveapplication.LeaveDashboardActivity;
 import com.genius.payhrms.activity.leaveapplication.LeaveWebViewActivity;
+import com.genius.payhrms.activity.leaveapplication.OtherLeavesActivity;
 import com.genius.payhrms.activity.model.MenuItemModel;
 import com.genius.payhrms.activity.payroll.PayrollActivity;
 import com.genius.payhrms.activity.payroll.SalaryActivity;
@@ -172,6 +173,8 @@ public class NewMenuItemAdapter extends RecyclerView.Adapter<NewMenuItemAdapter.
         }else  if (itemList.get(i).getMenuId()==17){
             myViewHolder.imgMenu.setImageResource(R.drawable.backattendanceicon_payhr);
         }else  if (itemList.get(i).getMenuId()==600){
+            myViewHolder.imgMenu.setImageResource(R.drawable.teamreportagain_payhr);
+        } else if(itemList.get(i).getMenuId()==700){
             myViewHolder.imgMenu.setImageResource(R.drawable.teamreportagain_payhr);
         } else {
             myViewHolder.itemView.setVisibility(View.GONE);
@@ -322,6 +325,10 @@ public class NewMenuItemAdapter extends RecyclerView.Adapter<NewMenuItemAdapter.
                 }else if (itemList.get(i).getMenuId()==600){
                     //attendance regularize
                     Intent intent = new Intent(mContex, SuperVisiorActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContex.startActivity(intent);
+                }else if (itemList.get(i).getMenuId() == 700){
+                    Intent intent = new Intent(mContex, OtherLeavesActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContex.startActivity(intent);
                 }
