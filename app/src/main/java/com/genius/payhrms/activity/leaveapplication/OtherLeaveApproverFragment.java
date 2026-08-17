@@ -38,6 +38,7 @@ import com.genius.payhrms.activity.adapter.OtherApproverAdapter;
 import com.genius.payhrms.activity.model.OtherApproverModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnRenderListener;
@@ -93,16 +94,28 @@ public class OtherLeaveApproverFragment extends Fragment {
         btnApprove = (Button) view.findViewById(R.id.btnApprove);
         btnDelete = (Button) view.findViewById(R.id.btnDelete);
         builder = new AlertDialog.Builder(getContext());
-
-        JSONObject object=new JSONObject();
-        try {
-            object.put("CompanyID",pref.getEmpClintId());
-            object.put("EmployeeId",pref.getEmpId());
-            object.put("SecurityCode",pref.getSecurityCode());
-            getList(object);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+            JSONObject object=new JSONObject();
+            try {
+                object.put("CompanyId",pref.getEmpClintId());
+                object.put("EmployeeId",pref.getEmpId());
+                object.put("SecurityCode",pref.getSecurityCode());
+                getList(object,Api.TS_GetApplicationForApprover);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            JSONObject object=new JSONObject();
+            try {
+                object.put("CompanyID",pref.getEmpClintId());
+                object.put("EmployeeId",pref.getEmpId());
+                object.put("SecurityCode",pref.getSecurityCode());
+                getList(object,Api.sGetAdjutmentApplicationForApprover);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+
         if (pref.getLanguage().equals("hi")) {
             btnReject.setText("अस्वीकार");
             btnApprove.setText("मंजूर");
@@ -119,18 +132,34 @@ public class OtherLeaveApproverFragment extends Fragment {
         btnApprove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONObject jsonObject=new JSONObject();
-                try {
-                    jsonObject.put("CompanyId",pref.getEmpClintId());
-                    jsonObject.put("AppAID",mId);
-                    jsonObject.put("ApprovalStatus","1");  // Todo: Required
-                    jsonObject.put("ApprovalStatusDetails","Approved"); // Todo: Required
-                    jsonObject.put("ApprovedBY",pref.getEmpId()); // Todo: Required
-                    jsonObject.put("SecurityCode",pref.getSecurityCode());
-                    approveFunction(jsonObject);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                    JSONObject jsonObject=new JSONObject();
+                    try {
+                        jsonObject.put("CompanyId",pref.getEmpClintId());
+                        jsonObject.put("AID",mId);
+                        jsonObject.put("ApprovalStatus",1);  // Todo: Required
+                        jsonObject.put("ApprovalStatusDetails","Approved"); // Todo: Required
+                        jsonObject.put("ApprovedBY",pref.getEmpId()); // Todo: Required
+                        jsonObject.put("SecurityCode",pref.getSecurityCode());
+                        approveFunction(jsonObject,Api.TS_ApproveRejectApplication);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    JSONObject jsonObject=new JSONObject();
+                    try {
+                        jsonObject.put("CompanyId",pref.getEmpClintId());
+                        jsonObject.put("AppAID",mId);
+                        jsonObject.put("ApprovalStatus","1");  // Todo: Required
+                        jsonObject.put("ApprovalStatusDetails","Approved"); // Todo: Required
+                        jsonObject.put("ApprovedBY",pref.getEmpId()); // Todo: Required
+                        jsonObject.put("SecurityCode",pref.getSecurityCode());
+                        approveFunction(jsonObject,Api.sSaveAdjustmentApprovalRejected);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+
             }
         });
 
@@ -142,18 +171,34 @@ public class OtherLeaveApproverFragment extends Fragment {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 //rejectFunction();
-                                JSONObject jsonObject=new JSONObject();
-                                try {
-                                    jsonObject.put("CompanyId",pref.getEmpClintId());
-                                    jsonObject.put("AppAID",mId);
-                                    jsonObject.put("ApprovalStatus","-1");  // Todo: Required
-                                    jsonObject.put("ApprovalStatusDetails","Rejected"); // Todo: Required
-                                    jsonObject.put("ApprovedBY",pref.getEmpId()); // Todo: Required
-                                    jsonObject.put("SecurityCode",pref.getSecurityCode());
-                                    rejectFunction(jsonObject);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                                if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                                    JSONObject jsonObject=new JSONObject();
+                                    try {
+                                        jsonObject.put("CompanyId",pref.getEmpClintId());
+                                        jsonObject.put("AID",mId);
+                                        jsonObject.put("ApprovalStatus",-1);  // Todo: Required
+                                        jsonObject.put("ApprovalStatusDetails","Rejected"); // Todo: Required
+                                        jsonObject.put("ApprovedBY",pref.getEmpId()); // Todo: Required
+                                        jsonObject.put("SecurityCode",pref.getSecurityCode());
+                                        rejectFunction(jsonObject,Api.TS_ApproveRejectApplication);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    JSONObject jsonObject=new JSONObject();
+                                    try {
+                                        jsonObject.put("CompanyId",pref.getEmpClintId());
+                                        jsonObject.put("AppAID",mId);
+                                        jsonObject.put("ApprovalStatus","-1");  // Todo: Required
+                                        jsonObject.put("ApprovalStatusDetails","Rejected"); // Todo: Required
+                                        jsonObject.put("ApprovedBY",pref.getEmpId()); // Todo: Required
+                                        jsonObject.put("SecurityCode",pref.getSecurityCode());
+                                        rejectFunction(jsonObject,Api.sSaveAdjustmentApprovalRejected);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
+
                                 dialog.cancel();
 
                             }
@@ -175,14 +220,14 @@ public class OtherLeaveApproverFragment extends Fragment {
 
     }
 
-    private void rejectFunction(JSONObject jsonObject) {
+    private void rejectFunction(JSONObject jsonObject,String API_URL) {
         Log.e(TAG, "rejectFunction: "+jsonObject.toString() );
         final ProgressDialog pd = new ProgressDialog(getContext());
         pd.setMessage("Loading..");
         pd.setCancelable(false);
         pd.show();
 
-        AndroidNetworking.post(Api.sSaveAdjustmentApprovalRejected)
+        AndroidNetworking.post(API_URL)
                 .addJSONObjectBody(jsonObject)
                 .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
                 .setTag("uploadTest")
@@ -236,7 +281,7 @@ public class OtherLeaveApproverFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 alerDialog1.dismiss();
-                JSONObject object=new JSONObject();
+                /*JSONObject object=new JSONObject();
                 try {
                     object.put("CompanyID",pref.getEmpClintId());
                     object.put("EmployeeId",pref.getEmpId());
@@ -244,6 +289,28 @@ public class OtherLeaveApproverFragment extends Fragment {
                     getList(object);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }*/
+
+                if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                    JSONObject object=new JSONObject();
+                    try {
+                        object.put("CompanyId",pref.getEmpClintId());
+                        object.put("EmployeeId",pref.getEmpId());
+                        object.put("SecurityCode",pref.getSecurityCode());
+                        getList(object,Api.TS_GetApplicationForApprover);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    JSONObject object=new JSONObject();
+                    try {
+                        object.put("CompanyID",pref.getEmpClintId());
+                        object.put("EmployeeId",pref.getEmpId());
+                        object.put("SecurityCode",pref.getSecurityCode());
+                        getList(object,Api.sGetAdjutmentApplicationForApprover);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
@@ -257,14 +324,14 @@ public class OtherLeaveApproverFragment extends Fragment {
         alerDialog1.show();
     }
 
-    private void approveFunction(JSONObject jsonObject) {
+    private void approveFunction(JSONObject jsonObject, String API_URL) {
         Log.e(TAG, "approveFunction: "+jsonObject.toString() );
         final ProgressDialog pd = new ProgressDialog(getContext());
         pd.setMessage("Loading..");
         pd.setCancelable(false);
         pd.show();
 
-        AndroidNetworking.post(Api.sSaveAdjustmentApprovalRejected)
+        AndroidNetworking.post(API_URL)
                 .addJSONObjectBody(jsonObject)
                 .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
                 .setTag("uploadTest")
@@ -296,14 +363,15 @@ public class OtherLeaveApproverFragment extends Fragment {
                 });
     }
 
-    private void getList(JSONObject object) {
+    private void getList(JSONObject object,String API_URL) {
         Log.e(TAG, "getList: object: "+object);
         Log.e(TAG, "getList: TOKEN: "+pref.getAccessToken());
         rvItem.setVisibility(View.GONE);
         llNoData.setVisibility(View.GONE);
         llLoader.setVisibility(View.VISIBLE);
         llShow.setVisibility(View.GONE);
-        AndroidNetworking.post(Api.sGetAdjutmentApplicationForApprover)
+
+        AndroidNetworking.post(API_URL)
                 .addJSONObjectBody(object)
                 .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
                 .setTag("uploadTest")
@@ -317,7 +385,7 @@ public class OtherLeaveApproverFragment extends Fragment {
                         int Response_Code = job1.optInt("Response_Code");
                         String Response_Message=job1.optString("Response_Message");
                         otherApproverList = new ArrayList<>();
-
+                        mIdList.clear();
                         if (Response_Code == 101) {
                             String responseData = job1.optString("Response_Data");
                             try {
@@ -391,7 +459,7 @@ public class OtherLeaveApproverFragment extends Fragment {
         if (otherApproverList.get(position).isSelected() == true) {
             mIdList.add(otherApproverList.get(position).getAID());
         } else {
-            mIdList.remove(position);
+            mIdList.remove(otherApproverList.get(position).getAID());
         }
         mId = mIdList.toString().replace("[", "").replace("]", "").replaceAll("\\s+", "");
         Log.e(TAG, "updateAttendanceStatus: "+mId);
@@ -417,14 +485,26 @@ public class OtherLeaveApproverFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 alerDialog1.dismiss();
-                JSONObject object=new JSONObject();
-                try {
-                    object.put("CompanyID",pref.getEmpClintId());
-                    object.put("EmployeeId",pref.getEmpId());
-                    object.put("SecurityCode",pref.getSecurityCode());
-                    getList(object);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                    JSONObject object=new JSONObject();
+                    try {
+                        object.put("CompanyId",pref.getEmpClintId());
+                        object.put("EmployeeId",pref.getEmpId());
+                        object.put("SecurityCode",pref.getSecurityCode());
+                        getList(object,Api.TS_GetApplicationForApprover);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    JSONObject object=new JSONObject();
+                    try {
+                        object.put("CompanyID",pref.getEmpClintId());
+                        object.put("EmployeeId",pref.getEmpId());
+                        object.put("SecurityCode",pref.getSecurityCode());
+                        getList(object,Api.sGetAdjutmentApplicationForApprover);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -442,19 +522,31 @@ public class OtherLeaveApproverFragment extends Fragment {
         pd.setMessage("Loading..");
         pd.setCancelable(false);
         pd.show();
-
+        String API_URL = "";
         JSONObject jsonObject=new JSONObject();
-        try {
-            jsonObject.put("CompanyId",pref.getEmpClintId());
-            jsonObject.put("ApplicationMID",aid);
-            jsonObject.put("EmployeeId",pref.getEmpId());
-            jsonObject.put("SecurityCode",pref.getSecurityCode());
-            //rejectFunction(jsonObject);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+            API_URL = Api.TS_DeleteApplicationByApprover;
+            try {
+                jsonObject.put("CompanyId",pref.getEmpClintId());
+                jsonObject.put("ApplicationId",aid);
+                jsonObject.put("ApprovedBY",pref.getEmpId());
+                jsonObject.put("SecurityCode",pref.getSecurityCode());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            API_URL = Api.sDeleteAdjutmentApplicationForApprover;
+            try {
+                jsonObject.put("CompanyId",pref.getEmpClintId());
+                jsonObject.put("ApplicationMID",aid);
+                jsonObject.put("EmployeeId",pref.getEmpId());
+                jsonObject.put("SecurityCode",pref.getSecurityCode());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
-        AndroidNetworking.post(Api.sDeleteAdjutmentApplicationForApprover)
+        AndroidNetworking.post(API_URL)
                 .addJSONObjectBody(jsonObject)
                 .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
                 .setTag("uploadTest")
@@ -502,14 +594,26 @@ public class OtherLeaveApproverFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 alerDialog1.dismiss();
-                JSONObject object=new JSONObject();
-                try {
-                    object.put("CompanyID",pref.getEmpClintId());
-                    object.put("EmployeeId",pref.getEmpId());
-                    object.put("SecurityCode",pref.getSecurityCode());
-                    getList(object);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                    JSONObject object=new JSONObject();
+                    try {
+                        object.put("CompanyID",pref.getEmpClintId());
+                        object.put("EmployeeId",pref.getEmpId());
+                        object.put("SecurityCode",pref.getSecurityCode());
+                        getList(object,Api.TS_GetApplicationForApprover);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    JSONObject object=new JSONObject();
+                    try {
+                        object.put("CompanyID",pref.getEmpClintId());
+                        object.put("EmployeeId",pref.getEmpId());
+                        object.put("SecurityCode",pref.getSecurityCode());
+                        getList(object,Api.sGetAdjutmentApplicationForApprover);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

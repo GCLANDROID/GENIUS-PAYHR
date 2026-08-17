@@ -30,6 +30,7 @@ import com.genius.payhrms.activity.adapter.AdjustmentDetailsAdapter;
 import com.genius.payhrms.activity.model.AdjustmentDetailsModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 
 
 import org.json.JSONArray;
@@ -60,18 +61,104 @@ public class OtherApplicationDetailsFragment extends Fragment {
 
         initView();
         onClick();
-        JSONObject object=new JSONObject();
-        try {
-            object.put("CompanyID",pref.getEmpClintId());
-            object.put("EmployeeID",pref.getEmpId());
-            object.put("SecurityCode",pref.getSecurityCode());
-            getReport(object);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+            JSONObject object=new JSONObject();
+            try {
+                object.put("CompanyId",pref.getEmpClintId());
+                object.put("EmployeeId",pref.getEmpId());
+                object.put("SecurityCode",pref.getSecurityCode());
+                TS_GetReport(object);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            JSONObject object=new JSONObject();
+            try {
+                object.put("CompanyID",pref.getEmpClintId());
+                object.put("EmployeeID",pref.getEmpId());
+                object.put("SecurityCode",pref.getSecurityCode());
+                getReport(object);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         return v;
     }
 
+    private void TS_GetReport(JSONObject object) {
+        Log.e(TAG, "getReport: "+object.toString());
+        llMain.setVisibility(View.GONE);
+        llNoData.setVisibility(View.GONE);
+        llLoader.setVisibility(View.VISIBLE);
+        AndroidNetworking.post(Api.TS_DisplayApplication)
+                .addJSONObjectBody(object)
+                .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e(TAG, "REPORT: "+response.toString());
+                        JSONObject job1 = response;
+                        int Response_Code = job1.optInt("Response_Code");
+                        String Response_Message=job1.optString("Response_Message");
+                        adjustmentList = new ArrayList<>();
+                        if (Response_Code == 101) {
+                            String responseData = job1.optString("Response_Data");
+                            try {
+                                JSONObject jsonArray = new JSONObject(responseData);
+                                String Table=jsonArray.optString("Table");
+                                JSONArray adjustmentArray = new JSONArray(Table);
+                                if (adjustmentArray.length() > 0){
+                                    for (int i = 0; i < adjustmentArray.length(); i++) {
+                                        Log.e(TAG, "adjustmentArray: "+i);
+                                        JSONObject obj = adjustmentArray.getJSONObject(i);
+                                        adjustmentList.add(new AdjustmentDetailsModel(
+                                                obj.optString("AID"),
+                                                obj.optString("AdjustmentType"),
+                                                obj.optString("AppliedDate"),
+                                                obj.optString("StartDate"),
+                                                obj.optString("EndDate"),
+                                                obj.optString("InTime"),
+                                                obj.optString("OutTime"),
+                                                obj.optString("NoOfDays"),
+                                                obj.optString("Reason"),
+                                                obj.optString("Clientname"),
+                                                obj.optString("Destination"),
+                                                obj.optString("TravelDetails"),
+                                                obj.optString("AdvanceAmount"),
+                                                obj.optString("ApprovedBY"),
+                                                obj.optString("ApprovedOn"),
+                                                obj.optString("ApprovalStatus"),
+                                                obj.optInt("Isdelete"),
+                                                obj.optInt("OD"),
+                                                obj.optString("offdate")
+                                        ));
+                                    }
+                                    setAdapter();
+                                    llMain.setVisibility(View.VISIBLE);
+                                    llNoData.setVisibility(View.GONE);
+                                    llLoader.setVisibility(View.GONE);
+                                } else {
+                                    llMain.setVisibility(View.GONE);
+                                    llNoData.setVisibility(View.VISIBLE);
+                                    llLoader.setVisibility(View.GONE);
+                                }
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Log.e(TAG, "Error: "+anError.toString());
+                        Intent intent=new Intent(getContext(), LoginActivity.class);
+                        startActivity(intent);
+                    }
+                });
+    }
 
 
     private void initView() {
@@ -175,17 +262,31 @@ public class OtherApplicationDetailsFragment extends Fragment {
         pd.setMessage("Loading..");
         pd.setCancelable(false);
         pd.show();
-
+        String API_URL ="";
         JSONObject object=new JSONObject();
-        try {
-            object.put("CompanyID",pref.getEmpClintId());
-            object.put("EmployeeID",AID);
-            object.put("SecurityCode",pref.getSecurityCode());
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+            API_URL = Api.TS_DeleteOtherApplication;
+            try {
+                object.put("CompanyId",pref.getEmpClintId());
+                object.put("ApplicationId",AID);
+                object.put("SecurityCode",pref.getSecurityCode());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            API_URL = Api.sDeleteAdjutmentApplication;
+            try {
+                object.put("CompanyID",pref.getEmpClintId());
+                object.put("EmployeeID",AID);
+                object.put("SecurityCode",pref.getSecurityCode());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+
         Log.e(TAG, "deleteAdjustments: "+object);
-        AndroidNetworking.post(Api.sDeleteAdjutmentApplication)
+
+        AndroidNetworking.post(API_URL)
                 .addJSONObjectBody(object)
                 .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
                 .setTag("uploadTest")

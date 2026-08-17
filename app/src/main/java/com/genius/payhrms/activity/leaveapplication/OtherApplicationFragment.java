@@ -52,6 +52,7 @@ import com.genius.payhrms.activity.utility.FindDocumentInformation;
 import com.genius.payhrms.activity.utility.ImageUtils;
 import com.genius.payhrms.activity.utility.Pref;
 import com.genius.payhrms.activity.utility.RealPathUtil;
+import com.genius.payhrms.activity.utility.SecurityCode;
 import com.genius.payhrms.activity.utility.TimeDateConverter;
 import com.genius.payhrms.databinding.FragmentOtherApplicationBinding;
 
@@ -135,11 +136,11 @@ public class OtherApplicationFragment extends Fragment {
     boolean isFileSelectedFlag = false;
     String COMPENSATORY_OFF_ID = "13_2_1";
     AlertDialog alerDialog1;
-    String imageName;
+    String imageName,IsmultiDays;
 
     File compressFile;
     File pdffile;
-
+    TextView tvStartDateName,tvEndDateName;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -159,6 +160,11 @@ public class OtherApplicationFragment extends Fragment {
 
     private void initView() {
         pref = new Pref(getActivity());
+
+        if(pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+            binding.tvStartDateName.setText("Start Date*");
+            binding.tvEndDateName.setText("End Date*");
+        }
 
         JSONObject object=new JSONObject();
         try {
@@ -217,7 +223,44 @@ public class OtherApplicationFragment extends Fragment {
                                 } else {
                                     ((OtherLeavesActivity) getContext()).approverHidden();
                                 }
-
+                                if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                                    JSONObject object=new JSONObject();
+                                    try {
+                                        object.put("CompanyID",pref.getEmpClintId());
+                                        object.put("EmployeeID",pref.getEmpId());
+                                        object.put("SecurityCode",pref.getSecurityCode());
+                                        getApplicationMasterDetails(object);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    JSONObject object=new JSONObject();
+                                    try {
+                                        object.put("CompanyID",pref.getEmpClintId());
+                                        object.put("EmployeeID",pref.getEmpId());
+                                        object.put("SecurityCode",pref.getSecurityCode());
+                                        getAdjustmentApplicationAllDetails(object);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            // boolean _status = job1.getBoolean("status");
+                            // do anything with response
+                        }else {
+                            if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                                JSONObject object=new JSONObject();
+                                try {
+                                    object.put("CompanyID",pref.getEmpClintId());
+                                    object.put("EmployeeID",pref.getEmpId());
+                                    object.put("SecurityCode",pref.getSecurityCode());
+                                    getApplicationMasterDetails(object);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
                                 JSONObject object=new JSONObject();
                                 try {
                                     object.put("CompanyID",pref.getEmpClintId());
@@ -227,12 +270,25 @@ public class OtherApplicationFragment extends Fragment {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                            } catch (Exception e) {
+                            }
+                            ((OtherLeavesActivity) getContext()).approverHidden();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        pd.dismiss();
+                        if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                            JSONObject object=new JSONObject();
+                            try {
+                                object.put("CompanyID",pref.getEmpClintId());
+                                object.put("EmployeeID",pref.getEmpId());
+                                object.put("SecurityCode",pref.getSecurityCode());
+                                getApplicationMasterDetails(object);
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            // boolean _status = job1.getBoolean("status");
-                            // do anything with response
-                        }else {
+                        } else {
                             JSONObject object=new JSONObject();
                             try {
                                 object.put("CompanyID",pref.getEmpClintId());
@@ -242,23 +298,76 @@ public class OtherApplicationFragment extends Fragment {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            ((OtherLeavesActivity) getContext()).approverHidden();
+                        }
+                        ((OtherLeavesActivity) getContext()).approverHidden();
+                    }
+                });
+    }
+
+    private void getApplicationMasterDetails(JSONObject object) {
+        binding.llLoader.setVisibility(View.VISIBLE);
+        AndroidNetworking.post(Api.TS_GetApplicationMasterDetails)
+                .addJSONObjectBody(object)
+                .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
+                .setTag("uploadTest")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e(TAG, "Adjustment_Details: "+response.toString());
+                        try{
+                            JSONObject job1 = response;
+                            int Response_Code = job1.optInt("Response_Code");
+                            String Response_Message = job1.optString("Response_Message");
+                            if (Response_Code == 101){
+                                String Response_Data = job1.optString("Response_Data");
+                                adjustmentList.add(new AdjustmentModel("0_0_0","Select Adjustment Type"));
+                                JSONObject responseData = new JSONObject(Response_Data);
+                                JSONArray jsonArray = new JSONArray(responseData.optString("Table3"));
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.optJSONObject(i);
+                                    adjustmentList.add(new AdjustmentModel(
+                                            object.optString("ID"),
+                                            object.optString("NAME")
+                                    ));
+                                }
+
+                                spinnerAdjustmentAdapter = new SpinnerAdjustmentAdapter(getContext(),adjustmentList);
+                                binding.spAdjustment.setAdapter(spinnerAdjustmentAdapter);
+                                binding.spAdjustment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                        try {
+                                            AdjustmentModel adjustmentModel = adjustmentList.get(position);
+                                            String[] split_ID = adjustmentModel.id.split("_");
+                                            LeaveTypeID = split_ID[0];
+                                            IsmultiDays = split_ID[2];
+                                            Log.e(TAG, "onItemSelected: "+split_ID[0]);
+                                            Log.e(TAG, "LeaveTypeID: "+split_ID[2] );
+                                        }catch (Exception e){
+                                            e.printStackTrace();
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+
+                                    }
+                                });
+                            } else {
+
+                            }
+
+                        }catch (Exception e){
+
                         }
                     }
 
                     @Override
-                    public void onError(ANError error) {
-                        pd.dismiss();
-                        JSONObject object=new JSONObject();
-                        try {
-                            object.put("CompanyID",pref.getEmpClintId());
-                            object.put("EmployeeID",pref.getEmpId());
-                            object.put("SecurityCode",pref.getSecurityCode());
-                            getAdjustmentApplicationAllDetails(object);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        ((OtherLeavesActivity) getContext()).approverHidden();
+                    public void onError(ANError anError) {
+                        Log.e(TAG, "Adjustment_Details_error: "+anError.getErrorBody());
                     }
                 });
     }
@@ -300,62 +409,108 @@ public class OtherApplicationFragment extends Fragment {
         binding.llPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (LeaveTypeID.equals("0")){
-                    Toast.makeText(getActivity(), "Please select Adjustment Type", Toast.LENGTH_SHORT).show();
-                } else if (startDate.isEmpty()){
+                if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                    TS_SaveOperation();
+                } else {
+                    otherSaveOperation();
+                }
+
+
+            }
+        });
+    }
+
+    private void otherSaveOperation() {
+        if (LeaveTypeID.equals("0")){
+            Toast.makeText(getActivity(), "Please select Adjustment Type", Toast.LENGTH_SHORT).show();
+        } else if (startDate.isEmpty()){
                     /*if (LeaveTypeID.equals(COMPENSATORY_OFF_ID)){
                         Toast.makeText(getActivity(), "Please select Off Date", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getActivity(), "Please select Start Date", Toast.LENGTH_SHORT).show();
                     }*/
-                    Toast.makeText(getActivity(), "Please select Off Date", Toast.LENGTH_SHORT).show();
-                } else if (endDate.isEmpty()){
+            Toast.makeText(getActivity(), "Please select Off Date", Toast.LENGTH_SHORT).show();
+        } else if (endDate.isEmpty()){
                     /*if (LeaveTypeID.equals(COMPENSATORY_OFF_ID)){
                         Toast.makeText(getActivity(), "Please select Leave Date", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getActivity(), "Please select End Date", Toast.LENGTH_SHORT).show();
                     }*/
-                    Toast.makeText(getActivity(), "Please select Leave Date", Toast.LENGTH_SHORT).show();
-                } else if (binding.etReason.getText().toString().trim().isEmpty()){
-                    Toast.makeText(getActivity(), "Please enter your reason", Toast.LENGTH_SHORT).show();
-                } else {
-                    JSONObject object=new JSONObject();
-                    try {
-                        object.put("CompanyID",pref.getEmpClintId());
-                        object.put("EmployeeID",pref.getEmpId());
-                        object.put("StartDate",startDate);
-                        object.put("EndDate",endDate);
-                        object.put("ITime","");
-                        object.put("OTime","");
-                        object.put("DayMode","0");
-                        object.put("ODType", LeaveTypeID);
-                        object.put("ClienrName","");
-                        object.put("CreatedBy",pref.getEmpId());
-                        object.put("Remarks",binding.etReason.getText().toString().trim());
-                        object.put("IsmultiDays","1");
-                        object.put("AID","0");
-                        object.put("imageName",imageName);
-                        object.put("byteData",base64image);
-                        object.put("contentType",fileType);
-                        object.put("SecurityCode",pref.getSecurityCode());
-                        Log.e(TAG, "saveLeaveApplication: "+object);
-                        saveLeaveApplication(object);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+            Toast.makeText(getActivity(), "Please select Leave Date", Toast.LENGTH_SHORT).show();
+        } else if (binding.etReason.getText().toString().trim().isEmpty()){
+            Toast.makeText(getActivity(), "Please enter your reason", Toast.LENGTH_SHORT).show();
+        } else {
+            JSONObject object=new JSONObject();
+            try {
+                object.put("CompanyID",pref.getEmpClintId());
+                object.put("EmployeeID",pref.getEmpId());
+                object.put("StartDate",startDate);
+                object.put("EndDate",endDate);
+                object.put("ITime","");
+                object.put("OTime","");
+                object.put("DayMode","0");
+                object.put("ODType", LeaveTypeID);
+                object.put("ClienrName","");
+                object.put("CreatedBy",pref.getEmpId());
+                object.put("Remarks",binding.etReason.getText().toString().trim());
+                object.put("IsmultiDays","1");
+                object.put("AID","0");
+                object.put("imageName",imageName);
+                object.put("byteData",base64image);
+                object.put("contentType",fileType);
+                object.put("SecurityCode",pref.getSecurityCode());
+                Log.e(TAG, "saveLeaveApplication: "+object);
+                saveLeaveApplication(object,Api.sSaveODApplicationDetails);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        });
+        }
     }
 
-    private void saveLeaveApplication(JSONObject object) {
+    private void TS_SaveOperation() {
+        if (LeaveTypeID.equals("0")){
+            Toast.makeText(getActivity(), "Please select Adjustment Type", Toast.LENGTH_SHORT).show();
+        } else if (startDate.isEmpty()){
+            Toast.makeText(getActivity(), "Please select Start Date", Toast.LENGTH_SHORT).show();
+        } else if (endDate.isEmpty()){
+            Toast.makeText(getActivity(), "Please select End Date", Toast.LENGTH_SHORT).show();
+        } else if (binding.etReason.getText().toString().trim().isEmpty()){
+            Toast.makeText(getActivity(), "Please enter your reason", Toast.LENGTH_SHORT).show();
+        } else {
+            JSONObject object=new JSONObject();
+            try {
+                object.put("CompanyId",pref.getEmpClintId());
+                object.put("EmployeeId",pref.getEmpId());
+                object.put("StartDate",startDate);
+                object.put("EndDate",endDate);
+                object.put("ITime","");
+                object.put("OTime","");
+                object.put("DayMode","0");
+                object.put("ODType", LeaveTypeID);
+                object.put("ClienrName","");
+                object.put("CreatedBy",pref.getEmpId());
+                object.put("Remarks",binding.etReason.getText().toString().trim());
+                object.put("IsmultiDays",IsmultiDays);
+                object.put("AID","0");
+                object.put("ImageName",imageName);
+                object.put("ByteData",base64image);
+                object.put("ContentType",fileType);
+                object.put("SecurityCode",pref.getSecurityCode());
+                Log.e(TAG, "saveLeaveApplication: "+object);
+                saveLeaveApplication(object,Api.TS_OtherSaveApplication);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void saveLeaveApplication(JSONObject object, String API_URL) {
         Log.e(TAG, "saveLeaveApplication: "+object.toString());
         final ProgressDialog pd = new ProgressDialog(getActivity());
         pd.setMessage("Loading...");
         pd.setCancelable(false);
         pd.show();
-
-        AndroidNetworking.post(Api.sSaveODApplicationDetails)
+        AndroidNetworking.post(API_URL)
                 .addJSONObjectBody(object)
                 .addHeaders("Authorization", "Bearer "+pref.getAccessToken())
                 .setTag("uploadTest")

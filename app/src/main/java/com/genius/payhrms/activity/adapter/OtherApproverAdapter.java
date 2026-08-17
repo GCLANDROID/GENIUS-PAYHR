@@ -91,7 +91,7 @@ public class OtherApproverAdapter extends RecyclerView.Adapter<OtherApproverAdap
 
                     holder.imgTick.setVisibility(View.VISIBLE);
                     notifyDataSetChanged();
-                    ((OtherLeaveApproverFragment) fContext).updateAttendanceStatus(position, true );
+                    ((OtherLeaveApproverFragment) fContext).updateAttendanceStatus(position, true);
                 } else {
                     /*myViewHolder.imgFrstHalf.setVisibility(View.GONE);
                     myViewHolder.imgScndHalf.setVisibility(View.GONE);
@@ -131,7 +131,7 @@ public class OtherApproverAdapter extends RecyclerView.Adapter<OtherApproverAdap
 
         holder.llValue.setVisibility(View.GONE);
 
-        if (otherApproverList.get(position).Documentlink != null || !otherApproverList.get(position).Documentlink.isEmpty()){
+        if (!otherApproverList.get(position).DocumentName.isEmpty()){
             holder.tvDocument.setVisibility(View.VISIBLE);
         } else {
             holder.tvDocument.setVisibility(View.GONE);
@@ -146,7 +146,7 @@ public class OtherApproverAdapter extends RecyclerView.Adapter<OtherApproverAdap
                 try {
                     ((OtherLeaveApproverFragment) fContext).showPdfView(FindDocumentInformation.getFileType(otherApproverList.get(position).Documentlink),FindDocumentInformation.getBase64Url(otherApproverList.get(position).Documentlink));
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
             }
         });

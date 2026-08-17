@@ -120,5 +120,11 @@ public class Api {
     public static String CFLOApplicationDelete = baseurl+"CFLO/DeleteApplication";
     public static String CFLOApplicationApproval = baseurl+"CFLO/ApproveRejectApplications";
 
-
+    public static String TS_GetApplicationMasterDetails = baseurl+"TravelSystem/GetApplicationMasterDetails";
+    public static String TS_OtherSaveApplication = baseurl+"TravelSystem/SaveApplication";
+    public static String TS_DisplayApplication = baseurl+"TravelSystem/DisplayApplication";
+    public static String TS_DeleteOtherApplication = baseurl+"TravelSystem/DeleteApplication";
+    public static String TS_GetApplicationForApprover = baseurl+"TravelSystem/GetApplicationForApprover";
+    public static String TS_ApproveRejectApplication= baseurl+"TravelSystem/ApproveRejectApplication";
+    public static String TS_DeleteApplicationByApprover= baseurl+"TravelSystem/DeleteApplicationByApprover";
 }
