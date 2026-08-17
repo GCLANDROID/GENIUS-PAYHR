@@ -868,6 +868,9 @@ public class EmplyoeeCalendarDashboarActivity extends AppCompatActivity implemen
                                 MenuItemModel obj2 = new MenuItemModel(MenuItemName,MenuItemId);
                                 menuitemList.add(obj2);
                             }
+                            if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                                menuitemList.add(new MenuItemModel("Other Application",700));
+                            }
 
 
                             try {
@@ -883,6 +886,10 @@ public class EmplyoeeCalendarDashboarActivity extends AppCompatActivity implemen
                                         Log.d("MenuSwap", "One or both items not found — no swap performed");
                                     }
                                 }
+                                if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+                                    Collections.swap(menuitemList, menuitemList.size()-2,menuitemList.size()-1);
+                                }
+
                                 /*if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
                                     MenuItemModel menuTeamReport = new MenuItemModel("Team Report",600);
                                     menuitemList.add(changePwdIndex,menuTeamReport);
