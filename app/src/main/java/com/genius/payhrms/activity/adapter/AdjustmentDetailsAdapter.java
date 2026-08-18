@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.genius.payhrms.R;
 import com.genius.payhrms.activity.leaveapplication.OtherApplicationDetailsFragment;
 import com.genius.payhrms.activity.model.AdjustmentDetailsModel;
+import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 
 import java.util.ArrayList;
 
@@ -24,10 +26,12 @@ public class AdjustmentDetailsAdapter extends RecyclerView.Adapter<AdjustmentDet
     Context context;
     ArrayList<AdjustmentDetailsModel> adjustmentList;
     Fragment fContext;
+    Pref pref;
     public AdjustmentDetailsAdapter(Context context, ArrayList<AdjustmentDetailsModel> adjustmentList, Fragment fContext) {
         this.context = context;
         this.adjustmentList = adjustmentList;
         this.fContext = fContext;
+        pref = new Pref(context);
     }
 
     @NonNull
@@ -40,7 +44,10 @@ public class AdjustmentDetailsAdapter extends RecyclerView.Adapter<AdjustmentDet
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.tvAdjustmentType.setText(adjustmentList.get(position).AdjustmentType);
-
+        if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+            holder.tvLeaveStrtDate.setText("Start Date:");
+            holder.tvLeaveEndDate.setText("End Date:");
+        }
         holder.tvAppliedDate.setText(adjustmentList.get(position).AppliedDate);
         if (adjustmentList.get(position).AdjustmentType.equals("Compensatory off")){
             holder.tvStrtDate.setText(adjustmentList.get(position).offdate);
