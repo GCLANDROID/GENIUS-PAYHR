@@ -19,6 +19,8 @@ import com.genius.payhrms.R;
 import com.genius.payhrms.activity.leaveapplication.OtherLeaveApproverFragment;
 import com.genius.payhrms.activity.model.OtherApproverModel;
 import com.genius.payhrms.activity.utility.FindDocumentInformation;
+import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,11 +30,12 @@ public class OtherApproverAdapter extends RecyclerView.Adapter<OtherApproverAdap
     Context context;
     Fragment fContext;
     ArrayList<OtherApproverModel> otherApproverList;
-
+    Pref pref;
     public OtherApproverAdapter(Context context, Fragment fContext, ArrayList<OtherApproverModel> otherApproverList) {
         this.context = context;
         this.fContext = fContext;
         this.otherApproverList = otherApproverList;
+        pref = new Pref(context);
     }
 
     @NonNull
@@ -48,6 +51,10 @@ public class OtherApproverAdapter extends RecyclerView.Adapter<OtherApproverAdap
         holder.tvEmpName.setText(otherApproverList.get(position).Name);
         holder.tvType.setText("Adjustment Type:");
         holder.tvLeaveType.setText(otherApproverList.get(position).AdjustmentType);
+        if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
+            holder.tvleaveStrtDate.setText("Start Date:");
+            holder.tvLeaveEndDate.setText("End Date:");
+        }
 
         holder.tvStrtDate.setText(otherApproverList.get(position).StartDate);
         if (otherApproverList.get(position).AdjustmentType.equals("Compensatory off")){

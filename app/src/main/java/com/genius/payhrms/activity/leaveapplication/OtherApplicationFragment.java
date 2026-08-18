@@ -226,8 +226,8 @@ public class OtherApplicationFragment extends Fragment {
                                 if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
                                     JSONObject object=new JSONObject();
                                     try {
-                                        object.put("CompanyID",pref.getEmpClintId());
-                                        object.put("EmployeeID",pref.getEmpId());
+                                        object.put("CompanyId",pref.getEmpClintId());
+                                        object.put("EmployeeId",pref.getEmpId());
                                         object.put("SecurityCode",pref.getSecurityCode());
                                         getApplicationMasterDetails(object);
                                     } catch (JSONException e) {
@@ -253,8 +253,8 @@ public class OtherApplicationFragment extends Fragment {
                             if (pref.getSecurityCode().equals(SecurityCode.IFB_Travel_System)){
                                 JSONObject object=new JSONObject();
                                 try {
-                                    object.put("CompanyID",pref.getEmpClintId());
-                                    object.put("EmployeeID",pref.getEmpId());
+                                    object.put("CompanyId",pref.getEmpClintId());
+                                    object.put("EmployeeId",pref.getEmpId());
                                     object.put("SecurityCode",pref.getSecurityCode());
                                     getApplicationMasterDetails(object);
                                 } catch (JSONException e) {
