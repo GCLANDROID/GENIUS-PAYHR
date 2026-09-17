@@ -361,11 +361,6 @@ public class UserDashBoardActivity extends AppCompatActivity {
                                 MenuItemModel obj2 = new MenuItemModel(menuName, MenuItemId);
                                 itemList.add(obj2);
                             }
-                            if (pref.getSecurityCode().equals("1186")) {
-                                itemList.add(new MenuItemModel("Form-16", 105));
-                                itemList.add(new MenuItemModel("Increment Letter", 107));
-                                itemList.add(new MenuItemModel("Medical card", 106));
-                            }
                             llLoader.setVisibility(View.GONE);
                             llMain.setVisibility(View.VISIBLE);
                             llNoConnection.setVisibility(View.GONE);
