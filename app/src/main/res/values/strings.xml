@@ -61,7 +61,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="mock_location_detected">Mock Location Detected</string>
+    <string name="mock_location_message">It looks like mock/fake location is enabled on your device.</string>
+    <string name="mock_location_security_message">For security and compliance reasons, our app cannot be used with mock locations.</string>
+    <string name="mock_location_action">Please disable mock location from Developer Options and restart the app.</string>
+    <string name="open_settings">OPEN SETTINGS</string>
+    <string name="close_app">CLOSE APP</string>
 
     <string-array name="days_of_week">
         <item>Sunday</item>
