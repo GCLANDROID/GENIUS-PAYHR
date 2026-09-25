@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -47,6 +48,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.location.LocationCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -60,6 +62,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.developers.imagezipper.ImageZipper;
+import com.genius.payhrms.BuildConfig;
 import com.genius.payhrms.R;
 import com.genius.payhrms.activity.AndroidXCamera.AndroidXCameraActivity;
 import com.genius.payhrms.activity.activity.UserDashBoardActivity;
@@ -68,6 +71,7 @@ import com.genius.payhrms.activity.model.SpinnerModel;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.AttendanceService;
 import com.genius.payhrms.activity.utility.GPSTracker;
+import com.genius.payhrms.activity.utility.MockLocationDialog;
 import com.genius.payhrms.activity.utility.NetworkConnectionCheck;
 import com.genius.payhrms.activity.utility.Pref;
 import com.genius.payhrms.activity.utility.SecurityCode;
@@ -132,7 +136,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
 
     TextView tvName;
     EditText etRemarks;
-    AlertDialog alerDialog1,locationpopup,alert4;
+    AlertDialog alerDialog1,locationpopup,alert4,developerOptionsDialog;
     ImageView imgBack, imgHome;
     TextView tvClick, tvClickHere;
 
@@ -166,6 +170,8 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
     String Punchtype;
     LinearLayout llShift;
     private NetworkConnectionCheck connectionCheck;
+    MockLocationDialog mockLocationDialog;
+    Location locationForMock;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,6 +199,7 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         getAttendanceFromReport = getIntent().getStringExtra("address");
         llShift=(LinearLayout)findViewById(R.id.llShift);
         Log.e(TAG, "initview: address: "+getAttendanceFromReport );
+        mockLocationDialog = new MockLocationDialog(this);
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -272,6 +279,39 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         getAPIKey();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        /*if (isDeveloperOptionsEnabled()){
+            checkDeveloperOptions();
+        } else if (locationForMock != null){
+            if (LocationCompat.isMock(locationForMock)) {
+                mockLocationDialog.show();
+            }
+        }*/
+
+        /*if (!BuildConfig.DEBUG) {
+            //TODO: This code will run only in Release / Production*/
+
+
+        if (isDeveloperOptionsEnabled()){
+            checkDeveloperOptions();
+            return;
+        } else {
+            if (developerOptionsDialog != null){
+                developerOptionsDialog.dismiss();
+            }
+        }
+        if (locationForMock != null){
+            if (LocationCompat.isMock(locationForMock)) {
+                mockLocationDialog.show();
+                return;
+            }
+        }
+
+
+        //}
+    }
 
     private void onClick() {
         spshift.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -836,6 +876,22 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
 
 
     private void handleNewLocation(Location location) {
+        locationForMock = location;
+        /*if (!BuildConfig.DEBUG) {
+            //TODO: This code will run only in Release / Production*/
+            if (isDeveloperOptionsEnabled()){
+                return;
+            }
+            if (locationForMock != null){
+                if (LocationCompat.isMock(locationForMock)) {
+                    mockLocationDialog.show();
+                    return;
+                }
+            }
+
+
+        //}
+
         latitude = location.getLatitude();
         currentlat = String.valueOf(latitude);
         longitude = location.getLongitude();
@@ -1504,5 +1560,34 @@ public class AttendanceMarkActivity extends AppCompatActivity implements OnMapRe
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
         alert4.show();
+    }
+    private void checkDeveloperOptions() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle("Developer Options Enabled")
+                .setMessage("Developer Options are currently enabled. Please disable them to continue using the application.")
+                .setCancelable(false)
+                .setPositiveButton("Go to Settings", (dialog, which) -> {
+                    try {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        // Fallback if Developer Options screen cannot be opened
+                        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                        startActivity(intent);
+                    }
+                    dialog.dismiss();
+                })
+                .setNegativeButton("Exit", (dialog, which) -> {
+                    finishAffinity();
+                });
+
+        developerOptionsDialog = dialogBuilder.create();
+        developerOptionsDialog.setCancelable(false);
+        developerOptionsDialog.show();
+    }
+
+    boolean isDeveloperOptionsEnabled() {
+        boolean isDeveloperOptionsEnabled = Settings.Global.getInt(getContentResolver(), Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) == 1;
+        return  isDeveloperOptionsEnabled;
     }
 }

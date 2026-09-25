@@ -55,6 +55,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.genius.payhrms.BuildConfig;
 import com.genius.payhrms.R;
 
 import com.genius.payhrms.activity.utility.Api;
@@ -120,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView tvQuery;
     String loginFlag="1";
     private static String INIT_VECTOR="6832054171691981";
-
+    AlertDialog developerOptionsDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
             // GPS or Network is not enabled
             // Ask user to enable GPS/network in settings
         }
+
         String address = getCompleteAddressString(latitude, longitude);
         pref.saveAddress(address);
         llSignIn = (LinearLayout) findViewById(R.id.llSignIn);
@@ -377,6 +379,23 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //if (!BuildConfig.DEBUG) {
+            //TODO: This code will run only in Release / Production
+            if (isDeveloperOptionsEnabled()){
+                checkDeveloperOptions();
+                return;
+            } else {
+                if (developerOptionsDialog != null){
+                    developerOptionsDialog.dismiss();
+                }
+            }
+        //}
+
     }
 
     private void openForgotPasswordDialog() {
@@ -875,5 +894,35 @@ public class LoginActivity extends AppCompatActivity {
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
         alerDialog1.show();
+    }
+
+    private void checkDeveloperOptions() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle("Developer Options Enabled")
+                .setMessage("Developer Options are currently enabled. Please disable them to continue using the application.")
+                .setCancelable(false)
+                .setPositiveButton("Go to Settings", (dialog, which) -> {
+                    try {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        // Fallback if Developer Options screen cannot be opened
+                        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                        startActivity(intent);
+                    }
+                    dialog.dismiss();
+                })
+                .setNegativeButton("Exit", (dialog, which) -> {
+                    finishAffinity();
+                });
+
+        developerOptionsDialog = dialogBuilder.create();
+        developerOptionsDialog.setCancelable(false);
+        developerOptionsDialog.show();
+    }
+
+    boolean isDeveloperOptionsEnabled() {
+        boolean isDeveloperOptionsEnabled = Settings.Global.getInt(getContentResolver(), Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) == 1;
+        return  isDeveloperOptionsEnabled;
     }
 }

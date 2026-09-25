@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -63,6 +64,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.bumptech.glide.Glide;
+import com.genius.payhrms.BuildConfig;
 import com.genius.payhrms.R;
 import com.genius.payhrms.activity.adapter.MenuItemAdapter;
 import com.genius.payhrms.activity.attendance.AttendanceMarkActivity;
@@ -150,6 +152,7 @@ public class UserDashBoardActivity extends AppCompatActivity {
     String partAURL, partBURL,medicalCard_URL;
     String incrementLetter,promotionLetter;
     ImageView gifMarkAttendance;
+    AlertDialog developerOptionsDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -196,6 +199,10 @@ public class UserDashBoardActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+
+        /*if (isDeveloperOptionsEnabled()){
+            checkDeveloperOptions();
+        }*/
 
         rvItem = (RecyclerView) findViewById(R.id.rvItem);
         rvItem.setLayoutManager(new GridLayoutManager(this, 3));
@@ -286,6 +293,24 @@ public class UserDashBoardActivity extends AppCompatActivity {
 
 
         dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //if (!BuildConfig.DEBUG) {
+            //TODO: This code will run only in Release / Production
+            if (isDeveloperOptionsEnabled()){
+                checkDeveloperOptions();
+                return;
+            } else {
+                if (developerOptionsDialog != null){
+                    developerOptionsDialog.dismiss();
+                }
+            }
+        //}
     }
 
     private void SaveUserDeviceDetails(JSONObject obUserDeviceDetails) {
@@ -1279,6 +1304,36 @@ public class UserDashBoardActivity extends AppCompatActivity {
                         pd.dismiss();
                     }
                 });
+    }
+
+    private void checkDeveloperOptions() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle("Developer Options Enabled")
+                .setMessage("Developer Options are currently enabled. Please disable them to continue using the application.")
+                .setCancelable(false)
+                .setPositiveButton("Go to Settings", (dialog, which) -> {
+                    try {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        // Fallback if Developer Options screen cannot be opened
+                        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                        startActivity(intent);
+                    }
+                    dialog.dismiss();
+                })
+                .setNegativeButton("Exit", (dialog, which) -> {
+                    finishAffinity();
+                });
+
+        developerOptionsDialog = dialogBuilder.create();
+        developerOptionsDialog.setCancelable(false);
+        developerOptionsDialog.show();
+    }
+
+    boolean isDeveloperOptionsEnabled() {
+        boolean isDeveloperOptionsEnabled = Settings.Global.getInt(getContentResolver(), Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) == 1;
+        return  isDeveloperOptionsEnabled;
     }
 }
 
