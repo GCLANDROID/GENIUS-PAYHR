@@ -50,6 +50,7 @@ import com.genius.payhrms.activity.reciver.DailylogSyncReciever;
 import com.genius.payhrms.activity.reciver.NetworkStateChecker;
 import com.genius.payhrms.activity.utility.Api;
 import com.genius.payhrms.activity.utility.Pref;
+import com.genius.payhrms.activity.utility.SecurityCode;
 import com.genius.payhrms.activity.utility.Util;
 
 import org.json.JSONArray;
@@ -76,7 +77,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
     Pref pref;
     ArrayList<AttendanceCalenderModel> itemList = new ArrayList<>();
     RecyclerView rvItem;
-    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog,llQRCode;
+    LinearLayout llManage, llReport, llLog, llSubordinate, llBackLog,llQRCode,llCFLOTour,llCFLOWFH,llAllApplicationApproval,llAllApplicationDetails;
     ImageView imgHome;
     boolean approver;
     NetworkStateChecker airplaneModeChangeReceiver = new NetworkStateChecker();
@@ -130,6 +131,10 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         llReport = (LinearLayout) findViewById(R.id.llReport);
         llSubordinate = (LinearLayout) findViewById(R.id.llSubordinate);
         llQRCode = (LinearLayout) findViewById(R.id.llQRCode);
+        llCFLOTour = findViewById(R.id.llCFLOTour);
+        llCFLOWFH = findViewById(R.id.llCFLOWFH);
+        llAllApplicationApproval = findViewById(R.id.llAllApplicationApproval);
+        llAllApplicationDetails = findViewById(R.id.llAllApplicationDetails);
         if (pref.getSecurityCode().equals("1000")||pref.getSecurityCode().equals("1160")||pref.getSecurityCode().equals("1172")||pref.getSecurityCode().equals("1173")){
             llQRCode.setVisibility(View.VISIBLE);
         }else {
@@ -457,6 +462,12 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
             }
         });
         tvOK.setOnClickListener(this);
+        if (pref.getSecurityCode().equals(SecurityCode.Western_Enterprises)){
+            llCFLOTour.setVisibility(View.GONE);
+            llCFLOWFH.setVisibility(View.GONE);
+            llAllApplicationDetails.setVisibility(View.GONE);
+            llAllApplicationApproval.setVisibility(View.GONE);
+        }
     }
 
     private void approverCheck(JSONObject object) {
