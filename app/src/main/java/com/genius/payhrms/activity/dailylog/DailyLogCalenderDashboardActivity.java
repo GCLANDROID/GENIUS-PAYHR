@@ -462,7 +462,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
             }
         });
         tvOK.setOnClickListener(this);
-        if (pref.getSecurityCode().equals(SecurityCode.Western_Enterprises)){
+        if (pref.getSecurityCode().equals(SecurityCode.Western_Enterprises) || pref.getSecurityCode().equals(SecurityCode.Frederal_soft) ){
             llCFLOTour.setVisibility(View.GONE);
             llCFLOWFH.setVisibility(View.GONE);
             llAllApplicationDetails.setVisibility(View.GONE);
@@ -580,7 +580,7 @@ public class DailyLogCalenderDashboardActivity extends AppCompatActivity impleme
         }else if (view==llQRCode){
             isAppMinimizeDailyLog = true;
             if (pref.getSecurityCode().equals("1160")){
-                if (pref.getLoginID().equals("FSS0047") ||pref.getLoginID().equals("FSS0131") ||pref.getLoginID().equals("FSS0070")||pref.getLoginID().equals("FSS0462")||pref.getLoginID().equals("FSS0101") ||pref.getLoginID().equals("FSS0107") ){
+                if (pref.getLoginID().equals("FSS0047") ||pref.getLoginID().equals("FSS0131") ||pref.getLoginID().equals("FSS0070")||pref.getLoginID().equals("FSS0462")||pref.getLoginID().equals("FSS0101") ||pref.getLoginID().equals("FSS0107") ||pref.getLoginID().equals("FSS0504")){
                     Intent intent = new Intent(DailyLogCalenderDashboardActivity.this, QRAttendanceDashboardActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
